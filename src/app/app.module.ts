@@ -8,6 +8,7 @@ import { ContentLayoutComponent } from './layouts/content-layout/content-layout.
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -24,7 +25,9 @@ import { SidebarComponent } from './layouts/sidebar/sidebar.component';
     NgbModule,
     NgbAlertModule
   ],
-  providers: [],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
