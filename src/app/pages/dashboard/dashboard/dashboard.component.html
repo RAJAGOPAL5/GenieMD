@@ -1,51 +1,150 @@
-<app-patients></app-patients>
+<div class="row">
+    <div class="col-3" style="border: 1px solid;">
+        <app-patients></app-patients>
 
-<div class="container mt-4">
+    </div>
+    <div class="col-8">
 
-    <ul class="nav nav-tabs justify-content-start">
-        <li class="nav-item">
-            <a class="nav-link active" href="#vital">Vitals</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" role="tab" data-toggle="tab">Alerts</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"role="tab" data-toggle="tab">Visits</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link">Care Team</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" >Profile</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" role="tab" data-toggle="tab">History</a>
-        </li>
-    </ul>
-    <!-- <div class="tab-content">
-        <div role="tabpanel" class="tab-pane fade in active" id="alerts">...</div>
-        <div role="tabpanel" class="tab-pane fade" id="visit">bbb</div>
-        <div role="tabpanel" class="tab-pane fade" id="history">ccc</div>
-      </div> -->
-      
-      <ngb-tabset>
-        <ngb-tab title="Soap Note">
-          <ng-template ngbTabContent>
-            <div class="row browser-size">
-              <div class="col-md-12">
-               <h4>vitals</h4>
-              </div>
-            </div>
-          </ng-template>
-        </ngb-tab>
-        <ngb-tab title="Visit Summary">
-          <ng-template ngbTabContent>
-            <div class="row">
-              <div class="col-md-12">
-                <h5>alerts</h5>
-              </div>
-            </div>
-          </ng-template>
-        </ngb-tab>
-      </ngb-tabset>
+        <div class="container mt-4">
+
+            <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+                <li [ngbNavItem]="1">
+                    <a ngbNavLink>Vitals</a>
+                    <ng-template ngbNavContent>
+                        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown
+                            aliqua,
+                            retro synth
+                            master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit
+                            butcher
+                            retro
+                            keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid.
+                            Aliquip
+                            placeat
+                            salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi
+                            qui.</p>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="2">
+                    <a ngbNavLink>Alerts</a>
+                    <ng-template ngbNavContent>
+                        <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan
+                            four loko
+                            farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk
+                            aliquip
+                            jean shorts
+                            ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus
+                            mollit.
+                            Keytar
+                            helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio
+                            cillum
+                            wes anderson
+                            8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art
+                            party
+                            scenester
+                            stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="3">
+                    <a ngbNavLink>Visits</a>
+                    <ng-template ngbNavContent>
+                        <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id
+                            diam. Nulla
+                            facilisi.
+                            Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt
+                            eu,
+                            congue et odio.
+                            Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices
+                            et. Sed
+                            diam urna,
+                            egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus
+                            faucibus nisl
+                            enim, nec
+                            tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius
+                            natoque
+                            penatibus et
+                            magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet
+                            ultricies
+                            in eget
+                            neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="4">
+                    <a ngbNavLink>Care Team</a>
+                    <ng-template ngbNavContent>
+                        <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id
+                            diam. Nulla
+                            facilisi.
+                            Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt
+                            eu,
+                            congue et odio.
+                            Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices
+                            et. Sed
+                            diam urna,
+                            egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus
+                            faucibus nisl
+                            enim, nec
+                            tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius
+                            natoque
+                            penatibus et
+                            magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet
+                            ultricies
+                            in eget
+                            neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="5">
+                    <a ngbNavLink>Profile</a>
+                    <ng-template ngbNavContent>
+                        <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id
+                            diam. Nulla
+                            facilisi.
+                            Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt
+                            eu,
+                            congue et odio.
+                            Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices
+                            et. Sed
+                            diam urna,
+                            egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus
+                            faucibus nisl
+                            enim, nec
+                            tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius
+                            natoque
+                            penatibus et
+                            magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet
+                            ultricies
+                            in eget
+                            neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="6">
+                    <a ngbNavLink>History</a>
+                    <ng-template ngbNavContent>
+                        <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id
+                            diam. Nulla
+                            facilisi.
+                            Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt
+                            eu,
+                            congue et odio.
+                            Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices
+                            et. Sed
+                            diam urna,
+                            egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus
+                            faucibus nisl
+                            enim, nec
+                            tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius
+                            natoque
+                            penatibus et
+                            magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet
+                            ultricies
+                            in eget
+                            neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+                    </ng-template>
+                </li>
+            </ul>
+
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+            <pre>Active: {{ active }}</pre>
+        </div>
+    </div>
 </div>

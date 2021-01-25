@@ -8,6 +8,8 @@ import { NgbModal, NgbModalRef, NgbActiveModal } from '@ng-bootstrap/ng-bootstra
 export class DashboardComponent implements OnInit {
 
   constructor() { }
+  active = 1;
+
 
   ngOnInit(): void {
   }
