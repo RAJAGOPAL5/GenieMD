@@ -1,2 +1,51 @@
 <app-patients></app-patients>
 
+<div class="container mt-4">
+
+    <ul class="nav nav-tabs justify-content-start">
+        <li class="nav-item">
+            <a class="nav-link active" href="#vital">Vitals</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" role="tab" data-toggle="tab">Alerts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"role="tab" data-toggle="tab">Visits</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link">Care Team</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" >Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" role="tab" data-toggle="tab">History</a>
+        </li>
+    </ul>
+    <!-- <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="alerts">...</div>
+        <div role="tabpanel" class="tab-pane fade" id="visit">bbb</div>
+        <div role="tabpanel" class="tab-pane fade" id="history">ccc</div>
+      </div> -->
+      
+      <ngb-tabset>
+        <ngb-tab title="Soap Note">
+          <ng-template ngbTabContent>
+            <div class="row browser-size">
+              <div class="col-md-12">
+               <h4>vitals</h4>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Visit Summary">
+          <ng-template ngbTabContent>
+            <div class="row">
+              <div class="col-md-12">
+                <h5>alerts</h5>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+</div>
