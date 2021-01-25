@@ -1,17 +1,19 @@
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
+    min-width: 50px;
+    max-width: 50px;
+    background: #282828;
+    color: #fff;
+    transition: all .3s;
 }
 
 #sidebar.active {
     margin-left: -250px;
 }
 .wrapper{
-    background-color: black;
-    width: 10%;
-    height: 1000px;
-    color: white;
+    display: flex;
+    align-items: stretch;
 }
 #content{
     min-height: calc(100vh - 104px);
+    border: 1px solid;
 }
