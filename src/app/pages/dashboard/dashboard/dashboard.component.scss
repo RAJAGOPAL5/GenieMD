@@ -60,3 +60,6 @@
     background-color: #4471c4;
     height: 150px
 }
+.table-striped tbody tr:nth-of-type(odd).green{
+    background-color: #63BA76 !important;
+}
