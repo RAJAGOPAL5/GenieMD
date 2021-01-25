@@ -33,3 +33,20 @@
     padding: .5rem 1.5rem;
     font-size: 1.5rem;
 }
+// .table-hover tbody tr:hover td {
+//     background: #4471c4
+// }
+ th{
+    background-color: #4471c4;
+    color: white;
+}
+.table-striped tbody tr:nth-of-type(odd){
+    background-color: #cdd4ea !important;
+}
+.table-hover{
+    background-color: #e8ebf4;
+}
+.table-bordered td, .table-bordered th{
+    border: 1px solid white !important;
+
+}
