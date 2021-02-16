@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -19,7 +20,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     SharedModule,TabsModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
-
+    UiSwitchModule
 
   ]
 })

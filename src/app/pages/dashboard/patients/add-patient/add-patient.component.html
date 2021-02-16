@@ -8,7 +8,7 @@
                 [ngClass]="{'bg-success text-white':addressType == 2, '':addressType != 2}">Address</button>
         </div>
     </div>
-    <form [formGroup]="registerForm"  novalidate="">
+    <form [formGroup]="registerForm" (ngSubmit)="register()" novalidate="">
         <ng-container *ngIf="addressType == 1">
             <div class="col-md-12">
                 <div class="form-group text-title ">
@@ -124,7 +124,6 @@
         
                 </div>
               </div>
-
               <div class="col-md-12">
                 <div class="form-group text-title">
                   <label for="state"><span class="error-class">*</span> Morbidity</label>
@@ -203,12 +202,16 @@
               </div>
             </div>
           </ng-container>
-
-
+          <div  *ngIf="addressType == 1" class="col-md-12">
+              <div class = "float-left">
+                  <ui-switch ></ui-switch>
+              </div>
+          </div> 
+           
         <div class="row m-2 float-right pb-3">
             <button class="btn btn-danger w-130" (click)="closeModal()">Cancel</button>      
             <button *ngIf="addressType == 1" class="btn btn-success w-30 ml-2 w-130" type="button" (click)="next('2')" >Next</button>
-            <button *ngIf="addressType == 2" class="btn btn-success w-30 ml-2" type="submit">Create Patient</button>  
+            <button *ngIf="addressType == 2" class="btn btn-success w-30 ml-2" type="submit" >Create Patient</button>  
           </div>
     </form>
 </div>

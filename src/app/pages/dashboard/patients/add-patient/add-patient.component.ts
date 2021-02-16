@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-patient',
@@ -11,6 +14,7 @@ export class AddPatientComponent implements OnInit {
   addressType = 1;
   registerForm: FormGroup;
   registerSubmit: boolean;
+  enable: boolean;
   @ViewChild('birthDate', { static: false }) birthDate: any;
 
   currentDate = new Date();
@@ -20,8 +24,10 @@ export class AddPatientComponent implements OnInit {
   states: any[] = [];
   languages: any[] = [];
   morbidityDisease: any[] = [];
+  userID: any;
 
-  constructor(private formBuilder: FormBuilder, private activeModal: NgbActiveModal) { }
+  constructor(private formBuilder: FormBuilder, private activeModal: NgbActiveModal,private spinner: NgxSpinnerService,
+              private toaster: ToastrService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -62,7 +68,72 @@ export class AddPatientComponent implements OnInit {
   closeModal() {
     this.activeModal.close();
   }
+  register(){
+    this.spinner.show();
+    this.registerSubmit = true;
+    if (this.registerForm.invalid) {
+      this.spinner.hide();
+      return;
+    }
+    if (!this.userID) {
+      const created = parseInt(moment().format('x'), 0);
+      const signUpPayload = {
+        email: `${this.registerForm.value.firstName}-${this.registerForm.value.lastName}-${created}`,
+        password: 'Temp1234',
+        appVersion: ''
+      };
+      this.authService.signUp(signUpPayload).subscribe((res: any) => {
+        this.userID = res.userID;
+        this.getProfile();
+        // this.getClinicInfo();
+      }, error => {
+        this.spinner.hide();
+        this.toaster.error(error.error.errorMessage);
+      });
+    } else {
+      // this.getClinicInfo();
+    }
+  }
+  getProfile(): any{
+    this.profileService.getUser(this.userID).subscribe((res: any) => {
+      this.profile = res;
+      this.updateProfile();
+    }, error => {
+      // this.toastrService.error(error.error.errorMessage);
+      this.spinner.hide();
+      this.toaster.error(error.error.errorMessage);
+    });
+  }
+  updateProfile(): any{
+    const registerPayload = {
+      firstName: this.registerForm.value.firstName,
+      lastName: this.registerForm.value.lastName,
+      email: this.registerForm.value.email,
+      dob: this.setDOB(this.registerForm.value.dob),
+    };
+    this.profileService.updateProfile(registerPayload).subscribe((res: any) => {
+      console.log('updatedprofle', res);
+      this.spinner.hide();
+      this.closeModal();
+      // this.addPatient();
+      // this.spinner.hide();
+      this.toaster.success('Patient added Successfully');
+      // this.router.navigate(['/protocol'],
+      //   { queryParams: { clinicID: this.assessmentInfo.clinicID, assessment: this.assessmentInfo.name } });
 
+
+    }, error => {
+      this.spinner.hide();
+      this.toaster.error(error.error.errorMessage);
+    });
+  }
+  setDOB(dob): any{
+    if (dob.year && dob.month && dob.day) {
+      return dob.year + '-' + dob.month + '-' + dob.day;
+    } else {
+      return '';
+    }
+  }
   next(type: any) {
     if (this.registerForm.value.firstName === '' ||
       this.registerForm.value.lastName === '' ||
