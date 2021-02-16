@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { ProfileService } from 'src/app/shared/services/profile.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -18,62 +20,40 @@ export class LoginComponent implements OnInit {
   tabIcon: any;
   clinicConfig: any;
   title: any;
-  constructor(
-    private route: ActivatedRoute,) { }
+  constructor(private authService: AuthService,
+    private route: ActivatedRoute,private profileService: ProfileService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(res => {
       console.log('res', res);
       this.clinicID = res.clinicID || '1000202';
       if (this.clinicID) {
-        localStorage.setItem('nurselineClinicID', this.clinicID);
+        localStorage.setItem('rpmClinicID', this.clinicID);
         // this.getClinic();
       }
     });
   }
 
-  // login() {
-  //   this.spinner.show();
-  //   this.authService.signInUser(this.user.email, this.user.password).subscribe((res: any) => {
-  //     this.profileService.getUser(res.userID).subscribe((profile: Profile) => {
+  login() {
+    // this.spinner.show();
+    this.authService.signInUser(this.user.email, this.user.password).subscribe((res: any) => {
+      this.profileService.getUser(res.userID).subscribe((profile: any) => {
 
-  //       if (profile.providerStatus !== 'P') {
-  //         this.authService.userInfo = { userID: res.userID };
-  //         localStorage.setItem('nurselineCurrentUserID', res.userID);
-  //         localStorage.setItem('nurselineUserEmail', this.user.email);
-  //       } else {
-  //         console.log('Login failed');
-  //         this.spinner.hide();
-  //         this.toastrService.warning('Sorry, You don\'t have access to this portal');
-  //       }
-  //     });
-  //   }, (err) => {
-  //     console.log(err, 'err');
-  //     this.toastrService.error('Login failed. Check your credentials and try again.');
-  //     this.spinner.hide();
-  //   });
-  // }
-  // getClinic() {
-  //   const payload = {
-  //     userID: this.authService.getUserId(),
-  //     clinicID: this.clinicID
-  //   };
-  //   this.clinicService.getClinic(payload).subscribe((clinic: Clinic) => {
-  //     this.clinicConfig = JSON.parse(clinic.clinicConfig);
-  //     this.title = this.clinicConfig.tagLine ? this.clinicConfig.tagLine : 'What brings you in today';
-  //     this.clinicLogo = this.clinicConfig.config ? this.clinicConfig.config.logo : this.clinicConfig.logo;
-  //     this.dataService.titleChange(this.title);
-  //     if (this.clinicConfig.backgroundIcon) {
-  //       const idName = document.getElementById('backgroundImage');
-  //       idName.style.background = `url(${this.clinicConfig.backgroundIcon}) no-repeat center center`;
-  //       idName.style.backgroundSize = 'cover';
-  //     }
-  //     if (this.clinicConfig.profileIcon) {
-  //       this.tabIcon = document.getElementById('tabIcon');
-  //       this.tabIcon.href = this.clinicConfig.profileIcon;
-  //     }
-  //   });
-  // }
-
+        if (profile.providerStatus !== 'P') {
+          this.authService.userInfo = { userID: res.userID };
+          localStorage.setItem('rpmUserId', res.userID);
+          localStorage.setItem('rpmUserEmail', this.user.email);
+        } else {
+          console.log('Login failed');
+          // this.spinner.hide();
+          // this.toastrService.warning('Sorry, You don\'t have access to this portal');
+        }
+      });
+    }, (err) => {
+      console.log(err, 'err');
+      // this.toastrService.error('Login failed. Check your credentials and try again.');
+      // this.spinner.hide();
+    });
+  }
 
 }
