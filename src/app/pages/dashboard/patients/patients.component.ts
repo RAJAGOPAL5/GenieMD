@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddPatientComponent } from './add-patient/add-patient.component';
 
 @Component({
   selector: 'app-patients',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private modalService: NgbModal,) { }
 
   ngOnInit(): void {
   }
 
+  addPatient() {
+    const modalRef = this.modalService.open(AddPatientComponent, { backdrop: 'static', keyboard: false });
+    // modalRef.componentInstance.clinic = this.clinic;
+    modalRef.result.then(items => {
+      if (items) {
+        // this.loadData(items);
+        // console.log(items, ' res add patientcomponent');
+      }
+
+    });
+  }
 }
