@@ -9,6 +9,10 @@ import { FullLayoutComponent } from './layouts/full-layout/full-layout.component
 import { HeaderComponent } from './layouts/header/header.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MyHttpInterceptor } from './shared/interceptors/interceptor';
+
+
 
 
 @NgModule({
@@ -23,9 +27,20 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    NgbAlertModule
+    NgbAlertModule,
+    HttpClientModule,
+    
+
+
+
+
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyHttpInterceptor,
+      multi: true,
+    },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent]
