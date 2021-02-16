@@ -9,15 +9,18 @@ import { FullLayoutComponent } from './layouts/full-layout/full-layout.component
 import { HeaderComponent } from './layouts/header/header.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MyHttpInterceptor } from './shared/interceptors/interceptor';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-
 
 @NgModule({
   declarations: [
     AppComponent,
     ContentLayoutComponent,
+    AuthLayoutComponent,
     FullLayoutComponent,
     HeaderComponent,
     SidebarComponent,
@@ -27,11 +30,17 @@ import { ToastrModule } from 'ngx-toastr';
     AppRoutingModule,
     NgbModule,
     NgbAlertModule,
+    HttpClientModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyHttpInterceptor,
+      multi: true,
+    },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent]

@@ -4,76 +4,23 @@
             <button type="button" class="btn btn-info">+</button>
         </div>
         <div class="input-group " style="width:100%;">
-            <input type="text" class="form-control"
-                placeholder="Search">
+            <input type="search" class="form-control list-group-flush" placeholder="Search for a patient" name="searchText"
+            autocomplete="off"  ngModel="searchText"  (change)="onSearchChange()">
             <div class="input-group-append pheight" >
                 <button class="btn btn-secondary color-black" type="button"> <img src="assets/img/Patients.png"></button>
             </div>
         </div>
-        <div class="row p-2 div_hover">
-            <div class="col-2">
-                <img src="assets/img/avatar.png" style="height: 50px;">
-            </div>
-            <div class="col-5 John">
-                John Doe
-            </div>
-            <div class="col-5 text-right">
-              <p class="red"></p>
-            </div>
-        </div>
-        <div class="row p-2 div_hover">
-            <div class="col-2">
-                <img src="assets/img/avatar.png" style="height: 50px;">
-            </div>
-            <div class="col-5 John">
-                Captain
-            </div>
-            <div class="col-5 text-right">
-                <p class="green"></p>
-            </div>
-        </div>
-        <div class="row p-2 div_hover">
-            <div class="col-2">
-                <img src="assets/img/avatar.png" style="height: 50px;">
-            </div>
-            <div class="col-5 John">
-                Oliver
-            </div>
-            <div class="col-5 text-right">
-                <p class="red"></p>
-            </div>
-        </div>
-        <div class="row p-2 div_hover">
-            <div class="col-2">
-                <img src="assets/img/avatar.png" style="height: 50px;">
-            </div>
-            <div class="col-5 John">
-                William
-            </div>
-            <div class="col-5 text-right">
-                <p class="green"></p>
-            </div>
-        </div>
-        <div class="row p-2 div_hover">
-            <div class="col-2">
-                <img src="assets/img/avatar.png" style="height: 50px;">
-            </div>
-            <div class="col-5 John">
-                Lucas
-            </div>
-            <div class="col-5 text-right">
-                <p class="red"></p>
-            </div>
-        </div>
-        <div class="row p-2 div_hover">
-            <div class="col-2">
-                <img src="assets/img/avatar.png" style="height: 50px;">
-            </div>
-            <div class="col-5 John">
-                Thor
-            </div>
-            <div class="col-5 text-right">
-                <p class="green"></p>
+        <div  *ngIf="patientFullList">
+            <div class="row p-2 div_hover">
+                <div class="col-2">
+                    <img src="assets/img/avatar.png" style="height: 50px;">
+                </div>
+                <div class="col-5 John">
+                    John Doe
+                </div>
+                <div class="col-5 text-right">
+                  <p class="red"></p>
+                </div>
             </div>
         </div>
     </div>
