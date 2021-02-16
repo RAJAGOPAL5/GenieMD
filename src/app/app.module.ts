@@ -9,12 +9,13 @@ import { FullLayoutComponent } from './layouts/full-layout/full-layout.component
 import { HeaderComponent } from './layouts/header/header.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContentLayoutComponent,
+    AuthLayoutComponent,
     FullLayoutComponent,
     HeaderComponent,
     SidebarComponent,
@@ -23,7 +24,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    NgbAlertModule
+    NgbAlertModule,
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
