@@ -24,6 +24,7 @@
     "chart.js": "^2.9.4",
     "moment": "^2.29.1",
     "ng2-bootstrap": "^1.6.3",
+    "ngx-avatar": "^4.0.0",
     "ngx-bootstrap": "^6.2.0",
     "ngx-spinner": "^10.0.1",
     "ngx-tabset": "^2.2.0",

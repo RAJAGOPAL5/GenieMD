@@ -4,9 +4,15 @@ import { AddPatientComponent } from './add-patient/add-patient.component';
 import { PatientsService } from 'src/app/shared/services/patients.service';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { DataService } from 'src/app/shared/services/data.service';
+import { ActivatedRoute, Router, Routes } from '@angular/router';
+import { ContentLayoutComponent } from 'src/app/layouts/content-layout/content-layout.component';
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
+import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
 import { ClinicService } from 'src/app/shared/services/clinic.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-patients',
@@ -27,10 +33,20 @@ export class PatientsComponent implements OnInit {
   clinicID: any;
   userID: any;
   clinic: any;
+  patientProfile: any;
+  patientProfileView = false;
+  patientAvatar: any;
+  patientName: string | undefined;
+  patientGender: string | undefined;
+  @Output() result: EventEmitter<any> = new EventEmitter();
+  value: any;
+  activatedRoute: any;
+  patientSelected: any;
 
-  constructor(
-    private route: ActivatedRoute, private patientService: PatientsService, private modalService: NgbModal,
+  constructor(private patientService: PatientsService, private dataService: DataService,
+    private router: Router, private route: ActivatedRoute, private modalService: NgbModal,
     private clinicService: ClinicService, private spinner: NgxSpinnerService) { }
+
 
   ngOnInit() {
     this.route.params.subscribe((res: any) => {
@@ -47,7 +63,7 @@ export class PatientsComponent implements OnInit {
           const payload = {
 
             clinicID: this.clinicID,
-            name: "test",
+            name: this.searchText,
             providerID: "",
             userID: this.userID,
           };
@@ -73,6 +89,43 @@ export class PatientsComponent implements OnInit {
   }
   onSearchChange() {
     this.mySubject.next();
+  }
+  selectedPatient(patient: any) {
+    this.patientSelected = patient;
+    this.result.emit(this.patientSelected);
+    console.log("patient", this.patientSelected)
+    this.patientlist.map((data: any) => {
+      data.isSelected = false;
+    })
+    this.dataService.updateSelectedStatus(true);
+    const userPayload = {
+      userID: this.userID,
+      clinicID: this.clinicID,
+      patientID: localStorage.getItem('rpmSelectedSubClinic'),
+    };
+    localStorage.setItem('rpmSelectedSubClinic', patient.patientID)
+    this.patientService.getPatient(userPayload).subscribe((res: any) => {
+      this.patientProfile = res;
+      this.patientProfileView = true;
+      localStorage.setItem('patientProfile', 'true');
+      localStorage.setItem('rpmSelectedSubClinic', res.userID);
+      if (this.patientProfileView) {
+        this.patientAvatar = this.patientProfile.imageUrl;
+        this.patientName = this.patientProfile.firstName + '' + this.patientProfile.lastName;
+        if (this.patientProfile && this.patientProfile.gender == 0) {
+          this.patientGender = 'Male';
+        } else if (this.patientProfile && this.patientProfile.gender == 1) {
+          this.patientGender = 'Female';
+        } else if (this.patientProfile && this.patientProfile.gender == 2) {
+          this.patientGender = 'Other';
+        } else {
+          this.patientGender = '';
+        }
+      }
+    })
+  }
+  goBackToPatients() {
+    this.patientProfileView = false;
   }
 
 
