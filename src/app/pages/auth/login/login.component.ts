@@ -23,12 +23,22 @@ export class LoginComponent implements OnInit {
   clinicConfig: any;
   title: any;
   userID: any;
+  cliniConfig:any;
+  clinicConfigLog:any;
   constructor(
     private authService: AuthService, private router: Router,
     private route: ActivatedRoute, private profileService: ProfileService,
-    private clinicService: ClinicService, private spinner: NgxSpinnerService) { }
+    private clinicService: ClinicService, private spinner: NgxSpinnerService, ) { }
 
   ngOnInit(): void {
+
+    this.cliniConfig = this.clinicService.clinic;   
+    this.clinicConfigLog  = JSON.parse(this.cliniConfig.clinicConfig)
+    console.log('sezhian',this.clinicConfigLog)
+
+
+
+
     console.log(this.clinicService.config);
     this.route.queryParams.subscribe(res => {
       console.log('res', res);
