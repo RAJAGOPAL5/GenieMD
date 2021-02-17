@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddPatientComponent } from './add-patient/add-patient.component';
 import { PatientsService } from 'src/app/shared/services/patients.service';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ClinicService } from 'src/app/shared/services/clinic.service';
 
 @Component({
   selector: 'app-patients',
@@ -19,10 +23,19 @@ export class PatientsComponent implements OnInit {
   patientFullList = false;
   showPatient = false;
   searchText: any;
+  clinicID: any;
+  userID: any;
+  clinic:any;
 
-  constructor(private patientService: PatientsService ) { }
+  constructor(private route: ActivatedRoute, private patientService: PatientsService, private modalService: NgbModal,
+    private clinicService: ClinicService ) { }
 
   ngOnInit() {
+    this.route.params.subscribe((res: any) => {
+      console.log('res', res);
+      this.clinicID = res.clinicID ;
+      this.userID = res.userID;
+    })
     this.mySubject.pipe(debounceTime(1000))
       .subscribe((data) => {
         if (data == '') {
@@ -31,48 +44,64 @@ export class PatientsComponent implements OnInit {
         } else {
           const payload = {
             
-            "clinicID":"1000208",
-            "name": "test",
-            "providerID":"",
-            "userID":"0f2fe8efc977494cbbeecb78e348cae5"
+            clinicID: this.clinicID ,
+            name: "test",
+            providerID:"",
+            userID:this.userID,
           };
 
 
           // this.spinner.show();
           this.patientService.getPatients(payload).subscribe((data:any) => {
             this.patientFullList = true;
-            this.totalPatient = data.clinicPatientList;
-            this.totalPatient.map((item) => {
-              try {
-                // const dob = item.dob.split('-');
-                // if (dob[1].length == 1) {
-                //   dob[1] = '0' + dob[1];
-                // }
-                // if (dob[2].length == 1) {
-                //   dob[2] = '0' + dob[2];
-                // }
-                // item.dob = dob[0] + '-' + dob[1] + '-' + dob[2];
-              } catch (e) {
-                // item.dob = '';
-              }
-            });
+            this.patientlist = data.clinicPatientList;
             // this.spinner.hide()
             this.totalPatient = this.totalPatient.sort((a, b) => {
 
               return 0;
             });
-            this.patientlist = this.totalPatient;
           }, error => {
             // this.spinner.hide();
             // this.toaster.error('Failed to search patient');
           });
         }
       });
+      this.getClinicInfo();
+
   }
   onSearchChange(){
     this.mySubject.next();
   }
 
 
+  getClinicInfo() {
+    const payload = {
+      userID: this.userID,
+      clinicID: this.clinicID
+    };
+    if (payload.userID && payload.clinicID) {
+      this.clinicService.getClinic(payload).subscribe((res: any) => {
+        this.clinic = res;
+        console.log('sdfsdfs',this.clinic)
+        // this.clinicConfig = JSON.parse(this.clinic.clinicConfig);
+        // this.clinicService.clinicData = this.clinicConfig;
+        // this.amount = this.clinicConfig.config ? this.clinicConfig.config.payment.asyncCharge : this.clinicConfig.payment.asyncCharge;
+      });
+    }
+  }
+
+  addPatient() {
+    const modalRef = this.modalService.open(AddPatientComponent, { backdrop: 'static', keyboard: false });
+    modalRef.componentInstance.clinicID = this.clinicID;
+    modalRef.componentInstance.clinic = this.clinic;
+
+    modalRef.result.then(items => {
+      if (items) {
+        // this.loadData(items);
+        // console.log(items, ' res add patientcomponent');
+      }
+
+    });
+  }
 }
   

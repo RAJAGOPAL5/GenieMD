@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProfileService } from 'src/app/shared/services/profile.service';
+import { ClinicService } from 'src/app/shared/services/clinic.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -21,10 +22,11 @@ export class LoginComponent implements OnInit {
   clinicConfig: any;
   title: any;
   userID: any;
-  constructor(private authService: AuthService,private router: Router,
-    private route: ActivatedRoute,private profileService: ProfileService) { }
+  constructor(private authService: AuthService, private router: Router,
+              private route: ActivatedRoute, private profileService: ProfileService, private clinicService: ClinicService) { }
 
   ngOnInit(): void {
+    console.log(this.clinicService.config);
     this.route.queryParams.subscribe(res => {
       console.log('res', res);
       this.clinicID = res.clinicID || '1000202';
