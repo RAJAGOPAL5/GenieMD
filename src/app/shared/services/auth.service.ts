@@ -19,6 +19,9 @@ signInUser(email: string, password: string) {
   };
   return this.http.post('Email/SignIn/', this.user);
 }
+signUp(payload:any) {
+  return this.http.put('Email/SignUp/', payload);
+}
 
 
 }

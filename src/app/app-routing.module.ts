@@ -5,12 +5,29 @@ import { FullLayoutComponent } from './layouts/full-layout/full-layout.component
 import { authRoutes } from './shared/routes/auth-routes';
 import { layoutRoutes } from './shared/routes/layout-routes';
 import {AuthLayoutComponent} from './layouts/auth-layout/auth-layout.component';
+import { LandingComponent } from './pages/landing/landing.component';
+import { ClinicConfigResolver } from './shared/resolvers/clinic-config.resolver';
 const routes: Routes = [
   {
-    path: ':clinicID', component: AuthLayoutComponent, data: { title: 'content Views' }, children: authRoutes
+    path: '', component: LandingComponent, data: { title: 'content Views' }
   },
   {
-    path: 'dashboard/:clinicID/:userID', component: ContentLayoutComponent ,  data: { title: 'full Views' }, children: layoutRoutes,
+    path: ':clinicID',
+    component: AuthLayoutComponent,
+    data: { title: 'content Views' },
+    children: authRoutes,
+    resolve: {
+      clinic: ClinicConfigResolver
+    }
+  },
+  {
+    path: 'dashboard/:clinicID/:userID',
+    component: ContentLayoutComponent , 
+    data: { title: 'full Views' },
+    children: layoutRoutes,
+    resolve: {
+      clinic: ClinicConfigResolver
+    }
   },
 
 ];
