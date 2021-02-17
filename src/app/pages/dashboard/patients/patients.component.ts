@@ -22,7 +22,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class PatientsComponent implements OnInit {
   searchValue = { 'firstName': '', 'lastName': '', 'gender': '', 'dob': '' };
   mySubject = new Subject();
-  patientlist: any;
+  patientlist : any = [];
   totalPatient = [];
   totalPatientCount: any;
   pageNumber = 1;
@@ -54,36 +54,37 @@ export class PatientsComponent implements OnInit {
       this.clinicID = res.clinicID;
       this.userID = res.userID;
     })
-    this.mySubject.pipe(debounceTime(1000))
-      .subscribe((data) => {
-        if (data == '') {
-          this.patientlist = []
-          this.totalPatient = []
-        } else {
-          const payload = {
+    this.getPatients();
+    // this.mySubject.pipe(debounceTime(1000))
+    //   .subscribe((data) => {
+    //     if (data == '') {
+    //       this.patientlist = []
+    //       this.totalPatient = []
+    //     } else {
+    //       const payload = {
 
-            clinicID: this.clinicID,
-            name: this.searchText,
-            providerID: "",
-            userID: this.userID,
-          };
+    //         clinicID: this.clinicID,
+    //         name: this.searchText,
+    //         providerID: "",
+    //         userID: this.userID,
+    //       };
 
 
-          // this.spinner.show();
-          this.patientService.getPatients(payload).subscribe((data: any) => {
-            this.patientFullList = true;
-            this.patientlist = data.clinicPatientList;
-            // this.spinner.hide()
-            this.totalPatient = this.totalPatient.sort((a, b) => {
+    //       // this.spinner.show();
+    //       this.patientService.getPatients(payload).subscribe((data: any) => {
+    //         this.patientFullList = true;
+    //         this.patientlist = data.clinicPatientList;
+    //         // this.spinner.hide()
+    //         this.totalPatient = this.totalPatient.sort((a, b) => {
 
-              return 0;
-            });
-          }, error => {
-            // this.spinner.hide();
-            // this.toaster.error('Failed to search patient');
-          });
-        }
-      });
+    //           return 0;
+    //         });
+    //       }, error => {
+    //         // this.spinner.hide();
+    //         // this.toaster.error('Failed to search patient');
+    //       });
+    //     }
+    //   });
     this.getClinicInfo();
 
   }
@@ -156,6 +157,27 @@ export class PatientsComponent implements OnInit {
         // console.log(items, ' res add patientcomponent');
       }
 
+    });
+  }
+  getPatients(){
+    this.spinner.show();
+    const payload = {
+      clinicID: this.clinicID,
+      name: this.searchText,
+      providerID: "",
+      userID: this.userID,
+    };
+    this.patientService.getPatients(payload).subscribe((data: any) => {
+      this.patientFullList = true;
+      this.patientlist = data.clinicPatientList;
+      this.spinner.hide();
+      // this.totalPatient = this.totalPatient.sort((a, b) => {
+
+      //   return 0;
+      // });
+    }, error => {
+      this.spinner.hide();
+      // this.toaster.error('Failed to search patient');
     });
   }
 }

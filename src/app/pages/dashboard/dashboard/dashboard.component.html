@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-2" style="border: 1px solid;">
+        <div class="col-2 border-right" >
             <app-patients (result)='selectedPatient($event)'></app-patients>
         </div>
         <div class="col-10" *ngIf="patientSelected">
@@ -356,10 +356,10 @@
 
             <!-- <pre>Active: {{ active }}</pre> -->
         </div>
-        <div *ngIf='!patientSelected'>
-            <div class="card card-blue m-4 p-4">
+        <div *ngIf='!patientSelected' class="col-10">
+            <div class=" m-4 p-4 text-center">
                 <div class="card-block">
-                    <h5 class="m-1">Please search a patient and select any patient to show the content.
+                    <h5 class="m-1">Click on a patient to proceed.
                     </h5>
                 </div>
             </div>

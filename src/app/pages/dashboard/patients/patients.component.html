@@ -1,18 +1,19 @@
-<table>
+<!-- <table> -->
     <div class="container-fluid haven p-0">
-        <div class="p-2 float-right" (click)="addPatient()" >
+        <div class="py-2 float-right" (click)="addPatient()" >
             <button type="button" class="btn btn-info">+</button>
         </div>
-        <div class="input-group " style="width:100%;">
+        <!-- <div class="input-group " style="width:100%;"> -->
             <input type="search" class="form-control list-group-flush" placeholder="Search for a patient" name="searchText"
-            autocomplete="off"  [(ngModel)]="searchText"  (change)="onSearchChange()">
-            <div class="input-group-append pheight" >
+            autocomplete="off"  [(ngModel)]="searchText"  (ngModelChange)="getPatients()">
+            <!-- <div class="input-group-append pheight" >
                 <button class="btn btn-secondary color-black" type="button"> <img src="assets/img/Patients.png"></button>
-            </div>
-        </div>
-        <div *ngIf="patientFullList">
-            <ng-container *ngIf = "patientlist && patientlist.length">
-            <li class="list-group-item" (click)="selectedPatient(patient)" *ngFor="let patient of patientlist">
+            </div> -->
+        <!-- </div> -->
+        <div *ngIf="patientFullList" >
+            <ng-container *ngIf = "patientlist.length">
+                <ul class="list-group list-group-flush mt-4">
+            <li class="list-group-item" (click)="selectedPatient(patient)" *ngFor="let patient of patientlist" [ngClass]="{'activated': patient.patientID == patientSelected?.patientID }">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-lg-3 p-3">
                         <ngx-avatar name="{{patient?.firstName}}{{patient?.lastName}}" src="{{patient?.imageUrl}}">
@@ -34,12 +35,15 @@
                     </div>
                 </div>
             </li>
+        </ul>
         </ng-container>
         <ng-container *ngIf = "patientlist && !patientlist.length">
-            No data found
+            <div class="w-100 py-4 text-center mt-2">
+                No data found
+            </div>
         </ng-container>
         </div>
     </div>
 
     
-</table>
+<!-- </table> -->
