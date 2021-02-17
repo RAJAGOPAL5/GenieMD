@@ -80,7 +80,7 @@ export class PatientsComponent implements OnInit {
       clinicID: this.clinicID
     };
     if (payload.userID && payload.clinicID) {
-      this.clinicService.getClinic(payload).subscribe((res: any) => {
+      this.clinicService.find(this.clinicID).subscribe((res: any) => {
         this.clinic = res;
         console.log('sdfsdfs',this.clinic)
         // this.clinicConfig = JSON.parse(this.clinic.clinicConfig);
