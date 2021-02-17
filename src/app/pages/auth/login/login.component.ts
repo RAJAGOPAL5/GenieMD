@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ClinicService } from 'src/app/shared/services/clinic.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -19,9 +20,12 @@ export class LoginComponent implements OnInit {
   clinicConfig: any;
   title: any;
   constructor(
-    private route: ActivatedRoute,) { }
+    private clinicService: ClinicService,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
+    console.log(this.clinicService.config);
     this.route.queryParams.subscribe(res => {
       console.log('res', res);
       this.clinicID = res.clinicID || '1000202';
