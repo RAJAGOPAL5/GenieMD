@@ -11,24 +11,28 @@
                     <a ngbNavLink>Vitals</a>
                     <ng-template ngbNavContent>
                         <div class="p-4">
-                            Time Range 
-                            <select class="form-control border-primary" [(ngModel)]="duration" (ngModelChange)="getList($event)">
-                                    <option *ngFor="let time of timeduration" value="{{time.val}}" selected>{{time.title}}</option>
+                            Time Range
+                            <div class="col-md-3">
+                                <select class="form-control border-primary" [(ngModel)]="duration" (ngModelChange)="getList($event)">
+                                    <option *ngFor="let time of timeduration" value="{{time.val}}" selected>
+                                        {{time.title}}
+                                    </option>
                                 </select>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="col-12 p-3  mt-2 w-100">
                                     <h4>Blood Pressure</h4>
-                                    <canvas id="myChart" width="500" height="200" #pressureChart></canvas>
-                                </div>
-                                <div class="col-12 p-3 mb-4">
-                                    <h4>Spo2</h4>
-                                    <canvas id="myChart" width="500" height="200" #spoChart></canvas>
+                                    <canvas id="myChart" width="350" height="100" #pressureChart></canvas>
                                 </div>
                                 <div class="col-12 p-3 mb-4">
                                     <h4>Weight</h4>
-                                    <canvas id="myChart" width="500" height="200" #weightChart></canvas>
+                                    <canvas id="myChart" width="350" height="100" #weightChart></canvas>
+                                </div>
+                                <div class="col-12 p-3 mb-4">
+                                    <h4>Spo2</h4>
+                                    <canvas id="myChart" width="350" height="100" #spoChart></canvas>
                                 </div>
                             </div>
                             <div class="col-md-6">

@@ -7,11 +7,13 @@ import { PatientsComponent } from './patients/patients.component';
 
 import {TabsModule} from 'ngx-tabset';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [DashboardComponent, PatientsComponent],
   imports: [
     NgbModule,
+    FormsModule,
     CommonModule,
     DashboardRoutingModule,
     SharedModule,

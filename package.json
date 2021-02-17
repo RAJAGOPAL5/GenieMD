@@ -22,6 +22,7 @@
     "@ng-bootstrap/ng-bootstrap": "^9.0.1",
     "bootstrap": "^4.6.0",
     "chart.js": "^2.9.4",
+    "moment": "^2.29.1",
     "ng2-bootstrap": "^1.6.3",
     "ngx-bootstrap": "^6.2.0",
     "ngx-tabset": "^2.2.0",
