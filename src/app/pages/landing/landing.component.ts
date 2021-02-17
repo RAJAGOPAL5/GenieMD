@@ -25,7 +25,7 @@ export class LandingComponent implements OnInit {
   async getData() {
     try {
       const clinic = this.clinicService.find(this.clinicId);
-      clinic.subscribe((result) => {
+      clinic.subscribe(() => {
         console.log(this.clinicService.config);
       });
     } catch (error) {

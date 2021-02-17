@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 })
 export class ClinicService {
   clinic: any = {};
+  id: string = '';
   private cliniConfig: any = {};
   constructor(
     private http: HttpClient
@@ -21,6 +22,7 @@ export class ClinicService {
     .pipe(
       map(project => {
         this.clinic = project;
+        this.id = id;
         try {
           this.cliniConfig = JSON.parse(this.clinic.clinicConfig)
         } catch (error) {

@@ -94,8 +94,8 @@ export class PatientsComponent implements OnInit {
 
   addPatient() {
     const modalRef = this.modalService.open(AddPatientComponent, { backdrop: 'static', keyboard: false });
-    modalRef.componentInstance.clinicID = this.clinicID;
-    modalRef.componentInstance.clinic = this.clinic;
+    modalRef.componentInstance.clinicID = this.clinicService.id;
+    modalRef.componentInstance.clinic = this.clinicService.clinic;
 
     modalRef.result.then(items => {
       if (items) {
