@@ -23,7 +23,7 @@ export class PatientsComponent implements OnInit {
   pageSize = 20;
   patientFullList = false;
   showPatient = false;
-  searchText: any;
+  searchText = '';
   clinicID: any;
   userID: any;
   clinic: any;
@@ -53,7 +53,7 @@ export class PatientsComponent implements OnInit {
           };
 
 
-          this.spinner.show();
+          // this.spinner.show();
           this.patientService.getPatients(payload).subscribe((data: any) => {
             this.patientFullList = true;
             this.patientlist = data.clinicPatientList;
@@ -63,7 +63,7 @@ export class PatientsComponent implements OnInit {
               return 0;
             });
           }, error => {
-            this.spinner.hide();
+            // this.spinner.hide();
             // this.toaster.error('Failed to search patient');
           });
         }

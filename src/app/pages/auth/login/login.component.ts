@@ -48,10 +48,11 @@ export class LoginComponent implements OnInit {
 
         if (profile.providerStatus !== 'P') {
           this.authService.userInfo = { userID: res.userID };
+          this.userID = res.userID;
           localStorage.setItem('rpmUserId', res.userID);
           localStorage.setItem('rpmUserEmail', this.user.email);
-          if(this.user.email && this.user.password){
-            this.router.navigate([`dashboard/:${this.userID}/${this.clinicID}`])
+          if (this.user.email && this.user.password) {
+            this.router.navigate([`dashboard/${this.clinicID}/${this.userID}`]);
           }
         } else {
           console.log('Login failed');
@@ -64,9 +65,7 @@ export class LoginComponent implements OnInit {
       this.spinner.hide();
       // this.toastrService.error('Login failed. Check your credentials and try again.');
     });
-    if(this.user.email && this.user.password){
-      this.router.navigate([`dashboard/${this.userID}/${this.clinicID}`])
-    }
+
   }
   ForgetPassword() {
     this.router.navigate([`${this.clinicID}/forgetPassword`]);
