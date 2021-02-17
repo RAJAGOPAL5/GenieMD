@@ -66,34 +66,15 @@ export class PatientsComponent implements OnInit {
           });
         }
       });
-      this.getClinicInfo();
-
   }
   onSearchChange(){
     this.mySubject.next();
   }
 
-
-  getClinicInfo() {
-    const payload = {
-      userID: this.userID,
-      clinicID: this.clinicID
-    };
-    if (payload.userID && payload.clinicID) {
-      this.clinicService.getClinic(payload).subscribe((res: any) => {
-        this.clinic = res;
-        console.log('sdfsdfs',this.clinic)
-        // this.clinicConfig = JSON.parse(this.clinic.clinicConfig);
-        // this.clinicService.clinicData = this.clinicConfig;
-        // this.amount = this.clinicConfig.config ? this.clinicConfig.config.payment.asyncCharge : this.clinicConfig.payment.asyncCharge;
-      });
-    }
-  }
-
   addPatient() {
     const modalRef = this.modalService.open(AddPatientComponent, { backdrop: 'static', keyboard: false });
-    modalRef.componentInstance.clinicID = this.clinicID;
-    modalRef.componentInstance.clinic = this.clinic;
+    modalRef.componentInstance.clinicID = this.clinicService.id;
+    modalRef.componentInstance.clinic = this.clinicService.clinic;
 
     modalRef.result.then(items => {
       if (items) {
