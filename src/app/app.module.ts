@@ -12,6 +12,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MyHttpInterceptor } from './shared/interceptors/interceptor';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { LandingComponent } from './pages/landing/landing.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,10 +23,12 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
     FullLayoutComponent,
     HeaderComponent,
     SidebarComponent,
+    LandingComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     NgbModule,
     NgbAlertModule,
     HttpClientModule,
