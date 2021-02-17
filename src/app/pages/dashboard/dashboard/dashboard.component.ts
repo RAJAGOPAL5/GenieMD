@@ -51,93 +51,93 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.getWeight(fromDate, toDate)
   }
   ngAfterViewInit(): void {
-    this.BPcanvas = this.mychart.nativeElement.getContext('2d');
-    this.Spo2canvas = this.mychart1.nativeElement.getContext('2d');
-    this.Weightcanvas = this.mychart2.nativeElement.getContext('2d');
-    this.allCanvas = this.mychart3.nativeElement.getContext('2d');
-    this.Spo2Chart = new Chart(this.Spo2canvas, {
-      type: 'line',
-      data: {
-        labels: ['0s', '10s', '20s', '30s', '40s', '50s', '60s'],
-        datasets: [{
-          label: 'Blood Pressure',
-          borderColor: 'rgb(255, 99, 132)',
-          backgroundColor: 'rgba(255, 99, 132,0.4)',
-          fill: true,
-          data: [0, 59, 75, 20, 20, 55, 40],
-        }]
-      },
-      options: {
-        legend: { display: false },
-        title: {
-          display: true,
-          text: 'Spo2'
-        }
-      }
-    });
-    this.BPChart = new Chart(this.BPcanvas, {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Systolic Blood Pressure,',
-          borderColor: 'rgb(75, 192, 192)',
-          backgroundColor: 'rgba(75, 192, 192,0.4)',
-          data: [],
-        },
-        {
-          label: 'Diastolic Pressure',
-          borderColor: 'rgb(255, 99, 132)',
-          backgroundColor: 'rgba(255, 99, 132,0.4)',
-          data: [],
-        }]
-      },
-      options: {
-        legend: { display: false },
-        title: {
-          display: true,
-          text: 'Blood Perssure'
-        }
-      }
-    });
-    this.weightChart = new Chart(this.Weightcanvas, {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Weight',
-          borderColor: 'rgb(255, 99, 132)',
-          backgroundColor: 'rgba(255, 99, 132,0.4)',
-          fill: true,
-          data: [],
-        }]
-      },
-      options: {
-        legend: { display: false },
-        title: {
-          display: true,
-          text: 'Weight'
-        }
-      }
-    });
-    const totalChart = new Chart(this.allCanvas, {
-      type: 'polarArea',
-      data: {
-        labels: ['Red', 'Green', 'Yellow'],
-        datasets: [{
-          data: [11, 16, 7],
-          backgroundColor: ['#FF6384', '#4BC0C0', '#FFCE56'],
-          label: 'My dataset' // for legend
-        }],
-      },
-      options: {
-        legend: { display: false },
-        title: {
-          display: true,
-          text: 'Weight'
-        }
-      }
-    });
+    // this.BPcanvas = this.mychart.nativeElement.getContext('2d');
+    // this.Spo2canvas = this.mychart1.nativeElement.getContext('2d');
+    // this.Weightcanvas = this.mychart2.nativeElement.getContext('2d');
+    // this.allCanvas = this.mychart3.nativeElement.getContext('2d');
+    // this.Spo2Chart = new Chart(this.Spo2canvas, {
+    //   type: 'line',
+    //   data: {
+    //     labels: ['0s', '10s', '20s', '30s', '40s', '50s', '60s'],
+    //     datasets: [{
+    //       label: 'Blood Pressure',
+    //       borderColor: 'rgb(255, 99, 132)',
+    //       backgroundColor: 'rgba(255, 99, 132,0.4)',
+    //       fill: true,
+    //       data: [0, 59, 75, 20, 20, 55, 40],
+    //     }]
+    //   },
+    //   options: {
+    //     legend: { display: false },
+    //     title: {
+    //       display: true,
+    //       text: 'Spo2'
+    //     }
+    //   }
+    // });
+    // this.BPChart = new Chart(this.BPcanvas, {
+    //   type: 'line',
+    //   data: {
+    //     labels: [],
+    //     datasets: [{
+    //       label: 'Systolic Blood Pressure,',
+    //       borderColor: 'rgb(75, 192, 192)',
+    //       backgroundColor: 'rgba(75, 192, 192,0.4)',
+    //       data: [],
+    //     },
+    //     {
+    //       label: 'Diastolic Pressure',
+    //       borderColor: 'rgb(255, 99, 132)',
+    //       backgroundColor: 'rgba(255, 99, 132,0.4)',
+    //       data: [],
+    //     }]
+    //   },
+    //   options: {
+    //     legend: { display: false },
+    //     title: {
+    //       display: true,
+    //       text: 'Blood Perssure'
+    //     }
+    //   }
+    // });
+    // this.weightChart = new Chart(this.Weightcanvas, {
+    //   type: 'line',
+    //   data: {
+    //     labels: [],
+    //     datasets: [{
+    //       label: 'Weight',
+    //       borderColor: 'rgb(255, 99, 132)',
+    //       backgroundColor: 'rgba(255, 99, 132,0.4)',
+    //       fill: true,
+    //       data: [],
+    //     }]
+    //   },
+    //   options: {
+    //     legend: { display: false },
+    //     title: {
+    //       display: true,
+    //       text: 'Weight'
+    //     }
+    //   }
+    // });
+    // const totalChart = new Chart(this.allCanvas, {
+    //   type: 'polarArea',
+    //   data: {
+    //     labels: ['Red', 'Green', 'Yellow'],
+    //     datasets: [{
+    //       data: [11, 16, 7],
+    //       backgroundColor: ['#FF6384', '#4BC0C0', '#FFCE56'],
+    //       label: 'My dataset' // for legend
+    //     }],
+    //   },
+    //   options: {
+    //     legend: { display: false },
+    //     title: {
+    //       display: true,
+    //       text: 'Weight'
+    //     }
+    //   }
+    // });
 
   }
   getBloodPerssure(fromDate: any, toDate: any) {
