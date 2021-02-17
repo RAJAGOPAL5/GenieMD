@@ -9,6 +9,7 @@ import { ProfileService } from 'src/app/shared/services/profile.service';
 import { Profile } from 'src/app/shared/models/profile.model';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ClinicService } from 'src/app/shared/services/clinic.service';
 
 
 @Component({
@@ -37,18 +38,13 @@ export class AddPatientComponent implements OnInit {
   morbidityDisease: any[] = [];
   userID: any;
   clinicID: string;
-  clinic:any;
-  clinicConfig: any;
 
-
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private activeModal: NgbActiveModal,private spinner: NgxSpinnerService,
+  constructor(
+    private clinicService: ClinicService,
+    private route: ActivatedRoute, private formBuilder: FormBuilder, private activeModal: NgbActiveModal,private spinner: NgxSpinnerService,
               private toaster: ToastrService, private authService:AuthService, private profileService :ProfileService, private http: HttpClient) { }
 
   ngOnInit(): void {   
-    console.log('clinic clinic lcini',this.clinic)
-    this.clinicConfig = JSON.parse(this.clinic.clinicConfig);
-
-
     this.createForm();
     this.states = [{ name: 'Alabama', abbreviation: 'AL' }, { name: 'Alaska', abbreviation: 'AK' }, { name: 'Arizona', abbreviation: 'AZ' }, { name: 'Arkansas', abbreviation: 'AR' }, { name: 'California', abbreviation: 'CA' }, { name: 'Colorado', abbreviation: 'CO' }, { name: 'Connecticut', abbreviation: 'CT' }, { name: 'District Of Columbia', abbreviation: 'DC' }, { name: 'Delaware', abbreviation: 'DE' }, { name: 'Florida', abbreviation: 'FL' }, { name: 'Georgia', abbreviation: 'GA' }, { name: 'Hawaii', abbreviation: 'HI' }, { name: 'Idaho', abbreviation: 'ID' }, { name: 'Illinois', abbreviation: 'IL' }, { name: 'Indiana', abbreviation: 'IN' }, { name: 'Iowa', abbreviation: 'IA' }, { name: 'Kansas', abbreviation: 'KS' }, { name: 'Kentucky', abbreviation: 'KY' }, { name: 'Louisiana', abbreviation: 'LA' }, { name: 'Maine', abbreviation: 'ME' }, { name: 'Marshall Islands', abbreviation: 'MH' }, { name: 'Maryland', abbreviation: 'MD' }, { name: 'Massachusetts', abbreviation: 'MA' }, { name: 'Michigan', abbreviation: 'MI' }, { name: 'Minnesota', abbreviation: 'MN' }, { name: 'Mississippi', abbreviation: 'MS' }, { name: 'Missouri', abbreviation: 'MO' }, { name: 'Montana', abbreviation: 'MT' }, { name: 'Nebraska', abbreviation: 'NE' }, { name: 'Nevada', abbreviation: 'NV' }, { name: 'New Hampshire', abbreviation: 'NH' }, { name: 'New Jersey', abbreviation: 'NJ' }, { name: 'New Mexico', abbreviation: 'NM' }, { name: 'New York', abbreviation: 'NY' }, { name: 'North Carolina', abbreviation: 'NC' }, { name: 'North Dakota', abbreviation: 'ND' }, { name: 'Northern Mariana Islands', abbreviation: 'MP' }, { name: 'Ohio', abbreviation: 'OH' }, { name: 'Oklahoma', abbreviation: 'OK' }, { name: 'Oregon', abbreviation: 'OR' }, { name: 'Palau', abbreviation: 'PW' }, { name: 'Pennsylvania', abbreviation: 'PA' }, { name: 'Puerto Rico', abbreviation: 'PR' }, { name: 'Rhode Island', abbreviation: 'RI' }, { name: 'South Carolina', abbreviation: 'SC' }, { name: 'South Dakota', abbreviation: 'SD' }, { name: 'Tennessee', abbreviation: 'TN' }, { name: 'Texas', abbreviation: 'TX' }, { name: 'Utah', abbreviation: 'UT' }, { name: 'Vermont', abbreviation: 'VT' }, { name: 'Virgin Islands', abbreviation: 'VI' }, { name: 'Virginia', abbreviation: 'VA' }, { name: 'Washington', abbreviation: 'WA' }, { name: 'West Virginia', abbreviation: 'WV' }, { name: 'Wisconsin', abbreviation: 'WI' }, { name: 'Wyoming', abbreviation: 'WY' }
     ];
@@ -155,8 +151,8 @@ export class AddPatientComponent implements OnInit {
       // morbidity: this.registerForm.value.morbidity ? this.registerForm.value.morbidity : '',
 
       extraData: {
-        clinicID: this.clinicID,
-        clinicName: this.clinicConfig.config ? this.clinicConfig.config.name : this.clinicConfig.name,
+        clinicID: this.clinicService.id,
+        clinicName: this.clinicService.config ? this.clinicService.config.name : this.clinicService.clinic.name,
         companyCode: '',
         dateofbirth: this.setDOB(this.registerForm.value.dob),
         governmentID: '',
@@ -180,7 +176,7 @@ export class AddPatientComponent implements OnInit {
       latitude: '0',
       locationTime: this.profile.locationTime ? this.profile.locationTime : '',
       longitude: '0',
-      oemID: this.clinicConfig.oemID,
+      oemID: this.clinicService.clinic.oemID,
       passport: '',
       pregnant: '0',
       profileEmail: this.registerForm.value.email,
@@ -204,8 +200,8 @@ export class AddPatientComponent implements OnInit {
       // this.addPatient();
       // this.spinner.hide();
       this.toaster.success('Patient added Successfully');
-      if (this.clinicConfig.config && this.clinicConfig.config.advancedSettings) {
-        this.clinicConfig.config.advancedSettings.map((item:any) => { 
+      if (this.clinicService.config && this.clinicService.config.advancedSettings) {
+        this.clinicService.config.advancedSettings.map((item:any) => { 
           if (item.key === "patientRegistration") {
             try {
               this.emailJson = item.value;
@@ -258,12 +254,12 @@ export class AddPatientComponent implements OnInit {
       text-decoration: none;'\
       href='${appLink}'>Download App </a></p>
          <p style=\'font-family:helvetica; font-size: 18px;\'>Thank you!</p>
-         <p style=\'font-family:helvetica; font-size: 18px;\'>${this.clinicConfig.config ? this.clinicConfig.config.name : this.clinicConfig.name}</p>
+         <p style=\'font-family:helvetica; font-size: 18px;\'>${this.clinicService.config ? this.clinicService.config.name : this.clinicService.config.name}</p>
          <div style=\'height: 100px;width: 100%;\'>
-       <img  src='${this.clinicConfig.config.logo}' style=\'width: 140px;'\ />
+       <img  src='${this.clinicService.config.logo}' style=\'width: 140px;'\ />
   </div>
          </body>`,
-      fromDisplayName: `NoReply@ ${this.clinicConfig.config ? this.clinicConfig.config.name : this.clinicConfig.name}`,
+      fromDisplayName: `NoReply@ ${this.clinicService.config ? this.clinicService.config.name : this.clinicService.clinic.name}`,
       subject: `Thanks for signing up!!!`
     };
     this.profileService.sendEmail(payload).subscribe(data => {

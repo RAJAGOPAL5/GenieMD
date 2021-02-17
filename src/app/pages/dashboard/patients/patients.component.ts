@@ -6,6 +6,7 @@ import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ClinicService } from 'src/app/shared/services/clinic.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-patients',
@@ -13,7 +14,7 @@ import { ClinicService } from 'src/app/shared/services/clinic.service';
   styleUrls: ['./patients.component.scss']
 })
 export class PatientsComponent implements OnInit {
-  searchValue = {'firstName':'', 'lastName': '', 'gender':'', 'dob':''};
+  searchValue = { 'firstName': '', 'lastName': '', 'gender': '', 'dob': '' };
   mySubject = new Subject();
   patientlist: any;
   totalPatient = [];
@@ -25,15 +26,16 @@ export class PatientsComponent implements OnInit {
   searchText: any;
   clinicID: any;
   userID: any;
-  clinic:any;
+  clinic: any;
 
-  constructor(private route: ActivatedRoute, private patientService: PatientsService, private modalService: NgbModal,
-    private clinicService: ClinicService ) { }
+  constructor(
+    private route: ActivatedRoute, private patientService: PatientsService, private modalService: NgbModal,
+    private clinicService: ClinicService) { }
 
   ngOnInit() {
     this.route.params.subscribe((res: any) => {
       console.log('res', res);
-      this.clinicID = res.clinicID ;
+      this.clinicID = res.clinicID;
       this.userID = res.userID;
     })
     this.mySubject.pipe(debounceTime(1000))
@@ -43,16 +45,16 @@ export class PatientsComponent implements OnInit {
           this.totalPatient = []
         } else {
           const payload = {
-            
-            clinicID: this.clinicID ,
+
+            clinicID: this.clinicID,
             name: "test",
-            providerID:"",
-            userID:this.userID,
+            providerID: "",
+            userID: this.userID,
           };
 
 
-          // this.spinner.show();
-          this.patientService.getPatients(payload).subscribe((data:any) => {
+          this.spinner.show();
+          this.patientService.getPatients(payload).subscribe((data: any) => {
             this.patientFullList = true;
             this.patientlist = data.clinicPatientList;
             // this.spinner.hide()
@@ -61,15 +63,15 @@ export class PatientsComponent implements OnInit {
               return 0;
             });
           }, error => {
-            // this.spinner.hide();
+            this.spinner.hide();
             // this.toaster.error('Failed to search patient');
           });
         }
       });
-      this.getClinicInfo();
+    this.getClinicInfo();
 
   }
-  onSearchChange(){
+  onSearchChange() {
     this.mySubject.next();
   }
 
@@ -82,7 +84,7 @@ export class PatientsComponent implements OnInit {
     if (payload.userID && payload.clinicID) {
       this.clinicService.find(this.clinicID).subscribe((res: any) => {
         this.clinic = res;
-        console.log('sdfsdfs',this.clinic)
+        console.log('sdfsdfs', this.clinic)
         // this.clinicConfig = JSON.parse(this.clinic.clinicConfig);
         // this.clinicService.clinicData = this.clinicConfig;
         // this.amount = this.clinicConfig.config ? this.clinicConfig.config.payment.asyncCharge : this.clinicConfig.payment.asyncCharge;
@@ -92,8 +94,8 @@ export class PatientsComponent implements OnInit {
 
   addPatient() {
     const modalRef = this.modalService.open(AddPatientComponent, { backdrop: 'static', keyboard: false });
-    modalRef.componentInstance.clinicID = this.clinicID;
-    modalRef.componentInstance.clinic = this.clinic;
+    modalRef.componentInstance.clinicID = this.clinicService.id;
+    modalRef.componentInstance.clinic = this.clinicService.clinic;
 
     modalRef.result.then(items => {
       if (items) {
@@ -104,4 +106,4 @@ export class PatientsComponent implements OnInit {
     });
   }
 }
-  
+
