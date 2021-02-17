@@ -15,7 +15,7 @@ const routes: Routes = [
       component: DashboardComponent,
       // data: { title: 'Protocol' }
     },
-]
+];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

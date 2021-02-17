@@ -1,14 +1,13 @@
 <table>
     <div class="container-fluid haven p-0">
-        <div class="p-2 float-right">
+        <div class="p-2 float-right" (click)="addPatient()" >
             <button type="button" class="btn btn-info">+</button>
         </div>
         <div class="input-group " style="width:100%;">
-            <input type="search" class="form-control list-group-flush" placeholder="Search for a patient"
-                name="searchText" autocomplete="off" ngModel="searchText" (change)="onSearchChange()">
-            <div class="input-group-append pheight">
-                <button class="btn btn-secondary color-black" type="button"> <img
-                        src="assets/img/Patients.png"></button>
+            <input type="search" class="form-control list-group-flush" placeholder="Search for a patient" name="searchText"
+            autocomplete="off"  [(ngModel)]="searchText"  (change)="onSearchChange()">
+            <div class="input-group-append pheight" >
+                <button class="btn btn-secondary color-black" type="button"> <img src="assets/img/Patients.png"></button>
             </div>
         </div>
         <div *ngIf="patientFullList">

@@ -5,13 +5,30 @@ import { FullLayoutComponent } from './layouts/full-layout/full-layout.component
 import { PatientsComponent } from './pages/dashboard/patients/patients.component';
 import { authRoutes } from './shared/routes/auth-routes';
 import { layoutRoutes } from './shared/routes/layout-routes';
-
+import {AuthLayoutComponent} from './layouts/auth-layout/auth-layout.component';
+import { LandingComponent } from './pages/landing/landing.component';
+import { ClinicConfigResolver } from './shared/resolvers/clinic-config.resolver';
 const routes: Routes = [
-  // {
-  //   path: ':clinicID', component: FullLayoutComponent, data: { title: 'content Views' }, children: authRoutes
-  // },
   {
-    path: 'dashboard/:clinicID/:userID',  component: ContentLayoutComponent ,  data: { title: 'full Views' }, children: layoutRoutes,
+    path: '', component: LandingComponent, data: { title: 'content Views' }
+  },
+  {
+    path: ':clinicID',
+    component: AuthLayoutComponent,
+    data: { title: 'content Views' },
+    children: authRoutes,
+    resolve: {
+      clinic: ClinicConfigResolver
+    }
+  },
+  {
+    path: 'dashboard/:clinicID/:userID',
+    component: ContentLayoutComponent , 
+    data: { title: 'full Views' },
+    children: layoutRoutes,
+    resolve: {
+      clinic: ClinicConfigResolver
+    }
   },
 
 ];
