@@ -14,7 +14,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
     CommonModule,
     DashboardRoutingModule,
-    SharedModule,TabsModule.forRoot()
+    SharedModule,
+    TabsModule.forRoot()
   ]
 })
 export class DashboardModule { }
