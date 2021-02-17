@@ -139,7 +139,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
 
   }
-  getBloodPerssure(fromDate,toDate) {
+  getBloodPerssure(fromDate: any, toDate: any) {
     this.dashboardService.getBloodPressure(this.userID,fromDate,toDate).subscribe((data: any) => {
       console.log(data)
       if (data.vitalsList.length) {

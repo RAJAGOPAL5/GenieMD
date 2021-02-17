@@ -8,17 +8,25 @@ import { Router } from '@angular/router';
 export class AuthService {
   user: any;
   userInfo: any;
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router) { 
+    
+}
 
-  }
-
-  signInUser(email: string, password: string) {
-    this.user = {
-      email,
-      password
-    };
-    return this.http.post('Email/SignIn/', this.user);
-  }
-
-
+signInUser(email: string, password: string) {
+  this.user = {
+    email,
+    password
+  };
+  return this.http.post('Email/SignIn/', this.user);
+}
+signUp(payload:any) {
+  return this.http.put('Email/SignUp/', payload);
+}
+forgetPassword(email: string) {
+  const param = {
+    emailAddress: email,
+    appName: ''
+  };
+  return this.http.post('Email/ResetPassword', param);
+}
 }
