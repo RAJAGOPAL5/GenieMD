@@ -7,24 +7,24 @@ import { map } from 'rxjs/operators';
 })
 export class ClinicService {
   clinic: any = {};
-  _config: any = {};
+  private cliniConfig: any = {};
   constructor(
     private http: HttpClient
   ) { }
 
-  get config() {
-    return this._config
+  get config(): any {
+    return this.cliniConfig;
   }
 
-  find(id: string) {
+  find(id: string): any {
     return this.http.get<any>(`Clinics/${id}`)
     .pipe(
       map(project => {
         this.clinic = project;
         try {
-          this._config = JSON.parse(this.clinic.clinicConfig)
+          this.cliniConfig = JSON.parse(this.clinic.clinicConfig)
         } catch (error) {
-          this._config = {};
+          this.cliniConfig = {};
         }
         return project || {};
       })
