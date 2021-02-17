@@ -15,6 +15,8 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { LandingComponent } from './pages/landing/landing.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,10 +26,12 @@ import { ToastrModule } from 'ngx-toastr';
     FullLayoutComponent,
     HeaderComponent,
     SidebarComponent,
+    LandingComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     NgbModule,
     NgbAlertModule,
     HttpClientModule,
