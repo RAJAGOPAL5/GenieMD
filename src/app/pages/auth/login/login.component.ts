@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProfileService } from 'src/app/shared/services/profile.service';
 import { environment } from 'src/environments/environment';
@@ -20,13 +20,15 @@ export class LoginComponent implements OnInit {
   tabIcon: any;
   clinicConfig: any;
   title: any;
-  constructor(private authService: AuthService,
+  userID: any;
+  constructor(private authService: AuthService,private router: Router,
     private route: ActivatedRoute,private profileService: ProfileService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(res => {
       console.log('res', res);
       this.clinicID = res.clinicID || '1000202';
+      this.userID = res.userID;
       if (this.clinicID) {
         localStorage.setItem('rpmClinicID', this.clinicID);
         // this.getClinic();
@@ -54,6 +56,9 @@ export class LoginComponent implements OnInit {
       // this.toastrService.error('Login failed. Check your credentials and try again.');
       // this.spinner.hide();
     });
+    if(this.user.email && this.user.password){
+      this.router.navigate([`dashboard/:${this.userID}/${this.clinicID}`])
+    }
   }
 
 }

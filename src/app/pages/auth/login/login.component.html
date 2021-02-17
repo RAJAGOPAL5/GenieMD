@@ -13,38 +13,38 @@
             </div>
             <!-- <div class="row"> -->
             <div class="col-12">
-                    <form (ngSubmit)="login()" #f="ngForm">
+                    <form (ngSubmit)="login()"  #f="ngForm">
                         <div class="col-12">
                             <div class="form-group"></div>
                         </div>
                         <div class="col-12">
                         <div class="form-group">
-                                <label class="animated-label">EMAIL</label>
                                 <div>
-                                    <i class="fa fa-envelope right"></i>
-                                    <input class="form-control box-align" name="inputEmail"  required="" type="text" [(ngModel)]="user.email" #email="ngModel">
+                                    <label class="animated-label">EMAIL</label>
+                                    <i class="fa fa-envelope right float-right"></i>
+                                    <input class="form-control box-align" name="inputEmail" required="" type="text"  [(ngModel)]="user.email" #email="ngModel" >
                                 </div>
+                           </div>
                         </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-group">
-                                <label class="animated-label">PASSWORD</label>
+                        <div class="col-12">
+                          <div class="form-group">
                                 <div>
-                                    <i class="fa fa-lock right"></i>
-                                    <input class="form-control box-align" name="inputEmail"  required="" type="text" [(ngModel)]="user.password" #password="ngModel">
+                                    <label class="animated-label">PASSWORD</label>
+                                    <i class="fa fa-lock right float-right"></i>
+                                    <input  [(ngModel)]="user.password" #password="ngModel" class="form-control box-align" name="inputEmail"  required="" type="text"  [(ngModel)]="user.password" #password="ngModel">
                                 </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
+                         </div>
+                         </div>
+                        <div class="col-3">
                         <button type="submit" class="btn btn-theme btn-register">Login
-                            <i class="fa fa-angle-right" style="float: right; margin-right: 10px;"></i>
+                            <i class="fa fa-angle-right pt-2" style="margin-right: 45px;"></i>
                         </button>
-                    </div>
-                    <div class="col-12 my-3">
+                        </div>
+                        <div class="col-12 my-3">
                         <a href="#" class="login-text d-block">Don't have an Account?</a>
                         <a href="#" class=" d-block login-text text-link mt-2">Forgot Password</a>
-                    </div>
-                    </form>
+                         </div>
+                  </form>
     
             </div>
         <!-- </div> -->
