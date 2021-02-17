@@ -30,7 +30,7 @@ export class PatientsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute, private patientService: PatientsService, private modalService: NgbModal,
-    private clinicService: ClinicService) { }
+    private clinicService: ClinicService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.route.params.subscribe((res: any) => {

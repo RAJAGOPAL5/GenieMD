@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-forgot-password',
@@ -15,7 +16,7 @@ export class ForgotPasswordComponent implements OnInit {
   clinicID: any;
 
   constructor( private fb: FormBuilder, private authService: AuthService, private toastr: ToastrService, private router: Router,
-               private activatedRoute: ActivatedRoute) {
+               private activatedRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
     this.form = this.fb.group({
       email: ['', [Validators.required, , Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     });
@@ -30,12 +31,14 @@ export class ForgotPasswordComponent implements OnInit {
   get r() { return this.form.controls; }
   submit() {
     this.submitted = true;
-    console.log('form', this.form.value.email);
+    this.spinner.show();
     if (this.form.valid) {
       this.authService.forgetPassword(this.form.value.email).subscribe(res => {
+        this.spinner.hide();
         this.toastr.success('Forgot Password link has been sent to email successfully')
         this.router.navigate([`${this.clinicID}/login`]);
       }, error => {
+        this.spinner.hide();
         this.toastr.error('User Not Found');
       });
     }
