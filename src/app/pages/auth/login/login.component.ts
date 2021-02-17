@@ -59,8 +59,11 @@ export class LoginComponent implements OnInit {
       // this.spinner.hide();
     });
     if(this.user.email && this.user.password){
-      this.router.navigate([`dashboard/:${this.userID}/${this.clinicID}`])
+      this.router.navigate([`dashboard/${this.userID}/${this.clinicID}`])
     }
+  }
+  ForgetPassword() {
+    this.router.navigate([`${this.clinicID}/forgetPassword`]);
   }
 
 }

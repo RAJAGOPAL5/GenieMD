@@ -22,6 +22,11 @@ signInUser(email: string, password: string) {
 signUp(payload:any) {
   return this.http.put('Email/SignUp/', payload);
 }
-
-
+forgetPassword(email: string) {
+  const param = {
+    emailAddress: email,
+    appName: ''
+  };
+  return this.http.post('Email/ResetPassword', param);
+}
 }

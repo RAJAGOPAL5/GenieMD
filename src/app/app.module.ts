@@ -13,10 +13,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MyHttpInterceptor } from './shared/interceptors/interceptor';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
 import { LandingComponent } from './pages/landing/landing.component';
 import { FormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -36,9 +36,9 @@ import { FormsModule } from '@angular/forms';
     NgbModule,
     NgbAlertModule,
     HttpClientModule,
-    NgxSpinnerModule,
+    ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    NgxSpinnerModule,
   ],
   providers: [
     {
