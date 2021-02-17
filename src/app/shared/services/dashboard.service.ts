@@ -12,6 +12,9 @@ export class DashboardService {
   }
   getWeight(userID: any, fromDate: any, toDate: any) {
     return this.http.get(`Vitals/List/${userID}/6/${fromDate}/${toDate}`)
+  }
+  getProfile(userId){
+    return this.http.get(`Profile/${userId}`)
 
   }
 }
