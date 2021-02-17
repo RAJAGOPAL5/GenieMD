@@ -126,16 +126,16 @@
               </div>
               <div class="col-md-12">
                 <div class="form-group text-title">
-                  <label for="state"><span class="error-class">*</span> Morbidity</label>
+                  <label for="state"><span class="error-class"></span> Morbidity</label>
                   <!-- <input type="text" class="form-control text-title" id="state" placeholder="" formControlName="state"
                     [ngClass]="{ 'is-invalid': registerSubmit && g.state.errors,'border-danger':registerSubmit && g.state.errors }"> -->
                     <select class="text-dd form-control text-title border-none-drop-down" formControlName="morbidity">
                       <option value="" disabled>Morbidity</option>
-                      <option *ngFor="let item of morbidityDisease" [value]="item.id">{{item?.name}}
+                      <option *ngFor="let item of morbidityDisease" [value]="item.name">{{item?.name}}
                       </option>
                   </select>
-                  <div *ngIf="registerSubmit && g.languageId.errors" class="invalid-feedback display-block">
-                    <div *ngIf="g.languageId.errors.required">Morbidity is required</div>
+                  <div *ngIf="registerSubmit && g.morbidity.errors" class="invalid-feedback display-block">
+                    <div *ngIf="g.morbidity.errors.required">Morbidity is required</div>
                   </div>
                 </div>
               </div>
@@ -202,6 +202,7 @@
               </div>
             </div>
           </ng-container>
+          
           <div  *ngIf="addressType == 1" class="col-md-12">
               <div class = "float-left">
                   <ui-switch ></ui-switch>
