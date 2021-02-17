@@ -12,6 +12,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MyHttpInterceptor } from './shared/interceptors/interceptor';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
     NgbModule,
     NgbAlertModule,
     HttpClientModule,
+    NgxSpinnerModule
   ],
   providers: [
     {

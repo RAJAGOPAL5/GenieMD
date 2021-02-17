@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PatientsService } from 'src/app/shared/services/patients.service';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-patients',
@@ -20,7 +21,7 @@ export class PatientsComponent implements OnInit {
   showPatient = false;
   searchText: any;
 
-  constructor(private patientService: PatientsService ) { }
+  constructor(private patientService: PatientsService, private spinner: NgxSpinnerService ) { }
 
   ngOnInit() {
     this.mySubject.pipe(debounceTime(1000))
@@ -38,7 +39,7 @@ export class PatientsComponent implements OnInit {
           };
 
 
-          // this.spinner.show();
+          this.spinner.show();
           this.patientService.getPatients(payload).subscribe((data:any) => {
             this.patientFullList = true;
             this.totalPatient = data.clinicPatientList;
@@ -56,14 +57,14 @@ export class PatientsComponent implements OnInit {
                 // item.dob = '';
               }
             });
-            // this.spinner.hide()
+            this.spinner.hide()
             this.totalPatient = this.totalPatient.sort((a, b) => {
 
               return 0;
             });
             this.patientlist = this.totalPatient;
           }, error => {
-            // this.spinner.hide();
+            this.spinner.hide();
             // this.toaster.error('Failed to search patient');
           });
         }
