@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChild('spoChart') mychart1: any;
   @ViewChild('weightChart') mychart2: any;
   @ViewChild('totalChart') mychart3: any;
+  patientSelected: any;
 
   constructor(private dashboardService: DashboardService, private route: ActivatedRoute) { }
   active = 1;
@@ -139,7 +140,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
 
   }
-  getBloodPerssure(fromDate,toDate) {
+  getBloodPerssure(fromDate: any, toDate: any) {
     this.dashboardService.getBloodPressure(this.userID,fromDate,toDate).subscribe((data: any) => {
       console.log(data)
       if (data.vitalsList.length) {
@@ -158,6 +159,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       console.log(this.BPChart.data.dataset)
       this.BPChart.update();
     })
+  }
+  selectedPatient(result: string) {
+    this.patientSelected = result;
   }
   getWeight(fromDate,toDate){
     this.dashboardService.getWeight(this.userID,fromDate,toDate).subscribe((data: any) => {

@@ -10,6 +10,8 @@ import {TabsModule} from 'ngx-tabset';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddPatientComponent } from './patients/add-patient/add-patient.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   declarations: [DashboardComponent, PatientsComponent, AddPatientComponent],
@@ -21,8 +23,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     SharedModule,TabsModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
-    UiSwitchModule
-
+    UiSwitchModule,
+    AvatarModule,
   ]
 })
 export class DashboardModule { }

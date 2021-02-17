@@ -5,25 +5,36 @@
         </div>
         <div class="input-group " style="width:100%;">
             <input type="search" class="form-control list-group-flush" placeholder="Search for a patient" name="searchText"
-            autocomplete="off"  ngModel="searchText"  (change)="onSearchChange()">
+            autocomplete="off"  [(ngModel)]="searchText"  (change)="onSearchChange()">
             <div class="input-group-append pheight" >
                 <button class="btn btn-secondary color-black" type="button"> <img src="assets/img/Patients.png"></button>
             </div>
         </div>
-        <div  *ngIf="patientFullList">
-            <div class="row p-2 div_hover">
-                <div class="col-2">
-                    <img src="assets/img/avatar.png" style="height: 50px;">
+        <div *ngIf="patientFullList">
+            <li class="list-group-item" (click)="selectedPatient(patient)" *ngFor="let patient of patientlist">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-lg-3 p-3">
+                        <ngx-avatar name="{{patient?.firstName}}{{patient?.lastName}}" src="{{patient?.imageUrl}}">
+                        </ngx-avatar>
+                    </div>
+                    <div class="col-md-8 col-sm-6 col-lg-9 pt-4">
+                        <div>
+                            {{patient?.firstName}} {{patient?.lastName}}
+                        </div>
+                        <!-- <div class="row">
+                            {{patient?.dob}}
+                        </div>
+                        <div class="row">
+                            {{patient?.email}}
+                        </div>
+                        <div class="row">
+                            {{patient?.phoneNumber}}
+                        </div> -->
+                    </div>
                 </div>
-                <div class="col-5 John">
-                    John Doe
-                </div>
-                <div class="col-5 text-right">
-                  <p class="red"></p>
-                </div>
-            </div>
+            </li>
         </div>
     </div>
-    
+
     
 </table>

@@ -4,8 +4,15 @@ import { AddPatientComponent } from './add-patient/add-patient.component';
 import { PatientsService } from 'src/app/shared/services/patients.service';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { DataService } from 'src/app/shared/services/data.service';
+import { ActivatedRoute, Router, Routes } from '@angular/router';
+import { ContentLayoutComponent } from 'src/app/layouts/content-layout/content-layout.component';
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
+import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
 import { ClinicService } from 'src/app/shared/services/clinic.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-patients',
@@ -13,7 +20,7 @@ import { ClinicService } from 'src/app/shared/services/clinic.service';
   styleUrls: ['./patients.component.scss']
 })
 export class PatientsComponent implements OnInit {
-  searchValue = {'firstName':'', 'lastName': '', 'gender':'', 'dob':''};
+  searchValue = { 'firstName': '', 'lastName': '', 'gender': '', 'dob': '' };
   mySubject = new Subject();
   patientlist: any;
   totalPatient = [];
@@ -22,18 +29,29 @@ export class PatientsComponent implements OnInit {
   pageSize = 20;
   patientFullList = false;
   showPatient = false;
-  searchText: any;
+  searchText = '';
   clinicID: any;
   userID: any;
-  clinic:any;
+  clinic: any;
+  patientProfile: any;
+  patientProfileView = false;
+  patientAvatar: any;
+  patientName: string | undefined;
+  patientGender: string | undefined;
+  @Output() result: EventEmitter<any> = new EventEmitter();
+  value: any;
+  activatedRoute: any;
+  patientSelected: any;
 
-  constructor(private route: ActivatedRoute, private patientService: PatientsService, private modalService: NgbModal,
-    private clinicService: ClinicService ) { }
+  constructor(private patientService: PatientsService, private dataService: DataService,
+    private router: Router, private route: ActivatedRoute, private modalService: NgbModal,
+    private clinicService: ClinicService, private spinner: NgxSpinnerService) { }
+
 
   ngOnInit() {
     this.route.params.subscribe((res: any) => {
       console.log('res', res);
-      this.clinicID = res.clinicID ;
+      this.clinicID = res.clinicID;
       this.userID = res.userID;
     })
     this.mySubject.pipe(debounceTime(1000))
@@ -43,16 +61,16 @@ export class PatientsComponent implements OnInit {
           this.totalPatient = []
         } else {
           const payload = {
-            
-            clinicID: this.clinicID ,
-            name: "test",
-            providerID:"",
-            userID:this.userID,
+
+            clinicID: this.clinicID,
+            name: this.searchText,
+            providerID: "",
+            userID: this.userID,
           };
 
 
           // this.spinner.show();
-          this.patientService.getPatients(payload).subscribe((data:any) => {
+          this.patientService.getPatients(payload).subscribe((data: any) => {
             this.patientFullList = true;
             this.patientlist = data.clinicPatientList;
             // this.spinner.hide()
@@ -66,9 +84,65 @@ export class PatientsComponent implements OnInit {
           });
         }
       });
+    this.getClinicInfo();
+
   }
-  onSearchChange(){
+  onSearchChange() {
     this.mySubject.next();
+  }
+  selectedPatient(patient: any) {
+    this.patientSelected = patient;
+    this.result.emit(this.patientSelected);
+    console.log("patient", this.patientSelected)
+    this.patientlist.map((data: any) => {
+      data.isSelected = false;
+    })
+    this.dataService.updateSelectedStatus(true);
+    const userPayload = {
+      userID: this.userID,
+      clinicID: this.clinicID,
+      patientID: localStorage.getItem('rpmSelectedSubClinic'),
+    };
+    localStorage.setItem('rpmSelectedSubClinic', patient.patientID)
+    this.patientService.getPatient(userPayload).subscribe((res: any) => {
+      this.patientProfile = res;
+      this.patientProfileView = true;
+      localStorage.setItem('patientProfile', 'true');
+      localStorage.setItem('rpmSelectedSubClinic', res.userID);
+      if (this.patientProfileView) {
+        this.patientAvatar = this.patientProfile.imageUrl;
+        this.patientName = this.patientProfile.firstName + '' + this.patientProfile.lastName;
+        if (this.patientProfile && this.patientProfile.gender == 0) {
+          this.patientGender = 'Male';
+        } else if (this.patientProfile && this.patientProfile.gender == 1) {
+          this.patientGender = 'Female';
+        } else if (this.patientProfile && this.patientProfile.gender == 2) {
+          this.patientGender = 'Other';
+        } else {
+          this.patientGender = '';
+        }
+      }
+    })
+  }
+  goBackToPatients() {
+    this.patientProfileView = false;
+  }
+
+
+  getClinicInfo() {
+    const payload = {
+      userID: this.userID,
+      clinicID: this.clinicID
+    };
+    if (payload.userID && payload.clinicID) {
+      this.clinicService.find(this.clinicID).subscribe((res: any) => {
+        this.clinic = res;
+        console.log('sdfsdfs', this.clinic)
+        // this.clinicConfig = JSON.parse(this.clinic.clinicConfig);
+        // this.clinicService.clinicData = this.clinicConfig;
+        // this.amount = this.clinicConfig.config ? this.clinicConfig.config.payment.asyncCharge : this.clinicConfig.payment.asyncCharge;
+      });
+    }
   }
 
   addPatient() {
@@ -85,4 +159,4 @@ export class PatientsComponent implements OnInit {
     });
   }
 }
-  
+

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
@@ -13,10 +13,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MyHttpInterceptor } from './shared/interceptors/interceptor';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
 import { LandingComponent } from './pages/landing/landing.component';
 import { FormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   declarations: [
@@ -30,14 +31,16 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
+    NgbPaginationModule,
     AppRoutingModule,
     FormsModule,
     NgbModule,
     NgbAlertModule,
     HttpClientModule,
-    NgxSpinnerModule,
+    ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    NgxSpinnerModule,
+    AvatarModule,
   ],
   providers: [
     {

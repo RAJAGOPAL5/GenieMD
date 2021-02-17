@@ -12,4 +12,7 @@ export class PatientsService {
   getPatients(payload: { clinicID: string; name: string; providerID: string; userID: string; }) {
     return this.http.post(`Clinics/PatientList`, payload);
   }
+  getPatient(payload: { userID: any; clinicID: any; patientID: any; }) {
+    return this.http.get(`Clinics/ClinicPatient/` + payload.userID + `/` + payload.clinicID + `/` + payload.patientID);
+  }
 }
