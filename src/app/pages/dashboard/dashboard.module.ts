@@ -10,6 +10,7 @@ import {TabsModule} from 'ngx-tabset';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddPatientComponent } from './patients/add-patient/add-patient.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [DashboardComponent, PatientsComponent, AddPatientComponent],

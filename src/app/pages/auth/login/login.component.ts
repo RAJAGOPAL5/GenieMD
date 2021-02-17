@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProfileService } from 'src/app/shared/services/profile.service';
 import { ClinicService } from 'src/app/shared/services/clinic.service';
@@ -22,8 +23,10 @@ export class LoginComponent implements OnInit {
   clinicConfig: any;
   title: any;
   userID: any;
-  constructor(private authService: AuthService, private router: Router,
-              private route: ActivatedRoute, private profileService: ProfileService, private clinicService: ClinicService) { }
+  constructor(
+    private authService: AuthService, private router: Router,
+    private route: ActivatedRoute, private profileService: ProfileService,
+    private clinicService: ClinicService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     console.log(this.clinicService.config);
@@ -39,7 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    // this.spinner.show();
+    this.spinner.show();
     this.authService.signInUser(this.user.email, this.user.password).subscribe((res: any) => {
       this.profileService.getUser(res.userID).subscribe((profile: any) => {
 
@@ -49,14 +52,14 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('rpmUserEmail', this.user.email);
         } else {
           console.log('Login failed');
-          // this.spinner.hide();
+          this.spinner.hide();
           // this.toastrService.warning('Sorry, You don\'t have access to this portal');
         }
       });
     }, (err) => {
       console.log(err, 'err');
       // this.toastrService.error('Login failed. Check your credentials and try again.');
-      // this.spinner.hide();
+      this.spinner.hide();
     });
     if(this.user.email && this.user.password){
       this.router.navigate([`dashboard/:${this.userID}/${this.clinicID}`])
