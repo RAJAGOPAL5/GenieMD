@@ -203,11 +203,18 @@
             </div>
           </ng-container>
           
-          <div  *ngIf="addressType == 1" class="col-md-12">
-              <div class = "float-left">
-                  <ui-switch ></ui-switch>
-              </div>
-          </div> 
+          <div  *ngIf="addressType == 1" class="row">
+
+
+            <div class="form-group text-title col-md-3">
+              <label for="state"><span class="error-class pl-3"></span> Monitor</label>             
+            </div>
+            <div class = "float-left col-md-6">
+              <ui-switch ></ui-switch>
+          </div>
+
+             
+          </div>
            
         <div class="row m-2 float-right pb-3">
             <button class="btn btn-danger w-130" (click)="closeModal()">Cancel</button>      
