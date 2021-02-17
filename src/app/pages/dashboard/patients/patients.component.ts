@@ -41,6 +41,7 @@ export class PatientsComponent implements OnInit {
   @Output() result: EventEmitter<any> = new EventEmitter();
   value: any;
   activatedRoute: any;
+  patientSelected: any;
 
   constructor(private patientService: PatientsService, private dataService: DataService,
     private router: Router, private route: ActivatedRoute, private modalService: NgbModal,

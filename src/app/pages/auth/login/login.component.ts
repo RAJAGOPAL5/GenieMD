@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.spinner.show();
     this.authService.signInUser(this.user.email, this.user.password).subscribe((res: any) => {
+      this.spinner.hide();
       this.profileService.getUser(res.userID).subscribe((profile: any) => {
 
         if (profile.providerStatus !== 'P') {
