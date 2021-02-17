@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgbModal, NgbModalRef, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as Chart from 'chart.js';
 import * as moment from 'moment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChild('weightChart') mychart2: any;
   @ViewChild('totalChart') mychart3: any;
 
-  constructor(private dashboardService: DashboardService) { }
+  constructor(private dashboardService: DashboardService, private route: ActivatedRoute) { }
   active = 1;
   BPcanvas: any;
   Spo2canvas: any;
@@ -30,7 +31,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   Spo2Chart:any
   myChart2:any
   weightChart:any
-  
+  userID: any;
   ngOnInit(): void {
     this.duration = 'all';
     this.timeduration = [
@@ -42,6 +43,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       { title: 'All', val: 'all', class: '' }];
       const fromDate = moment('1900-02-01').valueOf();
       const toDate = moment().add(1, 'days').valueOf();
+      this.route.params.subscribe(item => {
+        this.userID = item.userID;
+      });
     this.getBloodPerssure(fromDate,toDate)
     this.getWeight(fromDate, toDate)
   }
@@ -136,7 +140,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   }
   getBloodPerssure(fromDate,toDate) {
-    this.dashboardService.getBloodPressure(fromDate,toDate).subscribe((data: any) => {
+    this.dashboardService.getBloodPressure(this.userID,fromDate,toDate).subscribe((data: any) => {
       console.log(data)
       if (data.vitalsList.length) {
         this.BPChart.data.labels = data.vitalsList.map((i: any) => {
@@ -156,7 +160,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     })
   }
   getWeight(fromDate,toDate){
-    this.dashboardService.getWeight(fromDate,toDate).subscribe((data: any) => {
+    this.dashboardService.getWeight(this.userID,fromDate,toDate).subscribe((data: any) => {
       if (data.vitalsList.length) {
         this.weightChart.data.labels = data.vitalsList.map((i: any) => {
           return moment(i.vitalDate).format("DD-MM-YYYY")
