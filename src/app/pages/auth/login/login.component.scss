@@ -2,7 +2,7 @@
     margin-top: 20px;
 }
 .right {
-    position:relative;
+    position: absolute;;
     font-size: .9em;
     background: #fff;
     border: 1px solid #86d0cb;
@@ -103,6 +103,7 @@ input:focus {
 .d-block {
     display: block!important;
     font-family: Muli, sans-serif !important;
+    font-size: 1.2em !important;
 }
 .text-link {
     color: #5a60aa!important;
