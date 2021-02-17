@@ -15,6 +15,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   declarations: [DashboardComponent, PatientsComponent, AddPatientComponent],
   imports: [
     NgbModule,
+    FormsModule,
     CommonModule,
     DashboardRoutingModule,
     SharedModule,TabsModule.forRoot(),
