@@ -15,6 +15,5 @@ export class DashboardService {
   }
   getProfile(userId){
     return this.http.get(`Profile/${userId}`)
-
   }
 }

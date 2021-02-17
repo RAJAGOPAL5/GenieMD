@@ -4,7 +4,7 @@
         <div class="col-2 border-right" >
             <app-patients (result)='selectedPatient($event)'></app-patients>
         </div>
-        <div class="col-10" *ngIf="patientSelected">
+        <div class="col-10" *ngIf="patient">
             <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
                 <li [ngbNavItem]="1">
                     <a ngbNavLink>Vitals</a>
@@ -217,14 +217,15 @@
                                         First</td>
                                     <td id="patientName"
                                         style="font-size: 18px; font-weight: 100 !important; padding-left: 70px;">
-                                        Singara
+                                        {{patient?.firstName}}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td scope="row" style="width: 50%; font-size: 18px; font-weight: 100 !important">
                                         Last Name </td>
                                     <td id="patientGender"
-                                        style="font-size: 18px; font-weight: 100 !important; padding-left: 70px;">Vel
+                                        style="font-size: 18px; font-weight: 100 !important; padding-left: 70px;">
+                                        {{patient?.lastName}}
                                     </td>
                                 </tr>
                                 <tr class="green">
@@ -233,7 +234,7 @@
                                     </td>
                                     <td id="patientDOB"
                                         style="font-size: 18px; font-weight: 100 !important; padding-left: 70px;">
-                                        01/01/2020
+                                        {{patient?.dob}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -248,7 +249,7 @@
                                         Email </td>
                                     <td id="patientPhone"
                                         style="font-size: 18px; font-weight: 100 !important; padding-left: 70px;">
-                                        test@yopmail.com
+                                        {{patient?.email}}
                                     </td>
                                 </tr>
                                 <tr>

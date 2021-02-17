@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   constructor(private dashboardService: DashboardService, private route: ActivatedRoute) { }
   active = 1;
+  patient: any;
   BPcanvas: any;
   Spo2canvas: any;
   Weightcanvas: any;
@@ -46,9 +47,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       const toDate = moment().add(1, 'days').valueOf();
       this.route.params.subscribe(item => {
         this.userID = item.userID;
+        this.getBloodPerssure(fromDate,toDate)
+        this.getWeight(fromDate, toDate)
       });
-    this.getBloodPerssure(fromDate,toDate)
-    this.getWeight(fromDate, toDate)
   }
   ngAfterViewInit(): void {
     // this.BPcanvas = this.mychart.nativeElement.getContext('2d');
@@ -161,7 +162,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     })
   }
   selectedPatient(result: string) {
-    this.patientSelected = result;
+    this.patient = result;
   }
   getWeight(fromDate,toDate){
     this.dashboardService.getWeight(this.userID,fromDate,toDate).subscribe((data: any) => {
@@ -196,6 +197,5 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     console.log(fromDate, toDate)
     this.getBloodPerssure(fromDate,toDate)
     this.getWeight(fromDate,toDate)
-
   }
 }
