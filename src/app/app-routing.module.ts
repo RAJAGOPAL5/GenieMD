@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
+import { PatientsComponent } from './pages/dashboard/patients/patients.component';
 import { authRoutes } from './shared/routes/auth-routes';
 import { layoutRoutes } from './shared/routes/layout-routes';
 
@@ -10,7 +11,7 @@ const routes: Routes = [
   //   path: ':clinicID', component: FullLayoutComponent, data: { title: 'content Views' }, children: authRoutes
   // },
   {
-    path: 'dashboard/:clinicID/:userID', component: ContentLayoutComponent ,  data: { title: 'full Views' }, children: layoutRoutes,
+    path: 'dashboard/:clinicID/:userID',  component: ContentLayoutComponent ,  data: { title: 'full Views' }, children: layoutRoutes,
   },
 
 ];

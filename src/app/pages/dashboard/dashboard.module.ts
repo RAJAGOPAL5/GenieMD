@@ -7,6 +7,7 @@ import { PatientsComponent } from './patients/patients.component';
 
 import {TabsModule} from 'ngx-tabset';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   declarations: [DashboardComponent, PatientsComponent],
@@ -14,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
     CommonModule,
     DashboardRoutingModule,
+    AvatarModule,
     SharedModule,TabsModule.forRoot()
   ]
 })

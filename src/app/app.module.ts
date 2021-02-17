@@ -11,7 +11,7 @@ import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MyHttpInterceptor } from './shared/interceptors/interceptor';
-
+import { AvatarModule } from 'ngx-avatar';
 
 
 
@@ -29,7 +29,8 @@ import { MyHttpInterceptor } from './shared/interceptors/interceptor';
     NgbModule,
     NgbAlertModule,
     HttpClientModule,
-    
+    AvatarModule,
+ 
 
 
 

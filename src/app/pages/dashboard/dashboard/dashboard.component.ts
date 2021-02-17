@@ -6,12 +6,16 @@ import { NgbModal, NgbModalRef, NgbActiveModal } from '@ng-bootstrap/ng-bootstra
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  patientSelected: any;
 
   constructor() { }
   active = 1;
 
 
   ngOnInit(): void {
+  }
+  selectedPatient(result: string) {
+    this.patientSelected = result;
   }
 
 }
