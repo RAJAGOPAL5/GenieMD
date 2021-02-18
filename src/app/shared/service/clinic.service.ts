@@ -10,7 +10,6 @@ export class ClinicService {
     throw new Error('Method not implemented.');
   }
   clinic: any = {};
-  id: string = '';
   private cliniConfig: any = {};
   constructor(
     private http: HttpClient
@@ -20,12 +19,16 @@ export class ClinicService {
     return this.cliniConfig;
   }
 
+  get id() {
+    return localStorage.getItem('clinicId');
+  }
+
   find(id: string): any {
     return this.http.get<any>(`Clinics/${id}`)
     .pipe(
       map(project => {
         this.clinic = project;
-        this.id = id;
+        localStorage.setItem('clinicId', id);
         try {
           this.cliniConfig = JSON.parse(this.clinic.clinicConfig)
         } catch (error) {
