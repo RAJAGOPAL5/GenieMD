@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import { NbLayoutModule, NbSidebarModule, NbTabsetModule, NbThemeModule } from '@nebular/theme';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -21,7 +21,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     SharedModule,
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'default' }),
-    NbEvaIconsModule
+    NbEvaIconsModule,
+    NbSidebarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
