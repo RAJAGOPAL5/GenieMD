@@ -3,8 +3,7 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-<<<<<<< Updated upstream
-import { NbCardModule, NbLayoutModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
+import { NbCardModule, NbDialogModule, NbInputModule, NbLayoutModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -15,30 +14,19 @@ import { HistoryComponent } from './pages/patients/history/history.component';
 import { ProfileComponent } from './pages/patients/profile/profile.component';
 import { AlertsComponent } from './pages/patients/alerts/alerts.component';
 import { VisitsComponent } from './pages/patients/visits/visits.component';
-=======
-import { NbCardModule, NbDialogModule, NbInputModule, NbLayoutModule, NbMenuModule, NbSidebarModule, NbTabsetModule, NbThemeModule } from '@nebular/theme';
-import { SharedModule } from './shared/shared.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ClinicPromptComponent } from './shared/components/clinic-prompt/clinic-prompt.component';
 import { FormsModule } from '@angular/forms';
-
->>>>>>> Stashed changes
-
 
 @NgModule({
   declarations: [
     AppComponent,
-<<<<<<< Updated upstream
     VitalsComponent,
     CareTeamComponent,
     HistoryComponent,
     ProfileComponent,
     AlertsComponent,
-    VisitsComponent
-=======
+    VisitsComponent,
     ClinicPromptComponent
->>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
@@ -54,7 +42,6 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'default' }),
     NbEvaIconsModule,
-<<<<<<< Updated upstream
     NbCardModule,
     NbRouteTabsetModule,
     HttpClientModule
@@ -67,13 +54,7 @@ import { FormsModule } from '@angular/forms';
     },
     Title
   ],
-  bootstrap: [AppComponent]
-=======
-    FormsModule
-  ],
-  providers: [],
   bootstrap: [AppComponent],
   entryComponents: [ClinicPromptComponent]
->>>>>>> Stashed changes
 })
 export class AppModule { }
