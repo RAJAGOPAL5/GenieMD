@@ -5,7 +5,7 @@ import { PatientsModule } from './patients/patients.module';
 
 const routes: Routes = [
   {
-    path: 'patient',
+    path: 'patients',
     component: IndexComponent,
     loadChildren: () => import('./patients/patients.module').then(m => PatientsModule)
   }

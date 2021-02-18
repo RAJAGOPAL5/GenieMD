@@ -11,7 +11,7 @@ export class IndexComponent implements OnInit {
     {
       title: 'Patients',
       icon: 'people-outline',
-      link: '/vitals'
+      link: '/patients'
     }
   ];
   constructor(
