@@ -1,3 +1,4 @@
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -7,6 +8,7 @@ import { NbCardModule, NbLayoutModule, NbMenuModule, NbRouteTabsetModule, NbSide
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { MyHttpInterceptor } from './shared/interceptors/interceptor';
 import { VitalsComponent } from './pages/patients/vitals/vitals.component';
 import { CareTeamComponent } from './pages/patients/care-team/care-team.component';
 import { HistoryComponent } from './pages/patients/history/history.component';
@@ -38,9 +40,16 @@ import { VisitsComponent } from './pages/patients/visits/visits.component';
     NbEvaIconsModule,
     NbCardModule,
     NbRouteTabsetModule,
-
+    HttpClientModule
   ],
-  providers: [Title],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyHttpInterceptor,
+      multi: true,
+    },
+    Title
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
