@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SharedModule } from '../shared/shared.module';
 import { IndexComponent } from './index/index.component';
-import { NbButtonModule, NbCardModule, NbFormFieldModule, NbIconModule, NbInputModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbFormFieldModule, NbIconModule, NbInputModule, NbSpinnerModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { FormsModule } from '@angular/forms';
 
@@ -23,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     NbButtonModule,
     NbIconModule,
-    NbFormFieldModule
+    NbFormFieldModule,
+    NbSpinnerModule
   ]
 })
 export class AuthModule { }
