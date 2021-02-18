@@ -3,6 +3,9 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
+import { Component } from '@angular/core';
+import { ClinicPromptComponent } from './shared/components/clinic-prompt/clinic-prompt.component';
+import { NbDialogService } from '@nebular/theme';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -33,4 +36,10 @@ export class AppComponent implements OnInit {
     }
   }
 
+}
+  constructor(private dialogService: NbDialogService) {
+  }
+open() {
+  this.dialogService.open(ClinicPromptComponent);
+  }
 }
