@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
 import { SharedModule } from './shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 
 @NgModule({
@@ -16,7 +18,10 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     NbThemeModule.forRoot(),
     NbLayoutModule,
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule,
+    NbThemeModule.forRoot({ name: 'default' }),
+    NbEvaIconsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
