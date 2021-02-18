@@ -17,7 +17,7 @@
                         placeholder="Enter your password" name="password" [(ngModel)]="model.password">
                 </nb-form-field>
             </div>
-            <button nbButton hero status="primary" type="submit">Log in</button>
+            <button nbButton hero status="primary" type="submit" [disabled]="!model.password || !model.username">Log in</button>
         </nb-card-body>
     </nb-card>
 </form>
