@@ -17,13 +17,7 @@ export class ClinicConfigResolver implements Resolve<boolean> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    console.log(route.paramMap);
-    // const id = route.paramMap.get('clinicID') || '';
-    if (localStorage.getItem('clinicId')) {
-      this.id = localStorage.getItem('clinicId');
-    } else {
-      this.id = '';
-    }
-    return this.clinicService.find(this.id);
+    const id = localStorage.getItem('clinicId') || '';
+    return this.clinicService.find(id);
   }
 }
