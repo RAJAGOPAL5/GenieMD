@@ -5,7 +5,7 @@ import { PatientsRoutingModule } from './patients-routing.module';
 import { ListComponent } from './list/list.component';
 import { UpsertComponent } from './upsert/upsert.component';
 import { IndexComponent } from './index/index.component';
-import { NbCardModule, NbListModule, NbRouteTabsetModule, NbTabsetModule, NbUserModule } from '@nebular/theme';
+import { NbCardModule, NbFormFieldModule, NbInputModule, NbListModule, NbRouteTabsetModule, NbTabsetModule, NbUserModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -17,7 +17,9 @@ import { NbCardModule, NbListModule, NbRouteTabsetModule, NbTabsetModule, NbUser
     NbUserModule,
     NbListModule,
     NbTabsetModule,
-    NbRouteTabsetModule
+    NbRouteTabsetModule,
+    NbFormFieldModule,
+    NbInputModule
   ]
 })
 export class PatientsModule { }

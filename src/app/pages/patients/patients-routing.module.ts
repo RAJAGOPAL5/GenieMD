@@ -9,29 +9,31 @@ import { VitalsComponent } from './vitals/vitals.component';
 const routes: Routes = [
   {
     path: '',
-    component: IndexComponent
-  },
-  {
-    path: 'vitals',
-    component: VitalsComponent,
-    data: {title: 'Vitals'}
-  },
-  {
-    path: 'care-team',
-    component: CareTeamComponent,
-    data: {title: 'Care-Team'}
-  },
-  {
-    path: 'history',
-    component: HistoryComponent,
-    data: {title: 'History'}
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-    data: {title: 'Profile'}
+    component: IndexComponent,
+    children: [
+      {
+        path: ':patientId',
+        component: ProfileComponent,
+        children: [
+          {
+            path: 'vitals',
+            component: VitalsComponent,
+            data: { title: 'Vitals' }
+          },
+          {
+            path: 'care-team',
+            component: CareTeamComponent,
+            data: { title: 'Care-Team' }
+          },
+          {
+            path: 'history',
+            component: HistoryComponent,
+            data: { title: 'History' }
+          }
+        ]
+      }
+    ]
   }
-
 ];
 
 @NgModule({
