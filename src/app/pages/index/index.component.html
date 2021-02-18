@@ -1,16 +1,13 @@
-    <nb-layout>
-      <nb-layout-header fixed>
-        Header
-      </nb-layout-header>
-      <nb-layout-footer fixed>
-        Footer
-      </nb-layout-footer>
-      <nb-layout-column>
-        Dashboard Coming soon..
-        <router-outlet></router-outlet>
-    
-      </nb-layout-column>
-      <nb-sidebar>
-        Sidebar
-      </nb-sidebar>
-    </nb-layout>
+<nb-layout>
+  <nb-layout-header fixed>
+    <a (click)="toggleSidebar()">
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </a>
+  </nb-layout-header>
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+  <nb-sidebar>
+    <nb-menu [items]="menus"></nb-menu>
+  </nb-sidebar>
+</nb-layout>
