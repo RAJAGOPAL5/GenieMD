@@ -6,7 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
+  tabs = [
+    {
+      title: 'Route tab #1',
+      route: '/pages/description',
+      icon: 'home',
+      responsive: true, // hide title before `route-tabs-icon-only-max-width` value
+    },
+    {
+      title: 'Route tab #2',
+      route: '/pages/images',
+    }
+  ];
   constructor() { }
 
   ngOnInit(): void {

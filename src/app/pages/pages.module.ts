@@ -11,6 +11,7 @@ import { VitalsComponent } from './dashboard/vitals/vitals.component';
 import { ProfileComponent } from './dashboard/profile/profile.component';
 import { CareTeamComponent } from './dashboard/care-team/care-team.component';
 import { HistoryComponent } from './dashboard/history/history.component';
+import { NbRouteTabsetModule} from '@nebular/theme';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { HistoryComponent } from './dashboard/history/history.component';
   imports: [
     CommonModule,
     PagesRoutingModule,
-    SharedModule
+    SharedModule,
+    NbRouteTabsetModule
   ]
 })
 export class PagesModule { }
