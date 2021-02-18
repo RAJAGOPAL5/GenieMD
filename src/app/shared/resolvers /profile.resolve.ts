@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Profile } from 'selenium-webdriver/firefox';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
-import {ProfileService} from '../service/profile.service'
+import { ProfileService } from '../service/profile.service';
 
 @Injectable({
   providedIn: 'root'
