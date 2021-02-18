@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-
+import { ClinicPromptComponent } from './shared/components/clinic-prompt/clinic-prompt.component';
+import { NbDialogService } from '@nebular/theme';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'remote-patient-monitoring';
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
+    private dialogService: NbDialogService,
     private titleService: Title) { }
 
   ngOnInit(): void {
@@ -33,4 +35,7 @@ export class AppComponent implements OnInit {
     }
   }
 
+open() {
+  this.dialogService.open(ClinicPromptComponent);
+  }
 }
