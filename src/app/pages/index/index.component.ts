@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NbMenuItem, NbSidebarService } from '@nebular/theme';
 
 @Component({
   selector: 'app-index',
@@ -6,10 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
-
-  constructor() { }
+  menus: NbMenuItem[] = [
+    {
+      title: 'Patients',
+      icon: 'people-outline',
+      link: '/patients'
+    },
+    {
+      title: 'Logout',
+      icon: 'unlock-outline',
+    },
+  ];
+  constructor(
+    private sidebarService: NbSidebarService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  toggleSidebar() {
+    this.sidebarService.toggle();
   }
 
 }

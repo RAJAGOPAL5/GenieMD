@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NbLayoutModule, NbSidebarModule, NbTabsetModule, NbThemeModule } from '@nebular/theme';
+import { NbLayoutModule, NbMenuModule, NbSidebarModule, NbTabsetModule, NbThemeModule } from '@nebular/theme';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -25,13 +25,13 @@ import { ProfileComponent } from './pages/patients/profile/profile.component';
     BrowserModule,
     AppRoutingModule,
     NbThemeModule.forRoot(),
+    NbSidebarModule.forRoot(),
+    NbMenuModule.forRoot(),
     NbLayoutModule,
     SharedModule,
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'default' }),
     NbEvaIconsModule,
-    NbSidebarModule,
-
   ],
   providers: [Title],
   bootstrap: [AppComponent]

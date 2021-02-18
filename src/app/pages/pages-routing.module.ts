@@ -5,14 +5,16 @@ import { PatientsModule } from './patients/patients.module';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'patients',
     component: IndexComponent,
     loadChildren: () => import('./patients/patients.module').then(m => PatientsModule)
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes),
+  ],
   exports: [RouterModule]
 })
 export class PagesRoutingModule { }
