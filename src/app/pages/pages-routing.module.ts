@@ -7,6 +7,7 @@ const routes: Routes = [
   {
     path: 'patients',
     component: IndexComponent,
+    data:{ title: 'patients'},
     loadChildren: () => import('./patients/patients.module').then(m => PatientsModule)
   }
 ];

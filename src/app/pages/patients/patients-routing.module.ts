@@ -12,10 +12,12 @@ const routes: Routes = [
   {
     path: '',
     component: IndexComponent,
+    data: { title:  'patients'},
     children: [
       {
         path: ':patientId',
         component: ProfileComponent,
+        data: { title:  'patients'},
         children: [
           {
             path: 'vitals',
