@@ -5,12 +5,14 @@ import { IndexComponent } from './index/index.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
+
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {
     path: '',
     component: IndexComponent,
     children: [
       {
-        path: '',
+        path: 'login',
         component: LoginComponent
       },
       {

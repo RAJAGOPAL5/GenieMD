@@ -6,6 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SharedModule } from '../shared/shared.module';
 import { IndexComponent } from './index/index.component';
+import { NbInputModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { IndexComponent } from './index/index.component';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    SharedModule
+    SharedModule,
+    NbInputModule,
+    NbEvaIconsModule
   ]
 })
 export class AuthModule { }

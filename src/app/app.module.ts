@@ -1,3 +1,4 @@
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -7,6 +8,7 @@ import { NbLayoutModule, NbMenuModule, NbSidebarModule, NbTabsetModule, NbThemeM
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { MyHttpInterceptor } from './shared/interceptors/interceptor';
 
 
 @NgModule({
@@ -24,8 +26,15 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'default' }),
     NbEvaIconsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyHttpInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
