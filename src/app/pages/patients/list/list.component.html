@@ -1,15 +1,9 @@
-<nb-card size="large">
-    <nb-card-body>
-        <nb-form-field>
-            <nb-icon nbPrefix icon="search-outline"></nb-icon>
-            <input type="search"  name="searchText" fullWidth status="success" nbInput  [(ngModel)]="searchText" (ngModelChange)="getPatients()">
-        </nb-form-field>
-    </nb-card-body>
+<nb-card size="large" [nbSpinner]="isLoading" > 
     <nb-list>
         <nb-list-item>
             <nb-form-field>
                 <nb-icon nbPrefix icon="search-outline"></nb-icon>
-                <input type="search"  name="searchText" fullWidth status="success" nbInput  [(ngModel)]="searchText" (ngModelChange)="getPatients()">
+                <input type="search"  name="searchText" fullWidth status="success" nbInput  [(ngModel)]="searchText" (ngModelChange)="getData()">
             </nb-form-field>
         </nb-list-item>
         <nb-list-item *ngFor="let user of users">
