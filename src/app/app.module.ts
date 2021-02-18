@@ -13,6 +13,8 @@ import { VitalsComponent } from './pages/patients/vitals/vitals.component';
 import { CareTeamComponent } from './pages/patients/care-team/care-team.component';
 import { HistoryComponent } from './pages/patients/history/history.component';
 import { ProfileComponent } from './pages/patients/profile/profile.component';
+import { AlertsComponent } from './pages/patients/alerts/alerts.component';
+import { VisitsComponent } from './pages/patients/visits/visits.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { ProfileComponent } from './pages/patients/profile/profile.component';
     VitalsComponent,
     CareTeamComponent,
     HistoryComponent,
-    ProfileComponent
+    ProfileComponent,
+    AlertsComponent,
+    VisitsComponent
   ],
   imports: [
     BrowserModule,

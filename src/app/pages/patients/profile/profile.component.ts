@@ -14,19 +14,15 @@ export class ProfileComponent implements OnInit {
     },
     {
       title: 'Alerts',
-      route: '/patients/patientId/Care-Team',
+      route: '/patients/patientId/alerts',
     },
     {
       title: 'Visits',
-      route: '/pages/',
+      route: '/patients/patientId/visits',
     },
     {
       title: 'Care Team',
       route: '/patients/patientId/care-team/',
-    },
-    {
-      title: 'Profile',
-      route: '/pages/',
     },
     {
       title: 'History',

@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AlertsComponent } from './alerts/alerts.component';
 import { CareTeamComponent } from './care-team/care-team.component';
 import { HistoryComponent } from './history/history.component';
 import { IndexComponent } from './index/index.component';
 import { ProfileComponent } from './profile/profile.component';
+import { VisitsComponent } from './visits/visits.component';
 import { VitalsComponent } from './vitals/vitals.component';
 
 const routes: Routes = [
@@ -29,6 +31,16 @@ const routes: Routes = [
             path: 'history',
             component: HistoryComponent,
             data: { title: 'History' }
+          },
+          {
+            path: 'alerts',
+            component: AlertsComponent,
+            data: { title: 'Alerts'}
+          },
+          {
+            path: 'visits',
+            component:VisitsComponent,
+            data: {title: 'Visits'}
           }
         ]
       }
