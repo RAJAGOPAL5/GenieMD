@@ -4,7 +4,10 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
+import { NbDialogService } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { ClinicPromptComponent } from '../components/clinic-prompt/clinic-prompt.component';
 import { ClinicService } from '../service/clinic.service';
 
 @Injectable({
@@ -13,11 +16,17 @@ import { ClinicService } from '../service/clinic.service';
 export class ClinicConfigResolver implements Resolve<boolean> {
   id: any;
   constructor(
-    private clinicService: ClinicService
+    private clinicService: ClinicService,
+    private dialogService: NbDialogService,
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const id = localStorage.getItem('clinicId') || '';
-    return this.clinicService.find(id);
+    return this.clinicService.find(id)
+    .pipe(
+      catchError((error) => {
+        return of(false);
+      })
+    );
   }
 }

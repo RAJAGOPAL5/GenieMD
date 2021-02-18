@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private clinicService: ClinicService
+  ) { }
 
   ngOnInit(): void {
+    console.log(this.clinicService.config);
   }
 
 }

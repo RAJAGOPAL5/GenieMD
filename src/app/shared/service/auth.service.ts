@@ -12,17 +12,17 @@ export class AuthService {
     
 }
 
-signInUser(email: string, password: string) {
+logIn(email: string, password: string) {
   this.user = {
     email,
     password
   };
   return this.http.post('Email/SignIn/', this.user);
 }
-signUp(payload:any) {
+register(payload:any) {
   return this.http.put('Email/SignUp/', payload);
 }
-forgetPassword(email: string) {
+forget(email: string) {
   const param = {
     emailAddress: email,
     appName: ''

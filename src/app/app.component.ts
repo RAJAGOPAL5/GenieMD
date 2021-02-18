@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { ClinicPromptComponent } from './shared/components/clinic-prompt/clinic-prompt.component';
 import { NbDialogService } from '@nebular/theme';
+import { ClinicService } from './shared/service/clinic.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'remote-patient-monitoring';
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     private dialogService: NbDialogService,
+    private clinicService: ClinicService,
     private titleService: Title) { }
 
   ngOnInit(): void {
@@ -27,6 +29,14 @@ export class AppComponent implements OnInit {
       });
     });
   }
+
+  ngAfterViewInit() {
+    const id = this.clinicService.id;
+    if(!id) {
+      this.open();
+    }
+  }
+
   getChild(activatedRoute: ActivatedRoute) {
     if (activatedRoute.firstChild) {
       return this.getChild(activatedRoute.firstChild);
@@ -35,7 +45,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-open() {
-  this.dialogService.open(ClinicPromptComponent);
+  open() {
+    this.dialogService.open(ClinicPromptComponent);
   }
 }
