@@ -6,9 +6,12 @@
                 <input type="search"  name="searchText" fullWidth status="success" nbInput  [(ngModel)]="searchText" (ngModelChange)="getData()">
             </nb-form-field>
         </nb-list-item>
-        <nb-list-item *ngFor="let user of users">
+        <nb-list-item *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
             <nb-user [name]="user.firstName" [title]="user.lastName">
             </nb-user>
+        </nb-list-item>
+        <nb-list-item *ngIf="!users?.length">
+            <p>No patients found. <a [routerLink]="['create']">Create New Patient</a></p>
         </nb-list-item>
     </nb-list>
 </nb-card>
