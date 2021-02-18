@@ -6,7 +6,7 @@
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/utilities";
 @import "~bootstrap/scss/helpers";
-
+@import '~bootstrap/scss/grid';
 
 @include nb-install() {
   @include nb-theme-global();

@@ -12,7 +12,11 @@ export class IndexComponent implements OnInit {
       title: 'Patients',
       icon: 'people-outline',
       link: '/patients'
-    }
+    },
+    {
+      title: 'Logout',
+      icon: 'unlock-outline',
+    },
   ];
   constructor(
     private sidebarService: NbSidebarService
