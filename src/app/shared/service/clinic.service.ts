@@ -6,6 +6,9 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ClinicService {
+  seTitle(title: any) {
+    throw new Error('Method not implemented.');
+  }
   clinic: any = {};
   id: string = '';
   private cliniConfig: any = {};

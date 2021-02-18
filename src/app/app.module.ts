@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -7,11 +7,19 @@ import { NbLayoutModule, NbSidebarModule, NbTabsetModule, NbThemeModule } from '
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { VitalsComponent } from './pages/patients/vitals/vitals.component';
+import { CareTeamComponent } from './pages/patients/care-team/care-team.component';
+import { HistoryComponent } from './pages/patients/history/history.component';
+import { ProfileComponent } from './pages/patients/profile/profile.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    VitalsComponent,
+    CareTeamComponent,
+    HistoryComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -22,9 +30,10 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'default' }),
     NbEvaIconsModule,
-    NbSidebarModule
+    NbSidebarModule,
+
   ],
-  providers: [],
+  providers: [Title],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

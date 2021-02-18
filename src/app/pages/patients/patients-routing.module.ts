@@ -9,24 +9,29 @@ const routes: Routes = [
   {
     path:'',
     redirectTo: 'vitals',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    data: {title: 'vitals'}
   
   },
   {
     path: 'vitals',
-    component: VitalsComponent
+    component: VitalsComponent,
+    data: {title: 'Vitals'}
   },
   {
     path: 'care-team',
-    component: CareTeamComponent
+    component: CareTeamComponent,
+    data: {title: 'Care-Team'}
   },
   {
     path: 'history',
-    component: HistoryComponent
+    component: HistoryComponent,
+    data: {title: 'History'}
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    data: {title: 'Profile'}
   }
 
 ];
