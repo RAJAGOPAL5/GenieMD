@@ -1,6 +1,23 @@
-<!-- <p>login works!</p> -->
-<nb-icon icon="star"></nb-icon>
-<nb-form-field>
-    <nb-icon nbPrefix icon="at-outline" pack="eva"></nb-icon>
-    <input type="text" nbInput>
-</nb-form-field>
+<div class="d-flex align-items-center h-100 justify-content-center">
+    <nb-card class="w-75">
+        <nb-card-body>
+            <div class="mb-3 form-group">
+                <label for="username" class="form-label">Username</label>
+                <nb-form-field>
+                    <nb-icon nbPrefix icon="email-outline"></nb-icon>
+                    <input type="text" class="form-control" nbInput fullWidth shape="rectangle"
+                        placeholder="Enter your username">
+                </nb-form-field>
+            </div>
+            <div class="mb-3 form-group">
+                <label for="password" class="form-label">Password</label>
+                <nb-form-field>
+                    <nb-icon nbPrefix icon="email-outline"></nb-icon>
+                    <input type="password" class="form-control" nbInput fullWidth shape="rectangle"
+                        placeholder="Enter your password">
+                </nb-form-field>
+            </div>
+            <button nbButton hero status="primary" type="submit">Log in</button>
+        </nb-card-body>
+    </nb-card>
+</div>

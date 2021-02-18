@@ -8,6 +8,7 @@
 @import "~bootstrap/scss/helpers";
 @import '~bootstrap/scss/grid';
 @import "~bootstrap/scss/utilities/api";
+@import "~bootstrap/scss/forms";
 
 @include nb-install() {
   @include nb-theme-global();
