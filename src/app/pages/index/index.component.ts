@@ -19,10 +19,11 @@ export class IndexComponent implements OnInit {
     },
   ];
   constructor(
-    private sidebarService: NbSidebarService
+    private sidebarService: NbSidebarService,
   ) { }
 
   ngOnInit(): void {
+
   }
 
   toggleSidebar() {
