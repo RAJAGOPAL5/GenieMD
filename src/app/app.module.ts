@@ -1,55 +1,24 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
-import { NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgModule } from '@angular/core';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
-import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
-import { HeaderComponent } from './layouts/header/header.component';
-import { SidebarComponent } from './layouts/sidebar/sidebar.component';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MyHttpInterceptor } from './shared/interceptors/interceptor';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { LandingComponent } from './pages/landing/landing.component';
-import { FormsModule } from '@angular/forms';
-import { ToastrModule } from 'ngx-toastr';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AvatarModule } from 'ngx-avatar';
+import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ContentLayoutComponent,
-    AuthLayoutComponent,
-    FullLayoutComponent,
-    HeaderComponent,
-    SidebarComponent,
-    LandingComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    NgbPaginationModule,
     AppRoutingModule,
-    FormsModule,
-    NgbModule,
-    NgbAlertModule,
-    HttpClientModule,
-    ToastrModule.forRoot(),
-    BrowserAnimationsModule,
-    NgxSpinnerModule,
-    AvatarModule,
+    NbThemeModule.forRoot(),
+    NbLayoutModule,
+    SharedModule
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MyHttpInterceptor,
-      multi: true,
-    },
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

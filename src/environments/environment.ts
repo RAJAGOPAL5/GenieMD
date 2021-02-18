@@ -3,19 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  base_url: '../ivisit.ComV5.00/resources',
-  // version: require('../../package.json').version,  
-  firebase: {
-    apiKey: 'AIzaSyBxiKmszisvsmboIFucQWeFAu4kqXIXSXg',
-    authDomain: 'ivisit-8b2b4.firebaseapp.com',
-    databaseURL: 'https://ivisit-8b2b4.firebaseio.com',
-    projectId: 'ivisit-8b2b4',
-    storageBucket: 'ivisit-8b2b4.appspot.com',
-    messagingSenderId: '1067108638529'
-  }
+  production: false
 };
-
 
 /*
  * For easier debugging in development mode, you can import the following file

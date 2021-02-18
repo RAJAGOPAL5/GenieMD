@@ -1,19 +1,13 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "cli": {
-    "analytics": "e00fd237-8e6d-49a3-8fb5-08e694cdb7d6"
-  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "rpm": {
+    "remote-patient-monitoring": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
-        },
-        "@schematics/angular:application": {
-          "strict": true
         }
       },
       "root": "",
@@ -23,19 +17,20 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/rpm",
+            "outputPath": "dist/remote-patient-monitoring",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
+            "aot": false,
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/typeface-muli/index.css"
+              "node_modules/@nebular/theme/styles/prebuilt/default.css"
+              
             ],
             "scripts": []
           },
@@ -50,20 +45,22 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
+              "extractCss": true,
               "namedChunks": false,
+              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ]
             }
@@ -72,18 +69,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "rpm:build"
+            "browserTarget": "remote-patient-monitoring:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "rpm:build:production"
+              "browserTarget": "remote-patient-monitoring:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "rpm:build"
+            "browserTarget": "remote-patient-monitoring:build"
           }
         },
         "test": {
@@ -120,16 +117,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "rpm:serve"
+            "devServerTarget": "remote-patient-monitoring:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "rpm:serve:production"
+              "devServerTarget": "remote-patient-monitoring:serve:production"
             }
           }
         }
       }
-    }
-  },
-  "defaultProject": "rpm"
+    }},
+  "defaultProject": "remote-patient-monitoring"
 }
