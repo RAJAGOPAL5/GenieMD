@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PagesRoutingModule } from './pages-routing.module';
 import { IndexComponent } from './index/index.component';
 import { SharedModule } from '../shared/shared.module';
-import { NbIconModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule } from '@nebular/theme';
+import { NbIconModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbUserModule } from '@nebular/theme';
 @NgModule({
   declarations: [IndexComponent],
   imports: [
@@ -13,7 +13,8 @@ import { NbIconModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule } from
     NbRouteTabsetModule,
     NbSidebarModule,
     NbMenuModule,
-    NbIconModule
+    NbIconModule,
+    NbUserModule
   ]
 })
 export class PagesModule { }

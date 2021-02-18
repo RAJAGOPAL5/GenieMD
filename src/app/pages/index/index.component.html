@@ -1,8 +1,13 @@
 <nb-layout>
   <nb-layout-header fixed>
-    <a (click)="toggleSidebar()">
-      <nb-icon icon="menu-2-outline"></nb-icon>
-    </a>
+    <div class="d-flex w-100">
+      <a nbButton ghost (click)="toggleSidebar()">
+        <nb-icon icon="menu-2-outline"></nb-icon>
+      </a>
+      <span class="ms-auto">
+        <nb-user name="John Doe" title="Engineer"></nb-user>
+      </span>
+    </div>
   </nb-layout-header>
   <nb-layout-column>
     <router-outlet></router-outlet>
