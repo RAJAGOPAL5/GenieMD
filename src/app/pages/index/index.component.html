@@ -1,14 +1,13 @@
 <nb-layout>
   <nb-layout-header fixed>
-    Header
+    <a (click)="toggleSidebar()">
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </a>
   </nb-layout-header>
-  <nb-layout-footer fixed>
-    Footer
-  </nb-layout-footer>
   <nb-layout-column>
     <router-outlet></router-outlet>
   </nb-layout-column>
   <nb-sidebar>
-    Sidebar
+    <nb-menu [items]="menus"></nb-menu>
   </nb-sidebar>
 </nb-layout>
