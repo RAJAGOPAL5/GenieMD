@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NbMenuItem, NbSidebarService } from '@nebular/theme';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
 
 @Component({
   selector: 'app-index',
@@ -16,13 +17,17 @@ export class IndexComponent implements OnInit {
     {
       title: 'Logout',
       icon: 'unlock-outline',
+      link: '/auth/login'
     },
   ];
+  logo: string;
   constructor(
-    private sidebarService: NbSidebarService
+    private sidebarService: NbSidebarService,
+    private clinicService: ClinicService,
   ) { }
 
   ngOnInit(): void {
+    this.logo = this.clinicService.config.logo;
   }
 
   toggleSidebar() {
