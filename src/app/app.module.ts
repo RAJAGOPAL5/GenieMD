@@ -21,6 +21,7 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LogoutConfimartionComponent } from './shared/components/logout-confimartion/logout-confimartion.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -48,13 +49,13 @@ import { LogoutConfimartionComponent } from './shared/components/logout-confimar
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'default' }),
     NbEvaIconsModule,
-    NbCardModule,
     NbRouteTabsetModule,
     HttpClientModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     FormsModule,
     NbToastrModule.forRoot(),
-    NbSpinnerModule
+    NbSpinnerModule,
+    ChartsModule
   ],
   providers: [
     {

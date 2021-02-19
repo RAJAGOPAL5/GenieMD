@@ -1,5 +1,12 @@
-<form (ngSubmit)="submit()" class="d-flex align-items-center h-100 justify-content-center">
+<form (ngSubmit)="submit()" class="d-flex align-items-center h-75 justify-content-center">
     <nb-card class="w-75" [nbSpinner]="isLoading">
+        <nb-card-header >
+            <div class="d-flex align-items-center h-100 justify-content-center">
+                <span class="p-2">
+                    LOGIN
+                </span>
+            </div>
+        </nb-card-header>
         <nb-card-body>
             <div class="mb-3 form-group">
                 <label for="username" class="form-label">Username</label>
@@ -18,6 +25,7 @@
                 </nb-form-field>
             </div>
             <button nbButton hero status="primary" type="submit" [disabled]="!model.password || !model.username">Log in</button>
+            <a class="float-end pt-2"  [routerLink]="['../forgot']">Forgot password</a>
         </nb-card-body>
     </nb-card>
 </form>
