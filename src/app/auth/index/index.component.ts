@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-index',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
-
+  version: string = environment.version
   constructor() { }
 
   ngOnInit(): void {
