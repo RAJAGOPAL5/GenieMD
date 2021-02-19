@@ -35,12 +35,13 @@ export class IndexComponent implements OnInit {
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;
     this.registerEvents();
-    console.log('kk',this.version)
   }
 
   registerEvents() {
     this.menuService.onItemClick().subscribe((event) => {
-      this.dialogService.open(LogoutConfimartionComponent);
+      if (event.item.title === 'Logout') {
+        this.dialogService.open(LogoutConfimartionComponent);
+      }
     });
   }
 
