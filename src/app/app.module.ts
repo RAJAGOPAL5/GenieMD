@@ -16,6 +16,7 @@ import { AlertsComponent } from './pages/patients/alerts/alerts.component';
 import { VisitsComponent } from './pages/patients/visits/visits.component';
 import { ClinicPromptComponent } from './shared/components/clinic-prompt/clinic-prompt.component';
 import { FormsModule } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { FormsModule } from '@angular/forms';
     NbEvaIconsModule,
     NbCardModule,
     NbRouteTabsetModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [
     {
@@ -52,7 +54,8 @@ import { FormsModule } from '@angular/forms';
       useClass: MyHttpInterceptor,
       multi: true,
     },
-    Title
+    Title,
+    NgbActiveModal,
   ],
   bootstrap: [AppComponent],
   entryComponents: [ClinicPromptComponent]
