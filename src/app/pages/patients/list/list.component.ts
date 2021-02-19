@@ -25,7 +25,10 @@ export class ListComponent implements OnInit {
       userID: "6c3fc833455843928e84d6717d89642a",
     };
     this.patientService.find(payload).subscribe((data: any) => {
-      this.users = data.clinicPatientList;
+      this.users = data.clinicPatientList.map(item => {
+        item.name = `${item.firstName} ${item.lastName}`.trim();
+        return item;
+      });
       this.isLoading = false;
     }, error => {
       this.isLoading = false;
