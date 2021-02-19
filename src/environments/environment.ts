@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   base_url: '../ivisit.ComV5.00/resources',
-  version: require('../../package.json'),  
+  version:  require('../../package.json').version,    
 };
 
 /*
