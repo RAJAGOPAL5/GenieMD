@@ -1,1 +1,43 @@
-<p>vitals works!</p>
+<nb-card size="giant" style="overflow: auto">
+    <nb-card-header>
+        <div>
+            Time Range
+            <div class="col-md-3">
+                <select class="form-control border-primary" [(ngModel)]="duration" (ngModelChange)="getList($event)">
+                    <option *ngFor="let time of timeduration" value="{{time.val}}" selected>
+                        {{time.title}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-6">
+                <div class="col-12 p-3 w-100 chk-block-content" style="display: block" *ngIf="BPChartShow">
+                    <h4>Blood Pressure</h4>
+                    <canvas baseChart width="300" height="120" [datasets]="BPChartDatasets1" [labels]="BPChartLabels"
+                        [options]="BPChartOptions" [chartType]="weightChartType"></canvas>
+                </div>
+                <div class="col-12 p-3 mb-4" style="display: block" *ngIf="weightChartShow">
+                    <h4>Weight</h4>
+                    <canvas baseChart width="300" height="120" [datasets]="weightChartdatasets"
+                        [labels]="weightChartLabels" [options]="weightChartOptions"
+                        [chartType]="weightChartType"></canvas>
+                </div>
+                <div class="col-12 p-3 mb-4" *ngIf="weightChartShow">
+                    <h4>Spo2</h4>
+                    <canvas baseChart width="300" height="120" [datasets]="spo2ChartData" [labels]="spo2ChartLabels"
+                        [options]="spo2ChartOptions" [chartType]="spo2ChartType"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-12 p-3 mb-4">
+                    <h4>Total</h4>
+                    <canvas baseChart width="400" height="400" chartType="polarArea" [data]="chartData"
+                        [labels]="chartLabels" [legend]="chartLegend"></canvas>
+                </div>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

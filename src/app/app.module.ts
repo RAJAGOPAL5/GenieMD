@@ -16,8 +16,12 @@ import { AlertsComponent } from './pages/patients/alerts/alerts.component';
 import { VisitsComponent } from './pages/patients/visits/visits.component';
 import { ClinicPromptComponent } from './shared/components/clinic-prompt/clinic-prompt.component';
 import { FormsModule } from '@angular/forms';
+import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { environment } from '../environments/environment';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LogoutConfimartionComponent } from './shared/components/logout-confimartion/logout-confimartion.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -47,9 +51,11 @@ import { LogoutConfimartionComponent } from './shared/components/logout-confimar
     NbEvaIconsModule,
     NbRouteTabsetModule,
     HttpClientModule,
+    environment.production ? [] : AkitaNgDevtools.forRoot(),
     FormsModule,
     NbToastrModule.forRoot(),
-    NbSpinnerModule
+    NbSpinnerModule,
+    ChartsModule
   ],
   providers: [
     {
@@ -58,6 +64,7 @@ import { LogoutConfimartionComponent } from './shared/components/logout-confimar
       multi: true,
     },
     Title,
+    { provide: NG_ENTITY_SERVICE_CONFIG, useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' }},
     NgbActiveModal,
   ],
   bootstrap: [AppComponent],

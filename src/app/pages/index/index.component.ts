@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NbDialogService, NbMenuItem, NbMenuService, NbSidebarService } from '@nebular/theme';
 import { LogoutConfimartionComponent } from 'src/app/shared/components/logout-confimartion/logout-confimartion.component';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-index',
@@ -9,6 +10,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
+  version: string = environment.version;
   menus: NbMenuItem[] = [
     {
       title: 'Patients',
@@ -33,6 +35,7 @@ export class IndexComponent implements OnInit {
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;
     this.registerEvents();
+    console.log('kk',this.version)
   }
 
   registerEvents() {
