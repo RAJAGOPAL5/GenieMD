@@ -19,7 +19,7 @@ const routes: Routes = [
       {
         path: 'forgot',
         component: ForgotPasswordComponent,
-        data:{ title:'forgot'},
+        data:{ title:'Forgot Password'},
 
       }
     ]

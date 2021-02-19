@@ -45,7 +45,6 @@ import { LogoutConfimartionComponent } from './shared/components/logout-confimar
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'default' }),
     NbEvaIconsModule,
-    NbCardModule,
     NbRouteTabsetModule,
     HttpClientModule,
     FormsModule,
