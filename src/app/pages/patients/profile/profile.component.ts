@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 
@@ -36,6 +36,8 @@ export class ProfileComponent implements OnInit {
     },
 
   ];
+  patientID: any;
+  patient: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -45,12 +47,28 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
+      this.patientID = params.get('patientId');
+      console.log('patient id',this.patientID);
+      this.getData();
       console.log(params, this.activatedRoute, this.clinicService.config, this.clinicService.clinic);
     });
+
   }
 
   getData() {
-    // this.patientService
-  }
+      const payload = {
+        userID: localStorage.getItem('userID'),
+        clinicID: localStorage.getItem('clinicID'),
+        patientID: this.patientID 
+      }
 
-}
+      this.patientService.findById(payload).subscribe((data: any) => {
+       console.log('data', data);
+       this.patient = data;
+       
+      }, error => {
+        console.log('error');
+  
+      })
+    }
+  }
