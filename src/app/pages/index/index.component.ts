@@ -27,7 +27,7 @@ export class IndexComponent implements OnInit {
     private clinicService: ClinicService,
     private menuService: NbMenuService,
     private dialogService: NbDialogService,
-    
+
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +37,7 @@ export class IndexComponent implements OnInit {
 
   registerEvents() {
     this.menuService.onItemClick().subscribe((event) => {
-    this.dialogService.open(LogoutConfimartionComponent);
+      this.dialogService.open(LogoutConfimartionComponent);
     });
   }
 
