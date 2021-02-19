@@ -16,6 +16,9 @@ import { AlertsComponent } from './pages/patients/alerts/alerts.component';
 import { VisitsComponent } from './pages/patients/visits/visits.component';
 import { ClinicPromptComponent } from './shared/components/clinic-prompt/clinic-prompt.component';
 import { FormsModule } from '@angular/forms';
+import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,8 @@ import { FormsModule } from '@angular/forms';
     NbEvaIconsModule,
     NbCardModule,
     NbRouteTabsetModule,
-    HttpClientModule
+    HttpClientModule,
+    environment.production ? [] : AkitaNgDevtools.forRoot()
   ],
   providers: [
     {
@@ -52,7 +56,8 @@ import { FormsModule } from '@angular/forms';
       useClass: MyHttpInterceptor,
       multi: true,
     },
-    Title
+    Title,
+    { provide: NG_ENTITY_SERVICE_CONFIG, useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' }}
   ],
   bootstrap: [AppComponent],
   entryComponents: [ClinicPromptComponent]
