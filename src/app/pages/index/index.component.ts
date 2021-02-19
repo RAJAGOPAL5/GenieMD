@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NbMenuItem, NbSidebarService } from '@nebular/theme';
+import { NbDialogService, NbMenuItem, NbMenuService, NbSidebarService } from '@nebular/theme';
+import { LogoutConfimartionComponent } from 'src/app/shared/components/logout-confimartion/logout-confimartion.component';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 
 @Component({
@@ -17,17 +18,27 @@ export class IndexComponent implements OnInit {
     {
       title: 'Logout',
       icon: 'unlock-outline',
-      link: '/auth/login'
+      // link: '/auth/login'
     },
   ];
   logo: string;
   constructor(
     private sidebarService: NbSidebarService,
     private clinicService: ClinicService,
+    private menuService: NbMenuService,
+    private dialogService: NbDialogService,
+
   ) { }
 
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;
+    this.registerEvents();
+  }
+
+  registerEvents() {
+    this.menuService.onItemClick().subscribe((event) => {
+      this.dialogService.open(LogoutConfimartionComponent);
+    });
   }
 
   toggleSidebar() {
