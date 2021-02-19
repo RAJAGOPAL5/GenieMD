@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 
 interface ViewModal { 
@@ -35,20 +36,39 @@ export class ProfileComponent implements OnInit {
     },
 
   ];
+  patientID: any;
+  patient: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private patientService: PatientsService
+    private patientService: PatientsService,
+    private clinicService: ClinicService
   ) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       console.log(params, this.activatedRoute);
+      this.patientID = params.get('patientId');
+      console.log('patient id',this.patientID);
+      this.getData();
     });
+
   }
 
   getData() {
-    // this.patientService
-  }
+      const payload = {
+        userID: localStorage.getItem('userID'),
+        clinicID: localStorage.getItem('clinicID'),
+        patientID: this.patientID 
+      }
 
-}
+      this.patientService.findById(payload).subscribe((data: any) => {
+       console.log('data', data);
+       this.patient = data;
+       
+      }, error => {
+        console.log('error');
+  
+      })
+    }
+  }
