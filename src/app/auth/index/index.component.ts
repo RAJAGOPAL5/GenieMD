@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
 
 @Component({
   selector: 'app-index',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
+  imageURL: string;
 
-  constructor() { }
+  constructor(
+    private clinicService: ClinicService,
+  ) { }
 
   ngOnInit(): void {
+    this.imageURL = this.clinicService.config.backgroundIcon;
   }
 
 }
