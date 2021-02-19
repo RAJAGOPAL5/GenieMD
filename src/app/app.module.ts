@@ -3,7 +3,7 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NbCardModule, NbDialogModule, NbInputModule, NbLayoutModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
+import { NbCardModule, NbDialogModule, NbInputModule, NbLayoutModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbSpinnerModule, NbThemeModule, NbToastrModule } from '@nebular/theme';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -19,6 +19,8 @@ import { FormsModule } from '@angular/forms';
 import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { LogoutConfimartionComponent } from './shared/components/logout-confimartion/logout-confimartion.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { environment } from '../environments/environment';
     ProfileComponent,
     AlertsComponent,
     VisitsComponent,
-    ClinicPromptComponent
+    ClinicPromptComponent,
+    LogoutConfimartionComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,10 @@ import { environment } from '../environments/environment';
     NbCardModule,
     NbRouteTabsetModule,
     HttpClientModule,
-    environment.production ? [] : AkitaNgDevtools.forRoot()
+    environment.production ? [] : AkitaNgDevtools.forRoot(),
+    FormsModule,
+    NbToastrModule.forRoot(),
+    NbSpinnerModule
   ],
   providers: [
     {
@@ -57,9 +63,10 @@ import { environment } from '../environments/environment';
       multi: true,
     },
     Title,
-    { provide: NG_ENTITY_SERVICE_CONFIG, useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' }}
+    { provide: NG_ENTITY_SERVICE_CONFIG, useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' }},
+    NgbActiveModal,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ClinicPromptComponent]
+  entryComponents: [ClinicPromptComponent,LogoutConfimartionComponent]
 })
 export class AppModule { }

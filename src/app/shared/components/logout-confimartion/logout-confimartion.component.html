@@ -1,0 +1,14 @@
+<nb-card class="dialog-card" [nbSpinner]="isLoading">
+    <nb-card-header>
+        <h6>Logout</h6>
+    </nb-card-header>
+    <nb-card-body>
+        <p>Are You sure you want to logout?</p>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton class="appearance-filled size-medium shape-rectangle status-danger"
+            (click)="closeModal()">No</button>
+        <button nbButton class="appearance-filled size-medium shape-rectangle status-primary"
+            (click)="signOut()" >Yes</button>
+    </nb-card-footer>
+</nb-card>

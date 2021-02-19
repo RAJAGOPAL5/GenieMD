@@ -17,12 +17,12 @@ export class AuthService {
       password
     };
     return this.http.post('Email/SignIn/', this.user)
-    .pipe(
-      map((project: any) => {
-        localStorage.setItem('userID', project.userID)
-        return project;
-      })
-    );
+      .pipe(
+        map((project: any) => {
+          localStorage.setItem('userID', project.userID)
+          return project;
+        })
+      );
   }
 
   register(payload: any) {
@@ -35,5 +35,12 @@ export class AuthService {
       appName: ''
     };
     return this.http.post('Email/ResetPassword', param);
+  }
+
+  logout() {
+    this.userInfo = undefined;
+    const clinicId = localStorage.getItem('clinicId');
+    this.router.navigate(['auth/login'], { queryParams: { clinicID: clinicId } });
+    localStorage.clear();
   }
 }

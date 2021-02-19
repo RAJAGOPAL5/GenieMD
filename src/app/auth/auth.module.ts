@@ -24,7 +24,7 @@ import { FormsModule } from '@angular/forms';
     NbButtonModule,
     NbIconModule,
     NbFormFieldModule,
-    NbSpinnerModule
+    NbSpinnerModule,
   ]
 })
 export class AuthModule { }
