@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 
@@ -41,16 +41,16 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private patientService: PatientsService,
-    private clinicService: ClinicService
+    private clinicService: ClinicService,
+    private patientService: PatientsService
   ) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
-      console.log(params, this.activatedRoute);
       this.patientID = params.get('patientId');
       console.log('patient id',this.patientID);
       this.getData();
+      console.log(params, this.activatedRoute, this.clinicService.config, this.clinicService.clinic);
     });
 
   }

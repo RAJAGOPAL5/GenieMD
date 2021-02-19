@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NbMenuItem, NbSidebarService } from '@nebular/theme';
+import { NbDialogService, NbMenuItem, NbMenuService, NbSidebarService } from '@nebular/theme';
+import { LogoutConfimartionComponent } from 'src/app/shared/components/logout-confimartion/logout-confimartion.component';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-index',
@@ -7,6 +10,7 @@ import { NbMenuItem, NbSidebarService } from '@nebular/theme';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
+  version: string = environment.version;
   menus: NbMenuItem[] = [
     {
       title: 'Patients',
@@ -16,14 +20,29 @@ export class IndexComponent implements OnInit {
     {
       title: 'Logout',
       icon: 'unlock-outline',
+      // link: '/auth/login'
     },
   ];
+  logo: string;
   constructor(
     private sidebarService: NbSidebarService,
+    private clinicService: ClinicService,
+    private menuService: NbMenuService,
+    private dialogService: NbDialogService,
+
   ) { }
 
   ngOnInit(): void {
+    this.logo = this.clinicService.config.logo;
+    this.registerEvents();
+  }
 
+  registerEvents() {
+    this.menuService.onItemClick().subscribe((event) => {
+      if (event.item.title === 'Logout') {
+        this.dialogService.open(LogoutConfimartionComponent);
+      }
+    });
   }
 
   toggleSidebar() {

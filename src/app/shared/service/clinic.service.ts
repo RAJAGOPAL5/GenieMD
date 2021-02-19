@@ -24,7 +24,7 @@ export class ClinicService {
   }
 
   find(id: string): any {
-    return this.http.get<any>(`Clinics/${id}`)
+    return this.http.get<any>(`Clinics/${id || '1000202'}`)
     .pipe(
       map(project => {
         this.clinic = project;

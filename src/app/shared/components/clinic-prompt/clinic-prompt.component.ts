@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NbDialogRef } from '@nebular/theme';
 
 @Component({
   selector: 'app-clinic-prompt',
@@ -8,13 +9,16 @@ import { Router } from '@angular/router';
 })
 export class ClinicPromptComponent implements OnInit {
   clinicID: '';
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private ref:NbDialogRef<ClinicPromptComponent>) { }
 
   ngOnInit(): void {
 
   }
+
   click() {
-    localStorage.setItem('ClinicId', this.clinicID);
+    localStorage.setItem('clinicId', this.clinicID);
     this.router.navigate(['auth/login']);
+    this.ref.close();
   }
 }

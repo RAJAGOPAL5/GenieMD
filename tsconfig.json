@@ -2,6 +2,12 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "core": [
+        "dist/core/core",
+        "dist/core"
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -11,6 +17,7 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
+    "skipLibCheck": true,
     "typeRoots": [
       "node_modules/@types"
     ],

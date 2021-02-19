@@ -14,7 +14,7 @@ interface ViewModal {
 })
 export class LoginComponent implements OnInit {
   isLoading = false;
-  model: ViewModal = {};
+  model: ViewModal = {username: '', password: ''};
   constructor(
     private clinicService: ClinicService,
     private authService: AuthService,
@@ -31,11 +31,10 @@ export class LoginComponent implements OnInit {
     const password = this.model.password;
     const result$ = this.authService.logIn(username, password)
     .subscribe(result => {
-      this.route.navigate(['/patients'])
+      this.route.navigate(['/patients']);
       this.isLoading = false;
     }, error => {
       this.isLoading = false;
     });
   }
-
 }

@@ -3,7 +3,7 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NbCardModule, NbDialogModule, NbInputModule, NbLayoutModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
+import { NbCardModule, NbDialogModule, NbInputModule, NbLayoutModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbSpinnerModule, NbThemeModule, NbToastrModule } from '@nebular/theme';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -16,6 +16,12 @@ import { AlertsComponent } from './pages/patients/alerts/alerts.component';
 import { VisitsComponent } from './pages/patients/visits/visits.component';
 import { ClinicPromptComponent } from './shared/components/clinic-prompt/clinic-prompt.component';
 import { FormsModule } from '@angular/forms';
+import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { environment } from '../environments/environment';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { LogoutConfimartionComponent } from './shared/components/logout-confimartion/logout-confimartion.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -26,7 +32,8 @@ import { FormsModule } from '@angular/forms';
     ProfileComponent,
     AlertsComponent,
     VisitsComponent,
-    ClinicPromptComponent
+    ClinicPromptComponent,
+    LogoutConfimartionComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +49,13 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'default' }),
     NbEvaIconsModule,
-    NbCardModule,
     NbRouteTabsetModule,
-    HttpClientModule
+    HttpClientModule,
+    environment.production ? [] : AkitaNgDevtools.forRoot(),
+    FormsModule,
+    NbToastrModule.forRoot(),
+    NbSpinnerModule,
+    ChartsModule
   ],
   providers: [
     {
@@ -52,9 +63,11 @@ import { FormsModule } from '@angular/forms';
       useClass: MyHttpInterceptor,
       multi: true,
     },
-    Title
+    Title,
+    { provide: NG_ENTITY_SERVICE_CONFIG, useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' }},
+    NgbActiveModal,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ClinicPromptComponent]
+  entryComponents: [ClinicPromptComponent,LogoutConfimartionComponent]
 })
 export class AppModule { }
