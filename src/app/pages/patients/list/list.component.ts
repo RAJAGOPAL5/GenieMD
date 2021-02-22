@@ -19,7 +19,7 @@ export class ListComponent implements OnInit {
   getData() {
     this.isLoading = true;
     const payload = {
-      clinicID: localStorage.getItem('clinicID'),
+      clinicID: localStorage.getItem('clinicId'),
       name: this.searchText,
       providerID: "",
       userID: localStorage.getItem('userID'),

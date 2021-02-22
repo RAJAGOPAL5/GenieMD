@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
   getData() {
     const payload = {
       userID: localStorage.getItem('userID'),
-      clinicID: localStorage.getItem('clinicID'),
+      clinicID: localStorage.getItem('clinicId'),
       patientID: this.patientID
     }
     this.patientService.findById(payload).subscribe((data: any) => {
