@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 
-interface ViewModal { 
+interface ViewModal {
   profile?: any;
 }
 @Component({
@@ -48,27 +48,32 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       this.patientID = params.get('patientId');
-      console.log('patient id',this.patientID);
+      console.log('patient id', this.patientID);
       this.getData();
       console.log(params, this.activatedRoute, this.clinicService.config, this.clinicService.clinic);
     });
-
   }
 
   getData() {
-      const payload = {
-        userID: localStorage.getItem('userID'),
-        clinicID: localStorage.getItem('clinicID'),
-        patientID: this.patientID 
-      }
-
-      this.patientService.findById(payload).subscribe((data: any) => {
-       console.log('data', data);
-       this.patient = data;
-       
-      }, error => {
-        console.log('error');
-  
-      })
+    const payload = {
+      userID: localStorage.getItem('userID'),
+      clinicID: localStorage.getItem('clinicID'),
+      patientID: this.patientID
     }
+    this.patientService.findById(payload).subscribe((data: any) => {
+      console.log('data', data);
+      this.patient = data;
+      if(this.patient.gender == 0){
+        this.patient.gender = 'Male';
+      }
+      if(this.patient.gender == 1){
+        this.patient.gender = 'Female';
+      }
+      if(this.patient.gender == 2){
+        this.patient.gender = 'Others';
+      }    
+    }, error => {
+      console.log('error');
+    })
   }
+}
