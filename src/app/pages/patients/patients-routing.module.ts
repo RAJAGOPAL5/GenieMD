@@ -10,50 +10,50 @@ import { VitalsComponent } from './vitals/vitals.component';
 import { AddComponent } from './add/add.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: IndexComponent,
-  //   data: { title:  'patients'},
-  //   children: [
-  //     {
-  //       path: ':patientId',
-  //       component: ProfileComponent,
-  //       data: { title:  'patients'},
-  //       children: [
-  //         {
-  //           path: 'vitals',
-  //           component: VitalsComponent,
-  //           data: { title: 'Vitals' }
-  //         },
-  //         {
-  //           path: 'care-team',
-  //           component: CareTeamComponent,
-  //           data: { title: 'Care-Team' }
-  //         },
-  //         {
-  //           path: 'history',
-  //           component: HistoryComponent,
-  //           data: { title: 'History' }
-  //         },
-  //         {
-  //           path: 'alerts',
-  //           component: AlertsComponent,
-  //           data: { title: 'Alerts'}
-  //         },
-  //         {
-  //           path: 'visits',
-  //           component:VisitsComponent,
-  //           data: {title: 'Visits'}
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // },
   {
-    path: 'add',
+    path: 'add-pateient',
     component: AddComponent,
     data: {title: 'add'}
-  }
+  },
+  {
+    path: '',
+    component: IndexComponent,
+    data: { title:  'patients'},
+    children: [
+      {
+        path: ':patientId',
+        component: ProfileComponent,
+        data: { title:  'patients'},
+        children: [
+          {
+            path: 'vitals',
+            component: VitalsComponent,
+            data: { title: 'Vitals' }
+          },
+          {
+            path: 'care-team',
+            component: CareTeamComponent,
+            data: { title: 'Care-Team' }
+          },
+          {
+            path: 'history',
+            component: HistoryComponent,
+            data: { title: 'History' }
+          },
+          {
+            path: 'alerts',
+            component: AlertsComponent,
+            data: { title: 'Alerts'}
+          },
+          {
+            path: 'visits',
+            component:VisitsComponent,
+            data: {title: 'Visits'}
+          }
+        ]
+      }
+    ]
+  },
 ];
 
 @NgModule({

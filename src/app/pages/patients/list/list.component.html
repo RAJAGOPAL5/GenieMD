@@ -7,12 +7,11 @@
                             <div class="position-absolute align-middle p-2">
                                     <nb-icon class="position-absolute align-text-bottom top-10 start-30" nbPrefix icon="search-outline"></nb-icon> 
                             </div>
-                        <!-- <nb-icon class="position-absolute align-text-bottom top-10 start-30" nbPrefix icon="search-outline"></nb-icon> -->
                             <input type="search"  name="searchText" fullWidth status="success" nbInput  [(ngModel)]="searchText" (ngModelChange)="getData()">
                     </div>
                     <div class="col-sm-2">
                         <div class="d-flex flex-row-reverse" data-toggle="tooltip" data-placement="top" title="Add New Patient">
-                                <button ghost="true" class="float-right border border-primar"  [routerLink]="['add']"  nbButton status="info">+</button>
+                                <button ghost="true" class="float-right border border-primar"  [routerLink]="['add-pateient']"  nbButton status="info">+</button>
                         </div>
                 </div>
                 </div>
