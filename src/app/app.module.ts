@@ -3,7 +3,8 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NbCardModule, NbDialogModule, NbInputModule, NbLayoutModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbSpinnerModule, NbThemeModule, NbToastrModule } from '@nebular/theme';
+import { NbCardModule, NbDialogModule, NbInputModule, NbLayoutModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbSpinnerModule, 
+  NbThemeModule, NbToastrModule, NbButtonModule, NbDatepickerModule } from '@nebular/theme';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -54,8 +55,10 @@ import { ChartsModule } from 'ng2-charts';
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     FormsModule,
     NbToastrModule.forRoot(),
+    NbDatepickerModule.forRoot(),
     NbSpinnerModule,
-    ChartsModule
+    ChartsModule,
+    NbButtonModule
   ],
   providers: [
     {

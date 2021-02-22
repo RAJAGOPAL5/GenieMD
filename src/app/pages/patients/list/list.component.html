@@ -2,8 +2,17 @@
     <nb-list>
         <nb-list-item>
             <nb-form-field>
-                <nb-icon nbPrefix icon="search-outline"></nb-icon>
-                <input type="search"  name="searchText" fullWidth status="success" nbInput  [(ngModel)]="searchText" (ngModelChange)="getData()">
+                <div class="row">
+                    <div class="col-sm-10 position-relative">
+                            <nb-icon class="position-absolute top-40 start-30" nbPrefix icon="search-outline"></nb-icon>
+                            <input type="search"  name="searchText" fullWidth status="success" nbInput  [(ngModel)]="searchText" (ngModelChange)="getData()">
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="d-flex flex-row-reverse" data-toggle="tooltip" data-placement="top" title="Add New Patient">
+                                <button ghost="true" class="float-right border border-primar" nbButton status="info">+</button>
+                        </div>
+                </div>
+                </div>
             </nb-form-field>
         </nb-list-item>
         <nb-list-item *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">

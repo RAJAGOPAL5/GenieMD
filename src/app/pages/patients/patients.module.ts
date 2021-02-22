@@ -5,12 +5,13 @@ import { PatientsRoutingModule } from './patients-routing.module';
 import { ListComponent } from './list/list.component';
 import { UpsertComponent } from './upsert/upsert.component';
 import { IndexComponent } from './index/index.component';
-import { NbCardModule, NbFormFieldModule, NbInputModule, NbListModule, NbRouteTabsetModule, NbTabsetModule, NbUserModule, NbIconModule, NbSpinnerModule } from '@nebular/theme';
-import { FormsModule } from '@angular/forms';
+import { NbCardModule, NbFormFieldModule, NbInputModule, NbListModule, NbRouteTabsetModule, NbTabsetModule, NbUserModule, NbIconModule, NbSpinnerModule, NbButtonModule, NbRadioModule, NbSelectModule, NbToggleModule, NbDatepickerModule } from '@nebular/theme';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddComponent } from './add/add.component';
 
 
 @NgModule({
-  declarations: [ListComponent, UpsertComponent, IndexComponent],
+  declarations: [ListComponent, UpsertComponent, IndexComponent, AddComponent],
   imports: [
     CommonModule,
     PatientsRoutingModule,
@@ -23,7 +24,14 @@ import { FormsModule } from '@angular/forms';
     NbInputModule,
     NbIconModule,
     FormsModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NbButtonModule,
+    NbRadioModule,
+    NbSelectModule,
+    NbToggleModule,
+    NbDatepickerModule,
   ]
 })
 export class PatientsModule { }

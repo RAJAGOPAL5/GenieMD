@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { PagesRoutingModule } from './pages-routing.module';
 import { IndexComponent } from './index/index.component';
 import { SharedModule } from '../shared/shared.module';
-import { NbIconModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbUserModule, NbSelectModule } from '@nebular/theme';
+import { NbIconModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbUserModule, NbSelectModule, 
+  NbButtonModule } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [IndexComponent],
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     NbMenuModule,
     NbIconModule,
     NbUserModule,
-    FormsModule
+    FormsModule,
+    NbButtonModule
   ]
 })
 export class PagesModule { }
