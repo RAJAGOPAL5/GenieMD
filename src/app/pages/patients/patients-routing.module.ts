@@ -11,7 +11,7 @@ import { AddComponent } from './add/add.component';
 
 const routes: Routes = [
   {
-    path: 'add-pateient',
+    path: 'create',
     component: AddComponent,
     data: {title: 'add'}
   },

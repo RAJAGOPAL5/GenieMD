@@ -28,7 +28,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group mb-3">
                                         <label for="inputFirstName" class="label"> <span class="danger"></span> Gender</label>
-                                        <nb-radio-group class="row d-flex justify-content-center pt-0 p-3"
+                                        <nb-radio-group formControlName="gender" class="row d-flex justify-content-center pt-0 p-3"
                                             [(ngModel)]="selectedOption" [ngModelOptions]="{standalone: true}" name="my-radio-group">
                                             <nb-radio class=" col-md-12 col-lg-4" value="1">Male</nb-radio>
                                             <nb-radio class=" col-md-12 col-lg-4" value="2">Female</nb-radio>
@@ -51,7 +51,7 @@
                                             <div class="form-group mb-3 w-100">
                                                 <label for="inputMobile" class="label"> <span class="text-danger">*</span> Mobile
                                                     Number</label>
-                                                <input type="number" formControlName='mobile' nbInput fullWidth id="inputMobileNumber"
+                                                <input type="number" formControlName='handphone' nbInput fullWidth id="inputMobileNumber"
                                                     placeholder="Mobile Number">
                                             </div>
                                         </div>
@@ -60,6 +60,12 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
+                                    <div class="form-group mb-3">
+                                        <label for="inputEmail" class="label"> <span class="text-danger">*</span> Email</label>
+                                        <input type="email" formControlName="email" nbInput fullWidth id="inputEmail" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group mb-3">
@@ -67,10 +73,10 @@
                                                      Language
                                                 </label>
                                                 <div>
-                                                    <nb-select id="inputLanguage" formControlName="language" placeholder="Select Language" [(selected)]="selectedItem">
+                                                    <nb-select id="inputLanguage" formControlName="language" placeholder="Select Language" >
                                                         <nb-option value="">Select Language</nb-option>
-                                                        <nb-option value="0">English</nb-option>
-                                                        <nb-option value="1">Spanish</nb-option>
+                                                        <nb-option *ngFor="let item of languages" [value]="item.id">{{item?.name}}</nb-option>
+                                                   
                                                     </nb-select>
                                                 </div>
                                             </div>
@@ -80,22 +86,17 @@
                                                 <label for="inputMorbidity" class="label"> <span class="danger"></span>
                                                     Morbidity</label>
                                                 <div>
-                                                    <nb-select id="inputMorbidity" placeholder="Select Morbidity" [(selected)]="selectedItem">
+                                                    <nb-select id="inputMorbidity" formControlName="morbidity" placeholder="Select Morbidity">
                                                         <nb-option value="">Select Morbidity</nb-option>
-                                                        <nb-option value="0">Lung Disease</nb-option>
-                                                        <nb-option value="1">Heart Disease</nb-option>
+                                                        <nb-option *ngFor="let item of morbidityDisease" [value]="item.name">{{item?.name}}</nb-option>
+                                                    
                                                     </nb-select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group mb-3">
-                                        <label for="inputEmail" class="label"> <span class="text-danger">*</span> Email</label>
-                                        <input type="email" formControlName="email" nbInput fullWidth id="inputEmail" placeholder="Email">
-                                    </div>
-                                </div>
+                               
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
@@ -121,7 +122,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group mb-3">
                                         <label for="inputAddress" class="label"> <span class="text-danger">*</span> Address</label>
-                                        <input type="text" formControlName="address" nbInput fullWidth id="inputAddress" placeholder="Eneter the Address">
+                                        <input type="text" formControlName="address" nbInput fullWidth id="inputAddress" placeholder="Enter the Address">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -145,10 +146,10 @@
                                                 <label for="inputState" class="label"> <span class="text-danger">*</span>
                                                      State</label>
                                                 <div>
-                                                    <nb-select id="inputState" formControlName="state" placeholder="Select State" [(selected)]="selectedItem">
+                                                    <nb-select id="inputState" formControlName="state" placeholder="Select State">
                                                         <nb-option value="">Select State</nb-option>
-                                                        <nb-option value="0">AL</nb-option>
-                                                        <nb-option value="1">AK</nb-option>
+                                                        <nb-option *ngFor="let item of states" [value]="item.abbreviation">{{item?.abbreviation}}</nb-option>
+                                                     
                                                     </nb-select>
                                                 </div>
                                             </div>
@@ -158,7 +159,7 @@
                                                 <label for="inputZipCode" class="label"> <span class="text-danger">*</span> Zip
                                                     Code</label>
                                                 <input type="text" formControlName="zipcode" nbInput fullWidth id="inputZipCode"
-                                                    placeholder="Eneter Zip Code">
+                                                    placeholder="Enter Zip Code">
                                             </div>
                                         </div>
                                     </div>
@@ -171,7 +172,7 @@
                                     <div class="row">
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-4 d-flex justify-content-end">
-                                            <button nbButton status="danger">Cancel</button>
+                                            <button nbButton status="danger" (click)=cancelPatient()>Cancel</button>
                                         </div>
                                         <div class="col-sm-7">
                                             <button  [disabled]="!profileForm.valid" nbButton status="success">Create Patient</button>

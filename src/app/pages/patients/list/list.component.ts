@@ -19,10 +19,15 @@ export class ListComponent implements OnInit {
   getData() {
     this.isLoading = true;
     const payload = {
-      clinicID: localStorage.getItem('clinicID'),
+      // clinicID: localStorage.getItem('clinicID'),
+      // name: this.searchText,
+      // providerID: "",
+      // userID: localStorage.getItem('userID'),
+
+      clinicID: '',
       name: this.searchText,
       providerID: "",
-      userID: localStorage.getItem('userID'),
+      userID: "0082ea591f0c4a80b171a02342886907",
     };
     this.patientService.find(payload).subscribe((data: any) => {
       this.users = data.clinicPatientList.map(item => {
