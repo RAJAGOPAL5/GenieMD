@@ -1,5 +1,5 @@
-<form (ngSubmit)="submit()" class="d-flex align-items-center h-75 justify-content-center">
-    <nb-card class="w-75" [nbSpinner]="isLoading">
+<form (ngSubmit)="submit()" class="d-flex align-items-center h-70 justify-content-center" style= "margin-top: 12rem;">
+    <nb-card class="w-75 mb-0" [nbSpinner]="isLoading">
         <nb-card-header>
             <div class="d-flex align-items-center h-100 justify-content-center">
                 <span class="ps-2">
@@ -7,7 +7,7 @@
                   </span>
             </div>
         </nb-card-header>
-        <nb-card-body>
+        <nb-card-body class="mb-0">
             <div class="mb-3 form-group">
                 <label for="username" class="form-label">Username</label>
                 <nb-form-field>
@@ -29,3 +29,6 @@
         </nb-card-body>
     </nb-card>
 </form>
+<div style="text-align: center;" class='pt-2'>
+    <span class="caption">V {{version}}</span>
+</div>

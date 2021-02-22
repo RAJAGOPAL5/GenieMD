@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { environment } from 'src/environments/environment.prod';
 
 interface ViewModal {
   username?: string;
@@ -13,6 +14,7 @@ interface ViewModal {
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  version: string = environment.version;
   isLoading = false;
   model: ViewModal = {username: '', password: ''};
   logo: string;
