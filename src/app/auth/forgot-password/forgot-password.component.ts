@@ -14,10 +14,12 @@ export class ForgotPasswordComponent implements OnInit {
   isLoading = false;
   position: 'top-right';
   logo: string;
+  title: string;
   constructor( private authService: AuthService, private router: Router, private toastrService: NbToastrService, private clinicService : ClinicService) { }
 
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;
+    this.title = this.clinicService.config.name;
   }
   submit() {
     this.isLoading = true;

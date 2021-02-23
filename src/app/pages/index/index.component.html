@@ -4,11 +4,16 @@
       <a nbButton ghost (click)="toggleSidebar()">
         <nb-icon icon="menu-2-outline"></nb-icon>
       </a>
-      <span class="ps-2">
-        <img [src]="logo" alt="" height="32">
+      <span class="ps-2 d-flex align-items-center">
+        <img [src]="logo" alt="" height="40">
       </span>
-      <span class="ms-auto">
-        <nb-user name="John Doe" title="Engineer"></nb-user>
+      <span class="ps-2 h4 text-uppercase d-flex align-items-center">{{ title }}</span>
+      <span class="ms-auto"></span>
+      <span>
+        <button (click)="toggleTheme('default')" *ngIf="theme === 'default'; else dark" nbButton ghost status="primary"><nb-icon icon="sun-outline"></nb-icon></button>
+      </span>
+      <span class="ps-2">
+        <nb-user [name]="profile?.screenName" title="Care Coordinator" [picture]="profile?.imageURL"></nb-user>
       </span>
     </div>
   </nb-layout-header>
@@ -20,3 +25,7 @@
   </nb-sidebar>
   <nb-layout-footer><span class="caption">{{version}}</span></nb-layout-footer>
 </nb-layout>
+
+<ng-template #dark>
+  <button  (click)="toggleTheme('dark')"  nbButton ghost status="primary"><nb-icon icon="moon-outline"></nb-icon></button>
+</ng-template>

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import * as Chart from 'chart.js';
 import * as moment from 'moment';
+import { ProfileService } from 'src/app/shared/service/profile.service';
 import { VitalsService } from 'src/app/shared/service/vitals.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class VitalsComponent implements OnInit {
   @ViewChild('spoChart') mychart1: any;
   @ViewChild('weightChart') mychart2: any;
   @ViewChild('totalChart') mychart3: any;
-  constructor(private vitalsService: VitalsService) { }
+  constructor(private vitalsService: VitalsService, private profileService: ProfileService) { }
   BPChartLabels: any;
   BPChartDatasets1: any;
   BPChatType = 'line';
@@ -65,9 +66,9 @@ export class VitalsComponent implements OnInit {
       { title: 'All', val: 'all', class: '' }];
     const fromDate = moment('1900-02-01').valueOf();
     const toDate = moment().add(1, 'days').valueOf();
-    this.userID = localStorage.getItem('userID')
-    this.getBloodPerssure(fromDate, toDate)
-    this.getWeight(fromDate, toDate)
+    this.userID = this.profileService.id;
+    this.getBloodPerssure(fromDate, toDate);
+    this.getWeight(fromDate, toDate);
 
   }
   getBloodPerssure(fromDate: any, toDate: any) {

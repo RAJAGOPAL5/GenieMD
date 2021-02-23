@@ -1,1 +1,34 @@
-<p>care-team works!</p>
+<nb-card size="giant" style="overflow: auto">
+    <nb-card-header status="primary">
+        <div class="row">
+            <div class="col-10">
+                Care Team
+            </div>
+            <div class="col-1 p-0">
+                <button nbButton size="small" (click)="open(dialog)">
+                    <nb-icon icon="plus"></nb-icon>
+                </button>
+            </div>
+            <div class="col-1 p-0">
+                <button *ngIf="!showDone" nbButton hero status="primary" size="small" (click)="change()">EDIT</button>
+                <button *ngIf="showDone" nbButton hero status="primary" size="small" (click)="change()">Done</button>
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        No caregivers specified. Tap + to add a caregiver
+    </nb-card-body>
+</nb-card>
+<ng-template #dialog>
+    <nb-card>
+        <nb-card-header>Invite caregiver</nb-card-header>
+        <nb-card-body>
+            <input nbInput="" placeholder="Caregiver Username"
+                class="size-medium status-basic shape-rectangle nb-transition" [(ngModel)]="careGiver" name="careGiver">
+            </nb-card-body>
+        <nb-card-footer class="example-items-rows">
+            <button nbButton class="appearance-filled size-medium shape-rectangle" (click)="refclose()">Cancel</button>
+            <button nbButton class="appearance-filled size-medium shape-rectangle" (click)="notify()">Ok</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
+import { ProfileStore } from './profile.store';
 
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
   profile: any;
   extraData: any;
-  id: string;
-  constructor(private http: HttpClient) {
+  constructor(private profileStore: ProfileStore, private http: HttpClient) {
   }
 
-  setId(id: string) {
-    this.id = id;
+  get id() {
+    return this.profile.userID
   }
 
   get(id: string) {
