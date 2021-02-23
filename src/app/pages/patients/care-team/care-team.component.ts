@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/shared/service/auth.service';
 import { DependentService } from 'src/app/shared/service/dependent.service';
 import { NotificationService } from 'src/app/shared/service/notification.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
+import { ProfileService } from 'src/app/shared/service/profile.service';
 @Component({
   selector: 'app-care-team',
   templateUrl: './care-team.component.html',
@@ -20,12 +21,13 @@ export class CareTeamComponent implements OnInit {
   showDone= false;
   constructor(private dependent: DependentService, private authService: AuthService,
     private route: ActivatedRoute, private dialogService: NbDialogService,
-    private ns: NotificationService, private patientService: PatientsService) { }
+    private ns: NotificationService, private patientService: PatientsService,
+    private profileService: ProfileService) { }
 
   ngOnInit(): void {
     this.patientId = this.route.snapshot.parent.params['patientId'];
     const payload = {
-      userID: localStorage.getItem('userID'),
+      userID: this.profileService.id,
       patientID: this.patientId
     };
     this.dependent.find(payload).subscribe((res: any) => {

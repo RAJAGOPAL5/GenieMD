@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NbDialogService, NbMenuItem, NbMenuService, NbSidebarService } from '@nebular/theme';
+import { NbDialogService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 import { LogoutConfimartionComponent } from 'src/app/shared/components/logout-confimartion/logout-confimartion.component';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
@@ -12,25 +12,16 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class IndexComponent implements OnInit {
   version: string = environment.version;
-  menus: NbMenuItem[] = [
-    {
-      title: 'Patients',
-      icon: 'people-outline',
-      link: '/patients'
-    },
-    {
-      title: 'Logout',
-      icon: 'unlock-outline',
-      // link: '/auth/login'
-    },
-  ];
+  menus: NbMenuItem[] = [];
   logo: string;
   title: string;
   profile: any;
+  theme: string = 'default';
   constructor(
     private sidebarService: NbSidebarService,
     private clinicService: ClinicService,
     private menuService: NbMenuService,
+    private themeService: NbThemeService,
     private dialogService: NbDialogService,
     private profileService: ProfileService,
   ) { }
@@ -40,6 +31,22 @@ export class IndexComponent implements OnInit {
     this.title = this.clinicService.clinic.name;
     this.profile = this.profileService.profile;
     this.registerEvents();
+    this.prepareMenus();
+  }
+
+  prepareMenus() {
+    this.menus.push(
+      {
+        title: 'Patients',
+        icon: 'people-outline',
+        link: `/${this.clinicService.id}/${this.profileService.id}/patients`
+      },
+      {
+        title: 'Logout',
+        icon: 'unlock-outline',
+        // link: '/auth/login'
+      },
+    )
   }
 
   registerEvents() {
@@ -52,6 +59,15 @@ export class IndexComponent implements OnInit {
 
   toggleSidebar() {
     this.sidebarService.toggle();
+  }
+
+  toggleTheme(theme: string) {
+    if(theme === 'default') {
+      this.theme = 'dark';
+    } else if(theme === 'dark') {
+      this.theme = 'default';
+    }
+    this.themeService.changeTheme(this.theme);
   }
 
 }

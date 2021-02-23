@@ -21,7 +21,7 @@ export class ClinicConfigResolver implements Resolve<boolean> {
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    const id = localStorage.getItem('clinicId') || '';
+    const id = route.paramMap.get('clinicID') || '1000089';
     return this.clinicService.find(id)
     .pipe(
       catchError((error) => {

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NbIconLibraries } from '@nebular/theme';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
+import { ProfileService } from 'src/app/shared/service/profile.service';
 
 interface ViewModal {
   profile?: any;
@@ -23,7 +24,8 @@ export class ProfileComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
     private patientService: PatientsService,
-    private iconLibraries: NbIconLibraries
+    private iconLibraries: NbIconLibraries,
+    private profileService: ProfileService
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
     this.iconLibraries.setDefaultPack('font-awesome');
@@ -39,26 +41,16 @@ export class ProfileComponent implements OnInit {
 
   getData() {
     const payload = {
-      userID: localStorage.getItem('userID'),
-      clinicID: localStorage.getItem('clinicId'),
+      userID: this.profileService.id,
+      clinicID: this.clinicService.id,
       patientID: this.patientID
-    }
+    };
     this.patientService.findById(payload).subscribe((data: any) => {
       this.patient = data;
-      this.patientName =`${this.patient.firstName} ${this.patient.lastName}`
-        
-      if(this.patient.gender == 0){
-        this.patient.gender = 'Male';
-      }
-      if(this.patient.gender == 1){
-        this.patient.gender = 'Female';
-      }
-      if(this.patient.gender == 2){
-        this.patient.gender = 'Others';
-      }    
+      this.patientName =`${this.patient.firstName} ${this.patient.lastName}`;
     }, error => {
       console.log('error');
-    })
+    });
   }
 
   prepareTabs() {
