@@ -12,18 +12,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class IndexComponent implements OnInit {
   version: string = environment.version;
-  menus: NbMenuItem[] = [
-    {
-      title: 'Patients',
-      icon: 'people-outline',
-      link: '/patients'
-    },
-    {
-      title: 'Logout',
-      icon: 'unlock-outline',
-      // link: '/auth/login'
-    },
-  ];
+  menus: NbMenuItem[] = [];
   logo: string;
   title: string;
   profile: any;
@@ -40,6 +29,22 @@ export class IndexComponent implements OnInit {
     this.title = this.clinicService.clinic.name;
     this.profile = this.profileService.profile;
     this.registerEvents();
+    this.prepareMenus();
+  }
+
+  prepareMenus() {
+    this.menus.push(
+      {
+        title: 'Patients',
+        icon: 'people-outline',
+        link: '/patients'
+      },
+      {
+        title: 'Logout',
+        icon: 'unlock-outline',
+        // link: '/auth/login'
+      },
+    )
   }
 
   registerEvents() {

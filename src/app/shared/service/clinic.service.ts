@@ -6,9 +6,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ClinicService {
-  seTitle(title: any) {
-    throw new Error('Method not implemented.');
-  }
+  id: string;
   clinic: any = {};
   private cliniConfig: any = {};
   constructor(
@@ -19,16 +17,12 @@ export class ClinicService {
     return this.cliniConfig;
   }
 
-  get id() {
-    return localStorage.getItem('clinicId');
-  }
-
   find(id: string): any {
     return this.http.get<any>(`Clinics/${id || '1000202'}`)
     .pipe(
       map(project => {
         this.clinic = project;
-        localStorage.setItem('clinicId', id);
+        this.id = id;
         try {
           this.cliniConfig = JSON.parse(this.clinic.clinicConfig)
         } catch (error) {
