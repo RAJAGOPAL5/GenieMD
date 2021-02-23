@@ -6,11 +6,12 @@
             </div>
             <div class="col-1 p-0">
                 <button nbButton size="small" (click)="open(dialog)">
-                    <nb-icon icon="plus-outline"></nb-icon>
+                    <nb-icon icon="plus"></nb-icon>
                 </button>
             </div>
             <div class="col-1 p-0">
-                <button nbButton hero status="primary" size="small">EDIT</button>
+                <button *ngIf="!showDone" nbButton hero status="primary" size="small" (click)="change()">EDIT</button>
+                <button *ngIf="showDone" nbButton hero status="primary" size="small" (click)="change()">Done</button>
             </div>
         </div>
     </nb-card-header>
@@ -25,9 +26,9 @@
             <input nbInput="" placeholder="Caregiver Username"
                 class="size-medium status-basic shape-rectangle nb-transition" [(ngModel)]="careGiver" name="careGiver">
             </nb-card-body>
-        <nb-card-footer>
-            <button nbButton (click)="refclose()">Cancel</button>
-            <button nbButton (click)="notify()">Ok</button>
+        <nb-card-footer class="example-items-rows">
+            <button nbButton class="appearance-filled size-medium shape-rectangle" (click)="refclose()">Cancel</button>
+            <button nbButton class="appearance-filled size-medium shape-rectangle" (click)="notify()">Ok</button>
         </nb-card-footer>
     </nb-card>
 </ng-template>
