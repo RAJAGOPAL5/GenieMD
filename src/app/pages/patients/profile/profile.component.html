@@ -1,18 +1,23 @@
 <nb-card>
     <nb-card-body>
-        <h4 class="my-0">{{patient.firstName}} {{patient.lastName}}</h4>
         <div class="row">
-            <div class="col-md-4">
-                <p><nb-icon icon="envelope" ></nb-icon> {{patient.email}}</p>
-                <p>Phone Number: {{patient.phoneNumber}}</p>
+            <div class="col-md-3">
+               <h4> <nb-user [name]="patientName" title="{{patient?.email}}"></nb-user></h4>
+    </div>
+            <div class="col-md-3">
+                <p> <nb-icon icon="phone" pack="font-awesome"></nb-icon>  {{patient.phoneNumber}}</p>
             </div>
-            <div class="col-md-4">
-                <p>DOB: {{patient.dob}}</p>
-                <p nbTooltip="Gneder">Gender: {{patient.gender}}</p>
+            <div class="col-md-3">
+                <p><nb-icon icon="birthday-cake" pack="font-awesome"></nb-icon> {{patient.dob}}</p>
+                <p> <nb-icon icon="venus-mars" pack="font-awesome"  nbTooltip="Gender" ></nb-icon> {{patient.gender}}</p>
             </div>
-            <div class="col-md-4">
-                <p>State: {{patient.state}}</p>
-                <p>Country: {{patient.country}}</p>
+            <div class="col-md-3">
+                <p>
+                <span><nb-icon icon="map-marker-alt"></nb-icon></span>
+                <span>City: {{patient.city}}</span><br>
+                <span>State: {{patient.state}}</span><br>
+                <span>Country: {{patient.country}}</span><br>
+                </p>
             </div>
         </div>
     </nb-card-body>
