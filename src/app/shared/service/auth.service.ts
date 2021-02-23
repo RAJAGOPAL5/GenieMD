@@ -40,7 +40,7 @@ export class AuthService {
   logout() {
     this.userInfo = undefined;
     const clinicId = this.clinicService.id;
-    this.router.navigate(['auth/login'], { queryParams: { clinicID: clinicId } });
     localStorage.clear();
+    this.router.navigate([clinicId,'auth']);
   }
 }
