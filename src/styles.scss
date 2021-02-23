@@ -13,6 +13,10 @@
 @include nb-install() {
   @include nb-theme-global();
 };
+.label{
+  line-height: nb-theme(label-line-height) !important;
+}
+
 /* You can add global styles to this file, and also import other style files */
 
 /* Patients status show color in Avatar picture */

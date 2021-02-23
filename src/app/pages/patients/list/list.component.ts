@@ -12,9 +12,13 @@ export class ListComponent implements OnInit {
   users: any;
   isLoading = false;
   searchText = '';
+  clinic: any;
+
   constructor(private patientService: PatientsService, private profileService: ProfileService, private clinicService: ClinicService) { }
 
   ngOnInit(): void {
+    this.clinic = this.clinicService.clinic;
+
     this.getData();
   }
 
@@ -26,7 +30,7 @@ export class ListComponent implements OnInit {
       providerID: '',
       userID: this.profileService.id,
     };
-    this.patientService.find(payload).subscribe((data: any) => {
+    this.patientService.find(payload).subscribe((data: any) => { 
       this.users = data.clinicPatientList.map(item => {
         item.name = `${item.firstName} ${item.lastName}`.trim();
         return item;

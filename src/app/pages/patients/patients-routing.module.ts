@@ -7,17 +7,28 @@ import { IndexComponent } from './index/index.component';
 import { ProfileComponent } from './profile/profile.component';
 import { VisitsComponent } from './visits/visits.component';
 import { VitalsComponent } from './vitals/vitals.component';
+import { AddComponent } from './add/add.component';
 
 const routes: Routes = [
   {
+    path: ':patientID/edit',
+    component: AddComponent,
+    data: {title: 'Edit'}
+  },
+  {
+    path: 'create',
+    component: AddComponent,
+    data: {title: 'Add'}
+  },
+  {
     path: '',
     component: IndexComponent,
-    data: { title:  'patients'},
+    data: { title:  'Patients'},
     children: [
       {
         path: ':patientId',
         component: ProfileComponent,
-        data: { title:  'patients'},
+        data: { title:  'Patients'},
         children: [
           {
             path: 'vitals',
@@ -47,7 +58,7 @@ const routes: Routes = [
         ]
       }
     ]
-  }
+  },
 ];
 
 @NgModule({
