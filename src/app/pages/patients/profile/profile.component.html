@@ -2,20 +2,20 @@
     <nb-card-body>
         <div class="row">
             <div class="col-md-3">
-               <h4> <nb-user [name]="patientName" [title]="patient?.email" [picture]=""></nb-user></h4>
-    </div>
-            <div class="col-md-3" [ngSwitch]="patient?.gender">
-                <p> <nb-icon icon="phone" pack="font-awesome"></nb-icon>  {{patient?.phoneNumber}}</p>
-                <p><nb-icon icon="birthday-cake" pack="font-awesome"></nb-icon> {{patient?.dob}}</p>
-                <p *ngSwitchCase="0"> <nb-icon icon="venus-mars" pack="font-awesome"  nbTooltip="Gender" ></nb-icon> Male</p>
-                <p *ngSwitchCase="1"> <nb-icon icon="venus-mars" pack="font-awesome"  nbTooltip="Gender" ></nb-icon> Female</p>
-                <p *ngSwitchCase="2"> <nb-icon icon="venus-mars" pack="font-awesome"  nbTooltip="Gender" ></nb-icon> Others</p>
+               <h4> <nb-user [name]="patientName" [title]="patient?.email" [picture]="patient?.imageUrl"></nb-user></h4>
+             </div>
+            <div class="col-md-3">
+                <p><nb-icon icon="phone" pack="font-awesome"></nb-icon><span class="ps-4">{{patient?.phoneNumber}}</span></p>
+                <p><nb-icon icon="birthday-cake" pack="font-awesome"></nb-icon><span class="ps-4"> {{patient?.dob}}</span></p>
+                <p *ngSwitchCase="0"> <nb-icon icon="venus-mars" pack="font-awesome"  nbTooltip="Gender" ></nb-icon><span class="ps-4">Male</span></p>
+                <p *ngSwitchCase="1"> <nb-icon icon="venus-mars" pack="font-awesome"  nbTooltip="Gender" ></nb-icon><span class="ps-4"> Female</span></p>
+                <p *ngSwitchCase="2"> <nb-icon icon="venus-mars" pack="font-awesome"  nbTooltip="Gender" ></nb-icon><span class="ps-4">Others</span> </p>
             </div>
             <div class="col-md-6">
-                <p><nb-icon icon="map-marker-alt"></nb-icon></p>
-                <p>City: {{patient?.city}}</p>
-                <p>State: {{patient?.state}}</p>
-                <p>Country: {{patient?.country}}</p>
+              <p class="text-uppercase"><nb-icon icon="map-marker-alt"></nb-icon> <span class="ps-4">{{patient?.city}}</span>,
+                <span class="ps-1">{{patient?.state}}</span>,
+                <span class="ps-1">{{patient?.country}}</span>
+            </p> 
             </div>
         </div>
     </nb-card-body>
