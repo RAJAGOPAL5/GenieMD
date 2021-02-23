@@ -24,6 +24,7 @@ export class IndexComponent implements OnInit {
     },
   ];
   logo: string;
+  title: string;
   constructor(
     private sidebarService: NbSidebarService,
     private clinicService: ClinicService,
@@ -34,6 +35,7 @@ export class IndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;
+    this.title = this.clinicService.clinic.name;
     this.registerEvents();
   }
 

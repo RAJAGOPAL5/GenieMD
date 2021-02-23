@@ -66,7 +66,6 @@ export class ProfileComponent implements OnInit {
       patientID: this.patientID
     }
     this.patientService.findById(payload).subscribe((data: any) => {
-      console.log('data', data);
       this.patient = data;
       if(this.patient.gender == 0){
         this.patient.gender = 'Male';
