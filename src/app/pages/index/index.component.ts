@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NbDialogService, NbMenuItem, NbMenuService, NbSidebarService } from '@nebular/theme';
+import { NbDialogService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 import { LogoutConfimartionComponent } from 'src/app/shared/components/logout-confimartion/logout-confimartion.component';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
@@ -16,10 +16,12 @@ export class IndexComponent implements OnInit {
   logo: string;
   title: string;
   profile: any;
+  theme: string = 'default';
   constructor(
     private sidebarService: NbSidebarService,
     private clinicService: ClinicService,
     private menuService: NbMenuService,
+    private themeService: NbThemeService,
     private dialogService: NbDialogService,
     private profileService: ProfileService,
   ) { }
@@ -57,6 +59,15 @@ export class IndexComponent implements OnInit {
 
   toggleSidebar() {
     this.sidebarService.toggle();
+  }
+
+  toggleTheme(theme: string) {
+    if(theme === 'default') {
+      this.theme = 'dark';
+    } else if(theme === 'dark') {
+      this.theme = 'default';
+    }
+    this.themeService.changeTheme(this.theme);
   }
 
 }

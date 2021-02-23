@@ -8,7 +8,11 @@
         <img [src]="logo" alt="" height="40">
       </span>
       <span class="ps-2 h4 text-uppercase d-flex align-items-center">{{ title }}</span>
-      <span class="ms-auto">
+      <span class="ms-auto"></span>
+      <span>
+        <button (click)="toggleTheme('default')" *ngIf="theme === 'default'; else dark" nbButton ghost status="primary"><nb-icon icon="sun-outline"></nb-icon></button>
+      </span>
+      <span>
         <nb-user [name]="profile?.screenName" title="Care Coordinator" [picture]="profile?.imageURL"></nb-user>
       </span>
     </div>
@@ -21,3 +25,7 @@
   </nb-sidebar>
   <nb-layout-footer><span class="caption">{{version}}</span></nb-layout-footer>
 </nb-layout>
+
+<ng-template #dark>
+  <button  (click)="toggleTheme('dark')"  nbButton ghost status="primary"><nb-icon icon="moon-outline"></nb-icon></button>
+</ng-template>
