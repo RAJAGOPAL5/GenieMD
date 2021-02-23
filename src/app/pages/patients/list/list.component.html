@@ -6,7 +6,7 @@
                 <input type="search"  name="searchText" fullWidth status="success" nbInput  [(ngModel)]="searchText" (ngModelChange)="getData()">
             </nb-form-field>
         </nb-list-item>
-        <nb-list-item *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
+        <nb-list-item  class="form-control border shadow-none" *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
             <nb-user [name]="user.name" [title]="user.email">
             </nb-user>
         </nb-list-item>
