@@ -14,29 +14,7 @@ interface ViewModal {
 })
 export class ProfileComponent implements OnInit {
   model: ViewModal = {};
-  tabs = [
-    {
-      title: 'Vitals',
-      route: '/patients/patientId/vitals',
-    },
-    {
-      title: 'Alerts',
-      route: '/patients/patientId/alerts',
-    },
-    {
-      title: 'Visits',
-      route: '/patients/patientId/visits',
-    },
-    {
-      title: 'Care Team',
-      route: '/patients/patientId/care-team/',
-    },
-    {
-      title: 'History',
-      route: '/patients/patientId/history/',
-    },
-
-  ];
+  tabs: any[];
   patientID: any;
   patient: any;
 
@@ -53,9 +31,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       this.patientID = params.get('patientId');
-      console.log('patient id', this.patientID);
+      this.prepareTabs();
       this.getData();
-      console.log(params, this.activatedRoute, this.clinicService.config, this.clinicService.clinic);
     });
   }
 
@@ -79,5 +56,31 @@ export class ProfileComponent implements OnInit {
     }, error => {
       console.log('error');
     })
+  }
+
+  prepareTabs() {
+    this.tabs = [
+      {
+        title: 'Vitals',
+        route: `/patients/${this.patientID}/vitals`,
+      },
+      {
+        title: 'Alerts',
+        route: `/patients/${this.patientID}/alerts`,
+      },
+      {
+        title: 'Visits',
+        route: `/patients/${this.patientID}/visits`,
+      },
+      {
+        title: 'Care Team',
+        route: `/patients/${this.patientID}/care-team/`,
+      },
+      {
+        title: 'History',
+        route: `/patients/${this.patientID}/history/`,
+      },
+  
+    ];
   }
 }
