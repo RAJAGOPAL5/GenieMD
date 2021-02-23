@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { ClinicPromptComponent } from './shared/components/clinic-prompt/clinic-prompt.component';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbIconLibraries } from '@nebular/theme';
 import { ClinicService } from './shared/service/clinic.service';
 @Component({
   selector: 'app-root',
@@ -16,7 +16,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute,
     private dialogService: NbDialogService,
     private clinicService: ClinicService,
-    private titleService: Title) { }
+    private titleService: Title,
+    private iconLibraries: NbIconLibraries
+    ) { }
 
   ngOnInit(): void {
     this.router.events.pipe(

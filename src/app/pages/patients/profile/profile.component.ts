@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NbIconLibraries } from '@nebular/theme';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 
@@ -42,8 +43,12 @@ export class ProfileComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
-    private patientService: PatientsService
-  ) { }
+    private patientService: PatientsService,
+    private iconLibraries: NbIconLibraries
+  ) {
+    this.iconLibraries.registerFontPack('font-awesome', { iconClassPrefix: 'fa' });
+    this.iconLibraries.setDefaultPack('font-awesome');
+  }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
