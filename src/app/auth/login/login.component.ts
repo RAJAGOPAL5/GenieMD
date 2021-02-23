@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;
     this.title = this.clinicService.config.name;
-    console.log(this.clinicService.config);
   }
 
   submit() {
