@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { ClinicService } from './clinic.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { map } from 'rxjs/operators';
 export class AuthService {
   user: any;
   userInfo: any;
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private clinicService: ClinicService) { }
 
   logIn(email: string, password: string) {
     this.user = {
@@ -38,7 +39,7 @@ export class AuthService {
 
   logout() {
     this.userInfo = undefined;
-    const clinicId = localStorage.getItem('clinicId');
+    const clinicId = this.clinicService.id;
     this.router.navigate(['auth/login'], { queryParams: { clinicID: clinicId } });
     localStorage.clear();
   }

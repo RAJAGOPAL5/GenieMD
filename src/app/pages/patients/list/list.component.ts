@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
+import { ProfileService } from 'src/app/shared/service/profile.service';
 
 @Component({
   selector: 'app-patient-list',
@@ -10,7 +12,7 @@ export class ListComponent implements OnInit {
   users: any;
   isLoading = false;
   searchText = '';
-  constructor(private patientService: PatientsService) { }
+  constructor(private patientService: PatientsService, private profileService: ProfileService, private clinicService: ClinicService) { }
 
   ngOnInit(): void {
     this.getData();
@@ -19,10 +21,10 @@ export class ListComponent implements OnInit {
   getData() {
     this.isLoading = true;
     const payload = {
-      clinicID: localStorage.getItem('clinicId'),
+      clinicID: this.clinicService.id,
       name: this.searchText,
-      providerID: "",
-      userID: localStorage.getItem('userID'),
+      providerID: '',
+      userID: this.profileService.id,
     };
     this.patientService.find(payload).subscribe((data: any) => {
       this.users = data.clinicPatientList.map(item => {
