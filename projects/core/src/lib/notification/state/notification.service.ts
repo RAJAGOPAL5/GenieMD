@@ -8,6 +8,8 @@ export class NotificationService {
 
   constructor(private notificationStore: NotificationStore, private http: HttpClient) {
   }
-
+  notifyOptions(data) {
+    return this.http.post(`Notifications/NotifyUsersWithOptions`, data);
+  }
 
 }
