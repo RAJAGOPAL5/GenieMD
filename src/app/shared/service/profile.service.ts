@@ -1,24 +1,41 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ProfileService {
-  constructor(private http: HttpClient) { }
+  profile: any;
+  extraData: any;
+  constructor(private http: HttpClient) {
+  }
 
-  getUser(id: string) {
-    return this.http.get(`Profile/${id}`);
+  get id() {
+    return this.profile.userID
+  }
+
+  get(id: string) {
+    return this.http.get(`Profile/${id}`)
+    .pipe(
+      tap(project => {
+        this.profile = project;
+        try {
+          this.extraData = JSON.parse(this.profile.extraData);
+        } catch (error) {
+          this.extraData = {};
+        }
+      })
+    );
   }
 
   sendEmail(payload) {
     return this.http.post(`system/SendEmail`, payload);
   }
-  updateProfile(payload) {
+
+  update(payload) {
     return this.http.post(`Profile/Update`, payload);
   }
-
-  addPatient(payload) {
+  add(payload) {
     return this.http.post(`Clinics/AddPatient`, payload);
   }
+
 }

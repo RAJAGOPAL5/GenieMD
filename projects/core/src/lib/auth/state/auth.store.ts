@@ -4,18 +4,14 @@ import { Router } from '@angular/router';
 import { Store, StoreConfig } from '@datorama/akita';
 
 export interface AuthState {
-   key: string;
    userID?:string;
-   email: string;
-   password?: string;
+   email?: string;
 }
 
 export function createInitialState(): AuthState {
   return {
-    key: '',
     userID:'',
-    email: '',
-    password: '',
+    email: ''
   };
 }
 

@@ -5,19 +5,37 @@ import { ProfileStore } from './profile.store';
 
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
-
+  profile: any;
+  extraData: any;
   constructor(private profileStore: ProfileStore, private http: HttpClient) {
   }
-  getUser(id: string) {
-    return this.http.get(`Profile/${id}`);
+
+  get id() {
+    return this.profile.userID
   }
+
+  get(id: string) {
+    return this.http.get(`Profile/${id}`)
+    .pipe(
+      tap(project => {
+        this.profile = project;
+        try {
+          this.extraData = JSON.parse(this.profile.extraData);
+        } catch (error) {
+          this.extraData = {};
+        }
+      })
+    );
+  }
+
   sendEmail(payload) {
     return this.http.post(`system/SendEmail`, payload);
   }
-  updateProfile(payload) {
+
+  update(payload) {
     return this.http.post(`Profile/Update`, payload);
   }
-  addPatient(payload) {
+  add(payload) {
     return this.http.post(`Clinics/AddPatient`, payload);
   }
 
