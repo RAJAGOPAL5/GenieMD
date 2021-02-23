@@ -78,7 +78,7 @@
                                 <label for="inputMorbidity" class="label"> <span class="danger"></span>
                                     Morbidity</label>
                                 <div>
-                                    <nb-select multiple size="giant" fullWidth id="inputMorbidity"
+                                    <nb-select  size="giant" fullWidth id="inputMorbidity"
                                         formControlName="morbidity" placeholder="Select Morbidity">
                                         <nb-option *ngFor="let item of morbidityID" [value]="item.id">{{item?.name}}
                                         </nb-option>

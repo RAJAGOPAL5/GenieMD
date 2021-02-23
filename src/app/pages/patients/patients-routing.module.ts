@@ -13,22 +13,22 @@ const routes: Routes = [
   {
     path: ':patientID/edit',
     component: AddComponent,
-    data: {title: 'edit'}
+    data: {title: 'Edit'}
   },
   {
     path: 'create',
     component: AddComponent,
-    data: {title: 'add'}
+    data: {title: 'Add'}
   },
   {
     path: '',
     component: IndexComponent,
-    data: { title:  'patients'},
+    data: { title:  'Patients'},
     children: [
       {
         path: ':patientId',
         component: ProfileComponent,
-        data: { title:  'patients'},
+        data: { title:  'Patients'},
         children: [
           {
             path: 'vitals',
