@@ -14,8 +14,11 @@
                     <div class="col-sm-2">
                         <div class="d-flex flex-row-reverse" data-toggle="tooltip" data-placement="top"
                             title="Add New Patient">
-                            <button ghost="true" class="float-right border border-primar"
-                                [routerLink]="['create']" nbButton status="info">+</button>
+                            <button ghost="true" class="float-right "
+                                [routerLink]="['create']" nbButton status="info">
+                            <nb-icon icon="plus-outline" status="warning"></nb-icon>
+                            </button>
+                                
                         </div>
                     </div>
                 </div>
