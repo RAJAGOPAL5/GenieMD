@@ -41,9 +41,8 @@
                             <div class="form-group mb-3">
                                 <label for="inputFirstName" class="label"> <span class="danger"></span> Gender</label>
                                 <nb-radio-group formControlName="gender"
-                                    class="row d-flex justify-content-center pt-0 p-3" [(ngModel)]="selectedOption"
-                                    [ngModelOptions]="{standalone: true}" name="my-radio-group">
-                                    <nb-radio class=" col-md-12 col-lg-4" *ngFor="let item of gender"
+                                    class="row d-flex justify-content-center pt-0 p-3" name="my-radio-group">
+                                    <nb-radio class=" col-md-12 col-lg-4" *ngFor="let item of genderArr"
                                         [value]="item.value">{{item?.id}}</nb-radio>
                                 </nb-radio-group>
                             </div>
@@ -95,7 +94,7 @@
                                             Monitor</label>
                                     </div>
                                     <div class="col-sm-8 mt-auto">
-                                        <nb-toggle [(ngModel)]="toggleNgModel" formControlName="monitored"></nb-toggle>
+                                        <nb-toggle  formControlName="monitored"></nb-toggle>
                                     </div>
                                 </div>
                             </div>

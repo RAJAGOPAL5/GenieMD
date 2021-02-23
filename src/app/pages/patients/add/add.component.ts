@@ -28,7 +28,7 @@ export class AddComponent implements OnInit {
   actionName: any;
   isLoading = false;
   patientID: any;
-  gender = [{ id: 'Male', value: 0 }, { id: 'Female', value: 1 }, { id: 'Other', value: 2 }];
+  genderArr = [{ id: 'Male', value: 0 }, { id: 'Female', value: 1 }, { id: 'Other', value: 2 }];
 
   @ViewChild('birthDate', { static: false }) birthDate: any;
   constructor(private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
