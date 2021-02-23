@@ -57,23 +57,23 @@ export class ProfileComponent implements OnInit {
     this.tabs = [
       {
         title: 'Vitals',
-        route: `/patients/${this.patientID}/vitals`,
+        route: `vitals`,
       },
       {
         title: 'Alerts',
-        route: `/patients/${this.patientID}/alerts`,
+        route: `alerts`,
       },
       {
         title: 'Visits',
-        route: `/patients/${this.patientID}/visits`,
+        route: `visits`,
       },
       {
         title: 'Care Team',
-        route: `/patients/${this.patientID}/care-team/`,
+        route: `care-team/`,
       },
       {
         title: 'History',
-        route: `/patients/${this.patientID}/history/`,
+        route: `history/`,
       },
   
     ];
