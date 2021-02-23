@@ -267,7 +267,7 @@ export class AddComponent implements OnInit {
       this.addPatient();
       this.isLoading = false;
       this.toastrService.success('Patient added Successfully');
-      this.router.navigate(['patients']);
+      // this.router.navigate(['patients']);
     }, error => {
       this.isLoading = false;
       this.toastrService.danger(error.error.errorMessage);
@@ -281,6 +281,7 @@ export class AddComponent implements OnInit {
       userID: this.profile.userID ? this.profile.userID : this.userID
     };
     this.profileService.add(payload).subscribe(res => {
+      this.router.navigate([this.clinicService.id, this.profileService.id, 'patients']);
       console.log('patient create ', res)
     }, error => {
       this.toastrService.danger(error.error.errorMessage);
