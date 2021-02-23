@@ -37,7 +37,7 @@ export class IndexComponent implements OnInit {
       {
         title: 'Patients',
         icon: 'people-outline',
-        link: '/patients'
+        link: `/${this.clinicService.id}/${this.profileService.id}/patients`
       },
       {
         title: 'Logout',

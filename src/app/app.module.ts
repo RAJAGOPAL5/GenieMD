@@ -72,6 +72,6 @@ import { ChartsModule } from 'ng2-charts';
     NgbActiveModal,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ClinicPromptComponent,LogoutConfimartionComponent]
+  entryComponents: [LogoutConfimartionComponent]
 })
 export class AppModule { }
