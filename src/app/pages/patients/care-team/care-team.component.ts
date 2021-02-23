@@ -71,7 +71,6 @@ export class CareTeamComponent implements OnInit {
     };
     this.ns.notifyOptions(data).subscribe((response: any) => {
       this.carTeam = response;
-      console.log('aa',this.careTeam)
     });
     this.dialogRef.close();
   }

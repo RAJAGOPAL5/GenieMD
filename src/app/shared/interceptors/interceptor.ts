@@ -23,7 +23,6 @@ export class MyHttpInterceptor implements HttpInterceptor {
         // how to update the request Parameters
 
         // logging the updated Parameters to browser's console
-        // console.log('Before making api call : ', updatedRequest);
 
         // const params = request.params.has('resources');
         let path = '';
@@ -61,7 +60,6 @@ export class MyHttpInterceptor implements HttpInterceptor {
                 event => {
                     // logging the http response to browser's console in case of a success
                     if (event instanceof HttpResponse) {
-                        // console.log('api call success :', event);
                     }
                 },
                 error => {

@@ -24,12 +24,9 @@
                 </div>
             </nb-form-field>
         </nb-list-item>
-        <nb-list-item *ngFor="let user of users" >
-            <!-- <a [routerLink]="['/patients',user.patientID]"> -->
-                    <nb-user class="w-100" [name]="user.name" [title]="user.email">
-                    </nb-user>
-                    <nb-icon icon="edit" [routerLink]="[user?.patientID, 'edit']" ></nb-icon>         
-            <!-- </a> -->
+        <nb-list-item *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
+            <nb-user class="cursor-pointer" [name]="user.name" [title]="user.email" [picture]="user.imageUrl">
+            </nb-user>
         </nb-list-item>
         <nb-list-item *ngIf="!users?.length">
             <p>No patients found. <a [routerLink]="['create']">Create New Patient</a></p>
