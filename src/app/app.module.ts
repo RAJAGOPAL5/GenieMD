@@ -24,6 +24,7 @@ import { environment } from '../environments/environment';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LogoutConfimartionComponent } from './shared/components/logout-confimartion/logout-confimartion.component';
 import { ChartsModule } from 'ng2-charts';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,8 @@ import { ChartsModule } from 'ng2-charts';
       useClass: MyHttpInterceptor,
       multi: true,
     },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+
     Title,
     { provide: NG_ENTITY_SERVICE_CONFIG, useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' }},
     NgbActiveModal,
