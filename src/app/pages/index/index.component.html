@@ -12,7 +12,7 @@
       <span>
         <button (click)="toggleTheme('default')" *ngIf="theme === 'default'; else dark" nbButton ghost status="primary"><nb-icon icon="sun-outline"></nb-icon></button>
       </span>
-      <span>
+      <span class="ps-2">
         <nb-user [name]="profile?.screenName" title="Care Coordinator" [picture]="profile?.imageURL"></nb-user>
       </span>
     </div>
