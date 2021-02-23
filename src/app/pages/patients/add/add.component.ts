@@ -25,7 +25,7 @@ export class AddComponent implements OnInit {
   languages: any[] = [];
   morbidityID: any[] = [];
   toggleNgModel = false;
-  actionName:any;
+  actionName: any;
   isLoading = false;
   patientID: any;
   gender = [{ id: 'Male', value: 0 }, { id: 'Female', value: 1 }, { id: 'Other', value: 2 }];
@@ -33,36 +33,31 @@ export class AddComponent implements OnInit {
   @ViewChild('birthDate', { static: false }) birthDate: any;
   constructor(private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
-    private toastrService: NbToastrService,  private patientsService: PatientsService) { }
+    private toastrService: NbToastrService, private patientsService: PatientsService) { }
 
   ngOnInit(): void {
-    this.clinic = this.clinicService.clinic
+    this.clinic = this.clinicService.clinic;
     this.route.params.subscribe(res => {
       this.patientID = res.patientID
     })
-    this.actionName = this.patientID?"Edit Patient":"Create Paitent";
+    this.actionName = this.patientID ? "Edit Patient" : "Create Paitent";
     this.getProfilePatch();
     this.states = [{ name: 'Alabama', abbreviation: 'AL' }, { name: 'Alaska', abbreviation: 'AK' }, { name: 'Arizona', abbreviation: 'AZ' }, { name: 'Arkansas', abbreviation: 'AR' }, { name: 'California', abbreviation: 'CA' }, { name: 'Colorado', abbreviation: 'CO' }, { name: 'Connecticut', abbreviation: 'CT' }, { name: 'District Of Columbia', abbreviation: 'DC' }, { name: 'Delaware', abbreviation: 'DE' }, { name: 'Florida', abbreviation: 'FL' }, { name: 'Georgia', abbreviation: 'GA' }, { name: 'Hawaii', abbreviation: 'HI' }, { name: 'Idaho', abbreviation: 'ID' }, { name: 'Illinois', abbreviation: 'IL' }, { name: 'Indiana', abbreviation: 'IN' }, { name: 'Iowa', abbreviation: 'IA' }, { name: 'Kansas', abbreviation: 'KS' }, { name: 'Kentucky', abbreviation: 'KY' }, { name: 'Louisiana', abbreviation: 'LA' }, { name: 'Maine', abbreviation: 'ME' }, { name: 'Marshall Islands', abbreviation: 'MH' }, { name: 'Maryland', abbreviation: 'MD' }, { name: 'Massachusetts', abbreviation: 'MA' }, { name: 'Michigan', abbreviation: 'MI' }, { name: 'Minnesota', abbreviation: 'MN' }, { name: 'Mississippi', abbreviation: 'MS' }, { name: 'Missouri', abbreviation: 'MO' }, { name: 'Montana', abbreviation: 'MT' }, { name: 'Nebraska', abbreviation: 'NE' }, { name: 'Nevada', abbreviation: 'NV' }, { name: 'New Hampshire', abbreviation: 'NH' }, { name: 'New Jersey', abbreviation: 'NJ' }, { name: 'New Mexico', abbreviation: 'NM' }, { name: 'New York', abbreviation: 'NY' }, { name: 'North Carolina', abbreviation: 'NC' }, { name: 'North Dakota', abbreviation: 'ND' }, { name: 'Northern Mariana Islands', abbreviation: 'MP' }, { name: 'Ohio', abbreviation: 'OH' }, { name: 'Oklahoma', abbreviation: 'OK' }, { name: 'Oregon', abbreviation: 'OR' }, { name: 'Palau', abbreviation: 'PW' }, { name: 'Pennsylvania', abbreviation: 'PA' }, { name: 'Puerto Rico', abbreviation: 'PR' }, { name: 'Rhode Island', abbreviation: 'RI' }, { name: 'South Carolina', abbreviation: 'SC' }, { name: 'South Dakota', abbreviation: 'SD' }, { name: 'Tennessee', abbreviation: 'TN' }, { name: 'Texas', abbreviation: 'TX' }, { name: 'Utah', abbreviation: 'UT' }, { name: 'Vermont', abbreviation: 'VT' }, { name: 'Virgin Islands', abbreviation: 'VI' }, { name: 'Virginia', abbreviation: 'VA' }, { name: 'Washington', abbreviation: 'WA' }, { name: 'West Virginia', abbreviation: 'WV' }, { name: 'Wisconsin', abbreviation: 'WI' }, { name: 'Wyoming', abbreviation: 'WY' }
     ];
     this.morbidityID = [{ name: 'Lung Disease', id: 0 }, { name: 'Heart Disease', id: 1 }];
     this.languages = [{ name: 'English', id: 1 }, { name: 'Spanish', id: 2 }, { name: 'Chinese', id: 3 }, { name: 'Japanese', id: 4 }, { name: 'Russian', id: 5 }, { name: 'Portuguese', id: 6 }, { name: 'French', id: 7 }, { name: 'Italian', id: 8 }, { name: 'Arabic', id: 9 }, { name: 'German', id: 10 }, { name: 'Korean', id: 11 }];
     this.createForm();
-
-    console.log('sesdfdsf', this.clinic)
   }
 
   getProfilePatch() {
     const patientPayload = {
-      userID: '0082ea591f0c4a80b171a02342886907',
+      userID: localStorage.getItem('userID'),
       clinicID: this.clinic.clinicID,
       patientID: this.patientID
     }
     this.patientsService.findById(patientPayload).subscribe((items: any) => {
       let clinicPatient = items;
-      console.log('clinicPatient function ', clinicPatient)
-
       this.profileService.getUser(clinicPatient.userID).subscribe((res: any) => {
-        console.log('edit function ', res)
         this.profileData = res;
         this.profileForm.patchValue({
           firstName: this.profileData.firstName,
@@ -79,13 +74,13 @@ export class AddComponent implements OnInit {
           morbidity: this.profileData.morbidity,
           language: this.profileData.languageId,
         })
-        if(this.profileData.monitored == 0){
+        if (this.profileData.monitored == 0) {
           this.profileForm.patchValue({
-            monitored : false
+            monitored: false
           })
         } else {
           this.profileForm.patchValue({
-            monitored : true
+            monitored: true
           })
         }
       })
@@ -112,18 +107,13 @@ export class AddComponent implements OnInit {
     });
   }
   onSubmit() {
-    this.isLoading = true;  
-
+    this.isLoading = true;
     if (this.profileForm.invalid) {
-      // this.spinner.hide();
-      this.isLoading = false;  
-
+      this.isLoading = false;
       return;
     }
     if (this.patientID) {
-
       let date = "";
-
       if (this.profileForm.value.dob && this.profileForm.value.dob !== "") {
         date = moment(this.profileForm.value.dob).format('YYYY-MM-DD');
       }
@@ -175,12 +165,14 @@ export class AddComponent implements OnInit {
         morbidity: this.profileForm.value.morbidity,
         monitored: this.profileForm.value.monitored ? 1 : 0,
       };
-      this.profileService.updateProfile(registerPayload).subscribe((res: any) => { 
-      this.toastrService.show('Patient Updated Successfully');
+      this.profileService.updateProfile(registerPayload).subscribe((res: any) => {
+        console.log('edit paitent', res);
+        this.isLoading = false;
+        this.toastrService.success('Patient Updated Successfully');
         this.router.navigate(['patients']);
       }, error => {
+        this.isLoading = false;
       });
-
     } else {
       const signUpPayload = {
         email: this.profileForm.value.email,
@@ -190,7 +182,10 @@ export class AddComponent implements OnInit {
       this.authService.register(signUpPayload).subscribe((res: any) => {
         this.userID = res.userID;
         this.getProfile();
-      })
+      }, error => {
+        this.isLoading = false;
+        this.toastrService.danger(error.error.errorMessage);
+      });
     }
 
   }
@@ -198,18 +193,15 @@ export class AddComponent implements OnInit {
   getProfile() {
     this.profileService.getUser(this.userID).subscribe((res: any) => {
       this.profile = res;
-      console.log('profile profile12545', this.profile)
       this.updateProfile();
     }, error => {
-      // this.toastrService.error(error.error.errorMessage);
-      // this.spinner.hide();
-      // this.toaster.error(error.error.errorMessage);
+      this.isLoading = false;
+      this.toastrService.danger(error.error.errorMessage);
     });
   }
 
   updateProfile() {
     let date = "";
-
     if (this.profileForm.value.dob && this.profileForm.value.dob !== "") {
       date = moment(this.profileForm.value.dob).format('YYYY-MM-DD');
     }
@@ -269,11 +261,12 @@ export class AddComponent implements OnInit {
         patientID: this.profileForm.value.email
       };
       this.addPatient();
-      this.toastrService.show('Patient added Successfully');
+      this.isLoading = false;
+      this.toastrService.success('Patient added Successfully');
       this.router.navigate(['patients']);
-
-
     }, error => {
+      this.isLoading = false;
+      this.toastrService.danger(error.error.errorMessage);
     });
   }
   addPatient() {
@@ -284,8 +277,9 @@ export class AddComponent implements OnInit {
       userID: this.profile.userID ? this.profile.userID : this.userID
     };
     this.profileService.addPatient(payload).subscribe(res => {
-      console.log('add patient  service ', res)
+      console.log('patient create ', res)
     }, error => {
+      this.toastrService.danger(error.error.errorMessage);
     });
   }
   chooseDate() {
@@ -301,6 +295,5 @@ export class AddComponent implements OnInit {
 
   cancelPatient() {
     this.router.navigate(['patients']);
-
   }
 }

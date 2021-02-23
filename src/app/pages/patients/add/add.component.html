@@ -1,4 +1,4 @@
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" [nbSpinner]="isLoading">
     <div class="row">
         <div class="col-md-12">
             <nb-card>
@@ -85,7 +85,7 @@
                                                 Monitor</label>
                                         </div>
                                         <div class="col-sm-8 mt-auto">
-                                            <!-- <nb-toggle [(ngModel)]="toggleNgModel"  formControlName="monitored"></nb-toggle> -->
+                                            <nb-toggle [(ngModel)]="toggleNgModel"  formControlName="monitored"></nb-toggle>
                                         </div>
                                     </div>
                                 </div>

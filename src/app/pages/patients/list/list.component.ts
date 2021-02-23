@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientsService } from 'src/app/shared/service/patients.service';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
 
 @Component({
   selector: 'app-patient-list',
@@ -10,27 +11,25 @@ export class ListComponent implements OnInit {
   users: any;
   isLoading = false;
   searchText = '';
-  constructor(private patientService: PatientsService) { }
+  clinic: any;
+
+  constructor(private patientService: PatientsService, private clinicService: ClinicService) { }
 
   ngOnInit(): void {
+    this.clinic = this.clinicService.clinic;
+
     this.getData();
   }
 
   getData() {
     this.isLoading = true;
     const payload = {
-      // clinicID: localStorage.getItem('clinicID'),
-      // name: this.searchText,
-      // providerID: "",
-      // userID: localStorage.getItem('userID'),
-
-      clinicID: '',
+      clinicID: this.clinic.clinicID,
       name: this.searchText,
       providerID: "",
-      userID: "0082ea591f0c4a80b171a02342886907",
+      userID: localStorage.getItem('userID'),
     };
-    this.patientService.find(payload).subscribe((data: any) => {
-      console.log('patient list ',data)
+    this.patientService.find(payload).subscribe((data: any) => { 
       this.users = data.clinicPatientList.map(item => {
         item.name = `${item.firstName} ${item.lastName}`.trim();
         return item;
