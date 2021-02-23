@@ -1,18 +1,23 @@
 <nb-card size="large" [nbSpinner]="isLoading">
     <nb-list>
         <nb-list-item>
-            <nb-form-field>
-                <div class="row">
-                    <div class="col-sm-10 position-relative">
+                <div class="row w-100">
+
+                    <div class="col-sm-10">
                         <!-- <div class="position-absolute p-2">
                             <nb-icon class="" status="success"  nbPrefix
                                 icon="search-outline"></nb-icon>                              
                         </div> -->
+                        <nb-form-field>
+
                         <input type="search" name="searchText" fullWidth status="success" nbInput
                             [(ngModel)]="searchText" (ngModelChange)="getData()">
+                        </nb-form-field>
+
                     </div>
+
                     <div class="col-sm-2">
-                        <div class="d-flex flex-row-reverse" data-toggle="tooltip" data-placement="top"
+                        <div class="" data-toggle="tooltip" data-placement="top"
                             title="Add New Patient">
                             <button ghost="true" class="float-right "
                                 [routerLink]="['create']" nbButton>
@@ -22,7 +27,6 @@
                         </div>
                     </div>
                 </div>
-            </nb-form-field>
         </nb-list-item>
         <nb-list-item *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
             <nb-user class="cursor-pointer" [name]="user.name" [title]="user.email" [picture]="user.imageUrl">
