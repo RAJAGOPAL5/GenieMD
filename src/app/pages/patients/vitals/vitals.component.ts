@@ -94,7 +94,6 @@ export class VitalsComponent implements OnInit {
             label: 'Diastolic Blood Pressure'
           }
         ]
-        console.log(this.BPChartDatasets1)
         this.BPChartShow = true
       }
     })
@@ -119,7 +118,6 @@ export class VitalsComponent implements OnInit {
     })
   }
   getList(event: any) {
-    console.log(event)
     let fromDate = moment().add(-118, 'years').valueOf();
     const toDate = moment().valueOf();
     if (event === '1w') {
@@ -135,7 +133,6 @@ export class VitalsComponent implements OnInit {
     } else if (event === 'all') {
       fromDate = moment('1900-02-01').valueOf();
     }
-    console.log(fromDate, toDate)
     this.getBloodPerssure(fromDate, toDate)
     this.getWeight(fromDate, toDate)
   }
