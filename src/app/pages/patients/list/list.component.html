@@ -4,19 +4,19 @@
             <nb-form-field>
                 <div class="row">
                     <div class="col-sm-10 position-relative">
-                        <div class="position-absolute align-middle p-2">
-                            <nb-icon class="position-absolute align-text-bottom top-10 start-30" nbPrefix
+                        <div class="position-absolute p-2">
+                            <nb-icon class="" status="success"  nbPrefix
                                 icon="search-outline"></nb-icon>                              
                         </div>
-                        <input type="search" name="searchText" fullWidth status="success" nbInput
+                        <input type="search" name="searchText" fullWidth="small" status="success" nbInput
                             [(ngModel)]="searchText" (ngModelChange)="getData()">
                     </div>
                     <div class="col-sm-2">
                         <div class="d-flex flex-row-reverse" data-toggle="tooltip" data-placement="top"
                             title="Add New Patient">
                             <button ghost="true" class="float-right "
-                                [routerLink]="['create']" nbButton status="info">
-                            <nb-icon icon="plus-outline" status="warning"></nb-icon>
+                                [routerLink]="['create']" nbButton>
+                            <nb-icon status="primary" icon="plus"></nb-icon>
                             </button>
                                 
                         </div>
