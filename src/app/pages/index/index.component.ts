@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NbDialogService, NbMenuItem, NbMenuService, NbSidebarService } from '@nebular/theme';
 import { LogoutConfimartionComponent } from 'src/app/shared/components/logout-confimartion/logout-confimartion.component';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { ProfileService } from 'src/app/shared/service/profile.service';
 import { environment } from 'src/environments/environment.prod';
 
 @Component({
@@ -24,16 +25,20 @@ export class IndexComponent implements OnInit {
     },
   ];
   logo: string;
+  title: string;
+  profile: any;
   constructor(
     private sidebarService: NbSidebarService,
     private clinicService: ClinicService,
     private menuService: NbMenuService,
     private dialogService: NbDialogService,
-
+    private profileService: ProfileService,
   ) { }
 
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;
+    this.title = this.clinicService.clinic.name;
+    this.profile = this.profileService.profile;
     this.registerEvents();
   }
 

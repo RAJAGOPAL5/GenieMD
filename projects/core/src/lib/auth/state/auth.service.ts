@@ -6,17 +6,15 @@ import { AuthStore } from './auth.store';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  user: any;
-  userInfo: any;
   constructor(private authStore: AuthStore, private http: HttpClient, private router: Router) {
   }
   
   logIn(email: string, password: string) {
-    this.user = {
+    const user = {
       email,
       password
     };
-    return this.http.post('Email/SignIn/', this.user)
+    return this.http.post('Email/SignIn/', user)
       .pipe(
         map((project: any) => {
           localStorage.setItem('userID', project.userID)
@@ -38,7 +36,6 @@ export class AuthService {
   }
 
   logout() {
-    this.userInfo = undefined;
     const clinicId = localStorage.getItem('clinicId');
     this.router.navigate(['auth/login'], { queryParams: { clinicID: clinicId } });
     localStorage.clear();

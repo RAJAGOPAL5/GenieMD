@@ -4,11 +4,12 @@
       <a nbButton ghost (click)="toggleSidebar()">
         <nb-icon icon="menu-2-outline"></nb-icon>
       </a>
-      <span class="ps-2">
-        <img [src]="logo" alt="" height="32">
+      <span class="ps-2 d-flex align-items-center">
+        <img [src]="logo" alt="" height="40">
       </span>
+      <span class="ps-2 h4 text-uppercase d-flex align-items-center">{{ title }}</span>
       <span class="ms-auto">
-        <nb-user name="John Doe" title="Engineer"></nb-user>
+        <nb-user [name]="profile?.screenName" title="Care Coordinator" [picture]="profile?.imageURL"></nb-user>
       </span>
     </div>
   </nb-layout-header>

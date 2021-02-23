@@ -1,6 +1,7 @@
 import { ClinicConfigResolver } from './shared/resolvers /clinic-config.resolver';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ProfileResolve } from './shared/resolvers /profile.resolve';
 
 
 const routes: Routes = [
@@ -12,7 +13,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
-    resolve: {clinicConfig: ClinicConfigResolver}
+    resolve: {clinicConfig: ClinicConfigResolver, profile: ProfileResolve}
   },
 
 ];

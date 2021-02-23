@@ -11,14 +11,13 @@ import { ProfileService } from '../service/profile.service';
   providedIn: 'root'
 })
 export class ProfileResolve implements Resolve<Profile> {
-userID: any;
   constructor(private auth: AuthService, private profileService: ProfileService) { }
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> {
-    this.userID = route.paramMap.get('userID');
-    return this.profileService.getUser(this.userID);
+    const id = localStorage.getItem('userID');
+    return this.profileService.get(id);
 }
 }
