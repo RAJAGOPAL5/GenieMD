@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
 
 export interface DependentState {
-   key: string;
+  userID: any; 
+  patientID: any;
 }
 
 export function createInitialState(): DependentState {
   return {
-    key: ''
+    userID: '',
+    patientID: '',
   };
 }
 
