@@ -7,8 +7,8 @@
             </nb-form-field>
         </nb-list-item>
         <nb-list-item *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
-            <nb-user [name]="user.name" [title]="user.email">
-            </nb-user>
+                <nb-user class="warning" [name]="user.name" [title]="user.email">
+                </nb-user>
         </nb-list-item>
         <nb-list-item *ngIf="!users?.length">
             <p>No patients found. <a [routerLink]="['create']">Create New Patient</a></p>
