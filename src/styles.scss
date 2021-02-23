@@ -18,3 +18,30 @@
 }
 
 /* You can add global styles to this file, and also import other style files */
+
+/* Patients status show color in Avatar picture */
+.nb-theme-default {
+	nb-user.success {
+		.user-picture {
+			border-color: #28a745!important;
+			border-width: 3px !important;
+		}
+	}
+}
+.nb-theme-default {
+	nb-user.warning{
+		.user-picture {
+			border-color:#ffc107!important;
+			border-width: 3px !important;
+		}
+	}
+}
+.nb-theme-default {
+	nb-user.danger {
+		.user-picture {
+			border-color: #dc3545 !important;
+			border-width: 3px !important;
+		}
+	}
+}
+/* end Patients status */
