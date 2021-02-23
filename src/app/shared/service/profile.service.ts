@@ -6,11 +6,12 @@ import { tap } from 'rxjs/operators';
 export class ProfileService {
   profile: any;
   extraData: any;
+  id: string;
   constructor(private http: HttpClient) {
   }
 
-  get id() {
-    return this.profile.userID
+  setId(id: string) {
+    this.id = id;
   }
 
   get(id: string) {

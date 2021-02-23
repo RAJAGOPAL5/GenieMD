@@ -18,6 +18,7 @@ export class ProfileResolve implements Resolve<Profile> {
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> {
     const id = route.paramMap.get('userID');
+    this.profileService.setId(id);
     return this.profileService.get(id);
 }
 }

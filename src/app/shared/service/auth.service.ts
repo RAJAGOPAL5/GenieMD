@@ -19,7 +19,6 @@ export class AuthService {
     return this.http.post('Email/SignIn/', this.user)
       .pipe(
         map((project: any) => {
-          localStorage.setItem('userID', project.userID)
           return project;
         })
       );
