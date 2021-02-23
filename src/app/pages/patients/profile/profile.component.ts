@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   tabs: any[];
   patientID: any;
   patient: any;
+  patientName: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -24,7 +25,7 @@ export class ProfileComponent implements OnInit {
     private patientService: PatientsService,
     private iconLibraries: NbIconLibraries
   ) {
-    this.iconLibraries.registerFontPack('font-awesome', { iconClassPrefix: 'fa' });
+    this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
     this.iconLibraries.setDefaultPack('font-awesome');
   }
 
@@ -44,6 +45,8 @@ export class ProfileComponent implements OnInit {
     }
     this.patientService.findById(payload).subscribe((data: any) => {
       this.patient = data;
+      this.patientName =`${this.patient.firstName} ${this.patient.lastName}`
+        
       if(this.patient.gender == 0){
         this.patient.gender = 'Male';
       }
