@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   isLoading = false;
   model: ViewModal = {username: '', password: ''};
   logo: string;
+  title: string;
   constructor(
     private clinicService: ClinicService,
     private authService: AuthService,
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;
+    this.title = this.clinicService.config.name;
     console.log(this.clinicService.config);
   }
 
