@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { NbDialogModule, NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import { NbDialogModule, NbLayoutModule, NbThemeModule, NbIconModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -10,7 +10,8 @@ import { NbDialogModule, NbLayoutModule, NbThemeModule } from '@nebular/theme';
   imports: [
     CommonModule,
     NbLayoutModule,
-    NbDialogModule.forChild()
+    NbDialogModule.forChild(),
+    NbIconModule
   ],
   exports: [NbLayoutModule]
 })
