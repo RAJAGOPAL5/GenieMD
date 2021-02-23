@@ -28,8 +28,6 @@
                     </div>
                 </div>
         </nb-list-item>
-        <!-- <nb-list-item  class="form-control border shadow-none" *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
-            <nb-user [name]="user.name" [title]="user.email"> -->
         <nb-list-item class="form-control border shadow-none" *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
             <nb-user class="cursor-pointer" [name]="user.name" [title]="user.email" [picture]="user.imageUrl">
             </nb-user>
