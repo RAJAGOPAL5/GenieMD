@@ -38,8 +38,12 @@ export class AddComponent implements OnInit {
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
     this.route.params.subscribe(res => {
-      this.patientID = res.patientID
-    })
+      this.patientID = res.patientID;
+      if (!!this.patientID) {
+        this.getProfilePatch();
+
+      }
+    });
     this.actionName = this.patientID ? "Edit Patient" : "Create Paitent";
     this.getProfilePatch();
     this.states = [{ name: 'Alabama', abbreviation: 'AL' }, { name: 'Alaska', abbreviation: 'AK' }, { name: 'Arizona', abbreviation: 'AZ' }, { name: 'Arkansas', abbreviation: 'AR' }, { name: 'California', abbreviation: 'CA' }, { name: 'Colorado', abbreviation: 'CO' }, { name: 'Connecticut', abbreviation: 'CT' }, { name: 'District Of Columbia', abbreviation: 'DC' }, { name: 'Delaware', abbreviation: 'DE' }, { name: 'Florida', abbreviation: 'FL' }, { name: 'Georgia', abbreviation: 'GA' }, { name: 'Hawaii', abbreviation: 'HI' }, { name: 'Idaho', abbreviation: 'ID' }, { name: 'Illinois', abbreviation: 'IL' }, { name: 'Indiana', abbreviation: 'IN' }, { name: 'Iowa', abbreviation: 'IA' }, { name: 'Kansas', abbreviation: 'KS' }, { name: 'Kentucky', abbreviation: 'KY' }, { name: 'Louisiana', abbreviation: 'LA' }, { name: 'Maine', abbreviation: 'ME' }, { name: 'Marshall Islands', abbreviation: 'MH' }, { name: 'Maryland', abbreviation: 'MD' }, { name: 'Massachusetts', abbreviation: 'MA' }, { name: 'Michigan', abbreviation: 'MI' }, { name: 'Minnesota', abbreviation: 'MN' }, { name: 'Mississippi', abbreviation: 'MS' }, { name: 'Missouri', abbreviation: 'MO' }, { name: 'Montana', abbreviation: 'MT' }, { name: 'Nebraska', abbreviation: 'NE' }, { name: 'Nevada', abbreviation: 'NV' }, { name: 'New Hampshire', abbreviation: 'NH' }, { name: 'New Jersey', abbreviation: 'NJ' }, { name: 'New Mexico', abbreviation: 'NM' }, { name: 'New York', abbreviation: 'NY' }, { name: 'North Carolina', abbreviation: 'NC' }, { name: 'North Dakota', abbreviation: 'ND' }, { name: 'Northern Mariana Islands', abbreviation: 'MP' }, { name: 'Ohio', abbreviation: 'OH' }, { name: 'Oklahoma', abbreviation: 'OK' }, { name: 'Oregon', abbreviation: 'OR' }, { name: 'Palau', abbreviation: 'PW' }, { name: 'Pennsylvania', abbreviation: 'PA' }, { name: 'Puerto Rico', abbreviation: 'PR' }, { name: 'Rhode Island', abbreviation: 'RI' }, { name: 'South Carolina', abbreviation: 'SC' }, { name: 'South Dakota', abbreviation: 'SD' }, { name: 'Tennessee', abbreviation: 'TN' }, { name: 'Texas', abbreviation: 'TX' }, { name: 'Utah', abbreviation: 'UT' }, { name: 'Vermont', abbreviation: 'VT' }, { name: 'Virgin Islands', abbreviation: 'VI' }, { name: 'Virginia', abbreviation: 'VA' }, { name: 'Washington', abbreviation: 'WA' }, { name: 'West Virginia', abbreviation: 'WV' }, { name: 'Wisconsin', abbreviation: 'WI' }, { name: 'Wyoming', abbreviation: 'WY' }
@@ -57,7 +61,7 @@ export class AddComponent implements OnInit {
     }
     this.patientsService.findById(patientPayload).subscribe((items: any) => {
       let clinicPatient = items;
-      this.profileService.getUser(clinicPatient.userID).subscribe((res: any) => {
+      this.profileService.get(clinicPatient.userID).subscribe((res: any) => {
         this.profileData = res;
         this.profileForm.patchValue({
           firstName: this.profileData.firstName,
@@ -165,7 +169,7 @@ export class AddComponent implements OnInit {
         morbidity: this.profileForm.value.morbidity,
         monitored: this.profileForm.value.monitored ? 1 : 0,
       };
-      this.profileService.updateProfile(registerPayload).subscribe((res: any) => {
+      this.profileService.update(registerPayload).subscribe((res: any) => {
         console.log('edit paitent', res);
         this.isLoading = false;
         this.toastrService.success('Patient Updated Successfully');
@@ -191,7 +195,7 @@ export class AddComponent implements OnInit {
   }
 
   getProfile() {
-    this.profileService.getUser(this.userID).subscribe((res: any) => {
+    this.profileService.get(this.userID).subscribe((res: any) => {
       this.profile = res;
       this.updateProfile();
     }, error => {
@@ -253,7 +257,7 @@ export class AddComponent implements OnInit {
       morbidity: this.profileForm.value.morbidity,
       monitored: this.profileForm.value.monitored ? 1 : 0,
     };
-    this.profileService.updateProfile(registerPayload).subscribe((res: any) => {
+    this.profileService.update(registerPayload).subscribe((res: any) => {
       console.log('updatedprofle', res);
       const firstList = {
         firstName: this.profileForm.value.firstName,
@@ -276,7 +280,7 @@ export class AddComponent implements OnInit {
       providerID: '',
       userID: this.profile.userID ? this.profile.userID : this.userID
     };
-    this.profileService.addPatient(payload).subscribe(res => {
+    this.profileService.add(payload).subscribe(res => {
       console.log('patient create ', res)
     }, error => {
       this.toastrService.danger(error.error.errorMessage);
@@ -294,6 +298,8 @@ export class AddComponent implements OnInit {
   }
 
   cancelPatient() {
-    this.router.navigate(['patients']);
+    // this.router.navigate(['patients']);
+    this.router.navigate([this.clinicService.id, this.profileService.id, 'patients']);
+
   }
 }
