@@ -2,12 +2,34 @@ import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
 
 export interface NotificationState {
-   key: string;
+  clinicID: string;
+  command?: string;
+  message?: string;
+  messageContent?: string;
+  messageType?: number;
+  subject?: string;
+  url?: string;
+  userID: string;
+  users?: string[];
+  payload?:{};
+  smsMessages?:any;
+  pushNotification?:{};
 }
 
 export function createInitialState(): NotificationState {
   return {
-    key: ''
+    clinicID: '' ,
+    command: '',
+    message: '',
+    messageContent: '',
+    messageType: 0,
+    subject: '',
+    url: '',
+    userID: '',
+    users: [],
+    payload:{},
+    smsMessages:'',
+    pushNotification:{},
   };
 }
 
