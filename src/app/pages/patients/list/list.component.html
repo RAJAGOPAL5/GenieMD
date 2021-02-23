@@ -6,7 +6,7 @@
                     <div class="col-sm-10 position-relative">
                         <div class="position-absolute align-middle p-2">
                             <nb-icon class="position-absolute align-text-bottom top-10 start-30" nbPrefix
-                                icon="search-outline"></nb-icon>
+                                icon="search-outline"></nb-icon>                              
                         </div>
                         <input type="search" name="searchText" fullWidth status="success" nbInput
                             [(ngModel)]="searchText" (ngModelChange)="getData()">
@@ -21,9 +21,12 @@
                 </div>
             </nb-form-field>
         </nb-list-item>
-        <nb-list-item *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
-            <nb-user [name]="user.name" [title]="user.email">
-            </nb-user>
+        <nb-list-item *ngFor="let user of users" >
+            <!-- <a [routerLink]="['/patients',user.patientID]"> -->
+                    <nb-user class="w-100" [name]="user.name" [title]="user.email">
+                    </nb-user>
+                    <nb-icon icon="edit" [routerLink]="[user?.patientID, 'edit']" ></nb-icon>         
+            <!-- </a> -->
         </nb-list-item>
         <nb-list-item *ngIf="!users?.length">
             <p>No patients found. <a [routerLink]="['create']">Create New Patient</a></p>

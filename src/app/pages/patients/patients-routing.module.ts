@@ -11,6 +11,11 @@ import { AddComponent } from './add/add.component';
 
 const routes: Routes = [
   {
+    path: ':patientID/edit',
+    component: AddComponent,
+    data: {title: 'edit'}
+  },
+  {
     path: 'create',
     component: AddComponent,
     data: {title: 'add'}
