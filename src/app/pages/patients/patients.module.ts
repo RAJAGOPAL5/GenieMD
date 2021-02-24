@@ -34,6 +34,8 @@ import { AddComponent } from './add/add.component';
     NbDatepickerModule,
     NbActionsModule,
     NbButtonGroupModule,
+    NbListModule,
+    NbActionsModule
   ],
   entryComponents: [AddComponent]
 })

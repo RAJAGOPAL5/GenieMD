@@ -20,6 +20,7 @@ export class CareTeamComponent implements OnInit {
   careGiver: '';
   dialogRef: any;
   showDone= false;
+  users: any[];
   constructor(private dependent: DependentService, private authService: AuthService,
     private route: ActivatedRoute, private dialogService: NbDialogService,
     private ns: NotificationService, private patientService: PatientsService,
