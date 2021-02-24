@@ -28,7 +28,6 @@ export class ProfileComponent implements OnInit {
     private profileService: ProfileService
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
-    this.iconLibraries.setDefaultPack('font-awesome');
   }
 
   ngOnInit(): void {
