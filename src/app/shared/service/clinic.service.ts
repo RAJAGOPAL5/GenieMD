@@ -17,6 +17,10 @@ export class ClinicService {
     return this.cliniConfig;
   }
 
+  getLanguageList() {
+    return this.http.get(`system/LanguageCodes`);
+  }
+
   find(id: string): any {
     return this.http.get<any>(`Clinics/${id || '1000202'}`)
     .pipe(

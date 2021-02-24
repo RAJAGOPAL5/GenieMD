@@ -1,8 +1,10 @@
+import { TranslateService } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogService } from '@nebular/theme';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { AddComponent } from '../add/add.component';
@@ -23,9 +25,12 @@ export class ListComponent implements OnInit {
   constructor(
     private patientService: PatientsService, private profileService: ProfileService,
     private clinicService: ClinicService, private dialogService: NbDialogService, private fb
-    : FormBuilder
+    : FormBuilder, private ls: LanguageService,private translate: TranslateService
 
-    ) { }
+    ) { 
+      translate.use('en');
+      translate.setTranslation('en', this.ls.state);  
+    }
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
@@ -41,7 +46,7 @@ export class ListComponent implements OnInit {
       providerID: '',
       userID: this.profileService.id,
     };
-    this.patientService.find(payload).subscribe((data: any) => { 
+    this.patientService.find(payload).subscribe((data: any) => {
       this.users = data.clinicPatientList.map(item => {
         item.name = `${item.firstName} ${item.lastName}`.trim();
         return item;
@@ -51,8 +56,14 @@ export class ListComponent implements OnInit {
       this.isLoading = false;
     });
   }
-  addPatient(){
-    this.dialogService.open(AddComponent);
+  addPatient(patientID?: number) {
+    const modal = this.dialogService.open(AddComponent);
+    modal.componentRef.instance.patientID = patientID;
+    modal.onClose.subscribe(data => {
+      if (!!data) {
+        this.getData();
+      }
+    });
   }
 
   open(filter: TemplateRef<any>) {

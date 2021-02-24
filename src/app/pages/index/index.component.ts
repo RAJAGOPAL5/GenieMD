@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NbDialogService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
 import { LogoutConfimartionComponent } from 'src/app/shared/components/logout-confimartion/logout-confimartion.component';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { LanguageService } from 'src/app/shared/service/language.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { environment } from 'src/environments/environment.prod';
 
@@ -24,7 +26,12 @@ export class IndexComponent implements OnInit {
     private themeService: NbThemeService,
     private dialogService: NbDialogService,
     private profileService: ProfileService,
-  ) { }
+    private ls: LanguageService,
+    private translate: TranslateService
+  ) {
+    translate.use('en');
+    translate.setTranslation('en', this.ls.state);
+  }
 
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;

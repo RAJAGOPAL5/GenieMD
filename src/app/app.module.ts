@@ -25,6 +25,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LogoutConfimartionComponent } from './shared/components/logout-confimartion/logout-confimartion.component';
 import { ChartsModule } from 'ng2-charts';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     NbButtonModule,
     NbTooltipModule,
     NbUserModule,
+    TranslateModule.forRoot(),
     NbButtonGroupModule
   ],
   providers: [

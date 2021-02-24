@@ -3,12 +3,12 @@
         <nb-list-item class="justify-content-center">
             <nb-actions size="small">
                 <nb-action icon="funnel-outline"  (click)="open(filter)" [options]="{ animation: { type: 'zoom' } }"></nb-action>
-                <nb-action icon="plus-circle-outline" [options]="{ animation: { type: 'zoom' } }"></nb-action>
+                <nb-action icon="plus-circle-outline" [options]="{ animation: { type: 'zoom' } }" (click)="addPatient()" ></nb-action>
             </nb-actions>
         </nb-list-item>
         <nb-list-item>
                 <div class="row w-100">
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
                         <nb-form-field>
 
                         <input type="search" name="searchText" fullWidth status="success" nbInput
@@ -16,22 +16,12 @@
                         </nb-form-field>
 
                     </div>
-
-                    <div class="col-sm-2">
-                        <div class="" data-toggle="tooltip" data-placement="top"
-                            title="Add New Patient">
-                            <button ghost="true" class="float-right "
-                            (click)="addPatient()" nbButton>
-                            <nb-icon status="primary" icon="plus" [options]="{ animation: { type: 'zoom' } }"></nb-icon>
-                            </button>
-                                
-                        </div>
-                    </div>
                 </div>
         </nb-list-item>
-        <nb-list-item class="cursor-pointer" *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
-            <nb-user class="cursor-pointer warning" [ngClass]="{'none': user.monitored == 0,'success': user.alarm == 0 && user.monitored == 1, 'warning': user.alarm == 1 && user.monitored == 1, 'danger': user.alarm == 2 && user.monitored == 1}" [name]="user.name ? user.name : user.firstName" [title]="user.dob" [picture]="user.imageUrl">
+        <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
+            <nb-user class="cursor-pointer warning" [ngClass]="{'none': user.monitored == 0,'success': user.alarm == 0 && user.monitored == 1, 'warning': user.alarm == 1 && user.monitored == 1, 'danger': user.alarm == 2 && user.monitored == 1}" [name]="user.name" [title]="user.dob" [picture]="user.imageUrl">
             </nb-user>
+            <nb-icon icon="edit-outline" [options]="{ animation: { type: 'zoom' } }" (click)="addPatient(user?.patientID);$event.stopPropagation();"></nb-icon>
         </nb-list-item>
         <nb-list-item *ngIf="!users?.length">
             <p>No patients found. <a (click)="addPatient()">Create New Patient</a></p>

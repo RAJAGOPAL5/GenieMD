@@ -27,6 +27,8 @@
     "@nebular/eva-icons": "7.0.0",
     "@nebular/theme": "^7.0.0",
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
+    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/http-loader": "^6.0.0",
     "angular-font-awesome": "^3.1.2",
     "bootstrap": "^5.0.0-beta2",
     "chart.js": "^2.9.4",

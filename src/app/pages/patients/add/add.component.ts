@@ -7,7 +7,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ThrowStmt, ThisReceiver } from '@angular/compiler';
-import { NbToastrService } from '@nebular/theme';
+import { NbDialogRef, NbToastrService } from '@nebular/theme';
 
 
 @Component({
@@ -31,20 +31,17 @@ export class AddComponent implements OnInit {
   genderArr = [{ id: 'Male', value: 0 }, { id: 'Female', value: 1 }, { id: 'Other', value: 2 }];
 
   @ViewChild('birthDate', { static: false }) birthDate: any;
-  constructor(private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
+  constructor(
+    private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
-    private toastrService: NbToastrService, private patientsService: PatientsService) { }
+    private toastrService: NbToastrService, private patientsService: PatientsService, protected dialogRef: NbDialogRef<any>) { }
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
-    this.route.params.subscribe(res => {
-      this.patientID = res.patientID;
-      console.log()
-      if (!!this.patientID) {
-        this.getProfilePatch();
-
-      }
-    });
+    console.log('this.patientID', this.patientID)
+    if (!!this.patientID) {
+      this.getProfilePatch();
+    }
     this.actionName = this.patientID ? "Edit Patient" : "Create Patient";
     this.states = [{ name: 'Alabama', abbreviation: 'AL' }, { name: 'Alaska', abbreviation: 'AK' }, { name: 'Arizona', abbreviation: 'AZ' }, { name: 'Arkansas', abbreviation: 'AR' }, { name: 'California', abbreviation: 'CA' }, { name: 'Colorado', abbreviation: 'CO' }, { name: 'Connecticut', abbreviation: 'CT' }, { name: 'District Of Columbia', abbreviation: 'DC' }, { name: 'Delaware', abbreviation: 'DE' }, { name: 'Florida', abbreviation: 'FL' }, { name: 'Georgia', abbreviation: 'GA' }, { name: 'Hawaii', abbreviation: 'HI' }, { name: 'Idaho', abbreviation: 'ID' }, { name: 'Illinois', abbreviation: 'IL' }, { name: 'Indiana', abbreviation: 'IN' }, { name: 'Iowa', abbreviation: 'IA' }, { name: 'Kansas', abbreviation: 'KS' }, { name: 'Kentucky', abbreviation: 'KY' }, { name: 'Louisiana', abbreviation: 'LA' }, { name: 'Maine', abbreviation: 'ME' }, { name: 'Marshall Islands', abbreviation: 'MH' }, { name: 'Maryland', abbreviation: 'MD' }, { name: 'Massachusetts', abbreviation: 'MA' }, { name: 'Michigan', abbreviation: 'MI' }, { name: 'Minnesota', abbreviation: 'MN' }, { name: 'Mississippi', abbreviation: 'MS' }, { name: 'Missouri', abbreviation: 'MO' }, { name: 'Montana', abbreviation: 'MT' }, { name: 'Nebraska', abbreviation: 'NE' }, { name: 'Nevada', abbreviation: 'NV' }, { name: 'New Hampshire', abbreviation: 'NH' }, { name: 'New Jersey', abbreviation: 'NJ' }, { name: 'New Mexico', abbreviation: 'NM' }, { name: 'New York', abbreviation: 'NY' }, { name: 'North Carolina', abbreviation: 'NC' }, { name: 'North Dakota', abbreviation: 'ND' }, { name: 'Northern Mariana Islands', abbreviation: 'MP' }, { name: 'Ohio', abbreviation: 'OH' }, { name: 'Oklahoma', abbreviation: 'OK' }, { name: 'Oregon', abbreviation: 'OR' }, { name: 'Palau', abbreviation: 'PW' }, { name: 'Pennsylvania', abbreviation: 'PA' }, { name: 'Puerto Rico', abbreviation: 'PR' }, { name: 'Rhode Island', abbreviation: 'RI' }, { name: 'South Carolina', abbreviation: 'SC' }, { name: 'South Dakota', abbreviation: 'SD' }, { name: 'Tennessee', abbreviation: 'TN' }, { name: 'Texas', abbreviation: 'TX' }, { name: 'Utah', abbreviation: 'UT' }, { name: 'Vermont', abbreviation: 'VT' }, { name: 'Virgin Islands', abbreviation: 'VI' }, { name: 'Virginia', abbreviation: 'VA' }, { name: 'Washington', abbreviation: 'WA' }, { name: 'West Virginia', abbreviation: 'WV' }, { name: 'Wisconsin', abbreviation: 'WI' }, { name: 'Wyoming', abbreviation: 'WY' }
     ];
@@ -281,8 +278,7 @@ export class AddComponent implements OnInit {
       userID: this.profile.userID ? this.profile.userID : this.userID
     };
     this.profileService.add(payload).subscribe(res => {
-      this.router.navigate([this.clinicService.id, this.profileService.id, 'patients']);
-      console.log('patient create ', res)
+      this.dialogRef.close(res);
     }, error => {
       this.toastrService.danger(error.error.errorMessage);
     });
@@ -299,8 +295,6 @@ export class AddComponent implements OnInit {
   }
 
   cancelPatient() {
-    // this.router.navigate(['patients']);
-    this.router.navigate([this.clinicService.id, this.profileService.id, 'patients']);
-
+    this.dialogRef.close();
   }
 }
