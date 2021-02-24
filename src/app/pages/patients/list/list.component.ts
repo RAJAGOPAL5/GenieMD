@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 
@@ -14,7 +16,12 @@ export class ListComponent implements OnInit {
   searchText = '';
   clinic: any;
 
-  constructor(private patientService: PatientsService, private profileService: ProfileService, private clinicService: ClinicService) { }
+  constructor(private patientService: PatientsService, private profileService: ProfileService, private clinicService: ClinicService,
+    private ls: LanguageService,
+    private translate: TranslateService) {
+    translate.use('en');
+    translate.setTranslation('en', this.ls.state);
+  }
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
@@ -30,7 +37,7 @@ export class ListComponent implements OnInit {
       providerID: '',
       userID: this.profileService.id,
     };
-    this.patientService.find(payload).subscribe((data: any) => { 
+    this.patientService.find(payload).subscribe((data: any) => {
       this.users = data.clinicPatientList.map(item => {
         item.name = `${item.firstName} ${item.lastName}`.trim();
         return item;

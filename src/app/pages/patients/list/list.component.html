@@ -33,7 +33,7 @@
             </nb-user>
         </nb-list-item>
         <nb-list-item *ngIf="!users?.length">
-            <p>No patients found. <a [routerLink]="['create']">Create New Patient</a></p>
+            <p>{{'kNoPatientFound'}}<a [routerLink]="['create']">Create New Patient</a></p>
         </nb-list-item>
     </nb-list>
 </nb-card>
