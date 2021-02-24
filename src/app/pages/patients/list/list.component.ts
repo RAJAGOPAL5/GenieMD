@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, TemplateRef } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { NbDialogService } from '@nebular/theme';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
@@ -8,17 +9,21 @@ import { AddComponent } from '../add/add.component';
 @Component({
   selector: 'app-patient-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
   users: any;
   isLoading = false;
   searchText = '';
   clinic: any;
-
+  registrationForm: FormGroup;
+  formBuilder: any;
+  searchValue = { firstName: '', lastName: '', dob: '', gender: 0, monitored: 1 };
   constructor(
-    private patientService: PatientsService, private profileService: ProfileService, private clinicService: ClinicService,
-    private dialogService: NbDialogService) { }
+    private patientService: PatientsService, private profileService: ProfileService,
+    private clinicService: ClinicService, private dialogService: NbDialogService,
+
+    ) { }
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
@@ -47,4 +52,26 @@ export class ListComponent implements OnInit {
   addPatient(){
     this.dialogService.open(AddComponent);
   }
+
+  open(filter: TemplateRef<any>) {
+    this.dialogService.open(filter, {});
+  }
+  createForm() {
+    this.registrationForm = this.formBuilder.group({
+      firstName: [this.searchValue.firstName],
+      lastName: [this.searchValue.lastName],
+      gender: [this.searchValue.gender],
+      dob: [this.searchValue.dob],
+
+    });
+  }
+  startSearch(){
+    debugger
+    if((this.registrationForm.value.firstName != "" && this.registrationForm.value.firstName != null)){
+      let date = "";
+      if (this.registrationForm.value.dob && this.registrationForm.value.dob !== "") {
+        date = this.registrationForm.value.dob.year + '-' + ('0' + (this.registrationForm.value.dob.month)).slice(-2) + '-' + ('0' + this.registrationForm.value.dob.day).slice(-2);
+    };
+  };
+}
 }
