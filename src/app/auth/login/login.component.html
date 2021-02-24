@@ -1,16 +1,18 @@
-<form (ngSubmit)="submit()" class="d-flex align-items-center h-70 justify-content-center" style= "margin-top: 12rem;">
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+<form (ngSubmit)="submit()" class="d-flex align-items-center h-70 justify-content-center" style="margin-top: 12rem;">
     <nb-card class="w-75 mb-0" [nbSpinner]="isLoading">
         <nb-card-header>
             <div class="d-flex align-items-center h-100 justify-content-center">
                 <span class="ps-2">
                     <img [src]="logo" alt="" height="50">
-                  </span>
-                  <span class="ps-2 h4 text-uppercase d-flex align-items-center">{{ title }}</span>
+                </span>
+                <span class="ps-2 h4 text-uppercase d-flex align-items-center">{{ title }}</span>
             </div>
         </nb-card-header>
-        <nb-card-body class="mb-0">
-            <div class="mb-3 form-group">
-                <label for="username" class="form-label">Username</label>
+        <nb-card-body class="m-2">
+            <div class="mb-2 form-group">
+                <label for="username" class="label">Username</label>
                 <nb-form-field>
                     <nb-icon nbPrefix icon="email-outline"></nb-icon>
                     <input type="text" class="form-control" nbInput fullWidth shape="rectangle"
@@ -18,18 +20,29 @@
                 </nb-form-field>
             </div>
             <div class="mb-3 form-group">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="label">Password</label>
                 <nb-form-field>
                     <nb-icon nbPrefix icon="email-outline"></nb-icon>
                     <input type="password" class="form-control" nbInput fullWidth shape="rectangle"
                         placeholder="Enter your password" name="password" [(ngModel)]="model.password">
                 </nb-form-field>
             </div>
-            <button nbButton hero status="primary" type="submit" [disabled]="!model.password || !model.username">Log in</button>
-            <a class="float-end pt-2"  [routerLink]="['../forgot']">Forgot password</a>
+            <div class="row mb-3">
+                <div class = "col-8"></div>
+                <div class = "col-4">
+                <a class="float-end" [routerLink]="['../forgot']">Forgot password?</a>
+            </div>
+            </div>
+            <div class="row mb-3">
+                <div class = "col-12">
+                <button class="w-100" nbButton hero status="primary" type="submit" [disabled]="!model.password || !model.username">Login</button>
+            </div>
+            </div>
         </nb-card-body>
     </nb-card>
 </form>
+</div>
+</div>
 <div style="text-align: center;" class='pt-2'>
     <span class="caption">V {{version}}</span>
 </div>

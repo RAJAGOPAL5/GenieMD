@@ -7,7 +7,6 @@
       <span class="ps-2 d-flex align-items-center">
         <img [src]="logo" alt="" height="40">
       </span>
-      <span class="ps-2 h4 text-uppercase d-flex align-items-center">{{ title }}</span>
       <span class="ms-auto"></span>
       <span>
         <button nbTooltip="Change to Dark" nbTooltipPlacement="start" (click)="toggleTheme('default')" *ngIf="theme === 'default'; else dark" nbButton ghost status="primary"><nb-icon icon="sun-outline" [options]="{ animation: { type: 'zoom' } }"></nb-icon></button>

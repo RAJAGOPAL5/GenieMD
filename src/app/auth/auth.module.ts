@@ -9,6 +9,7 @@ import { IndexComponent } from './index/index.component';
 import { NbButtonModule, NbCardModule, NbFormFieldModule, NbIconModule, NbInputModule, NbSpinnerModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { FormsModule } from '@angular/forms';
+import { NbAuthModule, NbPasswordAuthStrategy, NbPasswordAuthStrategyOptions } from '@nebular/auth';
 
 
 @NgModule({
@@ -25,6 +26,13 @@ import { FormsModule } from '@angular/forms';
     NbIconModule,
     NbFormFieldModule,
     NbSpinnerModule,
+    NbAuthModule.forRoot({
+      strategies: [
+        NbPasswordAuthStrategy.setup({
+          name: 'local'
+        })
+      ]
+    })
   ]
 })
 export class AuthModule { }

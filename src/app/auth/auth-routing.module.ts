@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NbAuthComponent, NbLoginComponent, NbRequestPasswordComponent } from '@nebular/auth';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { IndexComponent } from './index/index.component';
 import { LoginComponent } from './login/login.component';
@@ -9,16 +10,16 @@ const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {
     path: '',
-    component: IndexComponent,
+    component: NbAuthComponent,
     children: [
       {
         path: 'login',
-        component: LoginComponent,
+        component: NbLoginComponent,
         data:{ title:'login'},
       },
       {
         path: 'forgot',
-        component: ForgotPasswordComponent,
+        component: NbRequestPasswordComponent,
         data:{ title:'Forgot Password'},
 
       }
