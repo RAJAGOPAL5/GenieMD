@@ -1,5 +1,11 @@
 <nb-card size="large" [nbSpinner]="isLoading">
     <nb-list>
+        <nb-list-item class="justify-content-center">
+            <nb-actions size="small">
+                <nb-action icon="funnel-outline"></nb-action>
+                <nb-action icon="plus-circle-outline"></nb-action>
+              </nb-actions>
+        </nb-list-item>
         <nb-list-item>
                 <div class="row w-100">
                     <div class="col-sm-10">
@@ -23,7 +29,7 @@
                     </div>
                 </div>
         </nb-list-item>
-        <nb-list-item class="border shadow-none" *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
+        <nb-list-item *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
             <nb-user class="cursor-pointer warning" [ngClass]="{'none': user.monitored == 0,'success': user.alarm == 0 && user.monitored == 1, 'warning': user.alarm == 1 && user.monitored == 1, 'danger': user.alarm == 2 && user.monitored == 1}" [name]="user.name" [title]="user.dob" [picture]="user.imageUrl">
             </nb-user>
         </nb-list-item>
