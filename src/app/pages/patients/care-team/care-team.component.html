@@ -1,4 +1,4 @@
-<nb-card size="giant" style="overflow: auto"status="primary">
+<nb-card size="giant" style="overflow: auto" status="primary">
     <nb-card-header>
         <div class="row">
             <div class="col-10">
@@ -6,17 +6,23 @@
             </div>
             <div class="col-1 p-0">
                 <button nbButton ghost size="gaint" (click)="open(dialog)">
-                    <nb-icon icon="plus"></nb-icon>
+                    <nb-icon icon="plus" class="text-white"></nb-icon>
                 </button>
             </div>
             <div class="col-1 p-0">
-                <button *ngIf="!showDone" nbButton size="small" (click)="change()">EDIT</button>
-                <button *ngIf="showDone" nbButton  size="small" (click)="change()">Done</button>
+                <button *ngIf="!showDone" nbButton ghost  size="large" (click)="change()" class="p-0 text-white">EDIT</button>
+                <button *ngIf="showDone" nbButton ghost size="large" (click)="change()" class="p-0 text-white">Done</button>
             </div>
         </div>
     </nb-card-header>
-    <nb-card-body>
-        <p> No caregivers specified. Tap + to add a caregiver</p>
+    <nb-card-body>  
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 m-4">
+                <h6 class="text-center">No caregivers specified. Tap + to add a caregiver</h6>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
     </nb-card-body>
 </nb-card>
 <ng-template #dialog>
@@ -28,7 +34,7 @@
             <input type="text" nbInput placeholder="Caregiver Username" [(ngModel)]="careGiver" name="careGiver">
         </nb-card-body>
         <nb-card-footer>
-            <button nbButton class="appearance-filled size-small shape-rectangle status-danger"
+            <button nbButton status="danger"
                 (click)="refclose()">Cancel</button>
             <button nbButton class="appearance-filled size-small shape-rectangle status-primary"
                 (click)="notify()">OK</button>
