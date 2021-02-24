@@ -11,8 +11,9 @@ import { NbAuthService, NbRequestPasswordComponent, NB_AUTH_OPTIONS } from '@neb
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent extends NbRequestPasswordComponent implements OnInit {
-  user: any = {};
-  // email = '';
+  user: any = {
+    email: ''
+  };
   isLoading = false;
   position: 'top-right';
   logo: string;
@@ -37,10 +38,10 @@ export class ForgotPasswordComponent extends NbRequestPasswordComponent implemen
   }
   submit() {
     this.isLoading = true;
-    this.authService.forget(this.user).subscribe(res => {
+    this.authService.forget(this.user.email).subscribe(res => {
       this.isLoading = false;
       this.toastrService.show('Success', 'Email Sent');
-      this.router.navigate(['auth/login']);
+      this.router.navigate([this.clinicService.id,'auth']);
     }, error => {
       this.isLoading = false;
       this.toastrService.show('Error', 'Something Went Worng');
