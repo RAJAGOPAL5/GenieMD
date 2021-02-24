@@ -48,6 +48,7 @@ export class CareTeamComponent implements OnInit {
   }
   open(dialog: TemplateRef<any>) {
     this.dialogRef = this.dialogService.open(dialog);
+    this.showDone = false;
   }
   refclose() {
    this.dialogRef.close();
