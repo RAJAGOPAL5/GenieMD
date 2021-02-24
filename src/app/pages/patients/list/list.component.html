@@ -1,13 +1,14 @@
 <nb-card size="large" [nbSpinner]="isLoading">
     <nb-list>
+        <nb-list-item class="justify-content-center">
+            <nb-actions size="small">
+                <nb-action icon="funnel-outline"  (click)="open(filter)" [options]="{ animation: { type: 'zoom' } }"></nb-action>
+                <nb-action icon="plus-circle-outline" [options]="{ animation: { type: 'zoom' } }"></nb-action>
+            </nb-actions>
+        </nb-list-item>
         <nb-list-item>
                 <div class="row w-100">
-
                     <div class="col-sm-10">
-                        <!-- <div class="position-absolute p-2">
-                            <nb-icon class="" status="success"  nbPrefix
-                                icon="search-outline"></nb-icon>                              
-                        </div> -->
                         <nb-form-field>
 
                         <input type="search" name="searchText" fullWidth status="success" nbInput
@@ -20,20 +21,74 @@
                         <div class="" data-toggle="tooltip" data-placement="top"
                             title="Add New Patient">
                             <button ghost="true" class="float-right "
-                                [routerLink]="['create']" nbButton>
-                            <nb-icon status="primary" icon="plus"></nb-icon>
+                            (click)="addPatient()" nbButton>
+                            <nb-icon status="primary" icon="plus" [options]="{ animation: { type: 'zoom' } }"></nb-icon>
                             </button>
                                 
                         </div>
                     </div>
                 </div>
         </nb-list-item>
-        <nb-list-item class="form-control border shadow-none" *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
-            <nb-user class="cursor-pointer warning" [ngClass]="{'success': user.alarm == 2, 'warning': user.alarm == 1, 'danger': user.alarm == 0}" [name]="user.name" [title]="user.email" [picture]="user.imageUrl">
+        <nb-list-item class="cursor-pointer" *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
+            <nb-user class="cursor-pointer warning" [ngClass]="{'none': user.monitored == 0,'success': user.alarm == 0 && user.monitored == 1, 'warning': user.alarm == 1 && user.monitored == 1, 'danger': user.alarm == 2 && user.monitored == 1}" [name]="user.name" [title]="user.dob" [picture]="user.imageUrl">
             </nb-user>
         </nb-list-item>
         <nb-list-item *ngIf="!users?.length">
-            <p>{{'kNoPatientFound'}}<a [routerLink]="['create']">Create New Patient</a></p>
+            <p>No patients found. <a (click)="addPatient()">Create New Patient</a></p>
         </nb-list-item>
     </nb-list>
 </nb-card>
+<ng-template #filter let-data let-ref="dialogRef">
+<form [formGroup]="registrationForm">
+    <nb-card size="small" >
+        <nb-card-header>
+            <span>Filter</span>
+        </nb-card-header>
+        <nb-card-body class="example-items-col">
+            <div >
+                <label for="inputFirstName" class="label">First Name</label>
+                <input type="text" fullWidth fieldSize="giant" formControlName="firstName" nbInput id="inputFirstName"
+                    placeholder="First Name">
+            </div>
+            <div >
+                <label for="inputLastName" class="label">Last Name</label>
+                <input type="text" fullWidth fieldSize="giant" formControlName="lastName" nbInput id="inputLastName"
+                    placeholder="Last Name">
+            </div>
+            <div >
+                <div for="inputFirstName" class="label">Date Of Birth</div>
+                <input nbInput fullWidth fieldSize="giant" formControlName="dob"
+                    placeholder="Pick Date" [nbDatepicker]="formcontrol">
+                <nb-datepicker #formcontrol></nb-datepicker>
+            </div>
+            <div >
+                <div>
+                    <label class="label">User</label>
+                </div>
+                <nb-button-group status="primary">
+                    <button class="w-50" nbButtonToggle nbButton>All</button>
+                    <button class="w-50" nbButtonToggle nbButton>Monitored</button>
+                  </nb-button-group>
+            </div>
+            <div>
+                <div>
+                    <label class="label">Gender</label>
+                </div>
+                <nb-button-group status="primary">
+                    <button class="w-50" nbButtonToggle nbButton>Male</button>
+                    <button class="w-50" nbButtonToggle nbButton>Female</button>
+                    <button class="w-50" nbButtonToggle nbButton>Other</button>
+                </nb-button-group>
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="row pr-1 justify-content-end">
+                <div class="col-auto mr-2 ml-2 d-flex justify-content-end">
+                    <button nbButton status="danger" (click)="ref.close()">Cancel</button>
+                    <button nbButton status="success" (click)="startSearch()">Search</button>
+                </div>
+            </div>
+        </nb-card-footer>
+    </nb-card>    
+</form>    
+</ng-template>

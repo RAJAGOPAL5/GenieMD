@@ -23,6 +23,7 @@
     "@datorama/akita": "^5.3.0",
     "@datorama/akita-ng-entity-service": "^5.0.0",
     "@fortawesome/fontawesome-free": "^5.15.2",
+    "@nebular/auth": "^7.0.0",
     "@nebular/eva-icons": "7.0.0",
     "@nebular/theme": "^7.0.0",
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
