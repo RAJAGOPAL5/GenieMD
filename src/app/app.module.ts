@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NbButtonModule, NbCardModule, NbDialogModule, NbIconModule, NbInputModule, NbLayoutModule,
    NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbSpinnerModule, NbThemeModule, NbToastrModule,
-    NbTooltipModule, NbUserModule, NbDatepickerModule } from '@nebular/theme';
+    NbTooltipModule, NbUserModule, NbDatepickerModule, NbButtonGroupModule } from '@nebular/theme';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -17,7 +17,7 @@ import { ProfileComponent } from './pages/patients/profile/profile.component';
 import { AlertsComponent } from './pages/patients/alerts/alerts.component';
 import { VisitsComponent } from './pages/patients/visits/visits.component';
 import { ClinicPromptComponent } from './shared/components/clinic-prompt/clinic-prompt.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
@@ -56,6 +56,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     HttpClientModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     FormsModule,
+    ReactiveFormsModule,
     NbToastrModule.forRoot(),
     NbDatepickerModule.forRoot(),
     NbSpinnerModule,
@@ -63,7 +64,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     NbIconModule,
     NbButtonModule,
     NbTooltipModule,
-    NbUserModule
+    NbUserModule,
+    NbButtonGroupModule
   ],
   providers: [
     {
