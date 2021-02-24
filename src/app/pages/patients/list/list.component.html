@@ -29,8 +29,8 @@
                     </div>
                 </div>
         </nb-list-item>
-        <nb-list-item class="form-control border shadow-none" *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
-            <nb-user class="cursor-pointer warning" [ngClass]="{'success': user.alarm == 0, 'warning': user.alarm == 1, 'danger': user.alarm == 2}" [name]="user.name" [title]="user.email" [picture]="user.imageUrl">
+        <nb-list-item class="border shadow-none" *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
+            <nb-user class="cursor-pointer warning" [ngClass]="{'none': user.monitored == 0,'success': user.alarm == 0 && user.monitored == 1, 'warning': user.alarm == 1 && user.monitored == 1, 'danger': user.alarm == 2 && user.monitored == 1}" [name]="user.name" [title]="user.dob" [picture]="user.imageUrl">
             </nb-user>
         </nb-list-item>
         <nb-list-item *ngIf="!users?.length">
