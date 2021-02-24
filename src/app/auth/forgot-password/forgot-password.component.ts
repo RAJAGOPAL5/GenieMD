@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { NbAuthService, NbRequestPasswordComponent, NB_AUTH_OPTIONS } from '@nebular/auth';
+import { LanguageService } from 'src/app/shared/service/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-forgot-password',
@@ -21,6 +23,8 @@ export class ForgotPasswordComponent extends NbRequestPasswordComponent implemen
   
   constructor(private clinicService: ClinicService, 
     private authService: AuthService,
+    private ls: LanguageService,
+    private translate: TranslateService,
     @Inject(NB_AUTH_OPTIONS)
     protected service: NbAuthService, 
     protected cd: ChangeDetectorRef, 
@@ -29,6 +33,8 @@ export class ForgotPasswordComponent extends NbRequestPasswordComponent implemen
 
     ) {
     super(service, {}, cd, router);  
+    translate.use('en');
+    translate.setTranslation('en', this.ls.state);  
   }
   
 
