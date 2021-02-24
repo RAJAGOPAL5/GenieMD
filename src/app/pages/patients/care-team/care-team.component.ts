@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, RouteConfigLoadEnd } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
+import { ClinicService } from 'projects/core/src/lib/clinic/state/clinic.service';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { DependentService } from 'src/app/shared/service/dependent.service';
 import { NotificationService } from 'src/app/shared/service/notification.service';
@@ -22,7 +23,7 @@ export class CareTeamComponent implements OnInit {
   constructor(private dependent: DependentService, private authService: AuthService,
     private route: ActivatedRoute, private dialogService: NbDialogService,
     private ns: NotificationService, private patientService: PatientsService,
-    private profileService: ProfileService) { }
+    private profileService: ProfileService, private clinicService: ClinicService) { }
 
   ngOnInit(): void {
     this.patientId = this.route.snapshot.parent.params['patientId'];
@@ -37,8 +38,8 @@ export class CareTeamComponent implements OnInit {
   }
   getProfile() {
     const payload = {
-      userID: localStorage.getItem('userID'),
-      clinicID :localStorage.getItem('clinicId'),
+      userID: this.profileService.id,
+      clinicID :this.clinicService.id,
       patientID: this.patientId
     }
     this.patientService.findById(payload).subscribe((data: any) => {
@@ -47,6 +48,7 @@ export class CareTeamComponent implements OnInit {
   }
   open(dialog: TemplateRef<any>) {
     this.dialogRef = this.dialogService.open(dialog);
+    this.showDone = false;
   }
   refclose() {
    this.dialogRef.close();
@@ -59,11 +61,11 @@ export class CareTeamComponent implements OnInit {
      requesterUsername:this.patientInfo.patientID
     };
     const data = {
-      'userID': localStorage.getItem('userID'),
+      'userID': this.profileService.id,
       'command': JSON.stringify(cmd),
       'messageType': 10,
       'subject': `Message from ${this.patientInfo.firstName} ${this.patientInfo.lastName}`,
-      'clinicID':localStorage.getItem('clinicId'),
+      'clinicID':this.clinicService.id,
       'message': `Message from ${this.patientInfo.firstName} ${this.patientInfo.lastName}-- Please login to iVisit and visit Notification Center for details.`,
       'messageContent':`${this.patientInfo.firstName} ${this.patientInfo.lastName} is requesting to add you as a Caregiver to ${this.patientInfo.firstName} ${this.patientInfo.lastName}. Tap to accept` ,
       'url': "https://geniemd-generalfiles.s3.amazonaws.com/c7257a550c8a45f3a6361d1f691b94e9.png?AWSAccessKeyId=AKIAIZH5KUW5NWRU5FDQ&Expires=1926574136&Signature=epieTnvW2e2Nk3VdB07VtZgwl70%3D",

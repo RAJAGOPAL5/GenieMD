@@ -1,34 +1,43 @@
-<nb-card size="giant" style="overflow: auto">
-    <nb-card-header status="primary">
+<nb-card size="giant" style="overflow: auto" status="primary">
+    <nb-card-header>
         <div class="row">
-            <div class="col-10">
-                Care Team
+            <div class="col-11">
+                <h6 class="text-white">Care Team</h6>
             </div>
             <div class="col-1 p-0">
-                <button nbButton size="small" (click)="open(dialog)">
-                    <nb-icon icon="plus"></nb-icon>
+                <button nbButton ghost size="gaint" (click)="open(dialog)">
+                    <nb-icon icon="plus" nbTooltip="Add Care Givers" nbTooltipStatus="control" class="text-white"></nb-icon>
                 </button>
-            </div>
-            <div class="col-1 p-0">
-                <button *ngIf="!showDone" nbButton hero status="primary" size="small" (click)="change()">EDIT</button>
-                <button *ngIf="showDone" nbButton hero status="primary" size="small" (click)="change()">Done</button>
+                <button *ngIf="!showDone" nbButton ghost  size="gaint" (click)="change()" class="p-0 text-white ps-3">
+                    <nb-icon icon="edit" nbTooltip="Remove Care Givers" nbTooltipStatus="control" class="text-white"></nb-icon>
+                </button>
+                <button *ngIf="showDone" nbButton ghost size="large" (click)="change()" class="p-0 text-white ps-3">Done</button>
             </div>
         </div>
     </nb-card-header>
-    <nb-card-body>
-        No caregivers specified. Tap + to add a caregiver
+    <nb-card-body>  
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 m-4">
+                <h6 class="text-center">No caregivers specified. Tap + to add a caregiver</h6>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
     </nb-card-body>
 </nb-card>
 <ng-template #dialog>
-    <nb-card>
-        <nb-card-header>Invite caregiver</nb-card-header>
+    <nb-card class="dialog-card">
+        <nb-card-header>
+            <h6>Invite caregiver</h6>
+        </nb-card-header>
         <nb-card-body>
-            <input nbInput="" placeholder="Caregiver Username"
-                class="size-medium status-basic shape-rectangle nb-transition" [(ngModel)]="careGiver" name="careGiver">
-            </nb-card-body>
-        <nb-card-footer class="example-items-rows">
-            <button nbButton class="appearance-filled size-medium shape-rectangle" (click)="refclose()">Cancel</button>
-            <button nbButton class="appearance-filled size-medium shape-rectangle" (click)="notify()">Ok</button>
+            <input type="text" nbInput placeholder="Caregiver Username" [(ngModel)]="careGiver" name="careGiver">
+        </nb-card-body>
+        <nb-card-footer>
+            <button nbButton status="danger"
+                (click)="refclose()">Cancel</button>
+            <button nbButton status="primary"
+                (click)="notify()">OK</button>
         </nb-card-footer>
     </nb-card>
 </ng-template>
