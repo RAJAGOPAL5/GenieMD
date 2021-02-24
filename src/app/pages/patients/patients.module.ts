@@ -32,7 +32,7 @@ import { AddComponent } from './add/add.component';
     NbSelectModule,
     NbToggleModule,
     NbDatepickerModule,
-    NbActionsModule
-  ]
+  ],
+  entryComponents: [AddComponent]
 })
 export class PatientsModule { }

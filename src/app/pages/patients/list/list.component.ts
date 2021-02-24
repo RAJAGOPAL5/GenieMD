@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NbDialogService } from '@nebular/theme';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
+import { AddComponent } from '../add/add.component';
 
 @Component({
   selector: 'app-patient-list',
@@ -14,7 +16,9 @@ export class ListComponent implements OnInit {
   searchText = '';
   clinic: any;
 
-  constructor(private patientService: PatientsService, private profileService: ProfileService, private clinicService: ClinicService) { }
+  constructor(
+    private patientService: PatientsService, private profileService: ProfileService, private clinicService: ClinicService,
+    private dialogService: NbDialogService) { }
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
@@ -39,5 +43,8 @@ export class ListComponent implements OnInit {
     }, error => {
       this.isLoading = false;
     });
+  }
+  addPatient(){
+    this.dialogService.open(AddComponent);
   }
 }

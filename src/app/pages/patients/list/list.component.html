@@ -20,8 +20,7 @@
                     <div class="col-sm-2">
                         <div class="" data-toggle="tooltip" data-placement="top"
                             title="Add New Patient">
-                            <button ghost="true" class="float-right "
-                                [routerLink]="['create']" nbButton>
+                            <button ghost="true" class="float-right " nbButton (click)="addPatient()">
                             <nb-icon status="primary" icon="plus"></nb-icon>
                             </button>
                                 
