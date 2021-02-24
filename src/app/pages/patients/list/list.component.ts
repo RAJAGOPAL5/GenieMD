@@ -49,9 +49,14 @@ export class ListComponent implements OnInit {
       this.isLoading = false;
     });
   }
-  addPatient(patientID? : number){
+  addPatient(patientID?: number) {
     const modal = this.dialogService.open(AddComponent);
-    modal.componentRef.instance.patientID = 1;
+    modal.componentRef.instance.patientID = patientID;
+    modal.onClose.subscribe(data => {
+      if (!!data) {
+        this.getData();
+      }
+    });
   }
 
   open(filter: TemplateRef<any>) {
