@@ -49,8 +49,9 @@ export class ListComponent implements OnInit {
       this.isLoading = false;
     });
   }
-  addPatient(){
-    this.dialogService.open(AddComponent);
+  addPatient(patientID? : number){
+    const modal = this.dialogService.open(AddComponent);
+    modal.componentRef.instance.patientID = 1;
   }
 
   open(filter: TemplateRef<any>) {
