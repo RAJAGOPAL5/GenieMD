@@ -19,7 +19,8 @@ export class ProfileComponent implements OnInit {
   patientID: any;
   patient: any;
   patientName: any;
-
+  morbidityValue = [];
+  morbiditys: { name: string; id: number; }[];
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
@@ -39,14 +40,32 @@ export class ProfileComponent implements OnInit {
   }
 
   getData() {
+    this.morbiditys = [{ name: 'Lung Disease', id: 0 }, { name: 'Heart Disease', id: 1 }];
     const payload = {
       userID: this.profileService.id,
       clinicID: this.clinicService.id,
       patientID: this.patientID
     };
     this.patientService.findById(payload).subscribe((data: any) => {
+      this.morbidityValue = [];
       this.patient = data;
-      this.patientName =`${this.patient.firstName} ${this.patient.lastName}`;
+      this.patientName = `${this.patient.firstName} ${this.patient.lastName}`;
+      this.patient.morbidity === 0 ? this.morbidityValue.push('Lung Disease') : this.morbidityValue.push('Heart Disease');
+
+     /* BELOW IS FOR FEATURE USE FOR MOBIDITY MULTI SELECT  */
+
+      // this.morbidityValue = [];
+      // this.patient.morbidity.map(item1 => {
+      //   this.morbiditys.map((item2) => {
+      //     if (item1 === item2.id) {
+      //       this.morbidityValue.push(item2.name);
+      //     }
+      //   });
+      // });
+
+      /* MOBIDITY MULTI SELECT END */
+
+
     }, error => {
       console.log('error');
     });
@@ -74,7 +93,7 @@ export class ProfileComponent implements OnInit {
         title: 'History',
         route: `history/`,
       },
-  
+
     ];
   }
 }
