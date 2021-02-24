@@ -7,7 +7,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ThrowStmt, ThisReceiver } from '@angular/compiler';
-import { NbToastrService } from '@nebular/theme';
+import { NbDialogRef, NbToastrService } from '@nebular/theme';
 
 
 @Component({
@@ -31,9 +31,10 @@ export class AddComponent implements OnInit {
   genderArr = [{ id: 'Male', value: 0 }, { id: 'Female', value: 1 }, { id: 'Other', value: 2 }];
 
   @ViewChild('birthDate', { static: false }) birthDate: any;
-  constructor(private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
+  constructor(
+    private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
-    private toastrService: NbToastrService, private patientsService: PatientsService) { }
+    private toastrService: NbToastrService, private patientsService: PatientsService, protected dialogRef: NbDialogRef<any>) { }
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
@@ -277,8 +278,7 @@ export class AddComponent implements OnInit {
       userID: this.profile.userID ? this.profile.userID : this.userID
     };
     this.profileService.add(payload).subscribe(res => {
-      this.router.navigate([this.clinicService.id, this.profileService.id, 'patients']);
-      console.log('patient create ', res)
+      this.dialogRef.close(res);
     }, error => {
       this.toastrService.danger(error.error.errorMessage);
     });
@@ -295,8 +295,6 @@ export class AddComponent implements OnInit {
   }
 
   cancelPatient() {
-    // this.router.navigate(['patients']);
-    this.router.navigate([this.clinicService.id, this.profileService.id, 'patients']);
-
+    this.dialogRef.close();
   }
 }

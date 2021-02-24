@@ -3,29 +3,18 @@
         <nb-list-item class="justify-content-center">
             <nb-actions size="small">
                 <nb-action icon="funnel-outline"  (click)="open(filter)" [options]="{ animation: { type: 'zoom' } }"></nb-action>
-                <nb-action icon="plus-circle-outline" [options]="{ animation: { type: 'zoom' } }"></nb-action>
+                <nb-action icon="plus-circle-outline" [options]="{ animation: { type: 'zoom' } }" (click)="addPatient()" ></nb-action>
             </nb-actions>
         </nb-list-item>
         <nb-list-item>
                 <div class="row w-100">
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
                         <nb-form-field>
 
                         <input type="search" name="searchText" fullWidth status="success" nbInput
                             [(ngModel)]="searchText" (ngModelChange)="getData()">
                         </nb-form-field>
 
-                    </div>
-
-                    <div class="col-sm-2">
-                        <div class="" data-toggle="tooltip" data-placement="top"
-                            title="Add New Patient">
-                            <button ghost="true" class="float-right "
-                            (click)="addPatient()" nbButton>
-                            <nb-icon status="primary" icon="plus" [options]="{ animation: { type: 'zoom' } }"></nb-icon>
-                            </button>
-                                
-                        </div>
                     </div>
                 </div>
         </nb-list-item>
