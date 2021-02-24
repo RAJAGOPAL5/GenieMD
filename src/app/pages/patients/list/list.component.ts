@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, TemplateRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogService } from '@nebular/theme';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
@@ -17,17 +18,18 @@ export class ListComponent implements OnInit {
   searchText = '';
   clinic: any;
   registrationForm: FormGroup;
-  formBuilder: any;
+  dialogRef: any;
   searchValue = { firstName: '', lastName: '', dob: '', gender: 0, monitored: 1 };
   constructor(
     private patientService: PatientsService, private profileService: ProfileService,
-    private clinicService: ClinicService, private dialogService: NbDialogService,
+    private clinicService: ClinicService, private dialogService: NbDialogService, private fb
+    : FormBuilder
 
     ) { }
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
-
+    this.createForm();
     this.getData();
   }
 
@@ -54,24 +56,48 @@ export class ListComponent implements OnInit {
   }
 
   open(filter: TemplateRef<any>) {
-    this.dialogService.open(filter, {});
+    this.dialogRef = this.dialogService.open(filter, {});
   }
   createForm() {
-    this.registrationForm = this.formBuilder.group({
-      firstName: [this.searchValue.firstName],
-      lastName: [this.searchValue.lastName],
-      gender: [this.searchValue.gender],
-      dob: [this.searchValue.dob],
+    this.registrationForm = this.fb.group({
+      firstName: [''],
+      lastName: [''],
+      gender: ['male'],
+      dob: [''],
 
     });
   }
   startSearch(){
-    debugger
-    if((this.registrationForm.value.firstName != "" && this.registrationForm.value.firstName != null)){
-      let date = "";
-      if (this.registrationForm.value.dob && this.registrationForm.value.dob !== "") {
-        date = this.registrationForm.value.dob.year + '-' + ('0' + (this.registrationForm.value.dob.month)).slice(-2) + '-' + ('0' + this.registrationForm.value.dob.day).slice(-2);
-    };
-  };
+    console.log('data', this.registrationForm)
+    if (this.registrationForm.valid) {
+      if ( (this.registrationForm.value.firstName != "" && this.registrationForm.value.firstName != null) ||
+      (this.registrationForm.value.lastName != "" && this.registrationForm.value.lastName != null) || 
+      (this.registrationForm.value.dob != "" && this.registrationForm.value.dob != null) || 
+      (this.registrationForm.value.gender != "" && this.registrationForm.value.dob != null)) { 
+        const date = '';
+        const payload = {
+          clinicID: this.clinicService.id,
+          firstName: this.registrationForm.value.firstName || '',
+          lastName: this.registrationForm.value.lastName || '',
+          dob: date || '',
+          gender: this.registrationForm.value.gender || '',
+          userID: this.profileService.id,
+          pageNumber: 1,
+          count: 25
+        };
+        this.clinicService.searchPatients(payload).subscribe((res: any) => {
+          // console.log('data', res)
+          this.users = res.clinicPatientList;
+          this.dialogRef.close();
+          // this.spinner.hide();
+  
+        }, error => {
+          // this.toastrService.error(error.error ? error.error : 'Failed to search patient');
+          // this.spinner.hide();
+  
+        }
+        );
+      }
+    }
 }
 }

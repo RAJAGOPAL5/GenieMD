@@ -32,4 +32,7 @@ export class ClinicService {
       })
     );
   }
+  searchPatients(payload){
+    return this.http.post(`Clinics/SearchPatients`, payload);
+  }
 }

@@ -33,7 +33,7 @@ import { AddComponent } from './add/add.component';
     NbToggleModule,
     NbDatepickerModule,
     NbActionsModule,
-    NbButtonGroupModule
+    NbButtonGroupModule,
   ],
   entryComponents: [AddComponent]
 })

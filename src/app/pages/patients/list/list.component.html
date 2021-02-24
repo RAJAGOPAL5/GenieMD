@@ -30,7 +30,7 @@
                 </div>
         </nb-list-item>
         <nb-list-item class="cursor-pointer" *ngFor="let user of users" [routerLink]="[user?.patientID, 'vitals']">
-            <nb-user class="cursor-pointer warning" [ngClass]="{'none': user.monitored == 0,'success': user.alarm == 0 && user.monitored == 1, 'warning': user.alarm == 1 && user.monitored == 1, 'danger': user.alarm == 2 && user.monitored == 1}" [name]="user.name" [title]="user.dob" [picture]="user.imageUrl">
+            <nb-user class="cursor-pointer warning" [ngClass]="{'none': user.monitored == 0,'success': user.alarm == 0 && user.monitored == 1, 'warning': user.alarm == 1 && user.monitored == 1, 'danger': user.alarm == 2 && user.monitored == 1}" [name]="user.name ? user.name : user.firstName" [title]="user.dob" [picture]="user.imageUrl">
             </nb-user>
         </nb-list-item>
         <nb-list-item *ngIf="!users?.length">
@@ -58,7 +58,7 @@
             <div >
                 <div for="inputFirstName" class="label">Date Of Birth</div>
                 <input nbInput fullWidth fieldSize="giant" formControlName="dob"
-                    placeholder="Pick Date" [nbDatepicker]="formcontrol">
+                    placeholder="Pick Date" [nbDatepicker]="formcontrol" (dateChange) = "selectedDate($event)">
                 <nb-datepicker #formcontrol></nb-datepicker>
             </div>
             <div >
