@@ -14,12 +14,12 @@ const routes: Routes = [
     children: [
       {
         path: 'login',
-        component: NbLoginComponent,
+        component: LoginComponent,
         data:{ title:'login'},
       },
       {
         path: 'forgot',
-        component: NbRequestPasswordComponent,
+        component: ForgotPasswordComponent,
         data:{ title:'Forgot Password'},
 
       }
