@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LanguageResolve } from '../shared/resolvers /language.resolve';
 import { NbAuthComponent, NbLoginComponent, NbRequestPasswordComponent } from '@nebular/auth';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { IndexComponent } from './index/index.component';
@@ -15,11 +16,17 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent,
+        resolve: {
+          language: LanguageResolve
+        },
         data:{ title:'login'},
       },
       {
         path: 'forgot',
         component: ForgotPasswordComponent,
+        resolve: {
+          language: LanguageResolve
+        },
         data:{ title:'Forgot Password'},
 
       }
