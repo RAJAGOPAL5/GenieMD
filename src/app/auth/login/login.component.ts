@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { environment } from 'src/environments/environment.prod';
+import { NbAuthService, NbLoginComponent, NB_AUTH_OPTIONS } from '@nebular/auth';
+
 
 interface ViewModal {
   username?: string;
@@ -13,24 +15,33 @@ interface ViewModal {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+
+export class LoginComponent extends NbLoginComponent implements OnInit  {
   version: string = environment.version;
   isLoading = false;
   model: ViewModal = {username: '', password: ''};
   logo: string;
   title: string;
-  constructor(
-    private clinicService: ClinicService,
+  showMessages: any = {};
+
+  constructor(private clinicService: ClinicService, 
     private authService: AuthService,
-    private router: Router,
-  ) { }
+    @Inject(NB_AUTH_OPTIONS)
+    protected service: NbAuthService, 
+    protected cd: ChangeDetectorRef, 
+    protected router: Router
+    ) {
+    super(service, {}, cd, router);  
+  }
 
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;
     this.title = this.clinicService.config.name;
   }
+  
+  
 
-  submit() {
+  login() {
     this.isLoading = true;
     const username = this.model.username;
     const password = this.model.password;
