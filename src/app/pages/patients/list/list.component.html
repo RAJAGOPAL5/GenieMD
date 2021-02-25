@@ -1,0 +1,39 @@
+<nb-card class="patient-list" [nbSpinner]="isLoading">
+    <nb-list>
+        <nb-list-item class="justify-content-start">
+            <div class="row">
+                <div class="col-auto pt-3 pb-3 m-auto">
+                    <nb-button-group status="primary" size="tiny">
+                        <button nbButtonToggle nbButton pressed>All</button>
+                        <button nbButtonToggle nbButton>Monitored</button>
+                    </nb-button-group>
+                </div>
+                <div class="col-auto pt-3 pb-3 m-auto">
+                    <nb-actions size="tiny">
+                        <nb-action class="ps-0 pe-0" icon="funnel-outline" (click)="open()">
+                        </nb-action>
+                        <nb-action class="pe-0" icon="plus-circle-outline" (click)="addPatient()"></nb-action>
+                    </nb-actions>
+                </div>
+            </div>
+        </nb-list-item>
+        <nb-list-item>
+            <nb-form-field class="w-100">
+                <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+                <input type="search" name="searchText" fullWidth status="success" nbInput [(ngModel)]="searchText"
+                    (ngModelChange)="getData()">
+            </nb-form-field>
+        </nb-list-item>
+        <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of users"
+            [routerLink]="[user?.patientID, 'vitals']">
+            <nb-user class="cursor-pointer warning"
+                [ngClass]="{'none': user.monitored == 0,'success': user.alarm == 0 && user.monitored == 1, 'warning': user.alarm == 1 && user.monitored == 1, 'danger': user.alarm == 2 && user.monitored == 1}"
+                [name]="user.name" [title]="user.dob" [picture]="user.imageUrl">
+            </nb-user>
+            <nb-icon icon="edit-outline" (click)="addPatient(user?.patientID);$event.stopPropagation();"></nb-icon>
+        </nb-list-item>
+        <nb-list-item *ngIf="!users?.length">
+            <p>No patients found. <a (click)="addPatient()">Create New Patient</a></p>
+        </nb-list-item>
+    </nb-list>
+</nb-card>

@@ -1,0 +1,12 @@
+{
+  "name": "core",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^11.2.1",
+    "@angular/core": "^11.2.1",
+    "@datorama/akita": "^5.3.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
+}

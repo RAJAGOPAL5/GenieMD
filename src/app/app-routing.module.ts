@@ -1,16 +1,25 @@
+import { ClinicConfigResolver } from './shared/resolvers /clinic-config.resolver';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
-import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
-import { authRoutes } from './shared/routes/auth-routes';
-import { layoutRoutes } from './shared/routes/layout-routes';
+import { Routes, RouterModule } from '@angular/router';
+import { ProfileResolve } from './shared/resolvers /profile.resolve';
+
 
 const routes: Routes = [
-  // {
-  //   path: ':clinicID', component: FullLayoutComponent, data: { title: 'content Views' }, children: authRoutes
-  // },
   {
-    path: 'dashboard/:clinicID/:userID', component: ContentLayoutComponent ,  data: { title: 'full Views' }, children: layoutRoutes,
+    path: ':clinicID',
+    children: [
+      {path: '', redirectTo: 'auth/login', pathMatch: 'full'},
+      {
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+        resolve: {clinicConfig: ClinicConfigResolver}
+      },
+      {
+        path: ':userID',
+        loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+        resolve: {clinicConfig: ClinicConfigResolver, profile: ProfileResolve}
+      },
+    ]
   },
 
 ];

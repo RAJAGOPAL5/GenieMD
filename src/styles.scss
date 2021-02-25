@@ -1,1 +1,58 @@
+@import 'themes';
+
+@import '~@nebular/theme/styles/globals';
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/helpers";
+@import '~bootstrap/scss/grid';
+@import "~bootstrap/scss/utilities/api";
+@import "~bootstrap/scss/forms";
+
+@include nb-install() {
+  @include nb-theme-global();
+};
+.label{
+  line-height: nb-theme(label-line-height) !important;
+}
+
 /* You can add global styles to this file, and also import other style files */
+
+/* Patients status show color in Avatar picture */
+.nb-theme-default {
+	nb-user.success {
+		.user-picture {
+			border-color: #28a745!important;
+			border-width: 3px !important;
+		}
+	}
+}
+.nb-theme-default {
+	nb-user.warning{
+		.user-picture {
+			border-color:#ffc107!important;
+			border-width: 3px !important;
+		}
+	}
+}
+.nb-theme-default {
+	nb-user.danger {
+		.user-picture {
+			border-color: #dc3545 !important;
+			border-width: 3px !important;
+		}
+	}
+}
+.nb-theme-default {
+	nb-user.none {
+		.user-picture {
+			border-color: #dee2e6 !important;
+			border-width: 3px !important;
+		}
+	}
+}
+/* end Patients status */
+nb-list-item {
+    outline: 0 ;
+}

@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  base_url: '../ivisit.ComV5.00/resources',
+  version:  require('../../package.json').version,    
 };
 
 /*

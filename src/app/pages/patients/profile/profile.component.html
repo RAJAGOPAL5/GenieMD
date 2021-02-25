@@ -1,0 +1,47 @@
+<nb-card [nbSpinner]="isLoading">
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-3">
+                <nb-user size="giant" [name]="patientName" [title]="patient?.dob" [picture]="patient?.imageUrl">
+                </nb-user>
+            </div>
+            <div class="col-md-3" [ngSwitch]="patient?.gender">
+                <p>
+                    <nb-icon icon="phone" pack="font-awesome"></nb-icon><span
+                        class="ps-4">{{patient?.phoneNumber}}</span>
+                </p>
+                <p>
+                    <nb-icon icon="birthday-cake" pack="font-awesome"></nb-icon><span
+                        class="ps-4">{{patient?.dob}}</span>
+                </p>
+                <p *ngSwitchCase="0">
+                    <nb-icon icon="venus-mars" nbTooltip="Gender" pack="font-awesome"></nb-icon><span
+                        class="ps-4">Male</span>
+                </p>
+                <p *ngSwitchCase="1">
+                    <nb-icon icon="venus-mars" nbTooltip="Gender" pack="font-awesome"></nb-icon><span
+                        class="ps-4">Female</span>
+                </p>
+                <p *ngSwitchCase="2">
+                    <nb-icon icon="venus-mars" nbTooltip="Gender" pack="font-awesome"></nb-icon><span
+                        class="ps-4">Others</span>
+                </p>
+                <p><nb-checkbox status="info" [checked]="monitored" (change)="setCheckedStatus($event)">Monitored</nb-checkbox></p>
+            </div>
+            <div class="col-md-6">
+                <div class="row mt-3">
+                    <div class="col-auto"><nb-icon icon="map-marker-alt" pack="font-awesome"></nb-icon></div>
+                    <div class="col-auto">
+                            <div>{{patient?.address}}</div>
+                            <div>{{patient?.city}}</div>
+                            <div>{{patient?.state}}</div>
+                            <div>{{patient?.zipcode}}</div>
+                    </div>
+                </div>
+            <p><nb-icon icon="person" nbTooltip="Morbidity"></nb-icon><span class="ps-4" *ngFor="let morbidity of morbidityValue" >{{morbidity}}</span></p> 
+            
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+<nb-route-tabset [tabs]="tabs"></nb-route-tabset>

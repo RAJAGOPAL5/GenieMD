@@ -1,0 +1,14 @@
+<nb-card class="dialog-card" [nbSpinner]="isLoading">
+    <nb-card-header>
+        <h6>{{'kLogout' | translate }}</h6>
+    </nb-card-header>
+    <nb-card-body>
+        <p>{{'kAreYouSureYouWantToLogout' | translate }}</p>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton class="appearance-filled size-medium shape-rectangle status-danger"
+            (click)="closeModal()">{{'kNo' | translate }}</button>
+        <button nbButton class="appearance-filled size-medium shape-rectangle status-primary"
+            (click)="signOut()" >{{'kYes' | translate }}</button>
+    </nb-card-footer>
+</nb-card>

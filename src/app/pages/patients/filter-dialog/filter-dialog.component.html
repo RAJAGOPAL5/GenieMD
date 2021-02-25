@@ -1,0 +1,33 @@
+<form [formGroup]="form">
+    <nb-card>
+        <nb-card-header>
+            <span>Filter</span>
+        </nb-card-header>
+        <nb-card-body class="example-items-col">
+            <div>
+                <input class="mb-3" type="text" fullWidth size="small" formControlName="firstName" nbInput id="inputFirstName"
+                    placeholder="First Name">
+            </div>
+            <div>
+                <input class="mb-3" type="text" fullWidth size="small" formControlName="lastName" nbInput id="inputLastName"
+                    placeholder="Last Name">
+            </div>
+            <div>
+                <input class="mb-3" nbInput fullWidth size="small" formControlName="dob" placeholder="DD/MM/YYYY"
+                    [nbDatepicker]="formcontrol">
+                <nb-datepicker #formcontrol format="dd\MM\yyyy"></nb-datepicker>
+            </div>
+            <div>
+                <nb-button-group size="small" status="primary">
+                    <button nbButtonToggle nbButton>Male</button>
+                    <button nbButtonToggle nbButton>Female</button>
+                    <button nbButtonToggle nbButton>Other</button>
+                </nb-button-group>
+            </div>
+        </nb-card-body>
+        <nb-card-footer class="d-flex justify-content-end">
+            <button size="small" nbButton status="danger" (click)="close()">Cancel</button>
+            <button size="small" class="ms-2"nbButton status="success" (click)="startSearch()">Search</button>
+        </nb-card-footer>
+    </nb-card>
+</form>

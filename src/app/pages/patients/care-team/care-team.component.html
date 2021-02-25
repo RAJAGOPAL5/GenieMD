@@ -1,0 +1,53 @@
+<nb-card size="giant" style="overflow: auto" status="info" class="mt-3">
+    <nb-card-header>
+        <div class="row">
+            <div class="col-11">
+                <h6 class="text-white">Care Team</h6>
+            </div>
+            <div class="col-1 p-0">
+                <button nbButton ghost size="gaint" (click)="open(dialog)">
+                    <nb-icon icon="plus" nbTooltip="Add Care Givers" nbTooltipStatus="control" class="text-white">
+                    </nb-icon>
+                </button>
+                <button *ngIf="!showDone" nbButton ghost size="gaint" (click)="change()" class="text-white ps-3">
+                    <nb-icon icon="edit" nbTooltip="Remove Care Givers" nbTooltipStatus="control" class="text-white">
+                    </nb-icon>
+                </button>
+                <button *ngIf="showDone" nbButton ghost size="large" (click)="change()"
+                    class="text-white ps-3">Done</button>
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 m-4">
+                <nb-list-item class="form-control border shadow-none" *ngFor="let user of users"
+                    [routerLink]="[user?.patientID, 'vitals']">
+                    <nb-user class="cursor-pointer warning"
+                        [ngClass]="{'success': user.alarm == 2, 'warning': user.alarm == 1, 'danger': user.alarm == 0}"
+                        [name]="user.name" [title]="user.email" [picture]="user.imageUrl">
+                    </nb-user>
+                </nb-list-item>
+                <nb-list-item>
+                    <h6 class="text-center">No caregivers specified. Tap + to add a caregiver</h6>
+                </nb-list-item>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </nb-card-body>
+</nb-card>
+<ng-template #dialog>
+    <nb-card class="dialog-card">
+        <nb-card-header>
+            <h6 class="text-center">Invite caregiver</h6>
+        </nb-card-header>
+        <nb-card-body>
+            <input type="text" nbInput placeholder="Caregiver Username" [(ngModel)]="careGiver" name="careGiver">
+        </nb-card-body>
+        <nb-card-footer>
+            <button nbButton status="danger" class="mx-3" (click)="refclose()">Cancel</button>
+            <button nbButton status="primary" class="mx-4" (click)="notify()">OK</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

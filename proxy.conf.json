@@ -1,0 +1,8 @@
+{
+    "/ivisit.ComV5.00/resources": {
+        "target": "https://dev.geniemd.net",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}

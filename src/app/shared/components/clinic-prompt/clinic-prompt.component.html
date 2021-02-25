@@ -1,0 +1,14 @@
+<nb-card class="dialog-card">
+    <nb-card-header>
+        <h5>Action Required</h5></nb-card-header>
+    <nb-card-body>
+        <p>Please enter the Clinic ID to continue.</p>
+
+        <input nbInput [(ngModel)]="clinicID" placeholder="ClinicID" class="size-medium status-basic shape-rectangle" name="clinicID" id="enteramt">
+        <small id="helpBlock" class="form-text text-muted">It will takes you to the login page</small>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton status="primary"
+            class="appearance-filled size-medium shape-rectangle status-primary" (click)="click()">Proceed</button>
+    </nb-card-footer>
+</nb-card>
