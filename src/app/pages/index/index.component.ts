@@ -46,11 +46,13 @@ export class IndexComponent implements OnInit {
       {
         title: 'Patients',
         icon: 'people-outline',
-        link: `/${this.clinicService.id}/${this.profileService.id}/patients`
+        link: `/${this.clinicService.id}/${this.profileService.id}/patients`,
+        pathMatch: 'prefix'
       },
       {
         title: 'Logout',
         icon: 'unlock-outline',
+        pathMatch: 'prefix'
         // link: '/auth/login'
       },
     )
