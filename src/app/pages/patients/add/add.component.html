@@ -1,51 +1,59 @@
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" [nbSpinner]="isLoading">
-    <nb-card size="medium">
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="m-auto w-60">
+    <nb-card size="large" [nbSpinner]="isLoading">
         <nb-card-header>
             <div class="row">
                 <div class="col-md-10 col-sm-9"> {{!!patientID ? 'Edit' :'Add'}} Patient</div>
-                <!-- <div class="col-md-2 col-sm-3">
-                    <nb-toggle labelPosition="start" formControlName="monitored">Monitor</nb-toggle>
-                </div> -->
             </div>
         </nb-card-header>
         <nb-card-body>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-1">
                         <label for="inputFirstName" class="label"> <span class="text-danger">*</span> First
                             Name</label>
-                        <input type="text" fieldSize="giant" formControlName="firstName" nbInput fullWidth
+                        <input type="text" fieldSize="medium" formControlName="firstName" nbInput fullWidth
                             id="inputFirstName" placeholder="First Name">
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-1">
                         <label for="inputLastName" class="label"> <span class="text-danger">*</span> Last
                             Name</label>
-                        <input type="text" fieldSize="giant" formControlName="lastName" nbInput fullWidth
+                        <input type="text" fieldSize="medium" formControlName="lastName" nbInput fullWidth
                             id="inputLastName" placeholder="Last Name">
                     </div>
                 </div>
 
             </div>
             <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group mb-1">
+                        <label for="inputFirstName" class="label"> <span class="danger"></span> Gender</label>
+                        <nb-radio-group formControlName="gender" class="row d-flex justify-content-center pt-0 p-3"
+                            name="my-radio-group">
+                            <nb-radio class=" col-md-4" *ngFor="let item of genderArr" [value]="item.value">{{item?.id}}
+                            </nb-radio>
+                        </nb-radio-group>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-1">
                         <div for="inputFirstName" class="label"> <span class="text-danger">*</span> Date Of
                             Birth</div>
-                        <input nbInput class="w-100" fieldSize="giant" formControlName="dob" placeholder="Pick Date"
+                        <input nbInput class="w-100" fieldSize="medium" formControlName="dob" placeholder="Pick Date"
                             [nbDatepicker]="formcontrol" fullWidth>
                         <nb-datepicker #formcontrol></nb-datepicker>
                     </div>
                 </div>
-
                 <div class="col-md-6">
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-1">
                         <label for="inputLanguage" class="label"> <span class="text-danger">*</span>
                             Language
                         </label>
                         <div>
-                            <nb-select size="giant" class="w-100" id="inputLanguage" formControlName="language"
+                            <nb-select size="medium" class="w-100" id="inputLanguage" formControlName="language"
                                 placeholder="Select Language" fullWidth>
                                 <nb-option *ngFor="let item of languages" [value]="item.id">{{item?.name}}
                                 </nb-option>
@@ -56,22 +64,81 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 ">
-                    <div class="form-group mb-3">
-                        <label for="inputFirstName" class="label"> <span class="danger"></span> Gender</label>
-                        <nb-radio-group formControlName="gender" class="row d-flex justify-content-center pt-0 p-3"
-                            name="my-radio-group">
-                            <nb-radio class=" col-md-4" *ngFor="let item of genderArr" [value]="item.value">{{item?.id}}
-                            </nb-radio>
-                        </nb-radio-group>
+                <div class="col-md-6">
+                    <div class="form-group mb-1 w-100">
+                        <label for="inputMobile" class="label"> <span class="text-danger">*</span>
+                            Mobile
+                            Number</label>
+                        <input fieldSize="medium" type="number" formControlName='handphone' nbInput fullWidth
+                            id="inputMobileNumber" placeholder="Mobile Number">
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-1">
+                        <label for="inputEmail" class="label"> <span class="text-danger">*</span>
+                            Email</label>
+                        <input fieldSize="medium" type="email" formControlName="email" nbInput fullWidth id="inputEmail"
+                            placeholder="Email">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label for="inputAddress" class="label"> <span class="text-danger">*</span>
+                            Address</label>
+                        <input type="text" fieldSize="medium" formControlName="address" nbInput fullWidth
+                            id="inputAddress" placeholder="Enter the Address">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label for="inputCity" class="label"> <span class="text-danger">*</span>
+                            City</label>
+                        <input type="text" fieldSize="medium" formControlName="city" nbInput fullWidth id="inputCity"
+                            placeholder="Enter the City">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label for="inputState" class="label"> <span class="text-danger">*</span>
+                            State</label>
+                        <div>
+                            <nb-select id="inputState" size="medium" class="w-100" fullWidth formControlName="state"
+                                placeholder="Select State">
+                                <nb-option *ngFor="let item of states" [value]="item.abbreviation">
+                                    {{item?.abbreviation}}</nb-option>
+
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label for="inputZipCode" class="label"> <span class="text-danger">*</span> Zip
+                            Code</label>
+                        <input type="text" fieldSize="medium" formControlName="zipcode" nbInput fullWidth
+                            id="inputZipCode" placeholder="Enter Zip Code">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
+                        <label for="inputCountry" class="label"> <span class="text-danger">*</span>
+                            Country</label>
+                        <input type="text" fieldSize="medium" formControlName="country" nbInput fullWidth
+                            id="inputCountry" placeholder="Enter the Country">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-1">
                         <label for="inputMorbidity" class="label"> <span class="danger"></span>
                             Morbidity</label>
                         <div>
-                            <nb-select size="giant" fullWidth id="inputMorbidity" formControlName="morbidity"
+                            <nb-select size="medium" fullWidth id="inputMorbidity" formControlName="morbidity"
                                 placeholder="Select Morbidity">
                                 <nb-option *ngFor="let item of morbidityID" [value]="item.id">{{item?.name}}
                                 </nb-option>
@@ -80,91 +147,18 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group mb-3 w-100">
-                        <label for="inputMobile" class="label"> <span class="text-danger">*</span>
-                            Mobile
-                            Number</label>
-                        <input fieldSize="giant" type="number" formControlName='handphone' nbInput fullWidth
-                            id="inputMobileNumber" placeholder="Mobile Number">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group mb-3">
-                        <label for="inputEmail" class="label"> <span class="text-danger">*</span>
-                            Email</label>
-                        <input fieldSize="giant" type="email" formControlName="email" nbInput fullWidth id="inputEmail"
-                            placeholder="Email">
-                    </div>
-                </div>
-
+            <div class="form-group mt-3">
+                <nb-checkbox status="info" formControlName="monitored">Monitored</nb-checkbox>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group mb-3">
-                        <label for="inputAddress" class="label"> <span class="text-danger">*</span>
-                            Address</label>
-                        <input type="text" fieldSize="giant" formControlName="address" nbInput fullWidth
-                            id="inputAddress" placeholder="Enter the Address">
-                    </div>
+            <div class="row  justify-content-end">
+                <div class="col-auto mr-2 ml-2 d-flex justify-content-end">
+                    <button nbButton status="danger" (click)=cancelPatient()>Cancel</button>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group mb-3">
-                        <label for="inputCountry" class="label"> <span class="text-danger">*</span>
-                            Country</label>
-                        <input type="text" fieldSize="giant" formControlName="country" nbInput fullWidth
-                            id="inputCountry" placeholder="Enter the Country">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group mb-3">
-                        <label for="inputCity" class="label"> <span class="text-danger">*</span>
-                            City</label>
-                        <input type="text" fieldSize="giant" formControlName="city" nbInput fullWidth id="inputCity"
-                            placeholder="Enter the City">
-                    </div>
+                <div class="col-auto d-flex justify-content-end">
+                    <button class="mr-3" [disabled]="!profileForm.valid" nbButton
+                        status="success">{{actionName}}</button>
                 </div>
             </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group mb-3">
-                            <label for="inputState" class="label"> <span class="text-danger">*</span>
-                                State</label>
-                            <div>
-                                <nb-select id="inputState" size="giant" class="w-100"
-                                    formControlName="state" placeholder="Select State">
-                                    <nb-option *ngFor="let item of states" [value]="item.abbreviation">
-                                        {{item?.abbreviation}}</nb-option>
-
-                                </nb-select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group mb-3">
-                            <label for="inputZipCode" class="label"> <span class="text-danger">*</span> Zip
-                                Code</label>
-                            <input type="text" fieldSize="giant" formControlName="zipcode" nbInput fullWidth
-                                id="inputZipCode" placeholder="Enter Zip Code">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="inputZipCode" class="label">Monitor</label>
-                        <div class="form-group mb-3">
-                            <nb-toggle formControlName="monitored"></nb-toggle>
-                        </div>
-                    </div>
-                </div>
-                <div class="row  justify-content-end">
-                    <div class="col-auto mr-2 ml-2 d-flex justify-content-end">
-                        <button nbButton status="danger" (click)=cancelPatient()>Cancel</button>
-                    </div>
-                    <div class="col-auto d-flex justify-content-end">
-                        <button class="mr-3" [disabled]="!profileForm.valid" nbButton
-                            status="success">{{actionName}}</button>
-                    </div>
-                </div>
         </nb-card-body>
     </nb-card>
 </form>
