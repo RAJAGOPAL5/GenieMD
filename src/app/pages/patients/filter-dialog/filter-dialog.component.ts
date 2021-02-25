@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
+import { NbDialogRef, NbToastrService } from '@nebular/theme';
 @Component({
   selector: 'app-filter-dialog',
   templateUrl: './filter-dialog.component.html',
@@ -15,10 +15,13 @@ export class FilterDialogComponent implements OnInit {
     dob: [''],
   });
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected dialogRef: NbDialogRef<any>
   ) { }
 
   ngOnInit(): void {
   }
-
+  close() {
+    this.dialogRef.close();
+  }
 }
