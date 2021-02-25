@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NbIconLibraries } from '@nebular/theme';
+import { NbIconLibraries, NbToastrService } from '@nebular/theme';
+import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
@@ -21,12 +22,17 @@ export class ProfileComponent implements OnInit {
   patientName: any;
   morbidityValue = [];
   morbiditys: { name: string; id: number; }[];
+  isLoading: boolean;
+  monitored: true;
+  patientExtraData: any;
+  profileData: any;
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
     private patientService: PatientsService,
     private iconLibraries: NbIconLibraries,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private toastrService: NbToastrService
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
   }
@@ -49,10 +55,13 @@ export class ProfileComponent implements OnInit {
     this.patientService.findById(payload).subscribe((data: any) => {
       this.morbidityValue = [];
       this.patient = data;
+      this.patientExtraData = this.patient.extraData ? JSON.parse(this.patient.extraData) : {};
       this.patientName = `${this.patient.firstName} ${this.patient.lastName}`;
       this.patient.morbidity === 0 ? this.morbidityValue.push('Lung Disease') : this.morbidityValue.push('Heart Disease');
-
-     /* BELOW IS FOR FEATURE USE FOR MOBIDITY MULTI SELECT  */
+      this.profileService.get(this.patient.userID).subscribe((res: any) => {
+        this.profileData = res;
+      });
+      /* BELOW IS FOR FEATURE USE FOR MOBIDITY MULTI SELECT  */
 
       // this.morbidityValue = [];
       // this.patient.morbidity.map(item1 => {
@@ -95,5 +104,50 @@ export class ProfileComponent implements OnInit {
       },
 
     ];
+  }
+
+  setCheckedStatus(event) {
+    this.isLoading = true;
+    let monitored = 0;
+    if (event.target.checked) {
+      monitored = 1;
+    }
+    const registerPayload = {
+      email: this.patient.email,
+      dob: this.patient.dob,
+      birthdate: moment(this.patient.dob).valueOf(),
+      cellNumber: this.patient.phoneNumber,
+      languageId: this.profileData.languageId,
+      state: this.patient.state,
+      address: this.patient.address,
+      city: this.patient.city,
+      country: this.patient.country,
+      zipCode: this.patient.zipcode,
+      extraData: this.patient.extraData ? JSON.parse(this.patient.extraData) : {},
+      firstName: this.patient.firstName,
+      gender: `${this.patient.gender}`,
+      imageURL: this.patient.imageURL,
+      lastName: `${this.patient.lastName}a`,
+      latitude: '0',
+      locationTime: this.patient.locationTime,
+      longitude: '0',
+      oemID: this.profileData.oemID,
+      passport: '',
+      pregnant: '0',
+      profileEmail: this.profileData.email,
+      providerStatus: 'P',
+      screenName: this.patient.firstName + ' ' + this.patient.lastName,
+      updateDirectEmail: true,
+      userID: this.patient.userID,
+      morbidity: this.patient.morbidity,
+      monitored: monitored,
+    };
+    this.profileService.update(registerPayload).subscribe((res: any) => {
+      this.isLoading = false;
+      this.toastrService.success('Patient updated Successfully');
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger(error.error.errorMessage);
+    });
   }
 }
