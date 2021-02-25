@@ -8,6 +8,7 @@ import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { AddComponent } from '../add/add.component';
+import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
 
 interface ViewModel {
   search?: string;
@@ -35,14 +36,18 @@ export class ListComponent implements OnInit {
   dialogRef: any;
   searchValue = { firstName: '', lastName: '', dob: '', gender: 0, monitored: 1 };
   constructor(
-    private patientService: PatientsService, private profileService: ProfileService,
-    private clinicService: ClinicService, private dialogService: NbDialogService, private fb
-    : FormBuilder, private ls: LanguageService,private translate: TranslateService
+    private patientService: PatientsService,
+    private profileService: ProfileService,
+    private clinicService: ClinicService,
+    private dialogService: NbDialogService,
+    private fb: FormBuilder,
+    private ls: LanguageService,
+    private translate: TranslateService
 
-    ) { 
-      translate.use('en');
-      translate.setTranslation('en', this.ls.state);  
-    }
+  ) {
+    translate.use('en');
+    translate.setTranslation('en', this.ls.state);
+  }
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
@@ -79,7 +84,7 @@ export class ListComponent implements OnInit {
   }
 
   open(filter: TemplateRef<any>) {
-    this.dialogRef = this.dialogService.open(filter, {});
+    this.dialogRef = this.dialogService.open(FilterDialogComponent, {});
   }
   createForm() {
     this.registrationForm = this.fb.group({
@@ -90,13 +95,13 @@ export class ListComponent implements OnInit {
 
     });
   }
-  startSearch(){
+  startSearch() {
     console.log('data', this.registrationForm)
     if (this.registrationForm.valid) {
-      if ( (this.registrationForm.value.firstName != "" && this.registrationForm.value.firstName != null) ||
-      (this.registrationForm.value.lastName != "" && this.registrationForm.value.lastName != null) || 
-      (this.registrationForm.value.dob != "" && this.registrationForm.value.dob != null) || 
-      (this.registrationForm.value.gender != "" && this.registrationForm.value.dob != null)) { 
+      if ((this.registrationForm.value.firstName != "" && this.registrationForm.value.firstName != null) ||
+        (this.registrationForm.value.lastName != "" && this.registrationForm.value.lastName != null) ||
+        (this.registrationForm.value.dob != "" && this.registrationForm.value.dob != null) ||
+        (this.registrationForm.value.gender != "" && this.registrationForm.value.dob != null)) {
         const date = '';
         const payload = {
           clinicID: this.clinicService.id,
@@ -113,14 +118,14 @@ export class ListComponent implements OnInit {
           this.users = res.clinicPatientList;
           this.dialogRef.close();
           // this.spinner.hide();
-  
+
         }, error => {
           // this.toastrService.error(error.error ? error.error : 'Failed to search patient');
           // this.spinner.hide();
-  
+
         }
         );
       }
     }
-}
+  }
 }
