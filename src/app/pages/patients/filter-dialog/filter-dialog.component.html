@@ -1,19 +1,19 @@
 <form [formGroup]="form">
-    <nb-card size="medium">
+    <nb-card>
         <nb-card-header>
             <span>Filter</span>
         </nb-card-header>
         <nb-card-body class="example-items-col">
             <div>
-                <input class="mb-2" type="text" fullWidth size="small" formControlName="firstName" nbInput id="inputFirstName"
+                <input class="mb-3" type="text" fullWidth size="small" formControlName="firstName" nbInput id="inputFirstName"
                     placeholder="First Name">
             </div>
             <div>
-                <input class="mb-2" type="text" fullWidth size="small" formControlName="lastName" nbInput id="inputLastName"
+                <input class="mb-3" type="text" fullWidth size="small" formControlName="lastName" nbInput id="inputLastName"
                     placeholder="Last Name">
             </div>
             <div>
-                <input class="mb-2" nbInput fullWidth size="small" formControlName="dob" placeholder="DD/MM/YYYY"
+                <input class="mb-3" nbInput fullWidth size="small" formControlName="dob" placeholder="DD/MM/YYYY"
                     [nbDatepicker]="formcontrol">
                 <nb-datepicker #formcontrol format="MM\dd\yyyy"></nb-datepicker>
             </div>
