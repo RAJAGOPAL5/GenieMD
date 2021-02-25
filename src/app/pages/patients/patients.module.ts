@@ -8,10 +8,11 @@ import { IndexComponent } from './index/index.component';
 import { NbCardModule, NbFormFieldModule, NbInputModule, NbListModule, NbRouteTabsetModule, NbTabsetModule, NbUserModule, NbIconModule, NbSpinnerModule, NbButtonModule, NbRadioModule, NbSelectModule, NbToggleModule, NbDatepickerModule, NbActionsModule, NbButtonGroupModule } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddComponent } from './add/add.component';
+import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 
 
 @NgModule({
-  declarations: [ListComponent, UpsertComponent, IndexComponent, AddComponent],
+  declarations: [ListComponent, UpsertComponent, IndexComponent, AddComponent, FilterDialogComponent],
   imports: [
     CommonModule,
     PatientsRoutingModule,

@@ -9,12 +9,24 @@ import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { AddComponent } from '../add/add.component';
 
+interface ViewModel {
+  search?: string;
+  monitored?: number;
+  firstName?: string;
+  lastName?: string;
+  dob?: string;
+  genter?: number;
+}
+
 @Component({
   selector: 'app-patient-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
+  model: ViewModel = {
+    monitored: 0
+  };
   users: any;
   isLoading = false;
   searchText = '';
