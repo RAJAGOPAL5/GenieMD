@@ -28,17 +28,17 @@
                 </p>
             </div>
             <div class="col-md-6">
-                <p class="text-uppercase">
-                    <nb-icon icon="map-marker-alt" pack="font-awesome"></nb-icon> <span
-                        class="ps-4">{{patient?.city}}</span>,
-                    <span class="ps-1">{{patient?.state}}</span>,
-                    <span class="ps-1">{{patient?.country}}</span>
-                </p>
-                <p>
-                    <nb-icon icon="person" nbTooltip="Morbidity"></nb-icon><span class="ps-4"
-                        *ngFor="let morbidity of morbidityValue">{{morbidity}}</span>
-                </p>
-                <p><nb-checkbox status="info" [checked]="monitored" (change)="setCheckedStatus($event)">Monitored</nb-checkbox></p>
+                <div class="row mt-3">
+                    <div class="col-auto"><nb-icon icon="map-marker-alt" pack="font-awesome"></nb-icon></div>
+                    <div class="col-auto">
+                            <div>{{patient?.address}}</div>
+                            <div>{{patient?.city}}</div>
+                            <div>{{patient?.state}}</div>
+                            <div>{{patient?.zipcode}}</div>
+                    </div>
+                </div>
+            <p><nb-icon icon="person" nbTooltip="Morbidity"></nb-icon><span class="ps-4" *ngFor="let morbidity of morbidityValue" >{{morbidity}}</span></p> 
+            <p><nb-checkbox status="info" [checked]="monitored" (change)="setCheckedStatus($event)">Monitored</nb-checkbox></p>
             </div>
         </div>
     </nb-card-body>
