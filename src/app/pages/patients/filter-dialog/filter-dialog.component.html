@@ -13,9 +13,9 @@
                     placeholder="Last Name">
             </div>
             <div>
-                <input class="mb-2" nbInput fullWidth size="small" formControlName="dob" placeholder="Pick Date"
+                <input class="mb-2" nbInput fullWidth size="small" formControlName="dob" placeholder="DD/MM/YYYY"
                     [nbDatepicker]="formcontrol">
-                <nb-datepicker #formcontrol></nb-datepicker>
+                <nb-datepicker #formcontrol format="MM\dd\yyyy"></nb-datepicker>
             </div>
             <div>
                 <nb-button-group size="small" status="primary">
