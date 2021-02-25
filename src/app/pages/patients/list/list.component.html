@@ -1,18 +1,16 @@
-<nb-card class="h-100" size="gaint" [nbSpinner]="isLoading">
+<nb-card class="patient-list" [nbSpinner]="isLoading">
     <nb-list>
-        <nb-list-item class="justify-content-center">
+        <nb-list-item class="justify-content-start">
+            <nb-button-group status="primary" size="small">
+                <button nbButtonToggle nbButton pressed>All</button>
+                <button nbButtonToggle nbButton>Monitored</button>
+            </nb-button-group>
             <nb-actions size="small">
                 <nb-action icon="funnel-outline" (click)="open(filter)" [options]="{ animation: { type: 'zoom' } }">
                 </nb-action>
                 <nb-action icon="plus-circle-outline" [options]="{ animation: { type: 'zoom' } }"
                     (click)="addPatient()"></nb-action>
             </nb-actions>
-        </nb-list-item>
-        <nb-list-item class="justify-content-center">
-            <nb-button-group status="primary" size="small">
-                <button nbButtonToggle nbButton pressed>All</button>
-                <button nbButtonToggle nbButton>Monitored</button>
-            </nb-button-group>
         </nb-list-item>
         <nb-list-item>
             <nb-form-field class="w-100">

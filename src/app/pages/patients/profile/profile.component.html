@@ -2,7 +2,7 @@
     <nb-card-body>
         <div class="row">
             <div class="col-md-3">
-               <h4> <nb-user size="large" [name]="patientName" [title]="patient?.email" [picture]="patient?.imageUrl"></nb-user></h4>
+                <nb-user size="giant" [name]="patientName" [title]="patient?.dob" [picture]="patient?.imageUrl"></nb-user>
              </div>
             <div class="col-md-3" [ngSwitch]="patient?.gender">
                 <p><nb-icon icon="phone" pack="font-awesome" ></nb-icon><span class="ps-4">{{patient?.phoneNumber}}</span></p>
