@@ -127,7 +127,7 @@ export class ProfileComponent implements OnInit {
       firstName: this.patient.firstName,
       gender: `${this.patient.gender}`,
       imageURL: this.patient.imageURL,
-      lastName: `${this.patient.lastName}a`,
+      lastName: `${this.patient.lastName}`,
       latitude: '0',
       locationTime: this.patient.locationTime,
       longitude: '0',

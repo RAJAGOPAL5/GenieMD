@@ -24,4 +24,6 @@ export class FilterDialogComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
+
+  startSearch(): void { }
 }

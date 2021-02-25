@@ -83,7 +83,7 @@ export class ListComponent implements OnInit {
     });
   }
 
-  open(filter: TemplateRef<any>) {
+  open() {
     this.dialogRef = this.dialogService.open(FilterDialogComponent, {});
   }
   createForm() {
