@@ -14,12 +14,13 @@ export class LanguageResolve implements Resolve<any> {
     constructor(private ls: LanguageService, private clinicService: ClinicService) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        if (this.clinicService.clinic.oemID == '100') {
+        const clinic = route.parent.data.clinicConfig;
+        if (clinic.oemID == '100') {
             const englishPayload = {
                 oemID: 0,
-                languageID: this.clinicService.clinic.languageID
+                languageID: clinic.languageID
             }
-            if (this.clinicService.clinic.languageID == '0') {
+            if (clinic.languageID == '0') {
                 englishPayload.languageID = '1';
             }
             const englishLanguage$ = this.ls.getList(englishPayload);
@@ -36,18 +37,17 @@ export class LanguageResolve implements Resolve<any> {
             return combine$;
         } else {
         const payload = {
-            oemID: this.clinicService.clinic.oemID,
-            languageID: this.clinicService.clinic.languageID
+            oemID: clinic.oemID,
+            languageID: clinic.languageID
         }
         const englishPayload = {
             oemID: 0,
-            languageID: this.clinicService.clinic.languageID,
+            languageID: clinic.languageID,
         }
-        if (this.clinicService.clinic.languageID == '0') {
+        if (clinic.languageID == '0') {
             englishPayload.languageID = '1';
             payload.languageID = '1';
         }
-
         const userLanguage$ = this.ls.getList(payload);
         const englishLanguage$ = this.ls.getList(englishPayload);
         const combine$ = combineLatest(userLanguage$, englishLanguage$,
