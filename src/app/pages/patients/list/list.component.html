@@ -1,14 +1,14 @@
 <nb-card class="patient-list" [nbSpinner]="isLoading">
     <nb-list>
-        <nb-list-item class="justify-content-start">
+        <nb-list-item class="justify-content-center">
             <div class="row">
-                <div class="col-auto pt-3 pb-3 m-auto">
+                <div class="col-auto m-auto">
                     <nb-button-group status="primary" size="tiny">
                         <button nbButtonToggle nbButton pressed>All</button>
                         <button nbButtonToggle nbButton>Monitored</button>
                     </nb-button-group>
                 </div>
-                <div class="col-auto pt-3 pb-3 m-auto">
+                <div class="col-auto m-auto">
                     <nb-actions size="tiny">
                         <nb-action class="ps-0 pe-0" icon="funnel-outline" (click)="open()">
                         </nb-action>
