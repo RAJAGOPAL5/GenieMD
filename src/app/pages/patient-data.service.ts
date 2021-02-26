@@ -7,6 +7,7 @@ export class PatientDataService {
   languages: any[] = [];
   states: any[] = [];
   morbidity: any[] = [];
+  gender: any[] = [];
   constructor() { }
   getLanguages() {
    return this.languages = [{ name: 'English', id: 1 },
@@ -83,5 +84,10 @@ export class PatientDataService {
   }
   getMorbidity() {
     return this.morbidity = [{ name: 'Lung Disease', id: 0 }, { name: 'Heart Disease', id: 1 }];
+  }
+  getGender() {
+    return this.gender = [{ id: 'Male', value: 0 },
+    { id: 'Female', value: 1 },
+    { id: 'Other', value: 2 }];
   }
 }
