@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
-
+import { PatientDataService } from '../../patient-data.service';
 interface ViewModal {
   profile?: any;
 }
@@ -20,19 +20,22 @@ export class ProfileComponent implements OnInit {
   patientID: any;
   patient: any;
   patientName: any;
-  morbidityValue = [];
-  morbiditys: { name: string; id: number; }[];
+  morbidityValue: any = [];
+  morbiditys: any[] = [];
   isLoading: boolean;
   monitored: true;
   patientExtraData: any;
   profileData: any;
+  languages: any[] = [];
+  language: string;
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
     private patientService: PatientsService,
     private iconLibraries: NbIconLibraries,
     private profileService: ProfileService,
-    private toastrService: NbToastrService
+    private toastrService: NbToastrService,
+    private patientDataService: PatientDataService
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
   }
@@ -43,10 +46,11 @@ export class ProfileComponent implements OnInit {
       this.prepareTabs();
       this.getData();
     });
+    this.languages =  this.patientDataService.getLanguages();
   }
 
   getData() {
-    this.morbiditys = [{ name: 'Lung Disease', id: 0 }, { name: 'Heart Disease', id: 1 }];
+    this.morbiditys = this.patientDataService.getMorbidity();
     const payload = {
       userID: this.profileService.id,
       clinicID: this.clinicService.id,
@@ -60,6 +64,7 @@ export class ProfileComponent implements OnInit {
       this.patient.morbidity === 0 ? this.morbidityValue.push('Lung Disease') : this.morbidityValue.push('Heart Disease');
       this.profileService.get(this.patient.userID).subscribe((res: any) => {
         this.profileData = res;
+        this.language = this.languages.find(item => item.id === this.profileData.languageId);
       });
       /* BELOW IS FOR FEATURE USE FOR MOBIDITY MULTI SELECT  */
 
