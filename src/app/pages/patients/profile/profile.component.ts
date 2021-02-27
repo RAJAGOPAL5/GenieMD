@@ -5,7 +5,8 @@ import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
-import { PatientDataService } from '../../patient-data.service';
+import { languages, states, morbidity, gender } from 'src/app/shared/constnts/consstnt';
+
 interface ViewModal {
   profile?: any;
 }
@@ -35,7 +36,6 @@ export class ProfileComponent implements OnInit {
     private iconLibraries: NbIconLibraries,
     private profileService: ProfileService,
     private toastrService: NbToastrService,
-    private patientDataService: PatientDataService
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
   }
@@ -46,11 +46,11 @@ export class ProfileComponent implements OnInit {
       this.prepareTabs();
       this.getData();
     });
-    this.languages =  this.patientDataService.getLanguages();
+    this.languages =  languages;
   }
 
   getData() {
-    this.morbiditys = this.patientDataService.getMorbidity();
+    this.morbiditys = morbidity;
     const payload = {
       userID: this.profileService.id,
       clinicID: this.clinicService.id,

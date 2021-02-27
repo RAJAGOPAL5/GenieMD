@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ThrowStmt, ThisReceiver } from '@angular/compiler';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
-import {  PatientDataService } from '../../patient-data.service';
+import { languages, states, morbidity, gender } from 'src/app/shared/constnts/consstnt';
 import { from } from 'rxjs';
 import { format, compareAsc, parse } from 'date-fns';
 @Component({
@@ -29,14 +29,13 @@ export class AddComponent implements OnInit {
   actionName: any;
   isLoading = false;
   patientID: any;
-  genderArr = this.patientDataService.getGender();
+  genderArr = gender;
 
   @ViewChild('birthDate', { static: false }) birthDate: any;
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
     private toastrService: NbToastrService, private patientsService: PatientsService, protected dialogRef: NbDialogRef<any>,
-    private patientDataService: PatientDataService
     ) { }
 
   ngOnInit(): void {
@@ -46,9 +45,9 @@ export class AddComponent implements OnInit {
       this.getProfilePatch();
     }
     this.actionName = this.patientID ? 'Edit Patient' : 'Create Patient';
-    this.states = this.patientDataService.getState();
-    this.morbidityID = this.patientDataService.getMorbidity();
-    this.languages = this.patientDataService.getLanguages();
+    this.states = states;
+    this.morbidityID = morbidity;
+    this.languages = languages;
     this.createForm();
   }
   getProfilePatch() {
