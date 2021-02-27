@@ -15,15 +15,15 @@
                 </p>
                 <p *ngSwitchCase="0">
                     <nb-icon icon="venus-mars" nbTooltip="Gender" pack="font-awesome"></nb-icon><span
-                        class="ps-4">Male</span>
+                        class="ps-4">{{'kMale' | translate}}</span>
                 </p>
                 <p *ngSwitchCase="1">
                     <nb-icon icon="venus-mars" nbTooltip="Gender" pack="font-awesome"></nb-icon><span
-                        class="ps-4">Female</span>
+                        class="ps-4">{{'kFemale' | translate}}</span>
                 </p>
                 <p *ngSwitchCase="2">
                     <nb-icon icon="venus-mars" nbTooltip="Gender" pack="font-awesome"></nb-icon><span
-                        class="ps-4">Others</span>
+                        class="ps-4">{{'kOther' | translate}}</span>
                 </p>
                 <p>
                     <nb-icon icon="birthday-cake" pack="font-awesome"></nb-icon><span class="ps-4">{{patient?.dob}}</span>

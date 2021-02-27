@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NbIconLibraries, NbToastrService } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { PatientDataService } from '../../patient-data.service';
@@ -35,9 +37,13 @@ export class ProfileComponent implements OnInit {
     private iconLibraries: NbIconLibraries,
     private profileService: ProfileService,
     private toastrService: NbToastrService,
-    private patientDataService: PatientDataService
+    private patientDataService: PatientDataService,
+    private ls: LanguageService,
+    private translate: TranslateService,
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
+    translate.use('en');
+    translate.setTranslation('en', this.ls.state);
   }
 
   ngOnInit(): void {

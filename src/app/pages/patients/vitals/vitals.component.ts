@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import * as Chart from 'chart.js';
 import * as moment from 'moment';
+import { LanguageService } from 'src/app/shared/service/language.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { VitalsService } from 'src/app/shared/service/vitals.service';
 
@@ -15,7 +17,12 @@ export class VitalsComponent implements OnInit {
   @ViewChild('spoChart') mychart1: any;
   @ViewChild('weightChart') mychart2: any;
   @ViewChild('totalChart') mychart3: any;
-  constructor(private vitalsService: VitalsService, private profileService: ProfileService) { }
+  constructor(private vitalsService: VitalsService, private profileService: ProfileService,
+    private ls: LanguageService,
+    private translate: TranslateService,) {
+    translate.use('en');
+    translate.setTranslation('en', this.ls.state);
+  }
   BPChartLabels: any;
   BPChartDatasets1: any;
   BPChatType = 'line';
@@ -49,7 +56,7 @@ export class VitalsComponent implements OnInit {
     }
   }
   chartLabels = ['Blood Pressure', 'Weight', 'SpO2'];
-  chartData = [100, 200, 150 ];
+  chartData = [100, 200, 150];
   chartLegend = true;
   timeduration: any;
   duration!: any;

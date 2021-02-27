@@ -23,9 +23,6 @@
       <p class="error-message" *ngIf="email.errors?.required">
         Email is required!
       </p>
-      <!-- <p class="error-message" *ngIf="email.errors?.pattern">
-        Email should be the real one!
-      </p> -->
     </ng-container>
   </div>
 
@@ -62,24 +59,6 @@
     Log In
   </button>
 </form>
-
-<!-- <section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">
-  or enter with:
-  <div class="socials">
-    <ng-container *ngFor="let socialLink of socialLinks">
-      <a *ngIf="socialLink.link"
-         [routerLink]="socialLink.link"
-         [attr.target]="socialLink.target"
-         [attr.class]="socialLink.icon"
-         [class.with-icon]="socialLink.icon">{{ socialLink.title }}</a>
-      <a *ngIf="socialLink.url"
-         [attr.href]="socialLink.url"
-         [attr.target]="socialLink.target"
-         [attr.class]="socialLink.icon"
-         [class.with-icon]="socialLink.icon">{{ socialLink.title }}</a>
-    </ng-container>
-  </div>
-</section> -->
 
 <!-- <section class="another-action" aria-label="Register">
   Don't have an account? <a class="text-link" routerLink="../register">Register</a> -->
