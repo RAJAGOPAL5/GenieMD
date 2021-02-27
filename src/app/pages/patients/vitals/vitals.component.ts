@@ -19,7 +19,7 @@ export class VitalsComponent implements OnInit {
   @ViewChild('totalChart') mychart3: any;
   constructor(private vitalsService: VitalsService, private profileService: ProfileService,
     private ls: LanguageService,
-    private translate: TranslateService,) {
+    private translate: TranslateService) {
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
   }
