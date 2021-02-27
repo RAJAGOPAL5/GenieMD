@@ -171,7 +171,7 @@ export class AddComponent implements OnInit {
         console.log('edit paitent', res);
         this.isLoading = false;
         this.toastrService.success('Patient Updated Successfully');
-        this.dialogRef.close(res);
+        this.dialogRef.close(true);
       }, error => {
         this.isLoading = false;
       });
