@@ -1,11 +1,11 @@
 <nb-card [nbSpinner]="isLoading">
     <nb-card-body>
         <div class="row">
-            <div class="col-md-3 mt-3">
+            <div class="col-2 col-lg-4 col-xl-3 mt-3">
                 <nb-user size="giant" [name]="patientName" [picture]="patient?.imageUrl">
                 </nb-user>
             </div>
-            <div class="col-md-3" [ngSwitch]="patient?.gender">
+            <div class="col col-lg-4 col-xl-4" [ngSwitch]="patient?.gender">
                 <p>
                     <nb-icon icon="email"></nb-icon><span class="ps-4">{{patient?.email}}</span>
                 </p>
@@ -29,7 +29,7 @@
                     <nb-icon icon="birthday-cake" pack="font-awesome"></nb-icon><span class="ps-4">{{patient?.dob}}</span>
                 </p>
             </div>
-            <div class="col-auto">
+            <div class="col-4 col-xl-5">
                 <div class="row mt-3">
                     <div class="col-auto">
                         <nb-icon icon="flag" pack="font-awesome"></nb-icon><span
@@ -52,7 +52,7 @@
             <p><nb-icon icon="person" nbTooltip="Morbidity"></nb-icon><span class="ps-4" *ngFor="let morbidity of morbidityValue" >{{morbidityValue}}</span></p> 
             
             </div>
-            <div class="col-auto align-bottom">
+            <div class="col-auto col-lg-12 col-xl-2 align-bottom">
                     <p><nb-checkbox class="profileMonitered" status="info" [checked]="monitored" (change)="setCheckedStatus($event)">Monitored</nb-checkbox></p>
             </div>
         </div>
