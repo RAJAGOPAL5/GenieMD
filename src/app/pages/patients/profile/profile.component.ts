@@ -145,7 +145,7 @@ export class ProfileComponent implements OnInit {
       updateDirectEmail: true,
       userID: this.patient.userID,
       morbidity: this.patient.morbidity,
-      monitored: monitored,
+      monitored: {monitored},
     };
     this.profileService.update(registerPayload).subscribe((res: any) => {
       this.isLoading = false;

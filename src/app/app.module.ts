@@ -73,7 +73,7 @@ import { format, compareAsc } from 'date-fns';
     NbCheckboxModule,
     NbActionsModule,
     NbListModule,
-    NbDateFnsDateModule.forRoot({ format: 'dd\MM\yyyy' })
+    NbDateFnsDateModule.forRoot({ format: 'dd/MM/yyyy' })
   ],
   providers: [
     {
