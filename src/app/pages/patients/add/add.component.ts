@@ -172,7 +172,6 @@ export class AddComponent implements OnInit {
         this.isLoading = false;
         this.toastrService.success('Patient Updated Successfully');
         this.dialogRef.close(res);
-        // this.router.navigate(['patients']);
       }, error => {
         this.isLoading = false;
       });
@@ -256,6 +255,8 @@ export class AddComponent implements OnInit {
       morbidity: this.profileForm.value.morbidity,
       monitored: this.profileForm.value.monitored ? 1 : 0,
     };
+    // tslint:disable-next-line:no-unused-expression
+    this.profileForm.value.morbidity === '' ? delete registerPayload.morbidity : '';
     this.profileService.update(registerPayload).subscribe((res: any) => {
       console.log('updatedprofle', res);
       const firstList = {
