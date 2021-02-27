@@ -5,7 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NbButtonModule, NbCardModule, NbDialogModule, NbIconModule, NbInputModule, NbLayoutModule,
    NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbSpinnerModule, NbThemeModule, NbToastrModule,
-    NbTooltipModule, NbUserModule, NbDatepickerModule, NbButtonGroupModule, NbCheckboxModule, NbActionsModule, NbListModule } from '@nebular/theme';
+    NbTooltipModule, NbUserModule, NbDatepickerModule, NbButtonGroupModule, NbCheckboxModule, NbActionsModule,
+     NbListModule } from '@nebular/theme';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -26,7 +27,8 @@ import { LogoutConfimartionComponent } from './shared/components/logout-confimar
 import { ChartsModule } from 'ng2-charts';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { NbDateFnsDateModule } from '@nebular/date-fns';
+import { format, compareAsc } from 'date-fns';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,8 +71,9 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule.forRoot(),
     NbButtonGroupModule,
     NbCheckboxModule,
-    NbActionsModule, 
-    NbListModule
+    NbActionsModule,
+    NbListModule,
+    NbDateFnsDateModule.forRoot({ format: 'dd\MM\yyyy' })
   ],
   providers: [
     {
