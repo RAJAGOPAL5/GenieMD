@@ -8,9 +8,10 @@
                         <button nbButtonToggle nbButton>Monitored</button>
                     </nb-button-group>
                 </div>
-                <div class="col-auto m-auto">
+                <div class="col-auto m-auto position-relative">
+                    <div class="badge-position cursor-pointer" *ngIf = "isFilter"><nb-badge text="99+" status="danger" position="top left" dotMode = true (click)="filterPatient()"></nb-badge></div>
                     <nb-actions size="tiny">
-                        <nb-action class="ps-0 pe-0" icon="funnel-outline" (click)="open()">
+                        <nb-action class="ps-0 pe-0" icon="funnel-outline" (click)="filterPatient()">
                         </nb-action>
                         <nb-action class="pe-0" icon="plus-circle-outline" (click)="addPatient()"></nb-action>
                     </nb-actions>

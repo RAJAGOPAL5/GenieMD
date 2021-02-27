@@ -32,9 +32,8 @@ export class ListComponent implements OnInit {
   isLoading = false;
   searchText = '';
   clinic: any;
-  registrationForm: FormGroup;
-  dialogRef: any;
-  searchValue = { firstName: '', lastName: '', dob: '', gender: 0, monitored: 1 };
+  filterPayload = { firstName: '', lastName: '', dob: '', gender: ''};
+  isFilter = false;
   constructor(
     private patientService: PatientsService,
     private profileService: ProfileService,
@@ -51,8 +50,8 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
-    this.createForm();
     this.getData();
+    this.showBadge();
   }
 
   getData() {
@@ -73,6 +72,11 @@ export class ListComponent implements OnInit {
       this.isLoading = false;
     });
   }
+  showBadge() {
+    this.isFilter = Object.keys(this.filterPayload).some(k => {
+      return !!this.filterPayload[k];
+      });
+  }
   addPatient(patientID?: number) {
     const modal = this.dialogService.open(AddComponent);
     modal.componentRef.instance.patientID = patientID;
@@ -83,49 +87,18 @@ export class ListComponent implements OnInit {
     });
   }
 
-  open() {
-    this.dialogRef = this.dialogService.open(FilterDialogComponent, {});
-  }
-  createForm() {
-    this.registrationForm = this.fb.group({
-      firstName: [''],
-      lastName: [''],
-      gender: ['male'],
-      dob: [''],
-
-    });
-  }
-  startSearch() {
-    console.log('data', this.registrationForm)
-    if (this.registrationForm.valid) {
-      if ((this.registrationForm.value.firstName != "" && this.registrationForm.value.firstName != null) ||
-        (this.registrationForm.value.lastName != "" && this.registrationForm.value.lastName != null) ||
-        (this.registrationForm.value.dob != "" && this.registrationForm.value.dob != null) ||
-        (this.registrationForm.value.gender != "" && this.registrationForm.value.dob != null)) {
-        const date = '';
-        const payload = {
-          clinicID: this.clinicService.id,
-          firstName: this.registrationForm.value.firstName || '',
-          lastName: this.registrationForm.value.lastName || '',
-          dob: date || '',
-          gender: this.registrationForm.value.gender || '',
-          userID: this.profileService.id,
-          pageNumber: 1,
-          count: 25
-        };
-        this.clinicService.searchPatients(payload).subscribe((res: any) => {
-          // console.log('data', res)
-          this.users = res.clinicPatientList;
-          this.dialogRef.close();
-          // this.spinner.hide();
-
-        }, error => {
-          // this.toastrService.error(error.error ? error.error : 'Failed to search patient');
-          // this.spinner.hide();
-
-        }
-        );
+  filterPatient() {
+    const modal = this.dialogService.open(FilterDialogComponent, {});
+    modal.componentRef.instance.data = this.filterPayload;
+    modal.onClose.subscribe(data => {
+      if (!!data && data.type === 'filter') {
+        this.users = data.data;
+        this.filterPayload = data.payload;
+      } else if (!!data && data.type === 'clear') {
+        this.filterPayload = { firstName: '', lastName: '', dob: '', gender: ''};
+        this.getData();
       }
-    }
+      this.showBadge();
+    });
   }
 }
