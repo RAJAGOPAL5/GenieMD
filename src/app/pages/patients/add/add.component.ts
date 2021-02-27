@@ -42,6 +42,7 @@ export class AddComponent implements OnInit {
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
     if (!!this.patientID) {
+      this.isLoading = true;
       this.getProfilePatch();
     }
     this.actionName = this.patientID ? 'Edit Patient' : 'Create Patient';
@@ -84,6 +85,7 @@ export class AddComponent implements OnInit {
             monitored: true
           });
         }
+        this.isLoading = false;
       });
     });
   }
