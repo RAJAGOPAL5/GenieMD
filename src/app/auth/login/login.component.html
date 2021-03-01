@@ -1,13 +1,13 @@
-<h1 id="title" class="title">Login</h1>
-<div class="d-flex align-items-center h-100 justify-content-center">
+<div class="d-flex align-items-center h-100 justify-content-center mb-3">
   <span class="ps-2">
       <img [src]="logo" alt="" height="50">
   </span>
   <span class="ps-2 h4 text-uppercase d-flex align-items-center">{{ title }}</span>
 </div>
+<h1 id="title" class="title">Login</h1>
 <form (ngSubmit)="login()" #form="ngForm" aria-labelledby="title" [nbSpinner]="isLoading">
-  <div class="form-control-group">
-    <label class="label" for="input-email">Email or Username:</label>
+  <div class="form-control-group m-0">
+    <label class="label m-0" for="input-email">Email or Username:</label>
     <input nbInput
            fullWidth
            [(ngModel)]="model.username"
@@ -26,8 +26,8 @@
     </ng-container>
   </div>
 
-  <div class="form-control-group">
-    <label class="label" for="input-password">Password:</label>
+  <div class="form-control-group m-0">
+    <label class="label m-0" for="input-password">Password:</label>
     <input nbInput
            fullWidth
            [(ngModel)]="model.password"
@@ -46,9 +46,9 @@
     </ng-container>
   </div>
 
-  <div class="form-control-group accept-group">
+  <div class="form-control-group accept-group mt-4 mb-4">
     <!-- <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe" *ngIf="rememberMe">Remember me</nb-checkbox> -->
-    <a class="forgot-password" routerLink="../forgot">Forgot Password?</a>
+    <a class="forgot-password m-0" routerLink="../forgot">Forgot Password?</a>
   </div>
 
   <button nbButton
