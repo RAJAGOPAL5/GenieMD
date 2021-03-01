@@ -1,16 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
-import { ThrowStmt, ThisReceiver } from '@angular/compiler';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
-import { languages, states, morbidity, gender } from 'src/app/shared/constnts/consstnt';
-import { from } from 'rxjs';
-import { format, compareAsc, parse } from 'date-fns';
+import { languages, states, morbidity, gender, vitals } from 'src/app/shared/constnts/consstnt';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
 @Component({
@@ -32,6 +29,8 @@ export class AddComponent implements OnInit {
   isLoading = false;
   patientID: any;
   genderArr = gender;
+  vitals: any[] = [];
+  selectedItem: any;
 
   @ViewChild('birthDate', { static: false }) birthDate: any;
   constructor(
@@ -54,6 +53,7 @@ export class AddComponent implements OnInit {
     this.actionName = this.patientID ? 'Edit Patient' : 'Create Patient';
     this.states = states;
     this.morbidityID = morbidity;
+    this.vitals = vitals;
     this.languages = languages;
     this.createForm();
   }
@@ -112,7 +112,8 @@ export class AddComponent implements OnInit {
       state: ['', Validators.required],
       zipcode: ['', Validators.required],
       morbidity: ['', ],
-      monitored: ['', ]
+      monitored: ['', ],
+      vitals: [[]]
     });
   }
   onSubmit() {
