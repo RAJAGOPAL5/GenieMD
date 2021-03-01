@@ -4,8 +4,8 @@
             <div class="row">
                 <div class="col-auto m-auto">
                     <nb-button-group status="primary" size="tiny">
-                        <button nbButtonToggle nbButton pressed>All</button>
-                        <button nbButtonToggle nbButton>Monitored</button>
+                        <button nbButtonToggle nbButton pressed (click)= "getData(0)" >All</button>
+                        <button nbButtonToggle nbButton (click)="getData(1)">Monitored</button>
                     </nb-button-group>
                 </div>
                 <div class="col-auto m-auto position-relative">
