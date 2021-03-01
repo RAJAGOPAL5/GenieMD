@@ -26,7 +26,7 @@ interface ViewModel {
 })
 export class ListComponent implements OnInit {
   model: ViewModel = {
-    monitored: 0
+    monitored: 1
   };
   users: any [] = [];
   isLoading = false;
@@ -43,7 +43,8 @@ export class ListComponent implements OnInit {
     providerID: '',
     userID: this.profileService.id,
     count: 11,
-    pageNumber: 1
+    pageNumber: 1,
+    monitored : this.model.monitored,
   };
   constructor(
     private patientService: PatientsService,

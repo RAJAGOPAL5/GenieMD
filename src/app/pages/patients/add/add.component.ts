@@ -31,6 +31,7 @@ export class AddComponent implements OnInit {
   genderArr = gender;
   vitals: any[] = [];
   selectedItem: any;
+  profileExtraData: any;
 
   @ViewChild('birthDate', { static: false }) birthDate: any;
   constructor(
@@ -67,6 +68,14 @@ export class AddComponent implements OnInit {
       const clinicPatient = items;
       this.profileService.get(clinicPatient.userID).subscribe((res: any) => {
         this.profileData = res;
+        console.log('this.profileData', this.profileData);
+        try {
+          this.profileExtraData = JSON.parse(this.profileData.extraData);
+        } catch (error) {
+          this.profileExtraData = this.profileData.extraData || {};
+        }
+        console.log('this.profileExtraData', this.profileExtraData);
+
         this.profileForm.patchValue({
           firstName: this.profileData.firstName,
           lastName: this.profileData.lastName,
@@ -81,6 +90,7 @@ export class AddComponent implements OnInit {
           city: this.profileData.city,
           morbidity: this.profileData.morbidity,
           language: this.profileData.languageId,
+          vitals: !!this.profileExtraData.vitals ? this.profileExtraData.vitals : []
         });
         if (this.profileData.monitored === 0) {
           this.profileForm.patchValue({
@@ -244,7 +254,8 @@ export class AddComponent implements OnInit {
         planID: -1,
         planMemberCount: -1,
         planName: '',
-        referralCode: ''
+        referralCode: '',
+        vitals: this.profileForm.value.vitals
       },
       firstName: this.profileForm.value.firstName,
       gender: `${this.profileForm.value.gender}`,
