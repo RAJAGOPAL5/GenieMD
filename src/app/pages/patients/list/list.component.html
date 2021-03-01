@@ -10,9 +10,9 @@
                 </div>
                 <div class="col-auto m-auto">
                     <nb-actions size="tiny">
-                        <nb-action class="ps-0 pe-0" icon="funnel-outline" (click)="open()">
+                        <nb-action nbTooltip="Filter" nbTooltipStatus="primary" class="ps-0 pe-0" icon="funnel-outline" (click)="open()">
                         </nb-action>
-                        <nb-action class="pe-0" icon="plus-circle-outline" (click)="addPatient()"></nb-action>
+                        <nb-action nbTooltip="Add Patient" nbTooltipStatus="primary" nbTooltipPlacement="right" class="pe-0" icon="plus-circle-outline" (click)="addPatient()"></nb-action>
                     </nb-actions>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                 [ngClass]="{'none': user.monitored == 0,'success': user.alarm == 0 && user.monitored == 1, 'warning': user.alarm == 1 && user.monitored == 1, 'danger': user.alarm == 2 && user.monitored == 1}"
                 [name]="user.name" [title]="user.dob" [picture]="user.imageUrl">
             </nb-user>
-            <nb-icon icon="edit-outline" (click)="addPatient(user?.patientID);$event.stopPropagation();"></nb-icon>
+            <nb-icon nbTooltip="Edit" nbTooltipStatus="primary" icon="edit-outline" (click)="addPatient(user?.patientID);$event.stopPropagation();"></nb-icon>
         </nb-list-item>
         <nb-list-item *ngIf="!users?.length">
             <p>No patients found. <a (click)="addPatient()">Create New Patient</a></p>

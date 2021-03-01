@@ -74,7 +74,7 @@ export class ListComponent implements OnInit {
     });
   }
   addPatient(patientID?: number) {
-    const modal = this.dialogService.open(AddComponent);
+    const modal = this.dialogService.open(AddComponent, { closeOnBackdropClick: false });
     modal.componentRef.instance.patientID = patientID;
     modal.onClose.subscribe(data => {
       if (!!data) {
