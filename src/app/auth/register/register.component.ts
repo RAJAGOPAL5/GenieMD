@@ -1,10 +1,14 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbAuthService, NbRegisterComponent, NB_AUTH_OPTIONS } from '@nebular/auth';
 import { NbToastrService } from '@nebular/theme';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
+import { environment } from 'src/environments/environment.prod';
+import * as moment from 'moment';
+
 
 interface ViewModal {
   firstName?: string;
@@ -19,6 +23,7 @@ interface ViewModal {
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent extends NbRegisterComponent implements OnInit {
+  version: string = environment.version;
   logo: any;
   title: any;
   isLoading = false;
@@ -31,6 +36,8 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
   submitted = false;
   errors: string[] = [];
   messages: string[] = [];
+  profileForm: FormGroup;
+  clinic: any;
 
   constructor(
     private clinicService: ClinicService,
@@ -40,7 +47,8 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
     protected service: NbAuthService,
     protected cd: ChangeDetectorRef,
     protected router: Router,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private fb: FormBuilder
   ) {
     super(service, {}, cd, router);
     this.redirectDelay = this.getConfigValue('forms.register.redirectDelay');
@@ -51,6 +59,8 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;
     this.title = this.clinicService.config.name;
+    this.clinic = this.clinicService.clinic;
+    this.createForm();
   }
 
   register() {
@@ -63,10 +73,70 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
       this.userID = res.userID;
       this.getProfile();
       this.toastrService.success('Registered Successfully');
-      this.router.navigate([this.clinicService.id,'auth']);
     }, error => {
       this.isLoading = false;
       this.toastrService.danger(error.error.errorMessage);
+    });
+  }
+
+  createForm() {
+    this.profileForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      dob: ['', Validators.required],
+      gender: 0,
+      address: ['', Validators.required],
+      country: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zipcode: ['', Validators.required],
+    });
+  }
+
+  saveProfile(){
+    let date = '';
+    if (this.profileForm.value.dob && this.profileForm.value.dob !== '') {
+      date = moment(this.profileForm.value.dob).format('YYYY-MM-DD');
+    }
+    const registerPayload = {
+      email: '',
+      dob: date || '',
+      birthdate: moment(this.profileForm.value.dob).valueOf(),
+      cellNumber: this.profileForm.value.phoneNumber,
+      languageId: '',
+      state: this.profileForm.value.state ? this.profileForm.value.state : '',
+      address: this.profileForm.value.address ? this.profileForm.value.address : '',
+      city: this.profileForm.value.city ? this.profileForm.value.city : '',
+      country: this.profileForm.value.country ? this.profileForm.value.country : '',
+      zipCode: this.profileForm.value.zipcode ? this.profileForm.value.zipcode : '',
+      extraData: {
+        clinicID: this.clinic.clinicID,
+        clinicName: this.clinicService.config ? this.clinicService.config.name : this.clinicService.clinic.name,
+        companyCode: '',
+        dateofbirth: this.profileForm.value.dob,
+        governmentID: '',
+        ms: '0',
+        notifications: {
+          email: true,
+          push: true,
+          sms: true
+        },
+        password: '',
+        phoneNumber: this.profileForm.value.phoneNumber,
+        planID: -1,
+        planMemberCount: -1,
+        planName: '',
+        referralCode: ''
+      },
+      userID: '9d06e01fd411487487e7ad3aeab5715b',
+    };
+    this.profileService.update(registerPayload).subscribe((res: any) => {
+      console.log('edit paitent', res);
+      this.isLoading = false;
+      this.toastrService.success('Patient Updated Successfully');
+    }, error => {
+      this.isLoading = false;
     });
   }
 
@@ -79,5 +149,4 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
       this.toastrService.danger(error.error.errorMessage);
     });
   }
-
 }
