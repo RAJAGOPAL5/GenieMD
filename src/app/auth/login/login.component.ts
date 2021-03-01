@@ -6,6 +6,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { environment } from 'src/environments/environment.prod';
 import { NbAuthService, NbLoginComponent, NB_AUTH_OPTIONS } from '@nebular/auth';
+import { NbToastrService } from '@nebular/theme';
 
 
 interface ViewModal {
@@ -28,6 +29,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit  {
   showContent = false;
   constructor(private clinicService: ClinicService, 
     private authService: AuthService,
+    private toastrService: NbToastrService,
     private ls: LanguageService,
     private translate: TranslateService,
     @Inject(NB_AUTH_OPTIONS)
@@ -57,8 +59,6 @@ export class LoginComponent extends NbLoginComponent implements OnInit  {
       }
     }
   }
-  
-  
 
   login() {
     this.isLoading = true;
@@ -70,6 +70,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit  {
       this.isLoading = false;
     }, error => {
       this.isLoading = false;
+      this.toastrService.danger(error.error.errorMessage? error.error.errorMessage: 'Invalid username or password');
     });
   }
 

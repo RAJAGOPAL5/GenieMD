@@ -1,7 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
@@ -28,12 +28,23 @@ export class ListComponent implements OnInit {
   model: ViewModel = {
     monitored: 0
   };
-  users: any;
+  users: any [] = [];
   isLoading = false;
   searchText = '';
   clinic: any;
   filterPayload = { firstName: '', lastName: '', dob: '', gender: ''};
   isFilter = false;
+  registrationForm: FormGroup;
+  dialogRef: any;
+  searchValue = { firstName: '', lastName: '', dob: '', gender: 0, monitored: 1 };
+  payloadScroll = {
+    clinicID: this.clinicService.id,
+    name: this.searchText,
+    providerID: '',
+    userID: this.profileService.id,
+    count: 11,
+    pageNumber: 1
+  };
   constructor(
     private patientService: PatientsService,
     private profileService: ProfileService,
@@ -41,7 +52,8 @@ export class ListComponent implements OnInit {
     private dialogService: NbDialogService,
     private fb: FormBuilder,
     private ls: LanguageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private toastrService: NbToastrService
 
   ) {
     translate.use('en');
@@ -50,8 +62,9 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
-    this.getData();
+    // this.getData();
     this.showBadge();
+    // this.createForm();
   }
 
   getData() {
@@ -62,7 +75,7 @@ export class ListComponent implements OnInit {
       providerID: '',
       userID: this.profileService.id,
     };
-    this.patientService.find(payload).subscribe((data: any) => {
+    this.patientService.find(this.payloadScroll).subscribe((data: any) => {
       this.users = data.clinicPatientList.map(item => {
         item.name = `${item.firstName} ${item.lastName}`.trim();
         return item;
@@ -99,6 +112,26 @@ export class ListComponent implements OnInit {
         this.getData();
       }
       this.showBadge();
+    });
+  }
+  loadNext(cardData) {
+    this.isLoading = true;
+    this.patientService.find(this.payloadScroll).subscribe((data: any) => {
+      // console.log('loadNext', data.clinicPatientList, this.payloadScroll.pageNumber, cardData.length );
+      if (cardData.length < data.total ) {
+        data.clinicPatientList = data.clinicPatientList.map(item => {
+          item.name = `${item.firstName} ${item.lastName}`.trim();
+          return item;
+        });
+        // tslint:disable-next-line:no-unused-expression
+        data.clinicPatientList.length !== 0 ? cardData.push(...data.clinicPatientList) : '' ;
+        this.payloadScroll.pageNumber++;
+      }
+      this.isLoading = false;
+      return true;
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger(error);
     });
   }
 }

@@ -42,6 +42,7 @@ export class ForgotPasswordComponent extends NbRequestPasswordComponent implemen
     this.logo = this.clinicService.config.logo;
     this.title = this.clinicService.config.name;
   }
+
   submit() {
     this.isLoading = true;
     this.authService.forget(this.user.email).subscribe(res => {
