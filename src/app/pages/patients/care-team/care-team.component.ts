@@ -2,8 +2,8 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, RouteConfigLoadEnd } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
-import { ClinicService } from 'projects/core/src/lib/clinic/state/clinic.service';
 import { AuthService } from 'src/app/shared/service/auth.service';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { DependentService } from 'src/app/shared/service/dependent.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { NotificationService } from 'src/app/shared/service/notification.service';
@@ -39,7 +39,10 @@ export class CareTeamComponent implements OnInit {
       patientID: this.patientId
     };
     this.dependent.find(payload).subscribe((res: any) => {
-      this.careTeam = res;
+      this.careTeam = res.list.map(item => {
+        item.name = `${item.firstName} ${item.lastName}`.trim();
+        return item;
+      });
     });
     this.getProfile();
   }
