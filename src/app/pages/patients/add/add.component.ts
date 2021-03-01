@@ -59,7 +59,7 @@ export class AddComponent implements OnInit {
   }
   getProfilePatch() {
     const patientPayload = {
-      userID: localStorage.getItem('userID'),
+      userID: this.profileService.id,
       clinicID: this.clinic.clinicID,
       patientID: this.patientID
     };

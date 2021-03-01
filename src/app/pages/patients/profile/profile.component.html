@@ -5,14 +5,14 @@
                <h4> <nb-user size="large" [name]="patientName" [title]="patient?.email" [picture]="patient?.imageUrl"></nb-user></h4>
              </div>
             <div class="col-md-3" [ngSwitch]="patient?.gender">
-                <p><nb-icon icon="phone" pack="font-awesome" ></nb-icon><span class="ps-4">{{patient?.phoneNumber}}</span></p>
-                <p><nb-icon icon="envelope" nbTooltip="Email" pack="font-awesome"></nb-icon><span class="ps-4">{{patient?.email}}</span></p>
-                <p *ngSwitchCase="0"> <nb-icon icon="venus-mars"  nbTooltip="Gender" pack="font-awesome"></nb-icon><span class="ps-4">Male</span></p>
-                <p *ngSwitchCase="1"> <nb-icon icon="venus-mars"  nbTooltip="Gender" pack="font-awesome"></nb-icon><span class="ps-4">Female</span></p>
-                <p *ngSwitchCase="2"> <nb-icon icon="venus-mars"  nbTooltip="Gender" pack="font-awesome"></nb-icon><span class="ps-4">Others</span> </p>
+                <p><nb-icon icon="phone" nbTooltip="Phone" nbTooltipPlacement="left" pack="font-awesome" ></nb-icon><span class="ps-4">{{patient?.phoneNumber}}</span></p>
+                <p><nb-icon icon="envelope" nbTooltip="Email" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">{{patient?.email}}</span></p>
+                <p *ngSwitchCase="0"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">Male</span></p>
+                <p *ngSwitchCase="1"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">Female</span></p>
+                <p *ngSwitchCase="2"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">Others</span> </p>
             </div>
             <div class="col-md-6">
-              <p class="text-uppercase"><nb-icon icon="map-marker-alt" pack="font-awesome"></nb-icon> 
+              <p class="text-uppercase"><nb-icon icon="map-marker-alt" nbTooltip="Location" nbTooltipPlacement="left" pack="font-awesome"></nb-icon> 
                     <span class="ps-4">{{patient?.address}}</span>
                     <span class="ps-1">{{patient?.state}}</span>, <br>
                     <span><nb-icon></nb-icon> 
@@ -21,7 +21,7 @@
                     <span class="ps-1">{{patient?.zipcode}}</span>.
                     </span>
               </p> 
-            <p><nb-icon icon="person" nbTooltip="Morbidity"></nb-icon><span class="ps-4" *ngFor="let morbidity of morbidityValue" >{{morbidity}}</span></p> 
+            <p><nb-icon icon="person" nbTooltip="Morbidity" nbTooltipPlacement="left"></nb-icon><span class="ps-4" *ngFor="let morbidity of morbidityValue" >{{morbidity}}</span></p> 
             </div>
         </div>
     </nb-card-body>

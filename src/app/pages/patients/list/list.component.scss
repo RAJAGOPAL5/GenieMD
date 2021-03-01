@@ -3,11 +3,12 @@
 }
 
 .patient-list {
-    height: calc(100vh - 1.5rem);
+    height: 100vh;
 }
 .badge-position {
     right: 76%;
     position: absolute;
     bottom: 18px;
     z-index: 1;
+    
 }

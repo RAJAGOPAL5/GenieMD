@@ -1,8 +1,8 @@
-<nb-card size="giant" style="overflow: auto">
+<nb-card size="large" style="overflow: auto" class="mt-2">
     <nb-card-header>
-        <div>
+        <div class="row">
             {{'kTimeRange' | translate}}
-            <div class="col-md-3">
+            <div class="col-md-3 ps-4">
                 <select class="form-control border-primary" [(ngModel)]="duration" (ngModelChange)="getList($event)">
                     <option *ngFor="let time of timeduration" value="{{time.val}}" selected>
                         {{time.title}}
