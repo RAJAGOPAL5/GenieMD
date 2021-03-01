@@ -25,6 +25,12 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
   model: ViewModal = { firstName: '', email: '', password: '', confirmPassword: '' };
   userID: any;
   profile: any;
+  redirectDelay: number = 0;
+  showMessages: any = {};
+  strategy: string = '';
+  submitted = false;
+  errors: string[] = [];
+  messages: string[] = [];
 
   constructor(
     private clinicService: ClinicService,
@@ -37,6 +43,9 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
     private profileService: ProfileService
   ) {
     super(service, {}, cd, router);
+    this.redirectDelay = this.getConfigValue('forms.register.redirectDelay');
+    this.showMessages = this.getConfigValue('forms.register.showMessages');
+    this.strategy = this.getConfigValue('forms.register.strategy');
   }
 
   ngOnInit(): void {
