@@ -1,6 +1,6 @@
 <nb-card class="patient-list" [nbSpinner]="isLoading">
-    <nb-list>
-        <nb-list-item class="justify-content-center">
+    <nb-card-header class="justify-content-center p-0">
+        <nb-list-item>
             <div class="row">
                 <div class="col-auto m-auto">
                     <nb-button-group status="primary" size="tiny">
@@ -25,6 +25,8 @@
                     (ngModelChange)="getData()">
             </nb-form-field>
         </nb-list-item>
+    </nb-card-header>
+    <nb-list class="own-scroll" nbInfiniteList [threshold]="500" (bottomThreshold)="loadNext(users)" >
         <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of users"
             [routerLink]="[user?.patientID, 'vitals']">
             <nb-user class="cursor-pointer warning"
