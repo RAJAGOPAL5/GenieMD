@@ -74,3 +74,6 @@ export const morbidity = [{ name: 'Lung Disease', id: 0 }, { name: 'Heart Diseas
 export const gender = [{ id: 'Male', value: 0 },
 { id: 'Female', value: 1 },
 { id: 'Other', value: 2 }];
+
+export const vitals = [{ name: 'BP', id: 'BP' }, { name: 'SpO2', id: 'SpO2' }, { name: 'Glucose', id: 'GLC' },
+{ name: 'Weight', id: 'Wt' }, { name: 'Temperature', id: 'Temp' }];
