@@ -29,6 +29,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { format, compareAsc } from 'date-fns';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +58,7 @@ import { format, compareAsc } from 'date-fns';
     NbEvaIconsModule,
     NbRouteTabsetModule,
     HttpClientModule,
+    NgHttpLoaderModule.forRoot(),
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     FormsModule,
     ReactiveFormsModule,

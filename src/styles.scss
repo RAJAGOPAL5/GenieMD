@@ -52,6 +52,15 @@
 		}
 	}
 }
+.nb-theme-default {
+	nb-route-tabset ul {
+		li {
+			a {
+			outline: 0 !important;
+			}
+		}
+	}
+}
 /* end Patients status */
 
 /* Remove the browswe default style */

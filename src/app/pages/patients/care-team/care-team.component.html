@@ -1,4 +1,4 @@
-<nb-card size="giant" style="overflow: auto" status="info" class="mt-3">
+<nb-card size="large" style="overflow: auto" status="info" class="mt-3">
     <nb-card-header>
         <div class="row">
             <div class="col-11">
@@ -22,16 +22,12 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 m-4">
-                <nb-list-item class="form-control border shadow-none" *ngFor="let user of users"
-                    [routerLink]="[user?.patientID, 'vitals']">
-                    <nb-user class="cursor-pointer warning"
-                        [ngClass]="{'success': user.alarm == 2, 'warning': user.alarm == 1, 'danger': user.alarm == 0}"
+                <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of careTeam">
+                    <nb-user
                         [name]="user.name" [title]="user.email" [picture]="user.imageUrl">
                     </nb-user>
                 </nb-list-item>
-                <nb-list-item>
-                    <h6 class="text-center">{{'kMsgNoCaregivers' | translate}}</h6>
-                </nb-list-item>
+                    <h6 *ngIf="!careTeam" class="text-center">{{'kMsgNoCaregivers' | translate}}</h6>
             </div>
             <div class="col-md-3"></div>
         </div>
