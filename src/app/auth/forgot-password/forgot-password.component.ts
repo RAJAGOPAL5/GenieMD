@@ -6,6 +6,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { NbAuthService, NbRequestPasswordComponent, NB_AUTH_OPTIONS } from '@nebular/auth';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-forgot-password',
@@ -13,6 +14,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent extends NbRequestPasswordComponent implements OnInit {
+  version: string = environment.version;
+
   user: any = {
     email: ''
   };
@@ -20,23 +23,23 @@ export class ForgotPasswordComponent extends NbRequestPasswordComponent implemen
   position: 'top-right';
   logo: string;
   title: string;
-  
-  constructor(private clinicService: ClinicService, 
+
+  constructor(private clinicService: ClinicService,
     private authService: AuthService,
     private ls: LanguageService,
     private translate: TranslateService,
     @Inject(NB_AUTH_OPTIONS)
-    protected service: NbAuthService, 
-    protected cd: ChangeDetectorRef, 
+    protected service: NbAuthService,
+    protected cd: ChangeDetectorRef,
     protected router: Router,
     private toastrService: NbToastrService
 
-    ) {
-    super(service, {}, cd, router);  
+  ) {
+    super(service, {}, cd, router);
     translate.use('en');
-    translate.setTranslation('en', this.ls.state);  
+    translate.setTranslation('en', this.ls.state);
   }
-  
+
 
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;
@@ -48,7 +51,7 @@ export class ForgotPasswordComponent extends NbRequestPasswordComponent implemen
     this.authService.forget(this.user.email).subscribe(res => {
       this.isLoading = false;
       this.toastrService.show('Success', 'Email Sent');
-      this.router.navigate([this.clinicService.id,'auth']);
+      this.router.navigate([this.clinicService.id, 'auth']);
     }, error => {
       this.isLoading = false;
       this.toastrService.show('Error', 'Something Went Worng');
