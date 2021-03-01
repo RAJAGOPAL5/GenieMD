@@ -115,9 +115,9 @@ export class ListComponent implements OnInit {
     });
   }
   loadNext(cardData) {
+    this.isLoading = true;
     this.patientService.find(this.payloadScroll).subscribe((data: any) => {
-      this.isLoading = true;
-      console.log('loadNext', data.clinicPatientList, this.payloadScroll.pageNumber, cardData.length );
+      // console.log('loadNext', data.clinicPatientList, this.payloadScroll.pageNumber, cardData.length );
       if (cardData.length < data.total ) {
         data.clinicPatientList = data.clinicPatientList.map(item => {
           item.name = `${item.firstName} ${item.lastName}`.trim();
