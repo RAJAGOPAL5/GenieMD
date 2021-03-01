@@ -54,6 +54,7 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
       this.userID = res.userID;
       this.getProfile();
       this.toastrService.success('Registered Successfully');
+      this.router.navigate([this.clinicService.id,'auth']);
     }, error => {
       this.isLoading = false;
       this.toastrService.danger(error.error.errorMessage);
