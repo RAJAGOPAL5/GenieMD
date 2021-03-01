@@ -13,13 +13,14 @@ import { NbAuthModule, NbPasswordAuthStrategy, NbPasswordAuthStrategyOptions } f
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { RegisterComponent } from './register/register.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "../../assets/i18n/", ".json");
 }
 
 @NgModule({
-  declarations: [LoginComponent, ForgotPasswordComponent, IndexComponent],
+  declarations: [LoginComponent, ForgotPasswordComponent, IndexComponent, RegisterComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

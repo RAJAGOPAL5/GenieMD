@@ -5,6 +5,7 @@ import { NbAuthComponent, NbLoginComponent, NbRequestPasswordComponent } from '@
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { IndexComponent } from './index/index.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
 
@@ -28,6 +29,15 @@ const routes: Routes = [
           language: LanguageResolve
         },
         data:{ title:'Forgot Password'},
+
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
+        resolve: {
+          language: LanguageResolve
+        },
+        data:{ title:'register'},
 
       }
     ]

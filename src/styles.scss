@@ -51,11 +51,20 @@
 			border-width: 3px !important;
 		}
 	}
+	nb-card-header{
+		padding: 0px;
+	}
 }
 /* end Patients status */
 
 /* Remove the browswe default style */
 nb-list-item {
     outline: 0 ;
+}
+// .link back-link{
+//     display: none;
+// }
+.navigation{
+    display: none;
 }
 /* End */
