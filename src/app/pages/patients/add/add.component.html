@@ -9,16 +9,16 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group mb-1">
-                        <label for="inputFirstName" class="label"> <span class="text-danger">*</span> First
-                            Name</label>
+                        <label for="inputFirstName" class="label"> <span class="text-danger">*</span> 
+                            {{'kFirstName' | translate}}</label>
                         <input type="text" fieldSize="medium" formControlName="firstName" nbInput fullWidth
                             id="inputFirstName" placeholder="First Name">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group mb-1">
-                        <label for="inputLastName" class="label"> <span class="text-danger">*</span> Last
-                            Name</label>
+                        <label for="inputLastName" class="label"> <span class="text-danger">*</span> 
+                            {{'kLastName' | translate}}</label>
                         <input type="text" fieldSize="medium" formControlName="lastName" nbInput fullWidth
                             id="inputLastName" placeholder="Last Name">
                     </div>
@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group mb-1">
-                        <label for="inputFirstName" class="label"> <span class="danger"></span> Gender</label>
+                        <label for="inputFirstName" class="label"> <span class="danger"></span>{{'kGender' | translate}}</label>
                         <nb-radio-group formControlName="gender" class="row d-flex justify-content-center pt-0 p-3"
                             name="my-radio-group">
                             <nb-radio class=" col-md-4" *ngFor="let item of genderArr" [value]="item.value">{{item?.id}}
@@ -40,8 +40,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group mb-1">
-                        <div for="inputFirstName" class="label"> <span class="text-danger">*</span> Date Of
-                            Birth</div>
+                        <div for="inputFirstName" class="label"> <span class="text-danger">*</span> 
+                            {{'kMsgDob' | translate}}</div>
                         <input nbInput class="w-100" fieldSize="medium" formControlName="dob" placeholder="DD/MM/YYYY"
                             [nbDatepicker]="formcontrol" fullWidth>
                         <nb-datepicker #formcontrol></nb-datepicker>
@@ -50,7 +50,7 @@
                 <div class="col-md-6">
                     <div class="form-group mb-1">
                         <label for="inputLanguage" class="label"> <span class="text-danger">*</span>
-                            Language
+                            {{'kLanguage' | translate}}
                         </label>
                         <div>
                             <nb-select size="medium" class="w-100" id="inputLanguage" formControlName="language"
@@ -67,8 +67,7 @@
                 <div class="col-md-6">
                     <div class="form-group mb-1 w-100">
                         <label for="inputMobile" class="label"> <span class="text-danger">*</span>
-                            Mobile
-                            Number</label>
+                            {{'kMobileNumber' | translate}}</label>
                         <input fieldSize="medium" type="number" formControlName='handphone' nbInput fullWidth
                             id="inputMobileNumber" placeholder="Mobile Number">
                     </div>
@@ -76,7 +75,7 @@
                 <div class="col-md-6">
                     <div class="form-group mb-1">
                         <label for="inputEmail" class="label"> <span class="text-danger">*</span>
-                            Email</label>
+                            {{'kEmailAddress' | translate}}</label>
                         <input fieldSize="medium" type="email" formControlName="email" nbInput fullWidth id="inputEmail"
                             placeholder="Email">
                     </div>
@@ -86,7 +85,7 @@
                 <div class="col-md-6">
                     <div class="form-group mb-1">
                         <label for="inputAddress" class="label"> <span class="text-danger">*</span>
-                            Address</label>
+                            {{'kAddress' | translate}}</label>
                         <input type="text" fieldSize="medium" formControlName="address" nbInput fullWidth
                             id="inputAddress" placeholder="Enter the Address">
                     </div>
@@ -94,7 +93,7 @@
                 <div class="col-md-6">
                     <div class="form-group mb-1">
                         <label for="inputCity" class="label"> <span class="text-danger">*</span>
-                            City</label>
+                            {{'kCity' | translate}}</label>
                         <input type="text" fieldSize="medium" formControlName="city" nbInput fullWidth id="inputCity"
                             placeholder="Enter the City">
                     </div>
@@ -104,7 +103,7 @@
                 <div class="col-md-6">
                     <div class="form-group mb-1">
                         <label for="inputState" class="label"> <span class="text-danger">*</span>
-                            State</label>
+                            {{'kState' | translate}}</label>
                         <div>
                             <nb-select id="inputState" size="medium" class="w-100" fullWidth formControlName="state"
                                 placeholder="Select State">
@@ -117,8 +116,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group mb-1">
-                        <label for="inputZipCode" class="label"> <span class="text-danger">*</span> Zip
-                            Code</label>
+                        <label for="inputZipCode" class="label"> <span class="text-danger">*</span> 
+                            {{'kZipCode' | translate}}</label>
                         <input type="text" fieldSize="medium" formControlName="zipcode" nbInput fullWidth
                             id="inputZipCode" placeholder="Enter Zip Code">
                     </div>
@@ -128,7 +127,7 @@
                 <div class="col-md-6">
                     <div class="form-group mb-1">
                         <label for="inputCountry" class="label"> <span class="text-danger">*</span>
-                            Country</label>
+                            {{'kCountry' | translate}}</label>
                         <input type="text" fieldSize="medium" formControlName="country" nbInput fullWidth
                             id="inputCountry" placeholder="Enter the Country">
                     </div>
@@ -136,7 +135,7 @@
                 <div class="col-md-6">
                     <div class="form-group mb-1">
                         <label for="inputMorbidity" class="label"> <span class="danger"></span>
-                            Morbidity</label>
+                            {{'kMorbidity' | translate}}</label>
                         <div>
                             <nb-select size="medium" fullWidth id="inputMorbidity" formControlName="morbidity"
                                 placeholder="Select Morbidity">
@@ -148,11 +147,11 @@
                 </div>
             </div>
             <div class="form-group mt-3">
-                <nb-checkbox status="info" formControlName="monitored">Monitored</nb-checkbox>
+                <nb-checkbox status="info" formControlName="monitored">{{'kMonitored' | translate}}</nb-checkbox>
             </div>
             <div class="row  justify-content-end">
                 <div class="col-auto mr-2 ml-2 d-flex justify-content-end">
-                    <button nbButton status="danger" (click)=cancelPatient()>Cancel</button>
+                    <button nbButton status="danger" (click)=cancelPatient()>{{'kCancel' | translate}}</button>
                 </div>
                 <div class="col-auto d-flex justify-content-end">
                     <button class="mr-3" [disabled]="!profileForm.valid" nbButton

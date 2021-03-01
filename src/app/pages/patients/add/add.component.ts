@@ -11,6 +11,8 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import {  PatientDataService } from '../../patient-data.service';
 import { from } from 'rxjs';
 import { format, compareAsc, parse } from 'date-fns';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from 'src/app/shared/service/language.service';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -36,8 +38,13 @@ export class AddComponent implements OnInit {
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
     private toastrService: NbToastrService, private patientsService: PatientsService, protected dialogRef: NbDialogRef<any>,
-    private patientDataService: PatientDataService
-    ) { }
+    private patientDataService: PatientDataService,
+    private ls: LanguageService,
+    private translate: TranslateService
+    ) {
+    translate.use('en');
+    translate.setTranslation('en', this.ls.state);
+     }
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;

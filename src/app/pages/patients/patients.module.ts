@@ -9,6 +9,13 @@ import { NbCardModule, NbFormFieldModule, NbInputModule, NbListModule, NbRouteTa
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddComponent } from './add/add.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, "../../assets/i18n/", ".json");
+}
 
 
 @NgModule({
@@ -37,7 +44,14 @@ import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
     NbButtonGroupModule,
     NbListModule,
     NbActionsModule,
-    NbCheckboxModule
+    NbCheckboxModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (HttpLoaderFactory),
+        deps: [HttpClient]
+      }
+        })
   ],
   entryComponents: [AddComponent]
 })
