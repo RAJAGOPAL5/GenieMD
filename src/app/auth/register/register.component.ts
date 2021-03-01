@@ -79,6 +79,10 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
     });
   }
 
+  get f() {
+    return this.profileForm.controls;
+  }
+
   createForm() {
     this.profileForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -94,7 +98,8 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
     });
   }
 
-  saveProfile(){
+  saveProfile() {
+    this.submitted = true;
     let date = '';
     if (this.profileForm.value.dob && this.profileForm.value.dob !== '') {
       date = moment(this.profileForm.value.dob).format('YYYY-MM-DD');
@@ -129,12 +134,12 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
         planName: '',
         referralCode: ''
       },
-      userID: '9d06e01fd411487487e7ad3aeab5715b',
+      userID: this.userID,
     };
     this.profileService.update(registerPayload).subscribe((res: any) => {
-      console.log('edit paitent', res);
       this.isLoading = false;
-      this.toastrService.success('Patient Updated Successfully');
+      this.toastrService.success('Profile Updated Successfully');
+      this.router.navigate([this.clinicService.id, 'auth']);
     }, error => {
       this.isLoading = false;
     });

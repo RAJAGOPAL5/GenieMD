@@ -3,231 +3,194 @@
         <img [src]="logo" alt="" height="50">
     </span>
     <span class="ps-2 h4 text-uppercase d-flex align-items-center">{{ title }}</span>
-  </div>
-  <h1 id="title" class="title">Register</h1>
+</div>
+<h1 id="title" class="title mb-5">Register</h1>
 <nb-stepper orientation="horizontal">
-    <nb-step label="Register">
+    <nb-step label="Register" class="m-0">
 
-<form (ngSubmit)="register()" #form="ngForm" aria-labelledby="title">
+        <form (ngSubmit)="register()" #form="ngForm" aria-labelledby="title" class="mt-0">
 
-  <div class="form-control-group m-0">
-    <label class="label m-0" for="input-name">First name:</label>
-    <input nbInput
-           [(ngModel)]="model.firstName"
-           #firstName="ngModel"
-           id="input-name"
-           name="firstName"
-           placeholder="First name"
-           autofocus
-           fullWidth
-           [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
-           [required]="getConfigValue('forms.validation.firstName.required')"
-           [attr.aria-invalid]="firstName.invalid && firstName.touched ? true : null">
-    <ng-container *ngIf="firstName.invalid && firstName.touched">
-      <p class="error-message" *ngIf="firstName.errors?.required">
-        First name is required!
-      </p>     
-    </ng-container>
-  </div>
- 
-  <div class="form-control-group m-0">
-    <label class="label m-0" for="input-email">Email address:</label>
-    <input nbInput
-           [(ngModel)]="model.email"
-           #email="ngModel"
-           id="input-email"
-           name="email"
-           pattern=".+@.+..+"
-           placeholder="Email address"
-           fullWidth
-           [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
-           [required]="getConfigValue('forms.validation.email.required')"
-           [attr.aria-invalid]="email.invalid && email.touched ? true : null">
-    <ng-container *ngIf="email.invalid && email.touched">
-      <p class="error-message" *ngIf="email.errors?.required">
-        Email is required!
-      </p>
-      <p class="error-message" *ngIf="email.errors?.pattern">
-        Please enter valid email address!
-      </p>
-    </ng-container>
-  </div>
+            <div class="form-control-group m-0">
+                <label class="label m-0" for="input-name">First name:</label>
+                <input nbInput [(ngModel)]="model.firstName" #firstName="ngModel" id="input-name" name="firstName"
+                    placeholder="First name" autofocus fullWidth
+                    [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
+                    [required]="getConfigValue('forms.validation.firstName.required')"
+                    [attr.aria-invalid]="firstName.invalid && firstName.touched ? true : null">
+                <ng-container *ngIf="firstName.invalid && firstName.touched">
+                    <p class="error-message" *ngIf="firstName.errors?.required">
+                        First name is required!
+                    </p>
+                </ng-container>
+            </div>
 
-  <div class="form-control-group m-0">
-    <label class="label m-0" for="input-password">Password:</label>
-    <input nbInput
-           [(ngModel)]="model.password"
-           #password="ngModel"
-           type="password"
-           id="input-password"
-           name="password"
-           placeholder="Password"
-           fullWidth
-           [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
-           [required]="getConfigValue('forms.validation.password.required')"
-           [minlength]="getConfigValue('forms.validation.password.minLength')"
-           [maxlength]="getConfigValue('forms.validation.password.maxLength')"
-           [attr.aria-invalid]="password.invalid && password.touched ? true : null">
-    <ng-container *ngIf="password.invalid && password.touched">
-      <p class="error-message" *ngIf="password.errors?.required">
-        Password is required!
-      </p>
-      <p class="error-message" *ngIf="password.errors?.minlength || password.errors?.maxlength">
-        Password should contains
-        from {{ getConfigValue('forms.validation.password.minLength') }}
-        to {{ getConfigValue('forms.validation.password.maxLength') }}
-        characters
-      </p>
-    </ng-container>
-  </div>
+            <div class="form-control-group m-0">
+                <label class="label m-0" for="input-email">Email address:</label>
+                <input nbInput [(ngModel)]="model.email" #email="ngModel" id="input-email" name="email"
+                    pattern=".+@.+..+" placeholder="Email address" fullWidth
+                    [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
+                    [required]="getConfigValue('forms.validation.email.required')"
+                    [attr.aria-invalid]="email.invalid && email.touched ? true : null">
+                <ng-container *ngIf="email.invalid && email.touched">
+                    <p class="error-message" *ngIf="email.errors?.required">
+                        Email is required!
+                    </p>
+                    <p class="error-message" *ngIf="email.errors?.pattern">
+                        Please enter valid email address!
+                    </p>
+                </ng-container>
+            </div>
 
-  <div class="form-control-group">
-    <label class="label" for="input-re-password">Repeat password:</label>
-    <input nbInput
-           [(ngModel)]="model.confirmPassword"
-           #rePass="ngModel"
-           type="password"
-           id="input-re-password"
-           name="rePass"
-           placeholder="Confirm Password"
-           fullWidth
-           [status]="email.dirty ? (email.invalid || password.value != rePass.value  ? 'danger' : 'success') : ''"
-           [required]="getConfigValue('forms.validation.password.required')"
-           [attr.aria-invalid]="rePass.invalid && rePass.touched ? true : null">
-    <ng-container *ngIf="rePass.invalid && rePass.touched">
-      <p class="error-message" *ngIf="rePass.errors?.required">
-        Password confirmation is required!
-      </p>
-      <p class="error-message" *ngIf="password.value != rePass.value && !rePass.errors?.required">
-        Password does not match the confirm password.
-      </p>
-    </ng-container>
-  </div>
+            <div class="form-control-group m-0">
+                <label class="label m-0" for="input-password">Password:</label>
+                <input nbInput [(ngModel)]="model.password" #password="ngModel" type="password" id="input-password"
+                    name="password" placeholder="Password" fullWidth
+                    [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
+                    [required]="getConfigValue('forms.validation.password.required')"
+                    [minlength]="getConfigValue('forms.validation.password.minLength')"
+                    [maxlength]="getConfigValue('forms.validation.password.maxLength')"
+                    [attr.aria-invalid]="password.invalid && password.touched ? true : null">
+                <ng-container *ngIf="password.invalid && password.touched">
+                    <p class="error-message" *ngIf="password.errors?.required">
+                        Password is required!
+                    </p>
+                    <p class="error-message" *ngIf="password.errors?.minlength || password.errors?.maxlength">
+                        Password should contains
+                        from {{ getConfigValue('forms.validation.password.minLength') }}
+                        to {{ getConfigValue('forms.validation.password.maxLength') }}
+                        characters
+                    </p>
+                </ng-container>
+            </div>
 
-  <div class="form-control-group accept-group" *ngIf="getConfigValue('forms.register.terms')">
-    <nb-checkbox name="terms" [(ngModel)]="user.terms" [required]="getConfigValue('forms.register.terms')">
-      Agree to <a href="#" target="_blank"><strong>Terms & Conditions</strong></a>
-    </nb-checkbox>
-  </div>
+            <div class="form-control-group">
+                <label class="label" for="input-re-password">Repeat password:</label>
+                <input nbInput [(ngModel)]="model.confirmPassword" #rePass="ngModel" type="password"
+                    id="input-re-password" name="rePass" placeholder="Confirm Password" fullWidth
+                    [status]="email.dirty ? (email.invalid || password.value != rePass.value  ? 'danger' : 'success') : ''"
+                    [required]="getConfigValue('forms.validation.password.required')"
+                    [attr.aria-invalid]="rePass.invalid && rePass.touched ? true : null">
+                <ng-container *ngIf="rePass.invalid && rePass.touched">
+                    <p class="error-message" *ngIf="rePass.errors?.required">
+                        Password confirmation is required!
+                    </p>
+                    <p class="error-message" *ngIf="password.value != rePass.value && !rePass.errors?.required">
+                        Password does not match the confirm password.
+                    </p>
+                </ng-container>
+            </div>
 
-  <button nbButton
-          fullWidth
-          status="success"
-          [disabled]="submitted || !form.valid"
-          [class.btn-pulse]="submitted">
-    Register
-  </button>
-  <p class="copyright text-center">
-    Version: {{version}}
-</p>
-</form>
-<section class="another-action" aria-label="Sign in">
-  Already have an account? <a class="text-link" routerLink="../login">Log in</a>
-</section>
-</nb-step>
+            <div class="form-control-group accept-group" *ngIf="getConfigValue('forms.register.terms')">
+                <nb-checkbox name="terms" [(ngModel)]="user.terms" [required]="getConfigValue('forms.register.terms')">
+                    Agree to <a href="#" target="_blank"><strong>Terms & Conditions</strong></a>
+                </nb-checkbox>
+            </div>
 
-<nb-step label="Create Profile">
-    <ng-template #stepLabel>
-    </ng-template>
-    <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" aria-labelledby="title">
-       <div class="form-control-group m-0">
-          <label class="label m-0" for="firstName">First name:</label>
-          <input nbInput
-                 id="firstName"
-                 placeholder="First name"
-                 autofocus
-                 fullWidth formControlName = "firstName">
-        </div>
-
-        <div class="form-control-group m-0">
-            <label class="label m-0" for="lastName">Last name:</label>
-            <input nbInput     
-                   id="lastName"
-                   placeholder="Last name"
-                   autofocus
-                   fullWidth formControlName="lastName">
-          </div>
-
-          <div class="form-control-group m-0">
-            <label class="label m-0" for="phoneNumber">Phone Number:</label>
-            <input nbInput
-                   id="phoneNumber"
-                   placeholder="Phone Number"
-                   autofocus
-                   fullWidth
-                   formControlName="phoneNumber">
-          </div>
-
-          <div class="form-control-group m-0">
-          <label class="label m-0" for="dob">Date of Birth:</label>
-          <input nbInput [nbDatepicker]="rangepicker"
-          id="dob"
-          placeholder="Date of Birth"
-          autofocus
-          fullWidth
-          formControlName="dob">
-            <nb-rangepicker #rangepicker></nb-rangepicker>
-          </div>
-
-          <div class="form-control-group m-0">
-        <label class="label m-0" for="input-name">Gender:</label>
-          <nb-radio-group id="dob"  autofocus
-          fullWidth
-          formControlName="gender">
-            <nb-radio value="1">Male</nb-radio>
-            <nb-radio value="2">Female</nb-radio>
-            <nb-radio value="3">Other</nb-radio>
-          </nb-radio-group>
-          </div>
-
-          <div class="form-control-group m-0">
-            <label class="label m-0" for="address">Address:</label>
-            <input nbInput       
-                   id="address"
-                   placeholder="Address"
-                   autofocus
-                   fullWidth
-                   formControlName="address"  >
-          </div>
-
-          <div class="form-control-group m-0">
-            <label class="label m-0" for="city">City:</label>
-            <input nbInput
-                   id="city"
-                   name="city"
-                   placeholder="City"
-                   autofocus
-                   fullWidth formControlName="city" >
-          </div>
-      
-          <div class="form-control-group m-0">
-            <label class="label m-0" for="state">State:</label>
-            <input nbInput
-                   id="input-name"  
-                   placeholder="State"
-                   autofocus
-                   fullWidth
-                   formControlName="state" >
-          </div>
-
-          <div class="form-control-group">
-            <label class="label m-0" for="country">Country:</label>
-            <input nbInput  
-                   id="country"
-                   name="country"
-                   placeholder="Country"
-                   autofocus
-                   fullWidth
-                   formControlName="country">
-          </div>
-
-        
-        <button nbButton
-                fullWidth
-                status="success"
+            <button nbButton fullWidth status="success" [disabled]="submitted || !form.valid"
                 [class.btn-pulse]="submitted">
-          Save Profile
-        </button>
-      </form>
-</nb-step>
+                Register
+            </button>
+            <p class="copyright text-center">
+                Version: {{version}}
+            </p>
+        </form>
+        <section class="another-action" aria-label="Sign in">
+            Already have an account? <a class="text-link" routerLink="../login">Log in</a>
+        </section>
+    </nb-step>
+
+    <nb-step label="Create Profile">
+        <ng-template #stepLabel>
+        </ng-template>
+        <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" aria-labelledby="title">
+            <div class="form-control-group m-0">
+                <label class="label m-0" for="firstName">First name:</label>
+                <input nbInput id="firstName" placeholder="First name" autofocus fullWidth formControlName="firstName">
+                <div *ngIf="submitted && f.firstName.errors" class="error-form text-danger fs-15">First Name is
+                    required
+                </div>
+            </div>
+
+            <div class="form-control-group m-0">
+                <label class="label m-0" for="lastName">Last name:</label>
+                <input nbInput id="lastName" placeholder="Last name" autofocus fullWidth formControlName="lastName">
+                <div *ngIf="submitted && f.lastName.errors" class="error-form text-danger fs-15">Last Name is
+                    required
+                </div>
+            </div>
+
+            <div class="form-control-group m-0">
+                <label class="label m-0" for="phoneNumber">Phone Number:</label>
+                <input nbInput id="phoneNumber" placeholder="Phone Number" autofocus fullWidth
+                    formControlName="phoneNumber">
+                <div *ngIf="submitted && f.phoneNumber.errors" class="error-form text-danger fs-15">Phone Number is
+                    required
+                </div>
+            </div>
+
+            <div class="form-control-group m-0">
+                <label class="label m-0" for="dob">Date of Birth:</label>
+                <input nbInput [nbDatepicker]="rangepicker" id="dob" placeholder="Date of Birth" autofocus fullWidth
+                    formControlName="dob">
+                <nb-rangepicker #rangepicker></nb-rangepicker>
+                <div *ngIf="submitted && f.dob.errors" class="error-form text-danger fs-15">Date of birth is
+                    required
+                </div>
+            </div>
+
+            <div class="form-control-group m-0">
+                <label class="label m-0" for="input-name">Gender:</label>
+                <nb-radio-group formControlName="gender" class="row d-flex justify-content-center pt-0 p-3"
+                    name="my-radio-group">
+                    <nb-radio class=" col-md-4" value=1>Male
+                    </nb-radio>
+                    <nb-radio class=" col-md-4" value=2>Female
+                    </nb-radio>
+                    <nb-radio class=" col-md-4" value=2>Other
+                    </nb-radio>
+                </nb-radio-group>
+                <div *ngIf="submitted && f.gender.errors" class="error-form text-danger fs-15">Gender is
+                    required
+                </div>
+            </div>
+
+            <div class="form-control-group m-0">
+                <label class="label m-0" for="address">Address:</label>
+                <input nbInput id="address" placeholder="Address" autofocus fullWidth formControlName="address">
+                <div *ngIf="submitted && f.address.errors" class="error-form text-danger fs-15">Address is
+                    required
+                </div>
+            </div>
+
+            <div class="form-control-group m-0">
+                <label class="label m-0" for="city">City:</label>
+                <input nbInput id="city" name="city" placeholder="City" autofocus fullWidth formControlName="city">
+                <div *ngIf="submitted && f.city.errors" class="error-form text-danger fs-15">City is
+                    required
+                </div>
+            </div>
+
+            <div class="form-control-group m-0">
+                <label class="label m-0" for="state">State:</label>
+                <input nbInput id="input-name" placeholder="State" autofocus fullWidth formControlName="state">
+                <div *ngIf="submitted && f.state.errors" class="error-form text-danger fs-15">State is
+                    required
+                </div>
+            </div>
+
+            <div class="form-control-group">
+                <label class="label m-0" for="country">Country:</label>
+                <input nbInput id="country" name="country" placeholder="Country" autofocus fullWidth
+                    formControlName="country">
+                <div *ngIf="submitted && f.country.errors" class="error-form text-danger fs-15">Country is
+                    required
+                </div>
+            </div>
+
+
+            <button nbButton fullWidth status="success" [class.btn-pulse]="submitted">
+                Save Profile
+            </button>
+        </form>
+    </nb-step>
 </nb-stepper>
