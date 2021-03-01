@@ -1,17 +1,17 @@
 <nb-card [nbSpinner]="isLoading">
     <nb-card-body>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                <h4> <nb-user size="large" [name]="patientName" [title]="patient?.email" [picture]="patient?.imageUrl"></nb-user></h4>
              </div>
-            <div class="col-md-3" [ngSwitch]="patient?.gender">
+            <div class="col-md-4" [ngSwitch]="patient?.gender">
                 <p><nb-icon icon="phone" nbTooltip="Phone" nbTooltipPlacement="left" pack="font-awesome" ></nb-icon><span class="ps-4">{{patient?.phoneNumber}}</span></p>
                 <p><nb-icon icon="envelope" nbTooltip="Email" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">{{patient?.email}}</span></p>
                 <p *ngSwitchCase="0"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">Male</span></p>
                 <p *ngSwitchCase="1"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">Female</span></p>
                 <p *ngSwitchCase="2"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">Others</span> </p>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <p class="text-uppercase"><nb-icon icon="map-marker-alt" nbTooltip="Location" nbTooltipPlacement="left" pack="font-awesome"></nb-icon> 
                     <span class="ps-4">{{patient?.address}}</span>
                     <span class="ps-1">{{patient?.state}}</span>, <br>
