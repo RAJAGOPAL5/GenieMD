@@ -7,37 +7,37 @@
             </div>
             <div class="col col-lg-4 col-xl-4" [ngSwitch]="patient?.gender">
                 <p>
-                    <nb-icon icon="email" nbTooltip="Email"></nb-icon><span class="ps-4">{{patient?.email}}</span>
+                    <nb-icon icon="email" nbTooltip="Email" nbTooltipPlacement="left"></nb-icon><span class="ps-4">{{patient?.email}}</span>
                 </p>
                 <p>
-                    <nb-icon icon="phone" nbTooltip="Phone" pack="font-awesome"></nb-icon><span
+                    <nb-icon icon="phone" nbTooltip="Phone" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span
                         class="ps-4">{{patient?.phoneNumber}}</span>
                 </p>
                 <p *ngSwitchCase="0">
-                    <nb-icon icon="venus-mars" nbTooltip="Gender" pack="font-awesome"></nb-icon><span
+                    <nb-icon icon="venus-mars" nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span
                         class="ps-4">Male</span>
                 </p>
                 <p *ngSwitchCase="1">
-                    <nb-icon icon="venus-mars" nbTooltip="Gender" pack="font-awesome"></nb-icon><span
+                    <nb-icon icon="venus-mars" nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span
                         class="ps-4">Female</span>
                 </p>
                 <p *ngSwitchCase="2">
-                    <nb-icon icon="venus-mars" nbTooltip="Gender" pack="font-awesome"></nb-icon><span
+                    <nb-icon icon="venus-mars" nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span
                         class="ps-4">Others</span>
                 </p>
                 <p>
-                    <nb-icon icon="birthday-cake" nbTooltip="DOB" pack="font-awesome"></nb-icon><span class="ps-4">{{patient?.dob}}</span>
+                    <nb-icon icon="birthday-cake" nbTooltip="DOB" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">{{patient?.dob}}</span>
                 </p>
             </div>
             <div class="col-4 col-xl-5">
                 <div class="row mt-3">
                     <div class="col-auto">
-                        <nb-icon icon="flag" nbTooltip="Country" pack="font-awesome"></nb-icon><span
+                        <nb-icon icon="flag" nbTooltip="Country" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span
                         class="ps-4">{{patient?.country}}</span>
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-auto"><nb-icon icon="map-marker-alt" nbTooltip="Location" pack="font-awesome"></nb-icon></div>
+                    <div class="col-auto"><nb-icon icon="map-marker-alt" nbTooltip="Location" nbTooltipPlacement="left" pack="font-awesome"></nb-icon></div>
                     <div class="col-auto">
                             <div>{{patient?.address}}, {{patient?.city}}, {{patient?.state}}</div>
                             <div>{{patient?.zipcode}}</div>
@@ -45,11 +45,11 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-auto">
-                        <nb-icon icon='globe-outline' nbTooltip="Language"></nb-icon>
+                        <nb-icon icon='globe-outline' nbTooltip="Language" nbTooltipPlacement="left"></nb-icon>
                     </div>
                     <div class="col-auto">{{language?.name}}</div>
                 </div>
-            <p><nb-icon icon="person" nbTooltip="Morbidity"></nb-icon><span class="ps-4" *ngFor="let morbidity of morbidityValue" >{{morbidityValue}}</span></p> 
+            <p><nb-icon icon="person" nbTooltip="Morbidity" nbTooltipPlacement="left"></nb-icon><span class="ps-4" *ngFor="let morbidity of morbidityValue" >{{morbidityValue}}</span></p> 
             
             </div>
             <div class="col-auto col-lg-12 col-xl-2 align-bottom">
