@@ -4,6 +4,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { NbDialogService, NbIconLibraries } from '@nebular/theme';
 import { ClinicService } from './shared/service/clinic.service';
+import { Spinkit } from 'ng-http-loader';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,6 +12,7 @@ import { ClinicService } from './shared/service/clinic.service';
 })
 export class AppComponent implements OnInit {
   title = 'remote-patient-monitoring';
+  public spinkit = Spinkit;
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: Title
