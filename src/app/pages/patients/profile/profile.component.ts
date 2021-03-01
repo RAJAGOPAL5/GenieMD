@@ -7,7 +7,8 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
-import { PatientDataService } from '../../patient-data.service';
+import { languages, states, morbidity, gender } from 'src/app/shared/constnts/consstnt';
+
 interface ViewModal {
   profile?: any;
 }
@@ -37,7 +38,6 @@ export class ProfileComponent implements OnInit {
     private iconLibraries: NbIconLibraries,
     private profileService: ProfileService,
     private toastrService: NbToastrService,
-    private patientDataService: PatientDataService,
     private ls: LanguageService,
     private translate: TranslateService,
   ) {
@@ -52,11 +52,11 @@ export class ProfileComponent implements OnInit {
       this.prepareTabs();
       this.getData();
     });
-    this.languages =  this.patientDataService.getLanguages();
+    this.languages =  languages;
   }
 
   getData() {
-    this.morbiditys = this.patientDataService.getMorbidity();
+    this.morbiditys = morbidity;
     const payload = {
       userID: this.profileService.id,
       clinicID: this.clinicService.id,
@@ -151,7 +151,7 @@ export class ProfileComponent implements OnInit {
       updateDirectEmail: true,
       userID: this.patient.userID,
       morbidity: this.patient.morbidity,
-      monitored: {monitored},
+      monitored: monitored,
     };
     this.profileService.update(registerPayload).subscribe((res: any) => {
       this.isLoading = false;

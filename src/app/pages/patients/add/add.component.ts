@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ThrowStmt, ThisReceiver } from '@angular/compiler';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
-import {  PatientDataService } from '../../patient-data.service';
+import { languages, states, morbidity, gender } from 'src/app/shared/constnts/consstnt';
 import { from } from 'rxjs';
 import { format, compareAsc, parse } from 'date-fns';
 import { TranslateService } from '@ngx-translate/core';
@@ -31,14 +31,13 @@ export class AddComponent implements OnInit {
   actionName: any;
   isLoading = false;
   patientID: any;
-  genderArr = this.patientDataService.getGender();
+  genderArr = gender;
 
   @ViewChild('birthDate', { static: false }) birthDate: any;
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
     private toastrService: NbToastrService, private patientsService: PatientsService, protected dialogRef: NbDialogRef<any>,
-    private patientDataService: PatientDataService,
     private ls: LanguageService,
     private translate: TranslateService
     ) {
@@ -49,12 +48,13 @@ export class AddComponent implements OnInit {
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
     if (!!this.patientID) {
+      this.isLoading = true;
       this.getProfilePatch();
     }
     this.actionName = this.patientID ? 'Edit Patient' : 'Create Patient';
-    this.states = this.patientDataService.getState();
-    this.morbidityID = this.patientDataService.getMorbidity();
-    this.languages = this.patientDataService.getLanguages();
+    this.states = states;
+    this.morbidityID = morbidity;
+    this.languages = languages;
     this.createForm();
   }
   getProfilePatch() {
@@ -91,6 +91,7 @@ export class AddComponent implements OnInit {
             monitored: true
           });
         }
+        this.isLoading = false;
       });
     });
   }
@@ -178,8 +179,7 @@ export class AddComponent implements OnInit {
         console.log('edit paitent', res);
         this.isLoading = false;
         this.toastrService.success('Patient Updated Successfully');
-        this.dialogRef.close(res);
-        // this.router.navigate(['patients']);
+        this.dialogRef.close(true);
       }, error => {
         this.isLoading = false;
       });
@@ -263,6 +263,8 @@ export class AddComponent implements OnInit {
       morbidity: this.profileForm.value.morbidity,
       monitored: this.profileForm.value.monitored ? 1 : 0,
     };
+    // tslint:disable-next-line:no-unused-expression
+    this.profileForm.value.morbidity === '' ? delete registerPayload.morbidity : '';
     this.profileService.update(registerPayload).subscribe((res: any) => {
       console.log('updatedprofle', res);
       const firstList = {
