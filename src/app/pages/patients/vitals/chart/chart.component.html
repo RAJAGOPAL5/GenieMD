@@ -1,1 +1,6 @@
-<p>{{type}}</p>
+<p>{{type.name}} </p>
+<div class="d-block">
+    <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
+        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
+    </canvas>
+</div>

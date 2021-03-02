@@ -31,35 +31,12 @@
                         [options]="spo2ChartOptions" [chartType]="spo2ChartType"></canvas>
                 </div>
             </div> -->
-            <div class="col-md-12">
-                <app-vital-chart [type]="1"></app-vital-chart>
-                <app-vital-chart [type]="2"></app-vital-chart>
-                <app-vital-chart [type]="3"></app-vital-chart>
-                <app-vital-chart [type]="4"></app-vital-chart>
-                <app-vital-chart [type]="5"></app-vital-chart>
-
-            </div>
-            <div class="col-md-6">
-                <div class="col-12 p-3 mb-4">
-                    <h4>{{'kTotal' | translate}}</h4>
-                    <canvas baseChart width="400" height="400" chartType="polarArea" [data]="chartData"
-                        [labels]="chartLabels" [legend]="chartLegend"></canvas>
+            <ng-container *ngIf="vitals?.length">
+                <div class="col-md-4" *ngFor="let item of vitals">
+                    <app-vital-chart [type]="item" [chartData]="chartInfo"></app-vital-chart>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="col-12 p-3 mb-4">
-                    <h4>{{'kTotal' | translate}}</h4>
-                    <canvas baseChart width="400" height="400" chartType="polarArea" [data]="chartData"
-                        [labels]="chartLabels" [legend]="chartLegend"></canvas>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="col-12 p-3 mb-4">
-                    <h4>{{'kTotal' | translate}}</h4>
-                    <canvas baseChart width="400" height="400" chartType="polarArea" [data]="chartData"
-                        [labels]="chartLabels" [legend]="chartLegend"></canvas>
-                </div>
-            </div>
+            </ng-container>
+            <p *ngIf="!vitals?.length"> No vitals found</p>
         </div>
     </nb-card-body>
 </nb-card>
