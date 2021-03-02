@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import * as Chart from 'chart.js';
 import * as moment from 'moment';
+import { vitals } from 'src/app/shared/constant/constant';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
@@ -169,7 +170,11 @@ export class VitalsComponent implements OnInit {
       } catch (error) {
         extraData = patientData.extraData || {};
       }
-      this.vitals = !!extraData.vitals ? extraData.vitals : [];
+      if(!!extraData.vitals) {
+        this.vitals = vitals.filter(k => (extraData.vitals || []).find(i => k.vitalType === i));
+      } else {
+        this.vitals = [];
+      }
       this.chartInfo = { patientId: patientData.userID, fromDate: '', toDate: '' };
     }, error => {
       throw error;

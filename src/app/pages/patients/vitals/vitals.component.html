@@ -33,7 +33,7 @@
             </div> -->
             <ng-container *ngIf="vitals?.length">
                 <div class="col-md-4" *ngFor="let item of vitals">
-                    <app-vital-chart [type]="item" [chartData]="chartInfo"></app-vital-chart>
+                    <app-vital-chart [type]="item?.vitalType" [name]="item?.displayName" [chartData]="chartInfo"></app-vital-chart>
                 </div>
             </ng-container>
             <p *ngIf="!vitals?.length"> No vitals found</p>

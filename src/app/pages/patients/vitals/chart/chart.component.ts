@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import * as moment from 'moment';
 import { Color, Label } from 'ng2-charts';
+import { vitals } from 'src/app/shared/constant/constant';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { VitalsService } from 'src/app/shared/service/vitals.service';
 
@@ -13,18 +14,13 @@ import { VitalsService } from 'src/app/shared/service/vitals.service';
 })
 export class ChartComponent implements OnInit {
   @Input() type: any;
+  @Input() name: any;
   @Input() chartData: any;
-  public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-  ];
-  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  vitals = vitals;
+  public lineChartData: ChartDataSets[] = [];
+  public lineChartLabels: Label[] = [];
 
-  public lineChartColors: Color[] = [
-    {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,0,0,0.3)',
-    },
-  ];
+  public lineChartColors: Color[] = [];
   public lineChartLegend = true;
   public lineChartType = 'line';
   public lineChartPlugins = [];
@@ -32,14 +28,31 @@ export class ChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
-    this.getChartColor(this.type.vitalType);
-
+    this.getChartColor(this.type);
   }
+
   getData() {
     const fromDate = this.chartData.fromDate || moment('1900-02-01').valueOf();
     const toDate = this.chartData.toDate || moment().add(1, 'days').valueOf();
-    this.vitalService.getData(this.chartData.patientId, fromDate, toDate, this.type.vitalType).subscribe(data => {
+    const chartData = {
+      data: [],
+      label: this.name
+    };
+    this.vitalService.getData(this.chartData.patientId, fromDate, toDate, this.type).subscribe((data: any) => {
       console.log('data', data);
+      if(data) {
+        (data.vitalsList || []).forEach(item => {
+          this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM'));
+          let vialData;
+          try {
+            vialData = JSON.parse(item.vitalData);
+          } catch (error) {
+            vialData = {};
+          }
+          chartData.data.push(1)
+        });
+        this.lineChartData.push(chartData);
+      }
     }, error => {
       throw error;
     });
