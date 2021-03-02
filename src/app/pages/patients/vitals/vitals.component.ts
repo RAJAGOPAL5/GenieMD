@@ -3,12 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import * as Chart from 'chart.js';
 import * as moment from 'moment';
-import { PatientService } from 'projects/core/src/lib/patient/state/patient.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
+import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { VitalsService } from 'src/app/shared/service/vitals.service';
-import { vitals } from 'src/app/shared/constnts/consstnt';
 
 
 @Component({
@@ -25,7 +24,7 @@ export class VitalsComponent implements OnInit {
   chartInfo: { patientId: string; fromDate: string; toDate: string; };
   constructor(
     private vitalsService: VitalsService, private profileService: ProfileService,
-    private ls: LanguageService,private patientService: PatientService,
+    private ls: LanguageService, private patientService: PatientsService,
     private translate: TranslateService, private route: ActivatedRoute, private clinicService: ClinicService) {
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
