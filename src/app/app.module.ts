@@ -34,12 +34,6 @@ import { CoreModule } from 'core';
 @NgModule({
   declarations: [
     AppComponent,
-    VitalsComponent,
-    CareTeamComponent,
-    HistoryComponent,
-    ProfileComponent,
-    AlertsComponent,
-    VisitsComponent,
     ClinicPromptComponent,
     LogoutConfimartionComponent
   ],
