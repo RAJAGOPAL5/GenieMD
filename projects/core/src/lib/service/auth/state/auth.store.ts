@@ -4,18 +4,15 @@ import { Router } from '@angular/router';
 import { Store, StoreConfig } from '@datorama/akita';
 
 export interface AuthState {
-   userID?:string;
-   email?: string;
+  RegistrationComplete?:string;
+  userID?: string;
 }
 
 export function createInitialState(): AuthState {
-  return {
-    userID:'',
-    email: ''
-  };
+  return {};
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 @StoreConfig({ name: 'auth' })
 export class AuthStore extends Store<AuthState> {
 

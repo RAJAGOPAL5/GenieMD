@@ -1,12 +1,24 @@
-import { NgModule } from '@angular/core';
-import { CoreComponent } from './core.component';
-
-
-
+import { ModuleWithProviders, NgModule } from '@angular/core';
+export class CoreConfigOptions {
+  baseURL?: string;
+  production?: boolean;
+}
 @NgModule({
-  declarations: [CoreComponent],
+  declarations: [],
   imports: [
   ],
-  exports: [CoreComponent]
+  exports: []
 })
-export class CoreModule { }
+export class CoreModule {
+  static forRoot(config: CoreConfigOptions): ModuleWithProviders<CoreModule> {
+    return {
+      ngModule: CoreModule,
+      providers: [
+        {
+          provide: CoreConfigOptions,
+          useValue: config
+        }
+      ]
+    }
+  }
+ }
