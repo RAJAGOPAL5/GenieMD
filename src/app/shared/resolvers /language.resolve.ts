@@ -4,7 +4,7 @@ import { of as observableOf, Observable, forkJoin, combineLatest } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, RouterOutlet, Router } from '@angular/router';
 import { LanguageService } from '../service/language.service';
-import { ClinicService } from 'projects/core/src/lib/clinic/state/clinic.service';
+import { ClinicService } from '../service/clinic.service';
 
 @Injectable({
     providedIn: 'root'

@@ -30,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { format, compareAsc } from 'date-fns';
 import { NgHttpLoaderModule } from 'ng-http-loader';
+import { CoreModule } from 'core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +76,11 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
     NbCheckboxModule,
     NbActionsModule,
     NbListModule,
-    NbDateFnsDateModule.forRoot({ format: 'dd/MM/yyyy' })
+    NbDateFnsDateModule.forRoot({ format: 'dd/MM/yyyy' }),
+    CoreModule.forRoot({
+      baseURL: environment.base_url,
+      production: environment.production
+    })
   ],
   providers: [
     {
