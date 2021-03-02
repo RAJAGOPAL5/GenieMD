@@ -5,7 +5,14 @@ import { PatientsRoutingModule } from './patients-routing.module';
 import { ListComponent } from './list/list.component';
 import { UpsertComponent } from './upsert/upsert.component';
 import { IndexComponent } from './index/index.component';
-import { NbCardModule, NbFormFieldModule, NbInputModule, NbListModule, NbRouteTabsetModule, NbTabsetModule, NbUserModule, NbIconModule, NbSpinnerModule, NbButtonModule, NbRadioModule, NbSelectModule, NbToggleModule, NbDatepickerModule, NbActionsModule, NbButtonGroupModule, NbCheckboxModule, NbBadgeModule,NbTooltipModule } from '@nebular/theme';
+import {
+  NbCardModule, NbFormFieldModule,
+  NbInputModule, NbListModule, NbRouteTabsetModule,
+  NbTabsetModule, NbUserModule, NbIconModule, NbSpinnerModule,
+  NbButtonModule, NbRadioModule, NbSelectModule, NbToggleModule,
+  NbDatepickerModule, NbActionsModule, NbButtonGroupModule, NbCheckboxModule,
+  NbBadgeModule, NbTooltipModule
+} from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddComponent } from './add/add.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';

@@ -77,7 +77,7 @@ export class ListComponent implements OnInit {
       pageNumber: 1,
       count: 25,
       alarm: 0,
-      monitored: monitored,
+      monitored,
       morbidity: 0,
     };
     this.patientService.find(payload).subscribe((data: any) => {

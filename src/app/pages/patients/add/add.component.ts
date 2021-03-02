@@ -7,7 +7,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
-import { languages, states, morbidity, gender, vitals } from 'src/app/shared/constnts/consstnt';
+import { languages, states, morbidity, gender, vitals } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
 @Component({
@@ -127,7 +127,7 @@ export class AddComponent implements OnInit {
     });
   }
   onSubmit() {
-    console.log(this.profileForm);
+    // console.log(this.profileForm, this.selectedItem);
     this.isLoading = true;
     if (this.profileForm.invalid) {
       this.isLoading = false;
@@ -166,7 +166,8 @@ export class AddComponent implements OnInit {
           planID: -1,
           planMemberCount: -1,
           planName: '',
-          referralCode: ''
+          referralCode: '',
+          vitals: this.profileForm.value.vitals
         },
         firstName: this.profileForm.value.firstName,
         gender: `${this.profileForm.value.gender}`,

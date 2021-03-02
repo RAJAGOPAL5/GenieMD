@@ -52,7 +52,7 @@ const routes: Routes = [
           },
           {
             path: 'visits',
-            component:VisitsComponent,
+            component: VisitsComponent,
             data: {title: 'Visits'}
           }
         ]

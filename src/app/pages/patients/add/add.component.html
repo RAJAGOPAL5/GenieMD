@@ -152,10 +152,10 @@
                         <label for="vitals" class="label">
                         {{'kVitals' | translate}}</label>
                         <nb-select size="medium" fullWidth multiple id="vitals" formControlName="vitals" placeholder="Select Vitals" [(selected)]="selectedItem">
-                            <nb-select-label>
-                                {{ selectedItem }}
-                            </nb-select-label>
-                            <nb-option *ngFor="let item of vitals" [value]="item.id">{{item?.name}}
+                            <!-- <nb-select-label *ngFor="let item of selectedItem">
+                                {{ item.displayName }}
+                            </nb-select-label> -->
+                            <nb-option *ngFor="let item of vitals" [value]="item?.vitalType">{{item?.displayName}}
                             </nb-option>
                         </nb-select>
                     </div>
@@ -172,7 +172,7 @@
                 </div>
                 <div class="col-auto d-flex justify-content-end">
                     <button class="mr-3" [disabled]="!profileForm.valid" nbButton
-                        status="success">{{actionName}}</button>
+                        status="success">Save</button>
                 </div>
             </div>
         </nb-card-body>

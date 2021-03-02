@@ -7,7 +7,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
-import { languages, states, morbidity, gender } from 'src/app/shared/constnts/consstnt';
+import { languages, states, morbidity, gender } from 'src/app/shared/constant/constant';
 
 interface ViewModal {
   profile?: any;
@@ -151,7 +151,7 @@ export class ProfileComponent implements OnInit {
       updateDirectEmail: true,
       userID: this.patient.userID,
       morbidity: this.patient.morbidity,
-      monitored: monitored,
+      monitored,
     };
     this.profileService.update(registerPayload).subscribe((res: any) => {
       this.isLoading = false;
