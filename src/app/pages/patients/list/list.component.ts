@@ -118,4 +118,7 @@ export class ListComponent implements OnInit {
       this.showBadge();
     });
   }
+  loadNext(){
+    console.log('Load data');
+  }
 }

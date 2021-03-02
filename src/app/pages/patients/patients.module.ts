@@ -12,14 +12,30 @@ import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ChartComponent } from './vitals/chart/chart.component';
+import { AlertsComponent } from './alerts/alerts.component';
+import { CareTeamComponent } from './care-team/care-team.component';
+import { HistoryComponent } from './history/history.component';
+import { ProfileComponent } from './profile/profile.component';
+import { VisitsComponent } from './visits/visits.component';
+import { VitalsComponent } from './vitals/vitals.component';
+import { ChartsModule } from 'ng2-charts';
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, "../../assets/i18n/", ".json");
-}
+// export function HttpLoaderFactory(http: HttpClient) {
+//   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json');
+// }
 
 
 @NgModule({
-  declarations: [ListComponent, UpsertComponent, IndexComponent, AddComponent, FilterDialogComponent],
+  declarations: [
+    ListComponent, UpsertComponent, IndexComponent, AddComponent, FilterDialogComponent, ChartComponent,
+    VitalsComponent,
+    CareTeamComponent,
+    HistoryComponent,
+    ProfileComponent,
+    AlertsComponent,
+    VisitsComponent
+  ],
   imports: [
     CommonModule,
     PatientsRoutingModule,
@@ -45,15 +61,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbListModule,
     NbActionsModule,
     NbCheckboxModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (HttpLoaderFactory),
-        deps: [HttpClient]
-      }
-        }),
+    TranslateModule.forRoot(),
     NbBadgeModule,
-    NbTooltipModule
+    NbTooltipModule,
+    ChartsModule
   ],
   entryComponents: [AddComponent]
 })

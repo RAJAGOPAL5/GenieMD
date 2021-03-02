@@ -33,12 +33,6 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
 @NgModule({
   declarations: [
     AppComponent,
-    VitalsComponent,
-    CareTeamComponent,
-    HistoryComponent,
-    ProfileComponent,
-    AlertsComponent,
-    VisitsComponent,
     ClinicPromptComponent,
     LogoutConfimartionComponent
   ],

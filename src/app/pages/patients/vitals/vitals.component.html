@@ -31,6 +31,14 @@
                         [options]="spo2ChartOptions" [chartType]="spo2ChartType"></canvas>
                 </div>
             </div> -->
+            <di class="col-md-12">
+                <app-vital-chart [type]="1"></app-vital-chart>
+                <app-vital-chart [type]="2"></app-vital-chart>
+                <app-vital-chart [type]="3"></app-vital-chart>
+                <app-vital-chart [type]="4"></app-vital-chart>
+                <app-vital-chart [type]="5"></app-vital-chart>
+
+            </di>
             <div class="col-md-6">
                 <div class="col-12 p-3 mb-4">
                     <h4>{{'kTotal' | translate}}</h4>
