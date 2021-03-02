@@ -1,10 +1,15 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import * as Chart from 'chart.js';
 import * as moment from 'moment';
+import { PatientService } from 'projects/core/src/lib/patient/state/patient.service';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { VitalsService } from 'src/app/shared/service/vitals.service';
+import { vitals } from 'src/app/shared/constnts/consstnt';
+
 
 @Component({
   selector: 'app-vitals',
@@ -17,9 +22,11 @@ export class VitalsComponent implements OnInit {
   @ViewChild('spoChart') mychart1: any;
   @ViewChild('weightChart') mychart2: any;
   @ViewChild('totalChart') mychart3: any;
-  constructor(private vitalsService: VitalsService, private profileService: ProfileService,
-    private ls: LanguageService,
-    private translate: TranslateService) {
+  chartInfo: { patientId: string; fromDate: string; toDate: string; };
+  constructor(
+    private vitalsService: VitalsService, private profileService: ProfileService,
+    private ls: LanguageService,private patientService: PatientService,
+    private translate: TranslateService, private route: ActivatedRoute, private clinicService: ClinicService) {
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
   }
@@ -61,8 +68,13 @@ export class VitalsComponent implements OnInit {
   timeduration: any;
   duration!: any;
   userID: any;
+  vitals = [];
+  
 
   ngOnInit(): void {
+    console.log('route', this.route.snapshot.parent.params.patientId)
+    const patientID = this.route.snapshot.parent.params.patientId;
+    this.getData(patientID);
     this.duration = 'all';
     this.timeduration = [
       { title: '1 Week', val: '1w', class: '' },
@@ -74,8 +86,8 @@ export class VitalsComponent implements OnInit {
     const fromDate = moment('1900-02-01').valueOf();
     const toDate = moment().add(1, 'days').valueOf();
     this.userID = this.profileService.id;
-    this.getBloodPerssure(fromDate, toDate);
-    this.getWeight(fromDate, toDate);
+    // this.getBloodPerssure(fromDate, toDate);
+    // this.getWeight(fromDate, toDate);
 
   }
   getBloodPerssure(fromDate: any, toDate: any) {
@@ -142,5 +154,26 @@ export class VitalsComponent implements OnInit {
     }
     this.getBloodPerssure(fromDate, toDate)
     this.getWeight(fromDate, toDate)
+  }
+  getData(patientId) {
+    const payload = {
+      userID: this.profileService.id,
+      clinicID: this.clinicService.id,
+      patientID: patientId
+    };
+    this.patientService.findById(payload).subscribe((data: any) => {
+      console.log('patientIdpatientId', data);
+      const patientData = data;
+      let extraData;
+      try {
+        extraData = JSON.parse(patientData.extraData);
+      } catch (error) {
+        extraData = patientData.extraData || {};
+      }
+      this.vitals = !!extraData.vitals ? extraData.vitals : [];
+      this.chartInfo = { patientId: patientData.userID, fromDate: '', toDate: '' };
+    }, error => {
+      throw error;
+    });
   }
 }

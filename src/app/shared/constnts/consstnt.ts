@@ -75,5 +75,8 @@ export const gender = [{ id: 'Male', value: 0 },
 { id: 'Female', value: 1 },
 { id: 'Other', value: 2 }];
 
-export const vitals = [{ name: 'BP', id: 'BP' }, { name: 'SpO2', id: 'SpO2' }, { name: 'Glucose', id: 'GLC' },
-{ name: 'Weight', id: 'Wt' }, { name: 'Temperature', id: 'Temp' }];
+export const vitals = [
+    { id: 1, name: 'BP', diplayName: 'BP', vitalType: 1 }, { id: 2, name: 'SpO2', diplayName: 'SpO2', vitalType: 3 },
+    { id: 3, name: 'Glucose', diplayName: 'GLC', vitalType: 2 },
+    { id: 4, name: 'Weight', diplayName: 'Wt', vitalType: 6 },
+    { id: 5, name: 'Temperature', diplayName: 'Temp', vitalType: 14 }];
