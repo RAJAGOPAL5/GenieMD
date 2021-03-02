@@ -123,7 +123,7 @@ export class ListComponent implements OnInit {
     this.isLoading = true;
     this.patientService.find(this.payloadScroll).subscribe((data: any) => {
       // console.log('loadNext', data.clinicPatientList, this.payloadScroll.pageNumber, cardData.length );
-      if (cardData.length < data.total ) {
+      if (cardData !== undefined && cardData.length < data.total ) {
         data.clinicPatientList = data.clinicPatientList.map(item => {
           item.name = `${item.firstName} ${item.lastName}`.trim();
           return item;
