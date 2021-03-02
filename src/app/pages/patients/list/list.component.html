@@ -1,14 +1,14 @@
-<nb-card class="patient-list" [nbSpinner]="isLoading">
+<nb-card class="patient-list mb-0" [nbSpinner]="isLoading">
     <nb-card-header class="justify-content-center p-0">
-        <nb-list-item>
-            <div class="row">
-                <div class="col-auto m-auto">
+        <nb-list-item class="pb-0">
+            <div class="row m-auto">
+                <div class="col-auto mx-auto mb-3">
                     <nb-button-group status="primary" size="tiny">
                         <button nbButtonToggle nbButton pressed (click)= "getData(0)" >All</button>
                         <button nbButtonToggle nbButton (click)="getData(1)">Monitored</button>
                     </nb-button-group>
                 </div>
-                <div class="col-auto m-auto position-relative">
+                <div class="col-auto mt-1 mx-auto mb-3 position-relative">
                     <div class="badge-position cursor-pointer" *ngIf = "isFilter"><nb-badge text="99+" status="danger" position="top left" dotMode = true (click)="filterPatient()"></nb-badge></div>
                     <nb-actions size="tiny">
                         <nb-action class="ps-0 pe-0" nbTooltip="Filter" nbTooltipStatus="primary" icon="funnel-outline" (click)="filterPatient()">
