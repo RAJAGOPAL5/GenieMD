@@ -36,7 +36,7 @@
                     <app-vital-chart [type]="item?.vitalType" [name]="item?.displayName" [chartData]="chartInfo"></app-vital-chart>
                 </div>
             </ng-container>
-            <p *ngIf="!vitals?.length"> No vitals found</p>
+            <p *ngIf="!vitals?.length">{{'kNovitalsfound' | translate}}</p>
         </div>
     </nb-card-body>
 </nb-card>
