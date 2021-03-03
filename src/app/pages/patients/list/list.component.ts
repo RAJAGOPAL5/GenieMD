@@ -28,7 +28,7 @@ export class ListComponent implements OnInit {
   model: ViewModel = {
     monitored: 1
   };
-  users: any;
+  users: any = [];
   isLoading = false;
   searchText = '';
   clinic: any;
@@ -63,13 +63,15 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
-    this.getData();
+    // this.getData();
     this.showBadge();
+    this.loadNext();
   }
 
   getData(monitored?: number) {
+    if (this.searchText.length > 2 || this.searchText === '') {
     this.isLoading = true;
-    const payload = {
+    let payload = {
       clinicID: this.clinicService.id,
       name: this.searchText,
       providerID: '',
@@ -77,9 +79,11 @@ export class ListComponent implements OnInit {
       pageNumber: 1,
       count: 25,
       // alarm: 0,
-      // monitored,
+      monitored,
       // morbidity: 0,
     };
+    // tslint:disable-next-line:no-unused-expression
+    monitored === 1 ? payload.name === '' && payload.monitored === 1 : delete payload.monitored;
     this.patientService.find(payload).subscribe((data: any) => {
       this.users = data.clinicPatientList
       .filter(item => (!!item.firstName || !!item.lastName))
@@ -91,6 +95,7 @@ export class ListComponent implements OnInit {
     }, error => {
       this.isLoading = false;
     });
+  }
   }
   showBadge() {
     this.isFilter = Object.keys(this.filterPayload).some(k => {
@@ -121,18 +126,18 @@ export class ListComponent implements OnInit {
       this.showBadge();
     });
   }
-  loadNext(cardData) {
+  loadNext() {
     this.isLoading = true;
     this.patientService.find(this.payloadScroll).subscribe((data: any) => {
-      // console.log('loadNext', data.clinicPatientList, this.payloadScroll.pageNumber, cardData.length );
-      if (cardData !== undefined && cardData.length < data.total ) {
-        data.clinicPatientList = data.clinicPatientList.map(item => {
-          item.name = `${item.firstName} ${item.lastName}`.trim();
-          return item;
-        });
-        // tslint:disable-next-line:no-unused-expression
-        data.clinicPatientList.length !== 0 ? cardData.push(...data.clinicPatientList) : '' ;
-        this.payloadScroll.pageNumber++;
+      // console.log('loadNext', data.clinicPatientList, this.payloadScroll.pageNumber, this.users.length );
+      if (this.users !== undefined && this.users.length < data.total ) {
+      data.clinicPatientList = data.clinicPatientList.map(item => {
+        item.name = `${item.firstName} ${item.lastName}`.trim();
+        return item;
+      });
+      // tslint:disable-next-line:no-unused-expression
+      data.clinicPatientList.length !== 0 ? this.users.push(...data.clinicPatientList) : '';
+      this.payloadScroll.pageNumber++;
       }
       this.isLoading = false;
       return true;
