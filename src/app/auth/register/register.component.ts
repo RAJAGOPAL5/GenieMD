@@ -8,6 +8,8 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { environment } from 'src/environments/environment.prod';
 import * as moment from 'moment';
+import { LanguageService } from 'src/app/shared/service/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 interface ViewModal {
@@ -48,12 +50,16 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
     protected cd: ChangeDetectorRef,
     protected router: Router,
     private profileService: ProfileService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private ls: LanguageService,
+    private translate: TranslateService,
   ) {
     super(service, {}, cd, router);
     this.redirectDelay = this.getConfigValue('forms.register.redirectDelay');
     this.showMessages = this.getConfigValue('forms.register.showMessages');
     this.strategy = this.getConfigValue('forms.register.strategy');
+    translate.use('en');
+    translate.setTranslation('en', this.ls.state); 
   }
 
   ngOnInit(): void {

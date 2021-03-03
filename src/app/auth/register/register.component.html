@@ -1,50 +1,49 @@
 <div class="d-flex align-items-center h-100 justify-content-center mb-3">
     <span class="ps-2">
-        <img [src]="logo" alt="" height="50">
+        <img [src]="logo" alt="" height="75">
     </span>
-    <span class="ps-2 h4 text-uppercase d-flex align-items-center">{{ title }}</span>
 </div>
-<h1 id="title" class="title mb-5">Register</h1>
+<h1 id="title" class="title mb-5">{{'kRegister' | translate}}</h1>
 <nb-stepper orientation="horizontal">
     <nb-step label="Register" class="m-0">
 
         <form (ngSubmit)="register()" #form="ngForm" aria-labelledby="title" class="mt-0">
 
             <div class="form-control-group m-0">
-                <label class="label m-0" for="input-name">First name:</label>
+                <label class="label m-0" for="input-name">{{'kFirstName' | translate}}:</label>
                 <input nbInput [(ngModel)]="model.firstName" #firstName="ngModel" id="input-name" name="firstName"
-                    placeholder="First name" autofocus fullWidth
+                    placeholder="{{'kFirstName' | translate}}" autofocus fullWidth
                     [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
                     [required]="getConfigValue('forms.validation.firstName.required')"
                     [attr.aria-invalid]="firstName.invalid && firstName.touched ? true : null">
                 <ng-container *ngIf="firstName.invalid && firstName.touched">
                     <p class="error-message" *ngIf="firstName.errors?.required">
-                        First name is required!
+                        {{'kFirstNameIsRequired*' | translate}}
                     </p>
                 </ng-container>
             </div>
 
             <div class="form-control-group m-0">
-                <label class="label m-0" for="input-email">Email address:</label>
+                <label class="label m-0" for="input-email">{{'kEmailAddress' | translate}}:</label>
                 <input nbInput [(ngModel)]="model.email" #email="ngModel" id="input-email" name="email"
-                    pattern=".+@.+..+" placeholder="Email address" fullWidth
+                    pattern=".+@.+..+" placeholder="{{'kEmailAddress' | translate}}" fullWidth
                     [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
                     [required]="getConfigValue('forms.validation.email.required')"
                     [attr.aria-invalid]="email.invalid && email.touched ? true : null">
                 <ng-container *ngIf="email.invalid && email.touched">
                     <p class="error-message" *ngIf="email.errors?.required">
-                        Email is required!
+                        {{'kEmailRequired' | translate}}
                     </p>
                     <p class="error-message" *ngIf="email.errors?.pattern">
-                        Please enter valid email address!
+                        {{'kPleaseEnterAValidEmailAddress' | translate}}
                     </p>
                 </ng-container>
             </div>
 
             <div class="form-control-group m-0">
-                <label class="label m-0" for="input-password">Password:</label>
+                <label class="label m-0" for="input-password">{{'kPassword' | translate}}:</label>
                 <input nbInput [(ngModel)]="model.password" #password="ngModel" type="password" id="input-password"
-                    name="password" placeholder="Password" fullWidth
+                    name="password" placeholder="{{'kPassword' | translate}}" fullWidth
                     [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
                     [required]="getConfigValue('forms.validation.password.required')"
                     [minlength]="getConfigValue('forms.validation.password.minLength')"
@@ -52,7 +51,7 @@
                     [attr.aria-invalid]="password.invalid && password.touched ? true : null">
                 <ng-container *ngIf="password.invalid && password.touched">
                     <p class="error-message" *ngIf="password.errors?.required">
-                        Password is required!
+                        {{'kPasswordisrequired' | translate}}
                     </p>
                     <p class="error-message" *ngIf="password.errors?.minlength || password.errors?.maxlength">
                         Password should contains
@@ -64,39 +63,39 @@
             </div>
 
             <div class="form-control-group">
-                <label class="label m-0" for="input-re-password">Repeat password:</label>
+                <label class="label m-0" for="input-re-password">{{'kRepeatPassword' | translate}}:</label>
                 <input nbInput [(ngModel)]="model.confirmPassword" #rePass="ngModel" type="password"
-                    id="input-re-password" name="rePass" placeholder="Confirm Password" fullWidth
+                    id="input-re-password" name="rePass" placeholder="{{'kRepeatPassword' | translate}}" fullWidth
                     [status]="email.dirty ? (email.invalid || password.value != rePass.value  ? 'danger' : 'success') : ''"
                     [required]="getConfigValue('forms.validation.password.required')"
                     [attr.aria-invalid]="rePass.invalid && rePass.touched ? true : null">
                 <span class="help-text caption">Capital (uppercase), A number, Minimum 8 characters.</span>
                 <ng-container *ngIf="rePass.invalid && rePass.touched">
                     <p class="error-message" *ngIf="rePass.errors?.required">
-                        Password confirmation is required!
+                        {{'kConfirmPasswordIsRequired' | translate}}
                     </p>
                     <p class="error-message" *ngIf="password.value != rePass.value && !rePass.errors?.required">
-                        Password does not match the confirm password.
+                        {{'kPasswordProvideValidEmailAddress' | translate}}
                     </p>
                 </ng-container>
             </div>
 
             <div class="form-control-group accept-group" *ngIf="getConfigValue('forms.register.terms')">
                 <nb-checkbox name="terms" [(ngModel)]="user.terms" [required]="getConfigValue('forms.register.terms')">
-                    Agree to <a href="#" target="_blank"><strong>Terms & Conditions</strong></a>
+                    {{'kAgreeTo' | translate}}<a href="#" target="_blank"><strong>{{'kTermsAndConditions' | translate}}</strong></a>
                 </nb-checkbox>
             </div>
 
             <button nbButton fullWidth status="success" [disabled]="submitted || !form.valid"
                 [class.btn-pulse]="submitted">
-                Next
+                {{'kNext' | translate}}
             </button>
             <p class="copyright text-center">
-                Version: {{version}}
+                {{'kVersion' | translate}}: {{version}}
             </p>
         </form>
         <section class="another-action" aria-label="Sign in">
-            Already have an account? <a class="text-link" routerLink="../login">Log in</a>
+            {{'kAlreadyHaveAnAccount' | translate}}? <a class="text-link" routerLink="../login">{{'kLogin' | translate}}</a>
         </section>
     </nb-step>
 
@@ -105,33 +104,33 @@
         </ng-template>
         <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" aria-labelledby="title">
             <div class="form-control-group m-0">
-                <label class="label m-0" for="firstName">First name:</label>
-                <input nbInput id="firstName" placeholder="First name" autofocus fullWidth formControlName="firstName">
-                <div *ngIf="submitted && f.firstName.errors" class="error-form text-danger fs-15">First Name is
-                    required
+                <label class="label m-0" for="firstName">{{'kFirstName' | translate}}:</label>
+                <input nbInput id="firstName" placeholder="{{'kFirstName' | translate}}" autofocus fullWidth formControlName="firstName">
+                <div *ngIf="submitted && f.firstName.errors" class="error-form text-danger fs-15">
+                    {{' kFirstNameIsRequired*' | translate}}
                 </div>
             </div>
 
             <div class="form-control-group m-0">
-                <label class="label m-0" for="lastName">Last name:</label>
-                <input nbInput id="lastName" placeholder="Last name" autofocus fullWidth formControlName="lastName">
-                <div *ngIf="submitted && f.lastName.errors" class="error-form text-danger fs-15">Last Name is
-                    required
+                <label class="label m-0" for="lastName">{{'kLastName' | translate}}:</label>
+                <input nbInput id="lastName" placeholder="{{'kLastName' | translate}}" autofocus fullWidth formControlName="lastName">
+                <div *ngIf="submitted && f.lastName.errors" class="error-form text-danger fs-15">
+                    {{' kLastNameIsRequired*' | translate}}
                 </div>
             </div>
 
             <div class="form-control-group m-0">
-                <label class="label m-0" for="phoneNumber">Phone Number:</label>
-                <input nbInput id="phoneNumber" placeholder="Phone Number" autofocus fullWidth
+                <label class="label m-0" for="phoneNumber">{{'KPhoneNumber' | translate}}:</label>
+                <input nbInput id="phoneNumber" placeholder="{{'KPhoneNumber' | translate}}" autofocus fullWidth
                     formControlName="phoneNumber">
-                <div *ngIf="submitted && f.phoneNumber.errors" class="error-form text-danger fs-15">Phone Number is
-                    required
+                <div *ngIf="submitted && f.phoneNumber.errors" class="error-form text-danger fs-15">
+                    {{' kPhoneNumberIsRequired*' | translate}}
                 </div>
             </div>
 
             <div class="form-control-group m-0">
-                <label class="label m-0" for="dob">Date of Birth:</label>
-                <input nbInput [nbDatepicker]="rangepicker" id="dob" placeholder="Date of Birth" autofocus fullWidth
+                <label class="label m-0" for="dob">{{'kMsgDob' | translate}}:</label>
+                <input nbInput [nbDatepicker]="rangepicker" id="dob" placeholder="{{'kMsgDob' | translate}}" autofocus fullWidth
                     formControlName="dob">
                 <nb-rangepicker #rangepicker></nb-rangepicker>
                 <!-- <div *ngIf="submitted && f.dob.errors" class="error-form text-danger fs-15">Date of birth is
@@ -140,57 +139,56 @@
             </div>
 
             <div class="form-control-group m-0">
-                <label class="label m-0" for="input-name">Gender:</label>
+                <label class="label m-0" for="input-name">{{'kGender' | translate}}:</label>
                 <nb-radio-group formControlName="gender" class="row d-flex justify-content-center pt-0 p-3"
                     name="my-radio-group">
-                    <nb-radio class=" col-md-4" value=1>Male
+                    <nb-radio class=" col-md-4" value=1>{{'kMale' | translate}}
                     </nb-radio>
-                    <nb-radio class=" col-md-4" value=2>Female
+                    <nb-radio class=" col-md-4" value=2>{{'kFemale' | translate}}
                     </nb-radio>
-                    <nb-radio class=" col-md-4" value=2>Other
+                    <nb-radio class=" col-md-4" value=2>{{'kOther' | translate}}
                     </nb-radio>
                 </nb-radio-group>
-                <div *ngIf="submitted && f.gender.errors" class="error-form text-danger fs-15">Gender is
-                    required
+                <div *ngIf="submitted && f.gender.errors" class="error-form text-danger fs-15">
+                    {{'kGenderIsRequired*' | translate}}
                 </div>
             </div>
 
             <div class="form-control-group m-0">
-                <label class="label m-0" for="address">Address:</label>
-                <input nbInput id="address" placeholder="Address" autofocus fullWidth formControlName="address">
-                <div *ngIf="submitted && f.address.errors" class="error-form text-danger fs-15">Address is
-                    required
+                <label class="label m-0" for="address">{{'kAddress' | translate}}:</label>
+                <input nbInput id="address" placeholder="{{'kAddress' | translate}}" autofocus fullWidth formControlName="address">
+                <div *ngIf="submitted && f.address.errors" class="error-form text-danger fs-15">
+                    {{'kAddressIsRequitred*' | translate}}
                 </div>
             </div>
 
             <div class="form-control-group m-0">
-                <label class="label m-0" for="city">City:</label>
-                <input nbInput id="city" name="city" placeholder="City" autofocus fullWidth formControlName="city">
-                <div *ngIf="submitted && f.city.errors" class="error-form text-danger fs-15">City is
-                    required
+                <label class="label m-0" for="city">{{'kCity' | translate}}:</label>
+                <input nbInput id="city" name="city" placeholder="{{'kCity' | translate}}" autofocus fullWidth formControlName="city">
+                <div *ngIf="submitted && f.city.errors" class="error-form text-danger fs-15">{{'kCityIsRequired' | translate}}
                 </div>
             </div>
 
             <div class="form-control-group m-0">
-                <label class="label m-0" for="state">State:</label>
-                <input nbInput id="input-name" placeholder="State" autofocus fullWidth formControlName="state">
-                <div *ngIf="submitted && f.state.errors" class="error-form text-danger fs-15">State is
-                    required
+                <label class="label m-0" for="state">{{'kState' | translate}}:</label>
+                <input nbInput id="input-name" placeholder="{{'kState' | translate}}" autofocus fullWidth formControlName="state">
+                <div *ngIf="submitted && f.state.errors" class="error-form text-danger fs-15">
+                    {{'kStateIsRequired*' | translate}}
                 </div>
             </div>
 
             <div class="form-control-group">
-                <label class="label m-0" for="country">Country:</label>
-                <input nbInput id="country" name="country" placeholder="Country" autofocus fullWidth
+                <label class="label m-0" for="country">{{'kCountry' | translate}}:</label>
+                <input nbInput id="country" name="country" placeholder="{{'kCountry' | translate}}" autofocus fullWidth
                     formControlName="country">
-                <div *ngIf="submitted && f.country.errors" class="error-form text-danger fs-15">Country is
-                    required
+                <div *ngIf="submitted && f.country.errors" class="error-form text-danger fs-15">
+                    {{'kCountryIsRequired*' | translate}}
                 </div>
             </div>
 
 
             <button nbButton fullWidth status="success" [class.btn-pulse]="submitted">
-                Save Profile
+                {{'kCreateProfile' | translate}}
             </button>
         </form>
     </nb-step>
