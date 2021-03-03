@@ -13,13 +13,20 @@ import { VitalsService } from 'src/app/shared/service/vitals.service';
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit {
+  chartInfo: any;
   @Input() type: any;
   @Input() name: any;
-  @Input() chartData: any;
+  @Input()
+  get chartData() {
+    return this.chartInfo;
+  }
+  set chartData(data) {
+    this.chartInfo = data;
+    this.initChart();
+  }
   vitals = vitals;
   public lineChartData: ChartDataSets[] = [];
   public lineChartLabels: Label[] = [];
-
   public lineChartColors: Color[] = [];
   public lineChartLegend = true;
   public lineChartType = 'line';
@@ -27,8 +34,6 @@ export class ChartComponent implements OnInit {
   constructor(private vitalService: VitalsService, private profileService: ProfileService) { }
 
   ngOnInit(): void {
-    this.getData();
-    this.getChartColor(this.type);
   }
 
   getData() {
@@ -103,5 +108,12 @@ export class ChartComponent implements OnInit {
         break;
     }
 
+  }
+  initChart() {
+    console.log('type', this.type);
+    console.log('name', this.name);
+
+    this.getData();
+    this.getChartColor(this.type);
   }
 }
