@@ -31,6 +31,7 @@ import { NbDateFnsDateModule } from '@nebular/date-fns';
 import { format, compareAsc } from 'date-fns';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { CoreModule } from 'core';
+import { ServiceWorkerModule } from '@angular/service-worker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,7 +75,8 @@ import { CoreModule } from 'core';
     CoreModule.forRoot({
       baseURL: environment.base_url,
       production: environment.production
-    })
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {

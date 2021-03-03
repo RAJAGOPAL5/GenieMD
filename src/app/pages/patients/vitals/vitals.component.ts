@@ -35,6 +35,7 @@ export class VitalsComponent implements OnInit {
   userID: any;
   vitals = [];
   patientId: any;
+  isLoading = false;
   ngOnInit(): void {
     console.log('route', this.route.snapshot.parent.params.patientId)
     this.route.parent.paramMap.subscribe(params => {
@@ -76,12 +77,14 @@ export class VitalsComponent implements OnInit {
     }
   }
   getData(patientId) {
+    this.isLoading = true;
     const payload = {
       userID: this.profileService.id,
       clinicID: this.clinicService.id,
       patientID: patientId
     };
     this.patientService.findById(payload).subscribe((data: any) => {
+      this.isLoading = false;
       const patientData = data;
       let extraData;
       try {
