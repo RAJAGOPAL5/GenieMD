@@ -27,6 +27,10 @@ import { ProfileComponent } from './profile/profile.component';
 import { VisitsComponent } from './visits/visits.component';
 import { VitalsComponent } from './vitals/vitals.component';
 import { ChartsModule } from 'ng2-charts';
+import { BloodPressureComponent } from './vitals/chart/blood-pressure/blood-pressure.component';
+import { GlucoseComponent } from './vitals/chart/glucose/glucose.component';
+import { TemperatureComponent } from './vitals/chart/temperature/temperature.component';
+import { WeightComponent } from './vitals/chart/weight/weight.component';
 
 // export function HttpLoaderFactory(http: HttpClient) {
 //   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json');
@@ -41,7 +45,11 @@ import { ChartsModule } from 'ng2-charts';
     HistoryComponent,
     ProfileComponent,
     AlertsComponent,
-    VisitsComponent
+    VisitsComponent,
+    BloodPressureComponent,
+    GlucoseComponent,
+    TemperatureComponent,
+    WeightComponent
   ],
   imports: [
     CommonModule,

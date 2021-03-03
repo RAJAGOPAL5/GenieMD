@@ -13,10 +13,32 @@
         </div>
     </nb-card-header>
     <nb-card-body>
-        <ng-container *ngIf="vitals?.length">
-            <app-vital-chart *ngFor="let item of vitals" [type]="item?.vitalType" [name]="item?.displayName"
-                [chartData]="chartInfo"></app-vital-chart>
-        </ng-container>
+        <div class="row"  *ngIf="vitals?.length">
+        <div class="col-md-12" *ngFor="let item of vitals">
+            <ng-container [ngSwitch]="item?.vitalType">
+                <ng-container *ngSwitchCase="1">
+                    <app-blood-pressure [data]="chartInfo"></app-blood-pressure>
+                </ng-container>
+                <ng-container *ngSwitchCase="2">
+                    <app-glucose></app-glucose>
+                </ng-container>
+                <ng-container *ngSwitchCase="3">
+                    <p>SPo2 coming soon..</p>
+                </ng-container>
+                <ng-container *ngSwitchCase="6">
+                    <app-weight></app-weight>
+                </ng-container>
+                <ng-container *ngSwitchCase="14">
+                    <app-temperature></app-temperature>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                    No Records found
+                </ng-container>
+            </ng-container>
+            <!-- <app-vital-chart *ngFor="let item of vitals" [type]="item?.vitalType" [name]="item?.displayName"
+                [chartData]="chartInfo"></app-vital-chart> -->
+            </div>
+    </div>
         <p *ngIf="!vitals?.length">{{'kNovitalsfound' | translate}}</p>
     </nb-card-body>
 </nb-card>
