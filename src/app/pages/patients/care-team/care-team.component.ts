@@ -62,6 +62,7 @@ export class CareTeamComponent implements OnInit {
     });
   }
   open(dialog: TemplateRef<any>) {
+    this.careGiver = '';
     this.dialogRef = this.dialogService.open(dialog);
     this.showDone = false;
   }
