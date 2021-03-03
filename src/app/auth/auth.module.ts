@@ -15,9 +15,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { RegisterComponent } from './register/register.component';
 import { ServiceModule } from 'core';
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, "../../assets/i18n/", ".json");
-}
+// export function HttpLoaderFactory(http: HttpClient) {
+//   return new TranslateHttpLoader(http, "../../assets/i18n/", ".json");
+// }
 
 @NgModule({
   declarations: [LoginComponent, ForgotPasswordComponent, IndexComponent, RegisterComponent],
@@ -45,13 +45,14 @@ export function HttpLoaderFactory(http: HttpClient) {
         })
       ]
     }),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (HttpLoaderFactory),
-        deps: [HttpClient]
-      }
-    }),
+    // TranslateModule.forRoot({
+    //   loader: {
+    //     provide: TranslateLoader,
+    //     useFactory: (HttpLoaderFactory),
+    //     deps: [HttpClient]
+    //   }
+    // }),
+    TranslateModule.forRoot(),
     ServiceModule
   ]
 })
