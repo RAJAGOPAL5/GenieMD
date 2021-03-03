@@ -90,7 +90,7 @@
                 [class.btn-pulse]="submitted">
                 {{'kNext' | translate}}
             </button>
-            <p class="copyright text-center">
+            <p class="copyright text-center caption">
                 {{'kVersion' | translate}}: {{version}}
             </p>
         </form>
@@ -99,7 +99,7 @@
         </section>
     </nb-step>
 
-    <nb-step label="Create Profile">
+    <nb-step label="{{'kCreateProfile' | translate}}">
         <ng-template #stepLabel>
         </ng-template>
         <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" aria-labelledby="title">
