@@ -7,9 +7,9 @@
             <div class="col-md-4" [ngSwitch]="patient?.gender">
                 <p><nb-icon icon="phone" nbTooltip="Phone" nbTooltipPlacement="left" pack="font-awesome" ></nb-icon><span class="ps-4">{{patient?.phoneNumber}}</span></p>
                 <p><nb-icon icon="envelope" nbTooltip="Email" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">{{patient?.email}}</span></p>
-                <p *ngSwitchCase="0"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">Male</span></p>
-                <p *ngSwitchCase="1"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">Female</span></p>
-                <p *ngSwitchCase="2"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">Others</span> </p>
+                <p *ngSwitchCase="0"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">{{'kMale' | translate}}</span></p>
+                <p *ngSwitchCase="1"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">{{'kFemale' | translate}}</span></p>
+                <p *ngSwitchCase="2"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">{{'kOther' | translate}}</span> </p>
             </div>
             <div class="col-md-4">
               <p class="text-uppercase"><nb-icon icon="map-marker-alt" nbTooltip="Location" nbTooltipPlacement="left" pack="font-awesome"></nb-icon> 
