@@ -14,18 +14,6 @@ export class BloodPressureComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [];
   public lineChartLabels: Label[] = [];
   public lineChartColors: Color[] = [
-    {
-      borderColor: 'black',
-      backgroundColor: 'rgba(100,0,0,0.3)',
-    },
-    {
-      borderColor: 'black',
-      backgroundColor: 'rgba(150,0,0,0.3)',
-    },
-    {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,0,0,0.3)',
-    },
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
@@ -63,20 +51,20 @@ export class BloodPressureComponent implements OnInit {
     const heartRateData = {
       data: [],
       label: 'Heart Rate',
-      backgroundColor: 'rgba(100,0,0,0.3)',
+      backgroundColor: 'rgba(255, 204, 153,0.3)',
 
     };
     const systolicData = {
       data: [],
       label: 'Systolic',
-      backgroundColor: 'rgba(200,0,0,0.3)',
+      backgroundColor: 'rgba(179, 218, 255,0.3)',
 
 
     };
     const dialosticData = {
       data: [],
       label: 'Dialostic',
-      backgroundColor: 'rgba(255,0,0,0.3)',
+      backgroundColor: 'rgba(153, 171, 128,0.3)',
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 1).subscribe((data: any) => {
       if (data) {
@@ -98,9 +86,10 @@ export class BloodPressureComponent implements OnInit {
             heartRateData.data.push(vialData.R);
           }
         });
-        this.lineChartData.push(heartRateData);
-        this.lineChartData.push(systolicData);
-        this.lineChartData.push(dialosticData);
+        this.lineChartData = [heartRateData, systolicData, dialosticData]
+        // this.lineChartData.push(heartRateData);
+        // this.lineChartData.push(systolicData);
+        // this.lineChartData.push(dialosticData);
 
       }
     }, error => {
