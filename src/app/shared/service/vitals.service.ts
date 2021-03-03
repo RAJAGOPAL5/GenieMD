@@ -8,12 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class VitalsService {
 
   constructor(private http: HttpClient) { }
-  getBloodPressure(userID: any, fromDate: any, toDate: any) {
-    return this.http.get(`Vitals/List/${userID}/1/${fromDate}/${toDate}`)
-  }
-  getWeight(userID: any, fromDate: any, toDate: any) {
-    return this.http.get(`Vitals/List/${userID}/6/${fromDate}/${toDate}`)
-  }
+  
   getData(userID: any, fromDate: any, toDate: any, vitalType: any) {
     return this.http.get(`Vitals/List/${userID}/${vitalType}/${fromDate}/${toDate}`);
   }

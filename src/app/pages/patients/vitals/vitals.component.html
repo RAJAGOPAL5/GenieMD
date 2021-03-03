@@ -26,10 +26,10 @@
                     <p>SPo2 coming soon..</p>
                 </ng-container>
                 <ng-container *ngSwitchCase="6">
-                    <app-weight></app-weight>
+                    <app-weight [data]="chartInfo"></app-weight>
                 </ng-container>
                 <ng-container *ngSwitchCase="14">
-                    <app-temperature></app-temperature>
+                    <app-temperature [data]="chartInfo"></app-temperature>
                 </ng-container>
                 <ng-container *ngSwitchDefault>
                     No Records found
