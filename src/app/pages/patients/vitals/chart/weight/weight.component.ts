@@ -23,7 +23,7 @@ export class WeightComponent implements OnInit {
           beginAtZero: true,
           stepValue: 20,
           steps: 20,
-          max: 1000,
+          max: 400,
           min: 50
         }
       }]

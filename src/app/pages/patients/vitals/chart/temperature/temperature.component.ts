@@ -22,9 +22,9 @@ export class TemperatureComponent implements OnInit {
         ticks: {
           beginAtZero: true,
           stepValue: 20,
-          steps: 20,
-          max: 500,
-          min: -20
+          steps: 2,
+          max: 40,
+          min: 25
         }
       }]
     }
