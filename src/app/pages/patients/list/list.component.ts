@@ -81,7 +81,9 @@ export class ListComponent implements OnInit {
       morbidity: 0,
     };
     this.patientService.find(payload).subscribe((data: any) => {
-      this.users = data.clinicPatientList.map(item => {
+      this.users = data.clinicPatientList
+      .filter(item => (!!item.firstName || !!item.lastName))
+      .map(item => {
         item.name = `${item.firstName} ${item.lastName}`.trim();
         return item;
       });
