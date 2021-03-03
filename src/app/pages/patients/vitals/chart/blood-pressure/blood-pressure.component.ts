@@ -13,10 +13,36 @@ import { VitalsService } from 'src/app/shared/service/vitals.service';
 export class BloodPressureComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [];
   public lineChartLabels: Label[] = [];
-  public lineChartColors: Color[] = [];
+  public lineChartColors: Color[] = [
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(100,0,0,0.3)',
+    },
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(150,0,0,0.3)',
+    },
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(255,0,0,0.3)',
+    },
+  ];
   public lineChartLegend = true;
   public lineChartType = 'line';
   public lineChartPlugins = [];
+  public lineChartOptions: any = {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          stepValue: 20,
+          steps: 20,
+          max: 250,
+          min: 40
+        }
+      }]
+    }
+  };
   chartData: any;
   @Input()
   get data() {
@@ -34,13 +60,26 @@ export class BloodPressureComponent implements OnInit {
   getData() {
     const fromDate = this.chartData.fromDate || moment('1900-02-01').valueOf();
     const toDate = this.chartData.toDate || moment().add(1, 'days').valueOf();
-    const chartData = {
+    const heartRateData = {
       data: [],
-      label: 'test'
+      label: 'Heart Rate',
+      backgroundColor: 'rgba(100,0,0,0.3)',
+
+    };
+    const systolicData = {
+      data: [],
+      label: 'Systolic',
+      backgroundColor: 'rgba(200,0,0,0.3)',
+
+
+    };
+    const dialosticData = {
+      data: [],
+      label: 'Dialostic',
+      backgroundColor: 'rgba(255,0,0,0.3)',
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 1).subscribe((data: any) => {
-      console.log('data', data);
-      if(data) {
+      if (data) {
         (data.vitalsList || []).forEach(item => {
           this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM'));
           let vialData;
@@ -49,9 +88,20 @@ export class BloodPressureComponent implements OnInit {
           } catch (error) {
             vialData = {};
           }
-          chartData.data.push(1);
+          if (vialData.S) {
+            systolicData.data.push(vialData.S);
+          }
+          if (vialData.D) {
+            dialosticData.data.push(vialData.D);
+          }
+          if (vialData.R) {
+            heartRateData.data.push(vialData.R);
+          }
         });
-        this.lineChartData.push(chartData);
+        this.lineChartData.push(heartRateData);
+        this.lineChartData.push(systolicData);
+        this.lineChartData.push(dialosticData);
+
       }
     }, error => {
       throw error;
