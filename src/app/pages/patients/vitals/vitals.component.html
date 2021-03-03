@@ -1,9 +1,10 @@
-<nb-card size="large" style="overflow: auto" class="mt-3 mb-0">
+<nb-card size="large" style="overflow: auto" class="mb-0">
     <nb-card-header>
         <div class="row">
             <div class="col-auto my-auto">{{'kTimeRange' | translate}}</div>
             <div class="col-md-3 ps-4">
-                <select class="form-control border-primary justify-content-end" [(ngModel)]="duration" (ngModelChange)="getList($event)">
+                <select class="form-control border-primary justify-content-end" [(ngModel)]="duration"
+                    (ngModelChange)="getList($event)">
                     <option *ngFor="let time of timeduration" value="{{time.val}}" selected>
                         {{time.title}}
                     </option>
@@ -12,31 +13,10 @@
         </div>
     </nb-card-header>
     <nb-card-body>
-        <div class="row">
-            <!-- <div class="col-6">
-                <div class="col-12 p-3 w-100 chk-block-content" style="display: block" *ngIf="BPChartShow">
-                    <h4>{{'kBloodPressure' | translate}}</h4>
-                    <canvas baseChart width="300" height="120" [datasets]="BPChartDatasets1" [labels]="BPChartLabels"
-                        [options]="BPChartOptions" [chartType]="weightChartType"></canvas>
-                </div>
-                <div class="col-12 p-3 mb-4" style="display: block" *ngIf="weightChartShow">
-                    <h4>{{'kWeight' | translate}}</h4>
-                    <canvas baseChart width="300" height="120" [datasets]="weightChartdatasets"
-                        [labels]="weightChartLabels" [options]="weightChartOptions"
-                        [chartType]="weightChartType"></canvas>
-                </div>
-                <div class="col-12 p-3 mb-4" *ngIf="weightChartShow">
-                    <h4>{{'KPulseOximeterType' | translate}}</h4>
-                    <canvas baseChart width="300" height="120" [datasets]="spo2ChartData" [labels]="spo2ChartLabels"
-                        [options]="spo2ChartOptions" [chartType]="spo2ChartType"></canvas>
-                </div>
-            </div> -->
-            <ng-container *ngIf="vitals?.length">
-                <div class="col-md-4" *ngFor="let item of vitals">
-                    <app-vital-chart [type]="item?.vitalType" [name]="item?.displayName" [chartData]="chartInfo"></app-vital-chart>
-                </div>
-            </ng-container>
-            <p *ngIf="!vitals?.length">{{'kNovitalsfound' | translate}}</p>
-        </div>
+        <ng-container *ngIf="vitals?.length">
+            <app-vital-chart *ngFor="let item of vitals" [type]="item?.vitalType" [name]="item?.displayName"
+                [chartData]="chartInfo"></app-vital-chart>
+        </ng-container>
+        <p *ngIf="!vitals?.length">{{'kNovitalsfound' | translate}}</p>
     </nb-card-body>
 </nb-card>
