@@ -54,7 +54,7 @@ export class ChartComponent implements OnInit {
           } catch (error) {
             vialData = {};
           }
-          chartData.data.push(1)
+          chartData.data.push(1);
         });
         this.lineChartData.push(chartData);
       }
@@ -62,7 +62,7 @@ export class ChartComponent implements OnInit {
       throw error;
     });
   }
-  getChartColor(type) {
+  initChartData(type) {
     switch (type) {
       case 1: this.lineChartColors = [
         {
@@ -112,8 +112,7 @@ export class ChartComponent implements OnInit {
   initChart() {
     console.log('type', this.type);
     console.log('name', this.name);
-
     this.getData();
-    this.getChartColor(this.type);
+    this.initChartData(this.type);
   }
 }
