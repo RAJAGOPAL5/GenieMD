@@ -1,3 +1,4 @@
+import { BLACK_ON_WHITE_CSS_CLASS } from '@angular/cdk/a11y/high-contrast-mode/high-contrast-mode-detector';
 import { Component, Input, OnInit } from '@angular/core';
 import { ChartDataSets } from 'chart.js';
 import * as moment from 'moment';
@@ -27,7 +28,21 @@ export class BloodPressureComponent implements OnInit {
           steps: 20,
           max: 250,
           min: 40
-        }
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'mmHG',
+          fontColor: 'black',
+          fontStyle: "bold"
+       }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Date',
+          fontColor: 'black',
+          fontStyle: "bold"
+       }
       }]
     },
     elements:
@@ -62,16 +77,19 @@ export class BloodPressureComponent implements OnInit {
       data: [],
       label: 'Heart Rate',
       backgroundColor: 'rgba(255, 204, 153,0.3)',
+      lineTension: 0
     };
     const systolicData = {
       data: [],
       label: 'Systolic',
       backgroundColor: 'rgba(179, 218, 255,0.3)',
+      lineTension: 0
     };
     const dialosticData = {
       data: [],
       label: 'Dialostic',
       backgroundColor: 'rgba(153, 171, 128,0.3)',
+      lineTension: 0
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 1).subscribe((data: any) => {
       if (data) {

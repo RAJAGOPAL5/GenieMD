@@ -25,7 +25,21 @@ export class WeightComponent implements OnInit {
           steps: 20,
           max: 400,
           min: 50
-        }
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'lbs',
+          fontColor: 'black',
+          fontStyle: "bold"
+       }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Date',
+          fontColor: 'black',
+          fontStyle: "bold"
+       }
       }]
     }
   };
@@ -50,6 +64,7 @@ export class WeightComponent implements OnInit {
       data: [],
       label: 'Weight',
       backgroundColor: 'rgba(255, 204, 153,0.3)',
+      lineTension: 0
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 6).subscribe((data: any) => {
       if (data) {
