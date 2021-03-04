@@ -6,7 +6,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { NbAuthService, NbRequestPasswordComponent, NB_AUTH_OPTIONS } from '@nebular/auth';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-forgot-password',
