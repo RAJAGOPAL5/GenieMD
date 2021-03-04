@@ -1,28 +1,51 @@
 <nb-card [nbSpinner]="isLoading">
     <nb-card-body>
         <div class="row">
-            <div class="col-md-4">
-               <h4> <nb-user size="large" [name]="patientName" [title]="patient?.dob" [picture]="patient?.imageUrl"></nb-user></h4>
-             </div>
-            <div class="col-md-4" [ngSwitch]="patient?.gender">
-                <p><nb-icon icon="phone" nbTooltip="Phone" nbTooltipPlacement="left" pack="font-awesome" ></nb-icon><span class="ps-4">{{patient?.phoneNumber}}</span></p>
-                <p><nb-icon icon="envelope" nbTooltip="Email" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">{{patient?.email}}</span></p>
-                <p *ngSwitchCase="0"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">{{'kMale' | translate}}</span></p>
-                <p *ngSwitchCase="1"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">{{'kFemale' | translate}}</span></p>
-                <p *ngSwitchCase="2"> <nb-icon icon="venus-mars"  nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome"></nb-icon><span class="ps-4">{{'kOther' | translate}}</span> </p>
+            <div class="col-md-2">
+                <div class="py-2 text-center">
+                    <nb-user class="justify-content-center" size="giant" [name]="patientName"
+                        [picture]="patient?.imageUrl" onlyPicture='true'>
+                    </nb-user>
+                    <div class="subtitle">{{patientName}}</div>
+                    <div class="caption">{{patient?.dob}}</div>
+                </div>
             </div>
-            <div class="col-md-4">
-              <p class="text-uppercase"><nb-icon icon="map-marker-alt" nbTooltip="Location" nbTooltipPlacement="left" pack="font-awesome"></nb-icon> 
-                    <span class="ps-4">{{patient?.address}}</span>
-                     <br>
-                    <span><nb-icon></nb-icon> 
-                    <span class="ps-4">{{patient?.city}}</span>,
-                    <span class="ps-1">{{patient?.state}}</span>,
-                    <span class="ps-1">{{patient?.zipcode}}</span>,
-                    <span class="ps-1">{{patient?.country}}</span>.
-                    </span>
-              </p> 
-            <p><nb-icon icon="person" nbTooltip="Morbidity" nbTooltipPlacement="left"></nb-icon><span class="ps-4" *ngFor="let morbidity of morbidityValue" >{{morbidity}}</span></p> 
+            <div class="col-md-2">
+                <div [ngSwitch]="patient?.gender">
+                    <p>
+                        <nb-icon icon="phone" nbTooltip="Phone" nbTooltipPlacement="left" pack="font-awesome"></nb-icon>
+                        <span class="ps-4">{{patient?.phoneNumber}}</span>
+                    </p>
+                    <p *ngSwitchCase="0">
+                        <nb-icon icon="venus-mars" nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome">
+                        </nb-icon><span class="ps-4">{{'kMale' | translate}}</span>
+                    </p>
+                    <p *ngSwitchCase="1">
+                        <nb-icon icon="venus-mars" nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome">
+                        </nb-icon><span class="ps-4">{{'kFemale' | translate}}</span>
+                    </p>
+                    <p *ngSwitchCase="2">
+                        <nb-icon icon="venus-mars" nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome">
+                        </nb-icon><span class="ps-4">{{'kOther' | translate}}</span>
+                    </p>
+                </div>
+                <p>
+                    <nb-icon icon="person" nbTooltip="Morbidity" nbTooltipPlacement="left"></nb-icon><span class="ps-4"
+                        *ngFor="let morbidity of morbidityValue">{{morbidity}}</span>
+                </p>
+            </div>
+            <div class="col-md-5 d-flex mt-3">
+                <nb-icon icon="map-marker-alt" nbTooltip="Location" nbTooltipPlacement="left" pack="font-awesome">
+                </nb-icon>
+                <div class="ps-4">
+                    <div>{{patient?.address}}, </div>
+                    <div>
+                        <span *ngIf="patient?.city">{{patient?.city}}, </span>
+                        <span *ngIf="patient?.state">{{patient?.state}}, </span>
+                        <span *ngIf="patient?.zipcode">{{patient?.zipcode}}, </span>
+                        <span *ngIf="patient?.country">{{patient?.country}}</span>.
+                    </div>
+                </div>
             </div>
         </div>
     </nb-card-body>
