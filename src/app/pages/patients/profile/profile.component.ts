@@ -65,7 +65,12 @@ export class ProfileComponent implements OnInit {
     this.patientService.findById(payload).subscribe((data: any) => {
       this.morbidityValue = [];
       this.patient = data;
-      this.patientExtraData = this.patient.extraData ? JSON.parse(this.patient.extraData) : {};
+      try{
+        this.patientExtraData = this.patient.extraData;
+      }
+      catch{
+        this.patientExtraData = {};
+      }
       this.patientName = `${this.patient.firstName} ${this.patient.lastName}`;
       this.patient.morbidity === 0 ? this.morbidityValue.push('Lung Disease') : this.morbidityValue.push('Heart Disease');
       this.profileService.get(this.patient.userID).subscribe((res: any) => {

@@ -31,6 +31,7 @@ import { BloodPressureComponent } from './vitals/chart/blood-pressure/blood-pres
 import { GlucoseComponent } from './vitals/chart/glucose/glucose.component';
 import { TemperatureComponent } from './vitals/chart/temperature/temperature.component';
 import { WeightComponent } from './vitals/chart/weight/weight.component';
+import { Spo2Component } from './vitals/chart/spo2/spo2.component';
 
 // export function HttpLoaderFactory(http: HttpClient) {
 //   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json');
@@ -49,7 +50,8 @@ import { WeightComponent } from './vitals/chart/weight/weight.component';
     BloodPressureComponent,
     GlucoseComponent,
     TemperatureComponent,
-    WeightComponent
+    WeightComponent,
+    Spo2Component
   ],
   imports: [
     CommonModule,

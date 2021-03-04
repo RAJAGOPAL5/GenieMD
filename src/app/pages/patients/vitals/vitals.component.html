@@ -22,8 +22,8 @@
                 <ng-container *ngSwitchCase="2">
                     <app-glucose [data]="chartInfo"></app-glucose>
                 </ng-container>
-                <ng-container *ngSwitchCase="3">
-                    <p>SPo2 coming soon..</p>
+                <ng-container *ngSwitchCase="13">
+                   <app-spo2 [data]="chartInfo"></app-spo2>
                 </ng-container>
                 <ng-container *ngSwitchCase="6">
                     <app-weight [data]="chartInfo"></app-weight>
