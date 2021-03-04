@@ -29,6 +29,16 @@ export class BloodPressureComponent implements OnInit {
           min: 40
         }
       }]
+    },
+    elements:
+    {
+      point:
+      {
+        radius: 5,
+        hitRadius: 5,
+        hoverRadius: 5,
+        hoverBorderWidth: 2,
+      }
     }
   };
   chartData: any;
