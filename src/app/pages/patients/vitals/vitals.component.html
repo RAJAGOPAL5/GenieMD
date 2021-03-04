@@ -3,12 +3,10 @@
         <div class="row">
             <div class="col-auto my-auto">{{'kTimeRange' | translate}}</div>
             <div class="col-md-3 ps-4">
-                <select class="form-control border-primary justify-content-end" [(ngModel)]="duration"
-                    (ngModelChange)="getList($event)">
-                    <option *ngFor="let time of timeduration" value="{{time.val}}" selected>
-                        {{time.title}}
-                    </option>
-                </select>
+                <nb-select size="medium" class="w-100" [(ngModel)]="duration" fullWidth (selectedChange)="getList($event)">
+                    <nb-option *ngFor="let item of timeduration" [value]="item.id">{{item?.val}}
+                    </nb-option>
+                </nb-select>
             </div>
         </div>
     </nb-card-header>
