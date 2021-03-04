@@ -1,12 +1,16 @@
 <nb-card size="large" style="overflow: auto" class="mb-0" [nbSpinner]="isLoading">
     <nb-card-header>
         <div class="row">
-            <div class="col-auto my-auto">{{'kTimeRange' | translate}}</div>
+            <!-- <div class="col-auto my-auto">{{'kTimeRange' | translate}}</div>
             <div class="col-md-3 ps-4">
                 <nb-select size="medium" class="w-100" [(ngModel)]="duration" fullWidth (selectedChange)="getList($event)">
                     <nb-option *ngFor="let item of timeduration" [value]="item.id">{{item?.val}}
                     </nb-option>
                 </nb-select>
+            </div> -->
+            <div class="col-md-3">
+                <date-range-picker  (rangeSelected)="selectedDate()" name="rangeDate" [parentFormGroup]="form"
+                [controlName]="'dateRange'"></date-range-picker>
             </div>
         </div>
     </nb-card-header>

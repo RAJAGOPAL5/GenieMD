@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import * as Chart from 'chart.js';
@@ -23,10 +24,14 @@ export class VitalsComponent implements OnInit {
   @ViewChild('weightChart') mychart2: any;
   @ViewChild('totalChart') mychart3: any;
   chartInfo: { patientId: string; fromDate: number; toDate: number; eventRange : string };
+  form: FormGroup = this.formBuilder.group({
+    dateRange: ''
+  });
   constructor(
     private vitalsService: VitalsService, private profileService: ProfileService,
     private ls: LanguageService, private patientService: PatientsService,
-    private translate: TranslateService, private route: ActivatedRoute, private clinicService: ClinicService) {
+    private translate: TranslateService, private route: ActivatedRoute,
+    private clinicService: ClinicService, private formBuilder: FormBuilder) {
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
   }
@@ -103,5 +108,8 @@ export class VitalsComponent implements OnInit {
     }, error => {
       throw error;
     });
+  }
+  selectedDate() {
+    console.log('dateRange');
   }
 }

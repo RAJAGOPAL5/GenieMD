@@ -56,6 +56,16 @@ export class GlucoseComponent implements OnInit {
       labels: {
         usePointStyle: true
       }
+    },
+    elements:
+    {
+      point:
+      {
+        radius: 5,
+        hitRadius: 5,
+        hoverRadius: 5,
+        hoverBorderWidth: 2,
+      }
     }
   };
   chartData: any;
