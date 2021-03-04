@@ -70,6 +70,11 @@ export class BloodPressureComponent implements OnInit {
        }
       }]
     },
+    legend: {
+      labels: {
+        usePointStyle: true
+      }
+    },
     elements:
     {
       point:
