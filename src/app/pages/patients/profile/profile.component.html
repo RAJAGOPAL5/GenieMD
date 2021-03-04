@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="py-2 text-center">
-                    <nb-user class="justify-content-center" size="giant" [name]="patientName"
+                    <nb-user class="justify-content-center pb-2" size="giant" [name]="patientName"
                         [picture]="patient?.imageUrl" onlyPicture='true'>
                     </nb-user>
                     <div class="subtitle">{{patientName}}</div>
@@ -11,11 +11,15 @@
                 </div>
             </div>
             <div class="col-md-2">
+                <p>
+                    <nb-icon icon="phone" nbTooltip="Phone" nbTooltipPlacement="left" pack="font-awesome"></nb-icon>
+                    <span class="ps-4">{{patient?.phoneNumber}}</span>
+                </p>
+                <p>
+                    <nb-icon icon="email-outline" nbTooltip="Email" nbTooltipPlacement="left"></nb-icon>
+                    <span class="ps-4">{{patient?.phoneNumber}}</span>
+                </p>
                 <div [ngSwitch]="patient?.gender">
-                    <p>
-                        <nb-icon icon="phone" nbTooltip="Phone" nbTooltipPlacement="left" pack="font-awesome"></nb-icon>
-                        <span class="ps-4">{{patient?.phoneNumber}}</span>
-                    </p>
                     <p *ngSwitchCase="0">
                         <nb-icon icon="venus-mars" nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome">
                         </nb-icon><span class="ps-4">{{'kMale' | translate}}</span>
@@ -29,22 +33,26 @@
                         </nb-icon><span class="ps-4">{{'kOther' | translate}}</span>
                     </p>
                 </div>
-                <p>
-                    <nb-icon icon="person" nbTooltip="Morbidity" nbTooltipPlacement="left"></nb-icon><span class="ps-4"
-                        *ngFor="let morbidity of morbidityValue">{{morbidity}}</span>
-                </p>
             </div>
-            <div class="col-md-5 d-flex mt-3">
-                <nb-icon icon="map-marker-alt" nbTooltip="Location" nbTooltipPlacement="left" pack="font-awesome">
-                </nb-icon>
-                <div class="ps-4">
-                    <div>{{patient?.address}}, </div>
-                    <div>
-                        <span *ngIf="patient?.city">{{patient?.city}}, </span>
-                        <span *ngIf="patient?.state">{{patient?.state}}, </span>
-                        <span *ngIf="patient?.zipcode">{{patient?.zipcode}}, </span>
-                        <span *ngIf="patient?.country">{{patient?.country}}</span>.
+            <div class="col-md-5 mt-3">
+                <div>
+                    <div class="d-flex">
+                        <nb-icon icon="map-marker-alt" nbTooltip="Location" nbTooltipPlacement="left" pack="font-awesome">
+                        </nb-icon>
+                        <div class="ps-4">
+                            <div>{{patient?.address}}, </div>
+                            <div>
+                                <span *ngIf="patient?.city">{{patient?.city}}, </span>
+                                <span *ngIf="patient?.state">{{patient?.state}}, </span>
+                                <span *ngIf="patient?.zipcode">{{patient?.zipcode}}, </span>
+                                <span *ngIf="patient?.country">{{patient?.country}}</span>.
+                            </div>
+                        </div>
                     </div>
+                    <p>
+                        <nb-icon icon="person" nbTooltip="Morbidity" nbTooltipPlacement="left"></nb-icon><span class="ps-4"
+                            *ngFor="let morbidity of morbidityValue">{{morbidity}}</span>
+                    </p>
                 </div>
             </div>
         </div>
