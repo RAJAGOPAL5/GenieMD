@@ -67,16 +67,19 @@ export class BloodPressureComponent implements OnInit {
       data: [],
       label: 'Heart Rate',
       backgroundColor: 'rgba(255, 204, 153,0.3)',
+      lineTension: 0
     };
     const systolicData = {
       data: [],
       label: 'Systolic',
       backgroundColor: 'rgba(179, 218, 255,0.3)',
+      lineTension: 0
     };
     const dialosticData = {
       data: [],
       label: 'Dialostic',
       backgroundColor: 'rgba(153, 171, 128,0.3)',
+      lineTension: 0
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 1).subscribe((data: any) => {
       if (data) {

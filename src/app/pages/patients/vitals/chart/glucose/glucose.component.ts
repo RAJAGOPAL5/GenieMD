@@ -65,6 +65,7 @@ export class GlucoseComponent implements OnInit {
       data: [],
       label: 'Glucose',
       backgroundColor: 'rgba(255, 204, 153,0.3)',
+      lineTension: 0
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 2).subscribe((data: any) => {
       if (data) {

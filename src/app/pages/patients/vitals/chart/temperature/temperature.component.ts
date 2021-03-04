@@ -23,7 +23,7 @@ export class TemperatureComponent implements OnInit {
           beginAtZero: true,
           stepValue: 20,
           steps: 2,
-          max: 40,
+          max: 100,
           min: 25
         },
         scaleLabel: {
@@ -64,6 +64,7 @@ export class TemperatureComponent implements OnInit {
       data: [],
       label: 'Temperature',
       backgroundColor: 'rgba(255, 204, 153,0.3)',
+      lineTension: 0
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 14).subscribe((data: any) => {
       if (data) {
