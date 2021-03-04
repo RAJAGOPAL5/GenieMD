@@ -70,9 +70,14 @@ export class BloodPressureComponent implements OnInit {
        }
       }]
     },
-    legend: {
-      labels: {
-        usePointStyle: true
+    elements:
+    {
+      point:
+      {
+        radius: 5,
+        hitRadius: 5,
+        hoverRadius: 5,
+        hoverBorderWidth: 2,
       }
     }
   };
