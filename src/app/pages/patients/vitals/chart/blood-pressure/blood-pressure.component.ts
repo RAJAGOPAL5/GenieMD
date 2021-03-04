@@ -52,14 +52,11 @@ export class BloodPressureComponent implements OnInit {
       data: [],
       label: 'Heart Rate',
       backgroundColor: 'rgba(255, 204, 153,0.3)',
-
     };
     const systolicData = {
       data: [],
       label: 'Systolic',
       backgroundColor: 'rgba(179, 218, 255,0.3)',
-
-
     };
     const dialosticData = {
       data: [],
@@ -87,10 +84,6 @@ export class BloodPressureComponent implements OnInit {
           }
         });
         this.lineChartData = [heartRateData, systolicData, dialosticData]
-        // this.lineChartData.push(heartRateData);
-        // this.lineChartData.push(systolicData);
-        // this.lineChartData.push(dialosticData);
-
       }
     }, error => {
       throw error;
