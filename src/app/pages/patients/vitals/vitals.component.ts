@@ -22,7 +22,7 @@ export class VitalsComponent implements OnInit {
   @ViewChild('spoChart') mychart1: any;
   @ViewChild('weightChart') mychart2: any;
   @ViewChild('totalChart') mychart3: any;
-  chartInfo: { patientId: string; fromDate: string; toDate: string; };
+  chartInfo: { patientId: string; fromDate: number; toDate: number; eventRange : string };
   constructor(
     private vitalsService: VitalsService, private profileService: ProfileService,
     private ls: LanguageService, private patientService: PatientsService,
@@ -36,6 +36,7 @@ export class VitalsComponent implements OnInit {
   vitals = [];
   patientId: any;
   isLoading = false;
+  event: any;
   ngOnInit(): void {
     console.log('route', this.route.snapshot.parent.params.patientId)
     this.route.parent.paramMap.subscribe(params => {
@@ -72,9 +73,7 @@ export class VitalsComponent implements OnInit {
     } else if (event === 'all') {
       fromDate = moment('1900-02-01').valueOf();
     }
-    if (!!this.patientId) {
-      this.getData(this.patientId);
-    }
+    this.chartInfo = { patientId: this.patientId, fromDate: fromDate, toDate: toDate, eventRange: event || 'all' };
   }
   getData(patientId) {
     this.isLoading = true;
@@ -97,7 +96,10 @@ export class VitalsComponent implements OnInit {
       } else {
         this.vitals = [];
       }
-      this.chartInfo = { patientId: patientData.userID, fromDate: '', toDate: '' };
+      this.patientId = patientData.userID
+      const fromDates = moment('1900-02-01').valueOf();
+      const toDates = moment().add(1, 'days').valueOf();
+      this.chartInfo = { patientId: patientData.userID, fromDate: fromDates, toDate: toDates, eventRange: 'all' };
     }, error => {
       throw error;
     });
