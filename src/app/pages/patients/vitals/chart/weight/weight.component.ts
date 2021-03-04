@@ -25,7 +25,21 @@ export class WeightComponent implements OnInit {
           steps: 20,
           max: 400,
           min: 50
-        }
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'lbs',
+          fontColor: 'black',
+          fontStyle: "bold"
+       }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Date',
+          fontColor: 'black',
+          fontStyle: "bold"
+       }
       }]
     }
   };

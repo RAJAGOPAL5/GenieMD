@@ -25,7 +25,21 @@ export class TemperatureComponent implements OnInit {
           steps: 2,
           max: 40,
           min: 25
-        }
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'Celcius',
+          fontColor: 'black',
+          fontStyle: "bold"
+       }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Date',
+          fontColor: 'black',
+          fontStyle: "bold"
+       }
       }]
     }
   };

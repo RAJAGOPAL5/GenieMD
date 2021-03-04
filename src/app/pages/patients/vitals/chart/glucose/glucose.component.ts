@@ -23,10 +23,24 @@ export class GlucoseComponent implements OnInit {
         ticks: {
           beginAtZero: true,
           stepValue: 20,
-          steps: 20,
+          steps: 2,
           max: 600,
           min: 0
-        }
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'mg/dL',
+          fontColor: 'black',
+          fontStyle: "bold"
+       }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Date',
+          fontColor: 'black',
+          fontStyle: "bold"
+       }
       }]
     }
   };
