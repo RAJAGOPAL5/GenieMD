@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, Component, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -9,6 +9,8 @@ import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { AddComponent } from '../add/add.component';
 import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
+import { debounceTime, map, filter, distinctUntilChanged } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
 
 interface ViewModel {
   search?: string;
@@ -25,6 +27,7 @@ interface ViewModel {
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
+  @ViewChild('SearchInput', { static: true }) patientSearchInput: ElementRef;
   model: ViewModel = {
     monitored: 1
   };
@@ -36,13 +39,14 @@ export class ListComponent implements OnInit {
   isFilter = false;
   registrationForm: FormGroup;
   dialogRef: any;
+  isSearching: boolean;
   searchValue = { firstName: '', lastName: '', dob: '', gender: 0, monitored: 1 };
   payloadScroll = {
     clinicID: this.clinicService.id,
     name: this.searchText,
     providerID: '',
     userID: this.profileService.id,
-    count: 11,
+    count: 25,
     pageNumber: 1,
     monitored : this.model.monitored,
   };
@@ -63,14 +67,23 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
-    // this.getData();
     this.showBadge();
-    this.loadNext();
+    fromEvent(this.patientSearchInput.nativeElement, 'keydown').pipe(
+      map((event: any) => {
+        return event.target.value;
+      })
+      // , filter(res => res.length > 2)
+      , debounceTime(1000)
+      , distinctUntilChanged()
+    ).subscribe((text: string) => {
+      this.isSearching = true;
+      this.getData();
+    });
   }
 
   getData(monitored?: number) {
-    if (this.searchText.length > 2 || this.searchText === '') {
     this.isLoading = true;
+    // tslint:disable-next-line:prefer-const
     let payload = {
       clinicID: this.clinicService.id,
       name: this.searchText,
@@ -83,8 +96,8 @@ export class ListComponent implements OnInit {
       // morbidity: 0,
     };
     // tslint:disable-next-line:no-unused-expression
-    monitored === 1 ? payload.name === '' && payload.monitored === 1 : delete payload.monitored;
-    this.patientService.find(payload).subscribe((data: any) => {
+    monitored === undefined ? payload.name === '' && delete payload.monitored : '';
+    this.patientService.find(payload).pipe(debounceTime(1000)).subscribe((data: any) => {
       this.users = data.clinicPatientList
       .filter(item => (!!item.firstName || !!item.lastName))
       .map(item => {
@@ -92,11 +105,12 @@ export class ListComponent implements OnInit {
         return item;
       });
       this.isLoading = false;
+      return;
     }, error => {
       this.isLoading = false;
     });
   }
-  }
+
   showBadge() {
     this.isFilter = Object.keys(this.filterPayload).some(k => {
       return !!this.filterPayload[k];
@@ -126,24 +140,50 @@ export class ListComponent implements OnInit {
       this.showBadge();
     });
   }
+
   loadNext() {
-    this.isLoading = true;
-    this.patientService.find(this.payloadScroll).subscribe((data: any) => {
-      // console.log('loadNext', data.clinicPatientList, this.payloadScroll.pageNumber, this.users.length );
-      if (this.users !== undefined && this.users.length < data.total ) {
-      data.clinicPatientList = data.clinicPatientList.map(item => {
-        item.name = `${item.firstName} ${item.lastName}`.trim();
-        return item;
+    /* Eleminate the initial call */
+    if (this.isSearching) { this.isSearching = false; } else {
+    /* Search infinite scroll */
+    if (this.searchText.length > 0) {
+      this.payloadScroll.name = this.searchText;
+      this.isLoading = true;
+      this.patientService.find(this.payloadScroll).subscribe((data: any) => {
+        if (this.users !== undefined && this.users.length < data.total) {
+          data.clinicPatientList = data.clinicPatientList.map(item => {
+            item.name = `${item.firstName} ${item.lastName}`.trim();
+            return item;
+          });
+          // tslint:disable-next-line:no-unused-expression
+          data.clinicPatientList.length !== 0 ? this.users.push(...data.clinicPatientList) : '';
+          this.payloadScroll.pageNumber++;
+        }
+        this.isLoading = false;
+        return true;
+      }, error => {
+        this.isLoading = false;
+        this.toastrService.danger(error);
       });
-      // tslint:disable-next-line:no-unused-expression
-      data.clinicPatientList.length !== 0 ? this.users.push(...data.clinicPatientList) : '';
-      this.payloadScroll.pageNumber++;
-      }
-      this.isLoading = false;
-      return true;
-    }, error => {
-      this.isLoading = false;
-      this.toastrService.danger(error);
-    });
+    } else {
+        /* Default infinite scroll */
+      this.isLoading = true;
+      this.patientService.find(this.payloadScroll).subscribe((data: any) => {
+        if (this.users !== undefined && this.users.length < data.total) {
+          data.clinicPatientList = data.clinicPatientList.map(item => {
+            item.name = `${item.firstName} ${item.lastName}`.trim();
+            return item;
+          });
+          // tslint:disable-next-line:no-unused-expression
+          data.clinicPatientList.length !== 0 ? this.users.push(...data.clinicPatientList) : '';
+          this.payloadScroll.pageNumber++;
+        }
+        this.isLoading = false;
+        return true;
+      }, error => {
+        this.isLoading = false;
+        this.toastrService.danger(error);
+      });
+    }
+  }
   }
 }

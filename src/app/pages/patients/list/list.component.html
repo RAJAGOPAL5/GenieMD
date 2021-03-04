@@ -21,8 +21,8 @@
         <nb-list-item>
             <nb-form-field class="w-100">
                 <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
-                <input type="search" name="searchText" fullWidth status="success" nbInput [(ngModel)]="searchText"
-                    (ngModelChange)="getData()">
+                <input type="text" name="searchText" fullWidth status="success" nbInput [(ngModel)]="searchText"
+                     #SearchInput>
             </nb-form-field>
         </nb-list-item>
     </nb-card-header>
