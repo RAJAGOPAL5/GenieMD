@@ -1,35 +1,36 @@
 <nb-card size="large" style="overflow: auto" status="info" class="mt-3">
     <nb-card-header>
         <div class="row">
-            <div class="col-11">
+            <div class="col-10">
                 <h6 class="text-white">{{'KCareTeam' | translate}}</h6>
             </div>
-            <div class="col-1 p-0">
-                <button nbButton ghost size="gaint" (click)="open(dialog)">
+            <div class="col-2 p-0">
+                <button nbButton ghost size="gaint" class="f-right" (click)="open(dialog)">
                     <nb-icon icon="plus" nbTooltip="Add Care Givers" nbTooltipStatus="control" class="text-white">
                     </nb-icon>
                 </button>
-                <button *ngIf="!showDone" nbButton ghost size="gaint" (click)="change()" class="text-white ps-3">
+                <!-- <button *ngIf="!showDone" nbButton ghost size="gaint" (click)="change()" class="text-white ps-3">
                     <nb-icon icon="edit" nbTooltip="Remove Care Givers" nbTooltipStatus="control" class="text-white">
                     </nb-icon>
                 </button>
                 <button *ngIf="showDone" nbButton ghost size="large" (click)="change()"
-                    class="text-white ps-3">{{'kDone' | translate}}</button>
+                    class="text-white ps-3">{{'kDone' | translate}}</button> -->
             </div>
         </div>
     </nb-card-header>
-    <nb-card-body>
+    <nb-card-body class="pl-1">
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6 m-4">
+            <!-- <div class="col-md-3"></div> -->
+            <div class="col-md-12">
                 <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of careTeam">
-                    <nb-user
-                        [name]="user.name" [title]="user.email" [picture]="user.imageUrl">
+                    <nb-user [name]="user.name" [title]="user.email" [picture]="user.imageUrl">
                     </nb-user>
+                    <nb-icon icon="trash-2-outline" (click)="deleteCareGiver(user,deleteDialog)" nbTooltip="Remove Care Givers" nbTooltipStatus="control" class="text-danger">
+                    </nb-icon>
                 </nb-list-item>
                     <h6 *ngIf="!careTeam" class="text-center">{{'kMsgNoCaregivers' | translate}}</h6>
             </div>
-            <div class="col-md-3"></div>
+            <!-- <div class="col-md-3"></div> -->
         </div>
     </nb-card-body>
 </nb-card>
@@ -44,6 +45,21 @@
         <nb-card-footer>
             <button nbButton status="danger" class="mx-3" (click)="refclose()">{{'kCancel' | translate}}</button>
             <button nbButton status="primary" class="mx-4" (click)="notify()">{{'kOk' | translate}}</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
+
+<ng-template #deleteDialog>
+    <nb-card class="dialog-card">
+        <nb-card-header>
+            <h6 class="text-center">{{'kDelete'| translate}} </h6>
+        </nb-card-header>
+        <nb-card-body>
+            <p>{{'KDeleteCaregiver' | translate}}</p>
+        </nb-card-body>
+        <nb-card-footer>
+            <button nbButton status="primary" class="f-right" (click)="deleteRecord()">{{'kYes' | translate}}</button>
+            <button nbButton status="danger" class="f-right mx-3" (click)="close()">{{'kNo' | translate}}</button>
         </nb-card-footer>
     </nb-card>
 </ng-template>

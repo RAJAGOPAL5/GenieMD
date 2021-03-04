@@ -13,7 +13,16 @@ export class GlucoseComponent implements OnInit {
 
   public lineChartData: ChartDataSets[] = [];
   public lineChartLabels: Label[] = [];
-  public lineChartColors: Color[] = [];
+  public lineChartColors: Color[] = [
+    { // green
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgb(0, 214, 143)',
+      pointBackgroundColor: 'rgb(0, 214, 143)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgb(0, 214, 143)'
+    }
+  ];
   public lineChartLegend = true;
   public lineChartType = 'line';
   public lineChartPlugins = [];
@@ -23,11 +32,30 @@ export class GlucoseComponent implements OnInit {
         ticks: {
           beginAtZero: true,
           stepValue: 20,
-          steps: 20,
+          steps: 2,
           max: 600,
           min: 0
-        }
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'mg/dL',
+          fontColor: 'black',
+          fontStyle: "bold"
+       }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Date',
+          fontColor: 'black',
+          fontStyle: "bold"
+       }
       }]
+    },
+    legend: {
+      labels: {
+        usePointStyle: true
+      }
     }
   };
   chartData: any;
@@ -51,6 +79,7 @@ export class GlucoseComponent implements OnInit {
       data: [],
       label: 'Glucose',
       backgroundColor: 'rgba(255, 204, 153,0.3)',
+      lineTension: 0
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 2).subscribe((data: any) => {
       if (data) {

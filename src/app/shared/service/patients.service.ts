@@ -17,4 +17,8 @@ export class PatientsService {
     return this.http.get(`Clinics/ClinicPatient/${payload.userID}/${payload.clinicID}/${payload.patientID}`);
   }
 
+  deleteCareGiver(payload){
+    return this.http.post(`DependentResources/DeleteCareGiver`,payload)
+  }
+
 }

@@ -26,17 +26,17 @@
             </nb-form-field>
         </nb-list-item>
     </nb-card-header>
-    <nb-list class="own-scroll" nbInfiniteList [threshold]="15" (bottomThreshold)="loadNext(users)" >
+    <nb-list class="own-scroll" nbInfiniteList [threshold]="15" (bottomThreshold)="loadNext()" >
         <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of users"
             [routerLink]="[user?.patientID, 'vitals']">
             <nb-user class="cursor-pointer warning"
                 [ngClass]="{'none': user.monitored == 0,'success': user.alarm == 0 && user.monitored == 1, 'warning': user.alarm == 1 && user.monitored == 1, 'danger': user.alarm == 2 && user.monitored == 1}"
                 [name]="user.name" [title]="user.dob" [picture]="user.imageUrl">
             </nb-user>
-            <nb-icon nbTooltip="Edit" nbTooltipStatus="primary" icon="edit-outline" (click)="addPatient(user?.patientID);$event.stopPropagation();"></nb-icon>
+            <nb-icon nbTooltip="Edit" icon="edit-outline" (click)="addPatient(user?.patientID);$event.stopPropagation();"></nb-icon>
         </nb-list-item>
         <nb-list-item *ngIf="!users?.length">
             <p>{{'kNoPatientFound' | translate}} <a (click)="addPatient()">{{'kCreateNewPatient' | translate}}</a></p>
         </nb-list-item>
     </nb-list>
-</nb-card>
+</nb-card> 

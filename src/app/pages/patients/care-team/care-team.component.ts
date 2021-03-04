@@ -23,6 +23,8 @@ export class CareTeamComponent implements OnInit {
   dialogRef: any;
   showDone = false;
   users: any[];
+  deleteDialogRef: any;
+  careGiverUsername: any;
   constructor(private dependent: DependentService, private authService: AuthService,
     private route: ActivatedRoute, private dialogService: NbDialogService,
     private ns: NotificationService, private patientService: PatientsService,
@@ -34,6 +36,10 @@ export class CareTeamComponent implements OnInit {
 
   ngOnInit(): void {
     this.patientId = this.route.snapshot.parent.params['patientId'];
+    this.getCareTeam();
+    this.getProfile();
+  }
+  getCareTeam(){
     const payload = {
       userID: this.profileService.id,
       patientID: this.patientId
@@ -44,7 +50,6 @@ export class CareTeamComponent implements OnInit {
         return item;
       });
     });
-    this.getProfile();
   }
   getProfile() {
     const payload = {
@@ -57,6 +62,7 @@ export class CareTeamComponent implements OnInit {
     });
   }
   open(dialog: TemplateRef<any>) {
+    this.careGiver = '';
     this.dialogRef = this.dialogService.open(dialog);
     this.showDone = false;
   }
@@ -86,7 +92,26 @@ export class CareTeamComponent implements OnInit {
     });
     this.dialogRef.close();
   }
-  change() {
-    this.showDone = true;
+  deleteCareGiver(careGiver,deleteDialog: TemplateRef<any>) {
+    this.careGiverUsername = careGiver.username;
+    this.deleteDialogRef = this.dialogService.open(deleteDialog,{
+  });
+    // this.showDone = true;
+  }
+  close(){
+    this.deleteDialogRef.close();
+  }
+  deleteRecord(){ 
+    const payload = {
+      "careGiverUsername":this.careGiverUsername,
+      "dependentUsername": this.patientInfo.patientID,
+      "userID":this.profileService.id,
+    }
+    this.patientService.deleteCareGiver(payload).subscribe((res:any) => {
+     this.getCareTeam();
+     this.deleteDialogRef.close();
+    },error =>{
+      
+    })
   }
 }
