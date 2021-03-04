@@ -3,10 +3,12 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NbButtonModule, NbCardModule, NbDialogModule, NbIconModule, NbInputModule, NbLayoutModule,
-   NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbSpinnerModule, NbThemeModule, NbToastrModule,
-    NbTooltipModule, NbUserModule, NbDatepickerModule, NbButtonGroupModule, NbCheckboxModule, NbActionsModule,
-     NbListModule } from '@nebular/theme';
+import {
+  NbButtonModule, NbCardModule, NbDialogModule, NbIconModule, NbInputModule, NbLayoutModule,
+  NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbSpinnerModule, NbThemeModule, NbToastrModule,
+  NbTooltipModule, NbUserModule, NbDatepickerModule, NbButtonGroupModule, NbCheckboxModule, NbActionsModule,
+  NbListModule
+} from '@nebular/theme';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -32,6 +34,9 @@ import { format, compareAsc } from 'date-fns';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { CoreModule } from 'core';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { getUserPreferedTheme } from './shared/utility';
+
+const theme = getUserPreferedTheme();
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +55,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     NbLayoutModule,
     SharedModule,
     BrowserAnimationsModule,
-    NbThemeModule.forRoot({ name: 'default' }),
+    NbThemeModule.forRoot({ name: theme }),
     NbEvaIconsModule,
     NbRouteTabsetModule,
     HttpClientModule,
@@ -87,7 +92,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     { provide: LocationStrategy, useClass: HashLocationStrategy },
 
     Title,
-    { provide: NG_ENTITY_SERVICE_CONFIG, useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' }},
+    { provide: NG_ENTITY_SERVICE_CONFIG, useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' } },
     NgbActiveModal,
   ],
   bootstrap: [AppComponent],

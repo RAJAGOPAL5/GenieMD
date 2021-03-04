@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { NbAuthService, NbLoginComponent, NB_AUTH_OPTIONS } from '@nebular/auth';
 import { NbToastrService } from '@nebular/theme';
 

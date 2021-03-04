@@ -6,7 +6,7 @@ import { NbToastrService } from '@nebular/theme';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import * as moment from 'moment';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { TranslateService } from '@ngx-translate/core';
