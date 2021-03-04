@@ -12,7 +12,16 @@ import { VitalsService } from 'src/app/shared/service/vitals.service';
 export class WeightComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [];
   public lineChartLabels: Label[] = [];
-  public lineChartColors: Color[] = [];
+  public lineChartColors: Color[] = [
+    { // green
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgb(0, 214, 143)',
+      pointBackgroundColor: 'rgb(0, 214, 143)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgb(0, 214, 143)'
+    }
+  ];
   public lineChartLegend = true;
   public lineChartType = 'line';
   public lineChartPlugins = [];
@@ -41,6 +50,11 @@ export class WeightComponent implements OnInit {
           fontStyle: "bold"
        }
       }]
+    },
+    legend: {
+      labels: {
+        usePointStyle: true
+      }
     }
   };
   chartData: any;

@@ -15,6 +15,31 @@ export class BloodPressureComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [];
   public lineChartLabels: Label[] = [];
   public lineChartColors: Color[] = [
+    { // green
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgb(0, 214, 143)',
+      pointBackgroundColor: 'rgb(0, 214, 143)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgb(0, 214, 143)'
+    },
+    { // pink
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: '#ff3d71',
+      pointBackgroundColor: '#ff3d71',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: '#ff3d71'
+    },
+    { // blue
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgb(51, 102, 255)',
+      pointBackgroundColor: 'rgb(51, 102, 255)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgb(51, 102, 255)'
+    }
+   
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
@@ -44,6 +69,11 @@ export class BloodPressureComponent implements OnInit {
           fontStyle: "bold"
        }
       }]
+    },
+    legend: {
+      labels: {
+        usePointStyle: true
+      }
     }
   };
   chartData: any;
