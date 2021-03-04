@@ -56,6 +56,16 @@ export class Spo2Component implements OnInit {
       labels: {
         usePointStyle: true
       }
+    },
+    elements:
+    {
+      point:
+      {
+        radius: 5,
+        hitRadius: 5,
+        hoverRadius: 5,
+        hoverBorderWidth: 2,
+      }
     }
   };
   chartData: any;
@@ -95,7 +105,7 @@ export class Spo2Component implements OnInit {
             spo2Data.data.push(vialData.O);
           }
         });
-        this.lineChartData = [spo2Data]
+        this.lineChartData = [spo2Data];
       }
     }, error => {
       throw error;
