@@ -129,6 +129,7 @@ export class GlucoseComponent implements OnInit {
         });
         this.lineChartData = [GlucoseData]
       }
+      this.chartOptions();
     }, error => {
       this.isLoading = false;
 

@@ -129,6 +129,7 @@ export class Spo2Component implements OnInit {
         });
         this.lineChartData = [spo2Data];
       }
+      this.chartOptions();
     }, error => {
       this.isLoading = false;
       throw error;

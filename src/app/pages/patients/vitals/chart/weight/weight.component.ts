@@ -129,6 +129,7 @@ export class WeightComponent implements OnInit {
       } else {
         this.lineChartData = []
       }
+      this.chartOptions();
     }, error => {
       this.isLoading = false;
       throw error;

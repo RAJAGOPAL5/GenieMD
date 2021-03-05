@@ -127,6 +127,7 @@ export class TemperatureComponent implements OnInit {
         });
         this.lineChartData = [TempData]
       }
+      this.chartOptions();
     }, error => {
       this.isLoading = false;
       throw error;

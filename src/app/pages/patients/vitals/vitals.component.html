@@ -5,19 +5,22 @@
                 Date Range
             </span>
             <span class="ps-2">
-                <button nbButton ghost status="primary" (click)="getList('1w')" class="m-1" size="small">1w</button>
-                <button nbButton ghost status="primary" (click)="getList('1m')" class="m-1" size="small">1m</button>
-                <button nbButton ghost status="primary" (click)="getList('3m')" class="m-1" size="small">3m</button>
-                <button nbButton ghost status="primary" (click)="getList('6m')" class="m-1" size="small">6m</button>
-                <button nbButton ghost status="primary" (click)="getList('1y')" class="m-1" size="small">1y</button>
-                <button nbButton ghost status="primary" (click)="getList('all')" class="m-1" size="small">All</button>
+                <nb-button-group ghost size="small" outline shape="rectangle">
+                    <button nbButtonToggle status="primary" (click)="getList('all')" class="m-1" pressed>All</button>
+                    <button nbButtonToggle status="primary" (click)="getList('1w')" class="m-1">1w</button>
+                    <button nbButtonToggle status="primary" (click)="getList('1m')" class="m-1">1m</button>
+                    <button nbButtonToggle status="primary" (click)="getList('3m')" class="m-1">3m</button>
+                    <button nbButtonToggle status="primary" (click)="getList('6m')" class="m-1">6m</button>
+                    <button nbButtonToggle status="primary" (click)="getList('1y')" class="m-1">1y</button>
+                </nb-button-group>
             </span>
             <span class="ms-auto"></span>
             <span class="subtitle d-flex align-items-center">
                 Custom Date
             </span>
             <span class="ps-2">
-                <input nbInput placeholder="Pick a date range" class="form-control" [nbDatepicker]="formcontrol" size="small">
+                <input nbInput placeholder="Pick a date range" class="form-control" [nbDatepicker]="formcontrol"
+                    size="small">
                 <nb-rangepicker #formcontrol></nb-rangepicker>
             </span>
         </div>

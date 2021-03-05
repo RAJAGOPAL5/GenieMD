@@ -166,6 +166,7 @@ export class BloodPressureComponent implements OnInit {
         });
         this.lineChartData = [heartRateData, systolicData, dialosticData]
       }
+      this.chartOptions();
     }, error => {
       this.isLoading = false;
       throw error;
