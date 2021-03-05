@@ -48,6 +48,10 @@ export class WeightComponent implements OnInit {
           labelString: 'Date',
           fontColor: 'black',
           fontStyle: "bold"
+       },
+       type: 'time',
+       time: {
+         unit: 'day'
        }
       }]
     },

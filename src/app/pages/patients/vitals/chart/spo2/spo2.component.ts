@@ -49,6 +49,10 @@ export class Spo2Component implements OnInit {
           labelString: 'Date',
           fontColor: 'black',
           fontStyle: "bold"
+       },
+       type: 'time',
+       time: {
+         unit: 'day'
        }
       }]
     },
