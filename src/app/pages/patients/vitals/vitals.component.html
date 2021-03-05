@@ -16,18 +16,18 @@
             <div class="col-md-2">
                 <p class="subtitle">Date Range</p>
             </div>
-            <div class="col-md-4 pt-3">          
-                <a (click)="getList('1w')" class="m-1">1w</a>
-                <a (click)="getList('1m')" class="m-1">1m</a>
-                <a (click)="getList('3m')" class="m-1">3m</a>
-                <a (click)="getList('6m')" class="m-1">6m</a>
-                <a (click)="getList('1m')" class="m-1">1y</a> 
-                <a (click)="getList('all')" class="m-1">All</a>   
+            <div class="col-md-5 pt-1">                        
+                <button nbButton outline status="primary" (click)="getList('1w')" class="m-1" >1w</button>
+                <button nbButton outline status="primary" (click)="getList('1m')" class="m-1">1m</button>
+                <button nbButton outline status="primary" (click)="getList('3m')" class="m-1">3m</button>
+                <button nbButton outline status="primary" (click)="getList('6m')" class="m-1">6m</button>
+                <button nbButton outline status="primary" (click)="getList('1y')" class="m-1">1y</button>
+                <button nbButton outline status="primary" (click)="getList('all')" class="m-1">All</button>          
             </div>
             <div class="col-md-2">
                 <p class="subtitle mx-4">Custom Date</p>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <input nbInput placeholder="Pick a date range" class="m-1 formControl" [nbDatepicker]="formcontrol" [formControl]="formcontrol">
                 <nb-rangepicker #formcontrol></nb-rangepicker>
             </div>
