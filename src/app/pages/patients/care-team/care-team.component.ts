@@ -15,6 +15,7 @@ import { ProfileService } from 'src/app/shared/service/profile.service';
   styleUrls: ['./care-team.component.scss']
 })
 export class CareTeamComponent implements OnInit {
+  isLoading = true;
   careTeam: any;
   patientId: any
   carTeam: any;
@@ -25,6 +26,7 @@ export class CareTeamComponent implements OnInit {
   users: any[];
   deleteDialogRef: any;
   careGiverUsername: any;
+  team: any = {};
   constructor(private dependent: DependentService, private authService: AuthService,
     private route: ActivatedRoute, private dialogService: NbDialogService,
     private ns: NotificationService, private patientService: PatientsService,
@@ -39,7 +41,7 @@ export class CareTeamComponent implements OnInit {
     this.getCareTeam();
     this.getProfile();
   }
-  getCareTeam(){
+  getCareTeam() {
     const payload = {
       userID: this.profileService.id,
       patientID: this.patientId
@@ -48,6 +50,10 @@ export class CareTeamComponent implements OnInit {
       this.careTeam = res.list.map(item => {
         item.name = `${item.firstName} ${item.lastName}`.trim();
         return item;
+      });
+      this.team.items = res.list.map(item => {
+        item.name = `${item.firstName} ${item.lastName}`.trim();
+        return { name: item.name, image: item.imageUrl };
       });
     });
   }
@@ -59,6 +65,10 @@ export class CareTeamComponent implements OnInit {
     }
     this.patientService.findById(payload).subscribe((data: any) => {
       this.patientInfo = data;
+      this.team.primary = {
+        name: `${data.firstName} ${data.lastName}`.trim(),
+        image: data.imageUrl
+      }
     });
   }
   open(dialog: TemplateRef<any>) {
@@ -92,26 +102,26 @@ export class CareTeamComponent implements OnInit {
     });
     this.dialogRef.close();
   }
-  deleteCareGiver(careGiver,deleteDialog: TemplateRef<any>) {
+  deleteCareGiver(careGiver, deleteDialog: TemplateRef<any>) {
     this.careGiverUsername = careGiver.username;
-    this.deleteDialogRef = this.dialogService.open(deleteDialog,{
-  });
+    this.deleteDialogRef = this.dialogService.open(deleteDialog, {
+    });
     // this.showDone = true;
   }
-  close(){
+  close() {
     this.deleteDialogRef.close();
   }
-  deleteRecord(){ 
+  deleteRecord() {
     const payload = {
-      "careGiverUsername":this.careGiverUsername,
+      "careGiverUsername": this.careGiverUsername,
       "dependentUsername": this.patientInfo.patientID,
-      "userID":this.profileService.id,
+      "userID": this.profileService.id,
     }
-    this.patientService.deleteCareGiver(payload).subscribe((res:any) => {
-     this.getCareTeam();
-     this.deleteDialogRef.close();
-    },error =>{
-      
+    this.patientService.deleteCareGiver(payload).subscribe((res: any) => {
+      this.getCareTeam();
+      this.deleteDialogRef.close();
+    }, error => {
+
     })
   }
 }
