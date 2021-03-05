@@ -178,7 +178,8 @@ export class WeightComponent implements OnInit {
         stepValue: 20,
         steps: 20,
         max: 400,
-        min: 50
+        min: 50,
+        fontColor: theme === 'dark' ? 'white' : 'black',
       },
       scaleLabel: {
         display: true,

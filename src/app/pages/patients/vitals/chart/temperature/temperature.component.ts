@@ -176,7 +176,8 @@ export class TemperatureComponent implements OnInit {
         stepValue: 20,
         steps: 2,
         max: 100,
-        min: 25
+        min: 25,
+        fontColor: theme === 'dark' ? 'white' : 'black',
       },
       scaleLabel: {
         display: true,

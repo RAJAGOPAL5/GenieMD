@@ -42,7 +42,7 @@ export class Spo2Component implements OnInit {
           labelString: 'Percentage',
           fontColor: '#3366ff',
           fontStyle: "bold"
-       }
+        }
       }],
       xAxes: [{
         scaleLabel: {
@@ -50,11 +50,11 @@ export class Spo2Component implements OnInit {
           labelString: 'Date',
           fontColor: '#3366ff',
           fontStyle: "bold"
-       },
-       type: 'time',
-       time: {
-         unit: 'day'
-       }
+        },
+        type: 'time',
+        time: {
+          unit: 'day'
+        }
       }]
     },
     legend: {
@@ -133,57 +133,65 @@ export class Spo2Component implements OnInit {
 
 
   chartOptions() {
-    // const theme = this.theme;
-    // const lineChartOptions: any = {
-    //   scales: {
-    //     yAxes: [{
-    //       ticks: {
-    //         beginAtZero: true,
-    //         stepValue: 20,
-    //         steps: 20,
-    //         max: 120,
-    //         min: 50
-    //       },
-    //       scaleLabel: {
-    //         display: true,
-    //         labelString: 'Percentage',
-    //         fontColor: '#3366ff',
-    //         fontStyle: "bold"
-    //      }
-    //     }],
-    //     xAxes: [{
-    //       scaleLabel: {
-    //         display: true,
-    //         labelString: 'Date',
-    //         fontColor: '#3366ff',
-    //         fontStyle: "bold"
-    //      },
-    //      type: 'time',
-    //      time: {
-    //        unit: 'day'
-    //      }
-    //     }]
-    //   },
-    //   legend: {
-    //     labels: {
-    //       usePointStyle: true
-    //     }
-    //   },
-    //   elements:
-    //   {
-    //     point:
-    //     {
-    //       radius: 5,
-    //       hitRadius: 5,
-    //       hoverRadius: 5,
-    //       hoverBorderWidth: 2,
-    //     }
-    //   }
-    // };
+    const theme = this.theme;
+    const lineChartOptions: any = {
+      scales: {
+        yAxes: [],
+        xAxes: []
+      },
+      legend: {
+        labels: {
+          usePointStyle: true
+        }
+      },
+      elements:
+      {
+        point:
+        {
+          radius: 5,
+          hitRadius: 5,
+          hoverRadius: 5,
+          hoverBorderWidth: 2,
+        }
+      }
+    };
 
-    // lineChartOptions.scales.yAxes = [yAxesScales];
-    // lineChartOptions.scales.xAxes = [xAxesScales];
+    const xAxesScales = {
+      scaleLabel: {
+        display: true,
+        labelString: 'Date',
+        fontColor: theme === 'dark' ? '#3366ff' : 'black',
+        fontStyle: "bold"
+      },
+      type: 'time',
+      time: {
+        unit: 'day'
+      },
+      ticks: {
+        fontColor: theme === 'dark' ? 'white' : 'black',
+      }
+    };
 
-    // this.lineChartOptions = lineChartOptions;
+    const yAxesScales = {
+      ticks: {
+        beginAtZero: true,
+        stepValue: 20,
+        steps: 20,
+        max: 120,
+        min: 50,
+        fontColor: theme === 'dark' ? '#3366ff' : 'black',
+      },
+      scaleLabel: {
+        display: true,
+        labelString: 'Percentage',
+        fontColor: theme === 'dark' ? '#3366ff' : 'black',
+        fontStyle: "bold"
+      }
+    };
+
+    lineChartOptions.scales.yAxes = [yAxesScales];
+    lineChartOptions.scales.xAxes = [xAxesScales];
+
+    this.lineChartOptions = lineChartOptions;
   }
 }
