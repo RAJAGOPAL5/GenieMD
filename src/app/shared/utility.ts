@@ -8,3 +8,6 @@ export const getUserPreferedTheme  = () => {
     }
     return localStorage.getItem('theme') || theme;
 }
+export const getTimeRange = (fromDate, toDate, type) => {
+  console.log('dates', fromDate, toDate, type)
+}

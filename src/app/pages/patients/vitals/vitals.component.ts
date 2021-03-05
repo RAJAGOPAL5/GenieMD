@@ -10,7 +10,8 @@ import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { VitalsService } from 'src/app/shared/service/vitals.service';
-
+import { extendMoment } from 'moment-range';
+const momentRange = extendMoment(moment);
 
 @Component({
   selector: 'app-vitals',
