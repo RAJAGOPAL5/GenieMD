@@ -97,7 +97,7 @@ export class ListComponent implements OnInit {
     };
     // tslint:disable-next-line:no-unused-expression
     monitored === undefined ? payload.name === '' && delete payload.monitored : '';
-    this.patientService.find(payload).pipe(debounceTime(1000)).subscribe((data: any) => {
+    this.patientService.find(payload).subscribe((data: any) => {
       this.users = data.clinicPatientList
       .filter(item => (!!item.firstName || !!item.lastName))
       .map(item => {
@@ -144,8 +144,8 @@ export class ListComponent implements OnInit {
   loadNext() {
     /* Eleminate the initial call */
     if (this.isSearching) { this.isSearching = false; } else {
-    /* Search infinite scroll */
-    if (this.searchText.length > 0) {
+      /* Search infinite scroll */
+      this.searchText.length ? this.payloadScroll.name = this.searchText : '';
       this.payloadScroll.name = this.searchText;
       this.isLoading = true;
       this.patientService.find(this.payloadScroll).subscribe((data: any) => {
@@ -164,26 +164,6 @@ export class ListComponent implements OnInit {
         this.isLoading = false;
         this.toastrService.danger(error);
       });
-    } else {
-        /* Default infinite scroll */
-      this.isLoading = true;
-      this.patientService.find(this.payloadScroll).subscribe((data: any) => {
-        if (this.users !== undefined && this.users.length < data.total) {
-          data.clinicPatientList = data.clinicPatientList.map(item => {
-            item.name = `${item.firstName} ${item.lastName}`.trim();
-            return item;
-          });
-          // tslint:disable-next-line:no-unused-expression
-          data.clinicPatientList.length !== 0 ? this.users.push(...data.clinicPatientList) : '';
-          this.payloadScroll.pageNumber++;
-        }
-        this.isLoading = false;
-        return true;
-      }, error => {
-        this.isLoading = false;
-        this.toastrService.danger(error);
-      });
     }
-  }
   }
 }
