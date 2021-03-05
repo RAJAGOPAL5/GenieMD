@@ -13,13 +13,13 @@ export class WeightComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [];
   public lineChartLabels: Label[] = [];
   public lineChartColors: Color[] = [
-    { // green
+    { // blue
       backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgb(0, 214, 143)',
-      pointBackgroundColor: 'rgb(0, 214, 143)',
+      borderColor: 'blue',
+      pointBackgroundColor: 'blue',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgb(0, 214, 143)'
+      pointHoverBorderColor: 'blue'
     }
   ];
   public lineChartLegend = true;
@@ -48,6 +48,10 @@ export class WeightComponent implements OnInit {
           labelString: 'Date',
           fontColor: 'black',
           fontStyle: "bold"
+       },
+       type: 'time',
+       time: {
+         unit: 'day'
        }
       }]
     },
@@ -74,6 +78,7 @@ export class WeightComponent implements OnInit {
   }
   set data(res) {
     this.chartData = res;
+    this.lineChartData = [];
     this.getData();
   }
   constructor(private vitalService: VitalsService) { }

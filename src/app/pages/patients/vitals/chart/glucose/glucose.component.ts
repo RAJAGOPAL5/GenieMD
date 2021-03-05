@@ -14,13 +14,13 @@ export class GlucoseComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [];
   public lineChartLabels: Label[] = [];
   public lineChartColors: Color[] = [
-    { // green
+    { // Orange
       backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgb(0, 214, 143)',
-      pointBackgroundColor: 'rgb(0, 214, 143)',
+      borderColor: 'rgb(255,69,0)',
+      pointBackgroundColor: 'rgb(255,69,0)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgb(0, 214, 143)'
+      pointHoverBorderColor: 'rgb(255,69,0)'
     }
   ];
   public lineChartLegend = true;
@@ -49,6 +49,10 @@ export class GlucoseComponent implements OnInit {
           labelString: 'Date',
           fontColor: 'black',
           fontStyle: "bold"
+       },
+       type: 'time',
+       time: {
+         unit: 'day'
        }
       }]
     },
@@ -75,6 +79,7 @@ export class GlucoseComponent implements OnInit {
   }
   set data(res) {
     this.chartData = res;
+    this.lineChartData = [];
     this.getData();
   }
   constructor(private vitalService: VitalsService) { }
