@@ -1,5 +1,6 @@
 import { BLACK_ON_WHITE_CSS_CLASS } from '@angular/cdk/a11y/high-contrast-mode/high-contrast-mode-detector';
 import { Component, Input, OnInit } from '@angular/core';
+import { NbThemeService } from '@nebular/theme';
 import { ChartDataSets } from 'chart.js';
 import * as moment from 'moment';
 import { Color, Label } from 'ng2-charts';
@@ -39,7 +40,7 @@ export class BloodPressureComponent implements OnInit {
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgb(51, 102, 255)'
     }
-   
+
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
@@ -59,7 +60,7 @@ export class BloodPressureComponent implements OnInit {
           labelString: 'mmHG',
           fontColor: '#3366ff',
           fontStyle: "bold"
-       }
+        }
       }],
       xAxes: [{
         scaleLabel: {
@@ -67,11 +68,11 @@ export class BloodPressureComponent implements OnInit {
           labelString: 'Date',
           fontColor: '#3366ff',
           fontStyle: "bold"
-       },
-       type: 'time',
-       time: {
-         unit: 'day'
-       }
+        },
+        type: 'time',
+        time: {
+          unit: 'day'
+        }
       }]
     },
     legend: {
@@ -92,6 +93,7 @@ export class BloodPressureComponent implements OnInit {
   };
   isLoading = false;
   chartData: any;
+  theme: string;
   @Input()
   get data() {
     return this.chartData;
@@ -101,11 +103,19 @@ export class BloodPressureComponent implements OnInit {
     this.lineChartData = [];
     this.getData();
   }
-  constructor(private vitalService: VitalsService) { }
+  constructor(
+    private vitalService: VitalsService,
+    private themeService: NbThemeService,
+  ) { }
 
   ngOnInit(): void {
-
+    this.themeService.onThemeChange().subscribe(theme => {
+      console.log('Theme changed: ', theme);
+      this.theme = theme.name;
+      this.chartOptions();
+    });
   }
+
   getData() {
     this.isLoading = true;
     const fromDate = this.chartData.fromDate || moment('1900-02-01').valueOf();
@@ -156,6 +166,69 @@ export class BloodPressureComponent implements OnInit {
       this.isLoading = false;
       throw error;
     });
+  }
+
+  chartOptions() {
+    const theme = this.theme;
+    const lineChartOptions: any = {
+      scales: {
+        yAxes: [],
+        xAxes: []
+      },
+      legend: {
+        labels: {
+          usePointStyle: true
+        }
+      },
+      elements:
+      {
+        point:
+        {
+          radius: 5,
+          hitRadius: 5,
+          hoverRadius: 5,
+          hoverBorderWidth: 2,
+        }
+      }
+    };
+
+    const xAxesScales = {
+      scaleLabel: {
+        display: true,
+        labelString: 'Date',
+        fontColor: theme === 'dark' ? '#3366ff' : 'black',
+        fontStyle: "bold"
+      },
+      type: 'time',
+      time: {
+        unit: 'day'
+      },
+      ticks: {
+        fontColor: theme === 'dark' ? 'white' : 'black',
+      }
+    }
+
+    const yAxesScales = {
+      ticks: {
+        beginAtZero: true,
+        stepValue: 20,
+        steps: 20,
+        max: 250,
+        min: 40,
+        fontColor: theme === 'dark' ? 'white' : 'black',
+      },
+      scaleLabel: {
+        display: true,
+        labelString: 'mmHG',
+        fontColor: theme === 'dark' ? '#3366ff' : 'black',
+        fontStyle: "bold"
+      }
+    };
+
+    lineChartOptions.scales.yAxes = [yAxesScales];
+    lineChartOptions.scales.xAxes = [xAxesScales];
+
+    this.lineChartOptions = lineChartOptions;
   }
 
 }

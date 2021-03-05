@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NbThemeService } from '@nebular/theme';
 import { ChartDataSets } from 'chart.js';
 import * as moment from 'moment';
 import { Color, Label } from 'ng2-charts';
@@ -41,7 +42,7 @@ export class GlucoseComponent implements OnInit {
           labelString: 'mg/dL',
           fontColor: '#3366ff',
           fontStyle: "bold"
-       }
+        }
       }],
       xAxes: [{
         scaleLabel: {
@@ -49,11 +50,11 @@ export class GlucoseComponent implements OnInit {
           labelString: 'Date',
           fontColor: '#3366ff',
           fontStyle: "bold"
-       },
-       type: 'time',
-       time: {
-         unit: 'day'
-       }
+        },
+        type: 'time',
+        time: {
+          unit: 'day'
+        }
       }]
     },
     legend: {
@@ -72,8 +73,9 @@ export class GlucoseComponent implements OnInit {
       }
     }
   };
-isLoading = false;
+  isLoading = false;
   chartData: any;
+  theme: string;
   @Input()
   get data() {
     return this.chartData;
@@ -83,10 +85,17 @@ isLoading = false;
     this.lineChartData = [];
     this.getData();
   }
-  constructor(private vitalService: VitalsService) { }
+  constructor(
+    private vitalService: VitalsService,
+    private themeService: NbThemeService,
+  ) { }
 
   ngOnInit(): void {
-
+    this.themeService.onThemeChange().subscribe(theme => {
+      console.log('Theme changed: ', theme);
+      this.theme = theme.name;
+      this.chartOptions();
+    });
   }
   getData() {
     this.isLoading = true;
@@ -122,5 +131,70 @@ isLoading = false;
       throw error;
     });
   }
+
+
+  chartOptions() {
+    const theme = this.theme;
+    const lineChartOptions: any = {
+      scales: {
+        yAxes: [],
+        xAxes: []
+      },
+      legend: {
+        labels: {
+          usePointStyle: true
+        }
+      },
+      elements:
+      {
+        point:
+        {
+          radius: 5,
+          hitRadius: 5,
+          hoverRadius: 5,
+          hoverBorderWidth: 2,
+        }
+      }
+    };
+
+    const yAxesScales = {
+      ticks: {
+        beginAtZero: true,
+        stepValue: 20,
+        steps: 2,
+        max: 600,
+        min: 0,
+        fontColor: theme === 'dark' ? 'white' : 'black',
+      },
+      scaleLabel: {
+        display: true,
+        labelString: 'mg/dL',
+        fontColor: theme === 'dark' ? '#3366ff' : 'black',
+        fontStyle: "bold"
+      }
+    }
+
+    const xAxesScales = {
+      ticks: {
+        fontColor: theme === 'dark' ? 'white' : 'black',
+      },
+      scaleLabel: {
+        display: true,
+        labelString: 'Date',
+        fontColor: theme === 'dark' ? '#3366ff' : 'black',
+        fontStyle: "bold"
+      },
+      type: 'time',
+      time: {
+        unit: 'day'
+      }
+    };
+
+    lineChartOptions.scales.yAxes = [yAxesScales];
+    lineChartOptions.scales.xAxes = [xAxesScales];
+
+    this.lineChartOptions = lineChartOptions;
+  }
+
 
 }

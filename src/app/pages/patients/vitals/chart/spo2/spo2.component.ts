@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NbThemeService } from '@nebular/theme';
 import { ChartDataSets } from 'chart.js';
 import * as moment from 'moment';
 import { Color, Label } from 'ng2-charts';
@@ -74,6 +75,7 @@ export class Spo2Component implements OnInit {
   };
   isLoading = false;
   chartData: any;
+  theme: string;
   @Input()
   get data() {
     return this.chartData;
@@ -83,10 +85,17 @@ export class Spo2Component implements OnInit {
     this.lineChartData = [];
     this.getData();
   }
-  constructor(private vitalService: VitalsService) { }
+  constructor(
+    private vitalService: VitalsService,
+    private themeService: NbThemeService,
+  ) { }
 
   ngOnInit(): void {
-
+    this.themeService.onThemeChange().subscribe(theme => {
+      console.log('Theme changed: ', theme);
+      this.theme = theme.name;
+      this.chartOptions();
+    });
   }
   getData() {
     this.isLoading = true;
@@ -122,4 +131,59 @@ export class Spo2Component implements OnInit {
     });
   }
 
+
+  chartOptions() {
+    // const theme = this.theme;
+    // const lineChartOptions: any = {
+    //   scales: {
+    //     yAxes: [{
+    //       ticks: {
+    //         beginAtZero: true,
+    //         stepValue: 20,
+    //         steps: 20,
+    //         max: 120,
+    //         min: 50
+    //       },
+    //       scaleLabel: {
+    //         display: true,
+    //         labelString: 'Percentage',
+    //         fontColor: '#3366ff',
+    //         fontStyle: "bold"
+    //      }
+    //     }],
+    //     xAxes: [{
+    //       scaleLabel: {
+    //         display: true,
+    //         labelString: 'Date',
+    //         fontColor: '#3366ff',
+    //         fontStyle: "bold"
+    //      },
+    //      type: 'time',
+    //      time: {
+    //        unit: 'day'
+    //      }
+    //     }]
+    //   },
+    //   legend: {
+    //     labels: {
+    //       usePointStyle: true
+    //     }
+    //   },
+    //   elements:
+    //   {
+    //     point:
+    //     {
+    //       radius: 5,
+    //       hitRadius: 5,
+    //       hoverRadius: 5,
+    //       hoverBorderWidth: 2,
+    //     }
+    //   }
+    // };
+
+    // lineChartOptions.scales.yAxes = [yAxesScales];
+    // lineChartOptions.scales.xAxes = [xAxesScales];
+
+    // this.lineChartOptions = lineChartOptions;
+  }
 }
