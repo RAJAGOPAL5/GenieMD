@@ -111,8 +111,12 @@ export class GlucoseComponent implements OnInit {
       this.isLoading = false;
 
       if (data) {
-        (data.vitalsList || []).forEach(item => {
-          this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM'));
+        (data.vitalsList || [])
+        .sort((a, b) => {
+          return new Date(a.vitalDate) > new Date(b.vitalDate) ? 0 : -1;
+        })
+        .forEach(item => {
+          this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM/YY'));
           let vialData;
           try {
             vialData = JSON.parse(item.vitalData);
@@ -177,6 +181,7 @@ export class GlucoseComponent implements OnInit {
     const xAxesScales = {
       ticks: {
         fontColor: theme === 'dark' ? 'white' : 'black',
+        source: 'data'
       },
       scaleLabel: {
         display: true,
@@ -185,8 +190,10 @@ export class GlucoseComponent implements OnInit {
         fontStyle: "bold"
       },
       type: 'time',
+      distribution: 'series',
       time: {
-        unit: 'day'
+        unit: 'day',
+        parser: 'DD/MM/YY',
       }
     };
 

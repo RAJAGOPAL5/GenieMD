@@ -109,8 +109,12 @@ export class WeightComponent implements OnInit {
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 6).subscribe((data: any) => {
       this.isLoading = false;
       if (!!data.vitalsList) {
-        (data.vitalsList || []).forEach(item => {
-          this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM'));
+        (data.vitalsList || [])
+        .sort((a, b) => {
+          return new Date(a.vitalDate) > new Date(b.vitalDate) ? 0 : -1;
+        })
+        .forEach(item => {
+          this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM/YY'));
           let vialData;
           try {
             vialData = JSON.parse(item.vitalData);
@@ -164,11 +168,14 @@ export class WeightComponent implements OnInit {
         fontStyle: "bold"
       },
       type: 'time',
+      distribution: 'series',
       time: {
-        unit: 'day'
+        unit: 'day',
+        parser: 'DD/MM/YY',
       },
       ticks: {
         fontColor: theme === 'dark' ? 'white' : 'black',
+        source: 'data'
       }
     }
 

@@ -1,65 +1,54 @@
 <nb-card size="large" style="overflow: auto" class="mb-0" [nbSpinner]="isLoading">
     <nb-card-header>
-        <div class="row">
-            <!-- <div class="col-auto my-auto">{{'kTimeRange' | translate}}</div>
-            <div class="col-md-3 ps-4">
-                <nb-select size="medium" class="w-100" [(ngModel)]="duration" fullWidth (selectedChange)="getList($event)">
-                    <nb-option *ngFor="let item of timeduration" [value]="item.id">{{item?.val}}
-                    </nb-option>
-                </nb-select>
-            </div>  -->
-             <!-- <div class="col-md-3">
-                <date-range-picker  (rangeSelected)="selectedDate()" name="rangeDate" [parentFormGroup]="form"
-                [controlName]="'dateRange'"></date-range-picker>
-            </div>  -->
-            <!-- <div class="col-auto my-auto">{{'kTimeRange' | translate}}</div> -->
-            <div class="col-md-2">
-                <p class="subtitle">Date Range</p>
-            </div>
-            <div class="col-md-5 pt-1">                        
-                <button nbButton outline status="primary" (click)="getList('1w')" class="m-1" size="tiny">1w</button>
-                <button nbButton outline status="primary" (click)="getList('1m')" class="m-1" size="tiny">1m</button>
-                <button nbButton outline status="primary" (click)="getList('3m')" class="m-1" size="tiny">3m</button>
-                <button nbButton outline status="primary" (click)="getList('6m')" class="m-1" size="tiny">6m</button>
-                <button nbButton outline status="primary" (click)="getList('1y')" class="m-1" size="tiny">1y</button>
-                <button nbButton outline status="primary" (click)="getList('all')" class="m-1" size="tiny">All</button>          
-            </div>
-            <div class="col-md-2">
-                <p class="subtitle mx-4">Custom Date</p>
-            </div>
-            <div class="col-md-3">
-                <input nbInput placeholder="Pick a date range" class="form-control" [nbDatepicker]="formcontrol">
+        <div class="d-flex w-100">
+            <span class="ps-2 subtitle d-flex align-items-center">
+                Date Range
+            </span>
+            <span class="ps-2">
+                <button nbButton ghost status="primary" (click)="getList('1w')" class="m-1" size="small">1w</button>
+                <button nbButton ghost status="primary" (click)="getList('1m')" class="m-1" size="small">1m</button>
+                <button nbButton ghost status="primary" (click)="getList('3m')" class="m-1" size="small">3m</button>
+                <button nbButton ghost status="primary" (click)="getList('6m')" class="m-1" size="small">6m</button>
+                <button nbButton ghost status="primary" (click)="getList('1y')" class="m-1" size="small">1y</button>
+                <button nbButton ghost status="primary" (click)="getList('all')" class="m-1" size="small">All</button>
+            </span>
+            <span class="ms-auto"></span>
+            <span class="subtitle d-flex align-items-center">
+                Custom Date
+            </span>
+            <span class="ps-2">
+                <input nbInput placeholder="Pick a date range" class="form-control" [nbDatepicker]="formcontrol" size="small">
                 <nb-rangepicker #formcontrol></nb-rangepicker>
-            </div>
+            </span>
         </div>
     </nb-card-header>
     <nb-card-body>
-        <div class="row"  *ngIf="vitals?.length">
-        <div class="col-md-12" *ngFor="let item of vitals">
-            <ng-container [ngSwitch]="item?.vitalType">
-                <ng-container *ngSwitchCase="1">
-                    <app-blood-pressure [data]="chartInfo"></app-blood-pressure>
+        <div class="row" *ngIf="vitals?.length">
+            <div class="col-md-12" *ngFor="let item of vitals">
+                <ng-container [ngSwitch]="item?.vitalType">
+                    <ng-container *ngSwitchCase="1">
+                        <app-blood-pressure [data]="chartInfo"></app-blood-pressure>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="2">
+                        <app-glucose [data]="chartInfo"></app-glucose>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="13">
+                        <app-spo2 [data]="chartInfo"></app-spo2>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="6">
+                        <app-weight [data]="chartInfo"></app-weight>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="14">
+                        <app-temperature [data]="chartInfo"></app-temperature>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                        No Records found
+                    </ng-container>
                 </ng-container>
-                <ng-container *ngSwitchCase="2">
-                    <app-glucose [data]="chartInfo"></app-glucose>
-                </ng-container>
-                <ng-container *ngSwitchCase="13">
-                   <app-spo2 [data]="chartInfo"></app-spo2>
-                </ng-container>
-                <ng-container *ngSwitchCase="6">
-                    <app-weight [data]="chartInfo"></app-weight>
-                </ng-container>
-                <ng-container *ngSwitchCase="14">
-                    <app-temperature [data]="chartInfo"></app-temperature>
-                </ng-container>
-                <ng-container *ngSwitchDefault>
-                    No Records found
-                </ng-container>
-            </ng-container>
-            <!-- <app-vital-chart *ngFor="let item of vitals" [type]="item?.vitalType" [name]="item?.displayName"
+                <!-- <app-vital-chart *ngFor="let item of vitals" [type]="item?.vitalType" [name]="item?.displayName"
                 [chartData]="chartInfo"></app-vital-chart> -->
             </div>
-    </div>
+        </div>
         <p *ngIf="!vitals?.length">{{'kNovitalsfound' | translate}}</p>
     </nb-card-body>
 </nb-card>

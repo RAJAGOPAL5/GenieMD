@@ -111,8 +111,12 @@ export class Spo2Component implements OnInit {
       this.isLoading = false;
 
       if (data) {
-        (data.vitalsList || []).forEach(item => {
-          this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM'));
+        (data.vitalsList || [])
+        .sort((a, b) => {
+          return new Date(a.vitalDate) > new Date(b.vitalDate) ? 0 : -1;
+        })
+        .forEach(item => {
+          this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM/YY'));
           let vialData;
           try {
             vialData = JSON.parse(item.vitalData);
@@ -164,11 +168,14 @@ export class Spo2Component implements OnInit {
         fontStyle: "bold"
       },
       type: 'time',
+      distribution: 'series',
       time: {
-        unit: 'day'
+        unit: 'day',
+        parser: 'DD/MM/YY',
       },
       ticks: {
         fontColor: theme === 'dark' ? 'white' : 'black',
+        source: 'data'
       }
     };
 
@@ -179,7 +186,7 @@ export class Spo2Component implements OnInit {
         steps: 20,
         max: 120,
         min: 50,
-        fontColor: theme === 'dark' ? '#3366ff' : 'black',
+        fontColor: theme === 'dark' ? 'white' : 'black',
       },
       scaleLabel: {
         display: true,
