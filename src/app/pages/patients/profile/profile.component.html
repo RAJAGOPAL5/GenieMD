@@ -56,14 +56,14 @@
                 </div>
             </div>
             <div class="col-md-2 mt-3">
-                <button nbButton status="primary" class="mx-3 mb-2 p-2">Chart</button>
-                <button nbButton  [nbPopover]="templateRef" nbPopoverPlacement="right" status="primary" class="mx-3 mb-2 p-2">Call</button>
-                <button nbButton status="primary" class="mx-3 mb-2 p-2">Schedule</button>
+                <button nbButton status="primary" class="mb-2 w-75 btn-lg">Chart</button>
+                <button nbButton  [nbPopover]="templateRef" nbPopoverPlacement="right" status="primary" class="mb-2 w-75 btn-lg">Call</button>
+                <button nbButton status="primary" class="mb-2 w-75 btn-lg">Schedule</button>
             </div> 
             <ng-template #templateRef>
-                <button nbButton class="mx-2 mb-2">Audio</button>
-                <button nbButton class="mx-2 mb-2">Video</button>
-                <button nbButton class="mx-2 mb-2">Call Bridge</button>
+                <button nbButton status="success" class="mx-2 m-1">Audio</button>
+                <button nbButton status="success" class="mx-2 m-1">Video</button>
+                <button nbButton status="success" class="mx-2 m-1">Call Bridge</button>
               </ng-template>
         </div>
     </nb-card-body>
