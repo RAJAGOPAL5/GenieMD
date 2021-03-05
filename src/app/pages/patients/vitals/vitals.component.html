@@ -7,10 +7,26 @@
                     <nb-option *ngFor="let item of timeduration" [value]="item.id">{{item?.val}}
                     </nb-option>
                 </nb-select>
-            </div> -->
-            <div class="col-md-3">
+            </div>  -->
+             <!-- <div class="col-md-3">
                 <date-range-picker  (rangeSelected)="selectedDate()" name="rangeDate" [parentFormGroup]="form"
                 [controlName]="'dateRange'"></date-range-picker>
+            </div>  -->
+            <!-- <div class="col-auto my-auto">{{'kTimeRange' | translate}}</div> -->
+            <div class="col-md-2">
+                <p>Time range</p>
+            </div>
+            <div class="col-md-7">
+                <button nbButton status="primary" class="m-1">1w</button>
+                <button nbButton status="primary" class="m-1">1m</button>
+                <button nbButton status="primary" class="m-1">3m</button>
+                <button nbButton status="primary" class="m-1">6m</button>
+                <button nbButton status="primary" class="m-1">1y</button>
+                <button nbButton status="primary" class="m-1">All</button>
+            </div>
+            <div class="col-md-3">
+                <input nbInput placeholder="Pick a date range" class="m-1" [nbDatepicker]="formpicker">
+                <nb-rangepicker #formpicker></nb-rangepicker>
             </div>
         </div>
     </nb-card-header>
