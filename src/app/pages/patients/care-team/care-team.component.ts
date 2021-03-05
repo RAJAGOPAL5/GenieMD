@@ -15,7 +15,7 @@ import { ProfileService } from 'src/app/shared/service/profile.service';
   styleUrls: ['./care-team.component.scss']
 })
 export class CareTeamComponent implements OnInit {
-  isLoading = true;
+  isLoading = false;
   careTeam: any;
   patientId: any
   carTeam: any;

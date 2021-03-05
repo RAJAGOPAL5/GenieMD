@@ -57,7 +57,7 @@ export class BloodPressureComponent implements OnInit {
         scaleLabel: {
           display: true,
           labelString: 'mmHG',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
        }
       }],
@@ -65,7 +65,7 @@ export class BloodPressureComponent implements OnInit {
         scaleLabel: {
           display: true,
           labelString: 'Date',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
        },
        type: 'time',
