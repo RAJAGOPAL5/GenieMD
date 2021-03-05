@@ -49,6 +49,10 @@ export class GlucoseComponent implements OnInit {
           labelString: 'Date',
           fontColor: 'black',
           fontStyle: "bold"
+       },
+       type: 'time',
+       time: {
+         unit: 'day'
        }
       }]
     },
@@ -75,6 +79,7 @@ export class GlucoseComponent implements OnInit {
   }
   set data(res) {
     this.chartData = res;
+    this.lineChartData = [];
     this.getData();
   }
   constructor(private vitalService: VitalsService) { }
