@@ -13,8 +13,8 @@
                 [controlName]="'dateRange'"></date-range-picker>
             </div>  -->
             <!-- <div class="col-auto my-auto">{{'kTimeRange' | translate}}</div> -->
-            <div class="col-md-2">
-                <p>Time range</p>
+            <div class="col-md-1">
+                <p class="subtitle">Range</p>
             </div>
             <div class="col-md-7">
                 <button nbButton status="primary" class="m-1">1w</button>
@@ -23,6 +23,9 @@
                 <button nbButton status="primary" class="m-1">6m</button>
                 <button nbButton status="primary" class="m-1">1y</button>
                 <button nbButton status="primary" class="m-1">All</button>
+            </div>
+            <div class="col-md-1">
+                <p class="subtitle">Custom:</p>
             </div>
             <div class="col-md-3">
                 <input nbInput placeholder="Pick a date range" class="m-1" [nbDatepicker]="formpicker">
