@@ -38,7 +38,7 @@ export class TemperatureComponent implements OnInit {
         scaleLabel: {
           display: true,
           labelString: 'Celcius',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
        }
       }],
@@ -46,7 +46,7 @@ export class TemperatureComponent implements OnInit {
         scaleLabel: {
           display: true,
           labelString: 'Date',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
        },
        type: 'time',

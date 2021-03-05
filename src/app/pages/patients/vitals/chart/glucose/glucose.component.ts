@@ -39,7 +39,7 @@ export class GlucoseComponent implements OnInit {
         scaleLabel: {
           display: true,
           labelString: 'mg/dL',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
        }
       }],
@@ -47,7 +47,7 @@ export class GlucoseComponent implements OnInit {
         scaleLabel: {
           display: true,
           labelString: 'Date',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
        },
        type: 'time',

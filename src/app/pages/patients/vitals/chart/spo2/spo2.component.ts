@@ -39,7 +39,7 @@ export class Spo2Component implements OnInit {
         scaleLabel: {
           display: true,
           labelString: 'Percentage',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
        }
       }],
@@ -47,7 +47,7 @@ export class Spo2Component implements OnInit {
         scaleLabel: {
           display: true,
           labelString: 'Date',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
        },
        type: 'time',
