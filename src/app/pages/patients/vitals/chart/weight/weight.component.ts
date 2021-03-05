@@ -99,7 +99,7 @@ export class WeightComponent implements OnInit {
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 6).subscribe((data: any) => {
       this.isLoading = false;
-      if (data) {
+      if (!!data.vitalsList) {
         (data.vitalsList || []).forEach(item => {
           this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM'));
           let vialData;
@@ -113,6 +113,8 @@ export class WeightComponent implements OnInit {
           }
         });
         this.lineChartData = [weightData]
+      }else{
+        this.lineChartData = []
       }
     }, error => {
       this.isLoading = false;
