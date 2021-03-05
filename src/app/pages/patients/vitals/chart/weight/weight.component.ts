@@ -78,6 +78,7 @@ export class WeightComponent implements OnInit {
   }
   set data(res) {
     this.chartData = res;
+    this.lineChartData = [];
     this.getData();
   }
   constructor(private vitalService: VitalsService) { }

@@ -79,6 +79,7 @@ export class Spo2Component implements OnInit {
   }
   set data(res) {
     this.chartData = res;
+    this.lineChartData = [];
     this.getData();
   }
   constructor(private vitalService: VitalsService) { }
