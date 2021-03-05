@@ -51,9 +51,9 @@ const routes: Routes = [
             data: { title: 'Alerts'}
           },
           {
-            path: 'visits',
+            path: 'schedule',
             component: VisitsComponent,
-            data: {title: 'Visits'}
+            data: {title: 'Schedules'}
           }
         ]
       }

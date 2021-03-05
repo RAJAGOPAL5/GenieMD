@@ -107,8 +107,8 @@ export class ProfileComponent implements OnInit {
         route: `alerts`,
       },
       {
-        title: 'Visits',
-        route: `visits`,
+        title: 'Schedules',
+        route: `schedule`,
       },
       {
         title: 'Care Team',
