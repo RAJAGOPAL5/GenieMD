@@ -33,7 +33,8 @@ import { TemperatureComponent } from './vitals/chart/temperature/temperature.com
 import { WeightComponent } from './vitals/chart/weight/weight.component';
 import { Spo2Component } from './vitals/chart/spo2/spo2.component';
 import { NgxDateRangeModule } from 'ngx-daterange';
-
+import { CareCircleComponent } from './care-team/care-circle/care-circle.component';
+import { AvatarModule } from 'ngx-avatar';
 // export function HttpLoaderFactory(http: HttpClient) {
 //   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json');
 // }
@@ -52,7 +53,8 @@ import { NgxDateRangeModule } from 'ngx-daterange';
     GlucoseComponent,
     TemperatureComponent,
     WeightComponent,
-    Spo2Component
+    Spo2Component,
+    CareCircleComponent
   ],
   imports: [
     CommonModule,
@@ -86,7 +88,8 @@ import { NgxDateRangeModule } from 'ngx-daterange';
     NgxDateRangeModule,
     NbPopoverModule,
     NbCalendarRangeModule,
-    NbCalendarModule
+    NbCalendarModule,
+    AvatarModule
   ],
   entryComponents: [AddComponent]
 })

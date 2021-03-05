@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NbThemeService } from '@nebular/theme';
 import { ChartDataSets } from 'chart.js';
 import * as moment from 'moment';
 import { Color, Label } from 'ng2-charts';
@@ -39,21 +40,21 @@ export class GlucoseComponent implements OnInit {
         scaleLabel: {
           display: true,
           labelString: 'mg/dL',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
-       }
+        }
       }],
       xAxes: [{
         scaleLabel: {
           display: true,
           labelString: 'Date',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
-       },
-       type: 'time',
-       time: {
-         unit: 'day'
-       }
+        },
+        type: 'time',
+        time: {
+          unit: 'day'
+        }
       }]
     },
     legend: {
@@ -72,7 +73,9 @@ export class GlucoseComponent implements OnInit {
       }
     }
   };
+  isLoading = false;
   chartData: any;
+  theme: string;
   @Input()
   get data() {
     return this.chartData;
@@ -82,12 +85,20 @@ export class GlucoseComponent implements OnInit {
     this.lineChartData = [];
     this.getData();
   }
-  constructor(private vitalService: VitalsService) { }
+  constructor(
+    private vitalService: VitalsService,
+    private themeService: NbThemeService,
+  ) { }
 
   ngOnInit(): void {
-
+    this.themeService.onThemeChange().subscribe(theme => {
+      console.log('Theme changed: ', theme);
+      this.theme = theme.name;
+      this.chartOptions();
+    });
   }
   getData() {
+    this.isLoading = true;
     const fromDate = this.chartData.fromDate || moment('1900-02-01').valueOf();
     const toDate = this.chartData.toDate || moment().add(1, 'days').valueOf();
     const GlucoseData = {
@@ -97,6 +108,8 @@ export class GlucoseComponent implements OnInit {
       lineTension: 0
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 2).subscribe((data: any) => {
+      this.isLoading = false;
+
       if (data) {
         (data.vitalsList || []).forEach(item => {
           this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM'));
@@ -113,8 +126,75 @@ export class GlucoseComponent implements OnInit {
         this.lineChartData = [GlucoseData]
       }
     }, error => {
+      this.isLoading = false;
+
       throw error;
     });
   }
+
+
+  chartOptions() {
+    const theme = this.theme;
+    const lineChartOptions: any = {
+      scales: {
+        yAxes: [],
+        xAxes: []
+      },
+      legend: {
+        labels: {
+          usePointStyle: true
+        }
+      },
+      elements:
+      {
+        point:
+        {
+          radius: 5,
+          hitRadius: 5,
+          hoverRadius: 5,
+          hoverBorderWidth: 2,
+        }
+      }
+    };
+
+    const yAxesScales = {
+      ticks: {
+        beginAtZero: true,
+        stepValue: 20,
+        steps: 2,
+        max: 600,
+        min: 0,
+        fontColor: theme === 'dark' ? 'white' : 'black',
+      },
+      scaleLabel: {
+        display: true,
+        labelString: 'mg/dL',
+        fontColor: theme === 'dark' ? '#3366ff' : 'black',
+        fontStyle: "bold"
+      }
+    }
+
+    const xAxesScales = {
+      ticks: {
+        fontColor: theme === 'dark' ? 'white' : 'black',
+      },
+      scaleLabel: {
+        display: true,
+        labelString: 'Date',
+        fontColor: theme === 'dark' ? '#3366ff' : 'black',
+        fontStyle: "bold"
+      },
+      type: 'time',
+      time: {
+        unit: 'day'
+      }
+    };
+
+    lineChartOptions.scales.yAxes = [yAxesScales];
+    lineChartOptions.scales.xAxes = [xAxesScales];
+
+    this.lineChartOptions = lineChartOptions;
+  }
+
 
 }

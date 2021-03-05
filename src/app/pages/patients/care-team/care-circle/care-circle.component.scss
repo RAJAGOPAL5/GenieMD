@@ -1,0 +1,32 @@
+.circle-graph {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin: 65px;
+  }
+  
+  .circle-graph:before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    border: 2px solid #3366ff;
+    width: calc( 100% - 2px * 2);
+    height: calc( 100% - 2px * 2 );
+    border-radius: 50%;
+  }
+  
+  .circle-graph .circle-item {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 100px;
+    height: 100px;
+    margin: calc( -100px / 2 );
+    background: #3366ff;
+    border-radius: 50%;
+  }
+
+  .primary-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

@@ -38,7 +38,7 @@ export class WeightComponent implements OnInit {
         scaleLabel: {
           display: true,
           labelString: 'lbs',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
        }
       }],
@@ -46,7 +46,7 @@ export class WeightComponent implements OnInit {
         scaleLabel: {
           display: true,
           labelString: 'Date',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
        },
        type: 'time',
@@ -71,6 +71,7 @@ export class WeightComponent implements OnInit {
       }
     }
   };
+  isLoading = false;
   chartData: any;
   @Input()
   get data() {
@@ -87,6 +88,7 @@ export class WeightComponent implements OnInit {
 
   }
   getData() {
+    this.isLoading = true;
     const fromDate = this.chartData.fromDate || moment('1900-02-01').valueOf();
     const toDate = this.chartData.toDate || moment().add(1, 'days').valueOf();
     const weightData = {
@@ -96,7 +98,8 @@ export class WeightComponent implements OnInit {
       lineTension: 0
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 6).subscribe((data: any) => {
-      if (data) {
+      this.isLoading = false;
+      if (!!data.vitalsList) {
         (data.vitalsList || []).forEach(item => {
           this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM'));
           let vialData;
@@ -110,8 +113,11 @@ export class WeightComponent implements OnInit {
           }
         });
         this.lineChartData = [weightData]
+      }else{
+        this.lineChartData = []
       }
     }, error => {
+      this.isLoading = false;
       throw error;
     });
   }

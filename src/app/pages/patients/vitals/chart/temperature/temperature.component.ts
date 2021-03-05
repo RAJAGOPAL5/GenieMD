@@ -38,7 +38,7 @@ export class TemperatureComponent implements OnInit {
         scaleLabel: {
           display: true,
           labelString: 'Celcius',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
        }
       }],
@@ -46,7 +46,7 @@ export class TemperatureComponent implements OnInit {
         scaleLabel: {
           display: true,
           labelString: 'Date',
-          fontColor: 'black',
+          fontColor: '#3366ff',
           fontStyle: "bold"
        },
        type: 'time',
@@ -71,6 +71,7 @@ export class TemperatureComponent implements OnInit {
       }
     }
   };
+  isLoading = false;
   chartData: any;
   @Input()
   get data() {
@@ -87,6 +88,7 @@ export class TemperatureComponent implements OnInit {
 
   }
   getData() {
+    this.isLoading = true;
     const fromDate = this.chartData.fromDate || moment('1900-02-01').valueOf();
     const toDate = this.chartData.toDate || moment().add(1, 'days').valueOf();
     const TempData = {
@@ -96,6 +98,7 @@ export class TemperatureComponent implements OnInit {
       lineTension: 0
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 14).subscribe((data: any) => {
+      this.isLoading = false;
       if (data) {
         (data.vitalsList || []).forEach(item => {
           this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM'));
@@ -112,6 +115,7 @@ export class TemperatureComponent implements OnInit {
         this.lineChartData = [TempData]
       }
     }, error => {
+      this.isLoading = false;
       throw error;
     });
   }

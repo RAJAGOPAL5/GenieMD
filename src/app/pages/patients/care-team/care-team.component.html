@@ -9,18 +9,11 @@
                     <nb-icon icon="plus" nbTooltip="Add Care Givers" nbTooltipStatus="control" class="text-white">
                     </nb-icon>
                 </button>
-                <!-- <button *ngIf="!showDone" nbButton ghost size="gaint" (click)="change()" class="text-white ps-3">
-                    <nb-icon icon="edit" nbTooltip="Remove Care Givers" nbTooltipStatus="control" class="text-white">
-                    </nb-icon>
-                </button>
-                <button *ngIf="showDone" nbButton ghost size="large" (click)="change()"
-                    class="text-white ps-3">{{'kDone' | translate}}</button> -->
             </div>
         </div>
     </nb-card-header>
     <nb-card-body class="pl-1">
-        <div class="row">
-            <!-- <div class="col-md-3"></div> -->
+        <!-- <div class="row">
             <div class="col-md-12">
                 <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of careTeam">
                     <nb-user [name]="user.name" [title]="user.email" [picture]="user.imageUrl">
@@ -30,8 +23,8 @@
                 </nb-list-item>
                     <h6 *ngIf="!careTeam" class="text-center">{{'kMsgNoCaregivers' | translate}}</h6>
             </div>
-            <!-- <div class="col-md-3"></div> -->
-        </div>
+        </div> -->
+        <app-care-circle class="d-flex justify-content-center" [config]="team"></app-care-circle>
     </nb-card-body>
 </nb-card>
 <ng-template #dialog>
