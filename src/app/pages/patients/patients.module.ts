@@ -11,7 +11,7 @@ import {
   NbTabsetModule, NbUserModule, NbIconModule, NbSpinnerModule,
   NbButtonModule, NbRadioModule, NbSelectModule, NbToggleModule,
   NbDatepickerModule, NbActionsModule, NbButtonGroupModule, NbCheckboxModule,
-  NbBadgeModule, NbTooltipModule
+  NbBadgeModule, NbTooltipModule, NbPopoverModule
 } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddComponent } from './add/add.component';
@@ -83,7 +83,8 @@ import { NgxDateRangeModule } from 'ngx-daterange';
     NbBadgeModule,
     NbTooltipModule,
     ChartsModule,
-    NgxDateRangeModule
+    NgxDateRangeModule,
+    NbPopoverModule
   ],
   entryComponents: [AddComponent]
 })
