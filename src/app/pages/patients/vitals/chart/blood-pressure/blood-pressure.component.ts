@@ -39,7 +39,7 @@ export class BloodPressureComponent implements OnInit {
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgb(51, 102, 255)'
     }
-
+   
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
@@ -59,7 +59,7 @@ export class BloodPressureComponent implements OnInit {
           labelString: 'mmHG',
           fontColor: 'black',
           fontStyle: "bold"
-        }
+       }
       }],
       xAxes: [{
         scaleLabel: {
@@ -67,7 +67,11 @@ export class BloodPressureComponent implements OnInit {
           labelString: 'Date',
           fontColor: 'black',
           fontStyle: "bold"
-        }
+       },
+       type: 'time',
+       time: {
+         unit: 'day'
+       }
       }]
     },
     legend: {
@@ -101,7 +105,6 @@ export class BloodPressureComponent implements OnInit {
 
   }
   getData() {
-    this.lineChartData = []
     const fromDate = this.chartData.fromDate || moment('1900-02-01').valueOf();
     const toDate = this.chartData.toDate || moment().add(1, 'days').valueOf();
     const heartRateData = {
@@ -122,107 +125,24 @@ export class BloodPressureComponent implements OnInit {
       backgroundColor: 'rgba(153, 171, 128,0.3)',
       lineTension: 0
     };
-    if (this.chartData.eventRange == '1w') {
-      this.lineChartLabels = []
-      for (let i = 0; i < 7; i++) {
-        this.lineChartLabels.push(moment(this.chartData.fromDate).add(i, 'days').format('dddd'))
-      }
-    } else if (this.chartData.eventRange == '1m') {
-      this.lineChartLabels = []
-      for (let i = 0; i < 30; i++) {
-        this.lineChartLabels.push(moment(this.chartData.fromDate).add(i, 'days').format('DD/MM'))
-      }
-    } else if (this.chartData.eventRange == '1y') {
-      this.lineChartLabels = []
-      for (let i = 0; i < 12; i++) {
-        this.lineChartLabels.push(moment(this.chartData.fromDate).add(i, 'month').format('MMMM'))
-      }
-    }
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, 1).subscribe((data: any) => {
-      let sData = []
       if (data) {
-        (data.vitalsList || []).forEach((item, e) => {
+        (data.vitalsList || []).forEach(item => {
+          this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM'));
           let vialData;
-          let vialDate;
           try {
             vialData = JSON.parse(item.vitalData);
-            vialDate = JSON.parse(item.vitalDate);
           } catch (error) {
             vialData = {};
-            vialDate = {};
           }
-          if (this.lineChartLabels && this.lineChartLabels.length) {
-            this.lineChartLabels.forEach((i, index) => {
-              if (this.chartData.eventRange == '1w') {
-                if (i == moment(vialDate).format('dddd')) {
-                  if (vialData.S) {
-                    var score = parseInt(systolicData.data[index] || 0) + parseInt(vialData.S)
-                    systolicData.data[index] = score.toString();
-                  }
-                  if (vialData.D) {
-                    var score = parseInt(dialosticData.data[index] || 0) + parseInt(vialData.D)
-                    dialosticData.data[index] = score.toString();
-                  }
-                  if (vialData.R) {
-                    var score = parseInt(heartRateData.data[index] || 0) + parseInt(vialData.R)
-                    heartRateData.data[index] = score.toString();
-                  }
-                } else {
-                  systolicData.data[index] = systolicData.data[index] || "0";
-                  dialosticData.data[index] = dialosticData.data[index] || "0";
-                  heartRateData.data[index] = heartRateData.data[index] || "0";
-                }
-              } else if (this.chartData.eventRange == '1m') {
-                if (i == moment(vialDate).format('DD/MM')) {
-                  if (vialData.S) {
-                    var score = parseInt(systolicData.data[index] || 0) + parseInt(vialData.S)
-                    systolicData.data[index] = score.toString();
-                  }
-                  if (vialData.D) {
-                    var score = parseInt(dialosticData.data[index] || 0) + parseInt(vialData.D)
-                    dialosticData.data[index] = score.toString();
-                  }
-                  if (vialData.R) {
-                    var score = parseInt(heartRateData.data[index] || 0) + parseInt(vialData.R)
-                    heartRateData.data[index] = score.toString();
-                  }
-                } else {
-                  systolicData.data[index] = systolicData.data[index] || "0";
-                  dialosticData.data[index] = dialosticData.data[index] || "0";
-                  heartRateData.data[index] = heartRateData.data[index] || "0";
-                }
-              } else if (this.chartData.eventRange == '1y') {
-                if (i == moment(vialDate).format('MMMM')) {
-                  if (vialData.S) {
-                    var score = parseInt(systolicData.data[index] || 0) + parseInt(vialData.S)
-                    systolicData.data[index] = score.toString();
-                  }
-                  if (vialData.D) {
-                    var score = parseInt(dialosticData.data[index] || 0) + parseInt(vialData.D)
-                    dialosticData.data[index] = score.toString();
-                  }
-                  if (vialData.R) {
-                    var score = parseInt(heartRateData.data[index] || 0) + parseInt(vialData.R)
-                    heartRateData.data[index] = score.toString();
-                  }
-                } else {
-                  systolicData.data[index] = systolicData.data[index] || "0";
-                  dialosticData.data[index] = dialosticData.data[index] || "0";
-                  heartRateData.data[index] = heartRateData.data[index] || "0";
-                }
-              }
-            })
-          } else {
-            this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM'));
-            if (vialData.S) {
-              systolicData.data.push(vialData.S);
-            }
-            if (vialData.D) {
-              dialosticData.data.push(vialData.D);
-            }
-            if (vialData.R) {
-              heartRateData.data.push(vialData.R);
-            }
+          if (vialData.S) {
+            systolicData.data.push(vialData.S);
+          }
+          if (vialData.D) {
+            dialosticData.data.push(vialData.D);
+          }
+          if (vialData.R) {
+            heartRateData.data.push(vialData.R);
           }
         });
         this.lineChartData = [heartRateData, systolicData, dialosticData]
