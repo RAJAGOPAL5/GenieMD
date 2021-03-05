@@ -19,14 +19,14 @@
             </div>
             <div>
                 <nb-button-group size="small" status="primary">
-                    <button nbButtonToggle nbButton (pressedChange)="getGender($event, 'A')" [pressed] = "selectedGender === 'A'" >{{'kAll' | translate}}</button>
-                    <button nbButtonToggle nbButton (pressedChange)="getGender($event, 'M')" [pressed] = "selectedGender === 'M'">{{'kMale' | translate}}</button>
-                    <button nbButtonToggle nbButton (pressedChange)="getGender($event, 'F')" [pressed] = "selectedGender === 'F'">{{'kFemale' | translate}}</button>
-                    <button nbButtonToggle nbButton (pressedChange)="getGender($event, 'O')" [pressed] = "selectedGender === 'O'">{{'kOther' | translate}}</button>
+                    <button nbButtonToggle nbButton (pressedChange)="getGender($event, 'A')" [pressed]="selectedGender === 'A'">{{'kAll' | translate}}</button>
+                    <button nbButtonToggle nbButton (pressedChange)="getGender($event, 'M')" [pressed]="selectedGender === 'M'">{{'kMale' | translate}}</button>
+                    <button nbButtonToggle nbButton (pressedChange)="getGender($event, 'F')" [pressed]="selectedGender === 'F'">{{'kFemale' | translate}}</button>
+                    <button nbButtonToggle nbButton (pressedChange)="getGender($event, 'O')" [pressed]="selectedGender === 'O'">{{'kOther' | translate}}</button>
                 </nb-button-group>
             </div>
         </nb-card-body>
-        <nb-card-footer class="d-flex justify-content-end">
+        <nb-card-footer class="d-flex justify-content-center">
             <button size="small" nbButton status="warning" (click)="resetFilter()"> {{'kClear' | translate}}</button>
             <button size="small" class="ms-2" nbButton status="danger" (click)="close()">{{'kCancel' | translate}}</button>
             <button size="small" class="ms-2" nbButton status="success" (click)="startSearch()" [disabled]="enableSearch() && !form.dirty">{{'kSearch' | translate}}</button>

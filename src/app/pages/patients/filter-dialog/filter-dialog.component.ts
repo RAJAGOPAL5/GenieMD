@@ -19,7 +19,7 @@ export class FilterDialogComponent implements OnInit {
     dob: [''],
   });
   data: any;
-  selectedGender: any;
+  selectedGender = 'A';
   constructor(
     private fb: FormBuilder,
     protected dialogRef: NbDialogRef<any>,
@@ -44,7 +44,7 @@ export class FilterDialogComponent implements OnInit {
       lastName: this.data.lastName ? this.data.lastName : '',
       dob: this.data.dob ? this.data.dob : ''
     });
-    this.selectedGender = this.data.gender ? this.data.gender : '';
+    this.selectedGender = this.data.gender ? this.data.gender : 'A';
   }
   close() {
     this.dialogRef.close({type: 'cancel'});

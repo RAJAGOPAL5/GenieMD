@@ -34,7 +34,7 @@
                     </p>
                 </div>
             </div>
-            <div class="col-md-3 mt-3">
+            <div class="col-md-4 mt-3">
                 <div>
                     <div class="d-flex">
                         <nb-icon icon="map-marker-alt" nbTooltip="Location" nbTooltipPlacement="left" pack="font-awesome">
@@ -50,20 +50,24 @@
                         </div>
                     </div>
                     <p>
-                        <nb-icon icon="person" nbTooltip="Morbidity" nbTooltipPlacement="left"></nb-icon><span class="ps-4"
+                        <nb-icon icon="clock-outline" nbTooltip="Morbidity" nbTooltipPlacement="left"></nb-icon><span class="ps-4"
                             *ngFor="let morbidity of morbidityValue">{{morbidity}}</span>
                     </p>
                 </div>
             </div>
-            <div class="col-md-2 mt-3">
-                <button nbButton status="primary" class="mb-2 w-75 btn-lg">Chart</button>
-                <button nbButton  [nbPopover]="templateRef" nbPopoverPlacement="right" status="primary" class="mb-2 w-75 btn-lg">Call</button>
-                <button nbButton status="primary" class="mb-2 w-75 btn-lg">Schedule</button>
+            <div class="col-md-3 mt-3">
+                <button nbButton status="primary" class="mb-2 w-100 btn-lg" size="small">
+                    <nb-icon icon="message-circle-outline"></nb-icon>Chat</button>
+                <button nbButton  [nbPopover]="templateRef" nbPopoverPlacement="right" status="primary" class="mb-2 w-100 btn-lg" size="small">
+                    <nb-icon icon="phone-call-outline"></nb-icon>Call</button>
+                <button nbButton status="primary" class="mb-2 w-100" size="small"><nb-icon icon="clock-outline"></nb-icon>Schedule</button>
             </div> 
             <ng-template #templateRef>
-                <button nbButton status="success" class="m-1">Audio</button>
-                <button nbButton status="success" class="m-1">Video</button>
-                <button nbButton status="success" class="m-1">Call Bridge</button>
+                <div class="p-3">
+                <button nbButton status="success" class="m-1" size="small"><nb-icon icon="headphones-outline"></nb-icon>Audio</button>
+                <button nbButton status="success" class="m-1" size="small"><nb-icon icon="video-outline"></nb-icon>Video</button>
+                <button nbButton status="success" class="m-1" size="small"><nb-icon icon="phone-call-outline"></nb-icon>Call Bridge</button>
+                </div>
               </ng-template>
         </div>
     </nb-card-body>
