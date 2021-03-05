@@ -13,13 +13,13 @@ export class TemperatureComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [];
   public lineChartLabels: Label[] = [];
   public lineChartColors: Color[] = [
-    { // green
+    { // pink
       backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgb(0, 214, 143)',
-      pointBackgroundColor: 'rgb(0, 214, 143)',
+      borderColor: '#FF69B4	',
+      pointBackgroundColor: '#FF69B4	',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgb(0, 214, 143)'
+      pointHoverBorderColor: '#FF69B4	'
     }
   ];
   public lineChartLegend = true;

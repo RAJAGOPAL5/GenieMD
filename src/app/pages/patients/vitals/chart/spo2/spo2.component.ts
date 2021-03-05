@@ -14,13 +14,13 @@ export class Spo2Component implements OnInit {
   public lineChartData: ChartDataSets[] = [];
   public lineChartLabels: Label[] = [];
   public lineChartColors: Color[] = [
-    { // green
+    { // red
       backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgb(0, 214, 143)',
-      pointBackgroundColor: 'rgb(0, 214, 143)',
+      borderColor: 'red',
+      pointBackgroundColor: 'red',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgb(0, 214, 143)'
+      pointHoverBorderColor: 'red'
     }
   ];
   public lineChartLegend = true;
