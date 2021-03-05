@@ -72,7 +72,7 @@ export class FilterDialogComponent implements OnInit {
       clinicID: this.clinicService.id,
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
-      gender: this.form.value.gender,
+      gender: this.form.value.gender == 'A'? '': this.form.value.gender,
       dob: date,
       userID: this.profileService.id,
       pageNumber: 1,
@@ -93,6 +93,5 @@ export class FilterDialogComponent implements OnInit {
   }
   resetFilter() {
     this.form.reset();
-    this.dialogRef.close({type: 'clear'});
   }
 }
