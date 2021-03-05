@@ -1,0 +1,6 @@
+<div [nbSpinner]="isLoading" class="circle-graph p-4 d-flex justify-content-center" #circleContainer>
+    <ngx-avatar class="primary-circle" size="100" [name]="config?.primary?.name" [nbTooltip]="config?.primary?.name" nbTooltipStatus="primary" [src]="config?.primary?.image"></ngx-avatar>
+    <div class="circle-item" *ngFor="let item of config?.items" [nbTooltip]="item?.name" nbTooltipStatus="primary">
+        <ngx-avatar size="100" borderColor="#3366ff" [name]="item?.name" [src]="item?.image"></ngx-avatar>
+    </div>
+</div>
