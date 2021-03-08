@@ -24,7 +24,7 @@ export class VitalsComponent implements OnInit {
   @ViewChild('spoChart') mychart1: any;
   @ViewChild('weightChart') mychart2: any;
   @ViewChild('totalChart') mychart3: any;
-  chartInfo: { patientId: string; fromDate: number; toDate: number; eventRange : string };
+  chartInfo: { patientId: string; fromDate: any; toDate: any; eventRange? : string };
   form: FormGroup = this.formBuilder.group({
     dateRange: ''
   });
@@ -45,8 +45,8 @@ export class VitalsComponent implements OnInit {
   isLoading = false;
   event: any;
   selectedDateRange = {
-    start: moment('1900-02-01').valueOf(),
-    end: moment().add(1, 'days').valueOf()
+    start:new Date('1900-02-01'),
+    end: new Date()
   }
   ngOnInit(): void {
     console.log('route', this.route.snapshot.parent.params.patientId)
@@ -64,8 +64,6 @@ export class VitalsComponent implements OnInit {
       { title: '6 Month', val: '6m', class: '' },
       { title: '1 Year', val: '1y', class: '' },
       { title: 'All', val: 'all', class: '' }];
-    const fromDate = moment('1900-02-01').valueOf();
-    const toDate = moment().add(1, 'days').valueOf();
     this.userID = this.profileService.id;
   }
   getList(event: any) {
@@ -85,8 +83,8 @@ export class VitalsComponent implements OnInit {
       fromDate = moment('1900-02-01').valueOf();
     }
     this.selectedDateRange = {
-      start: fromDate,
-      end: toDate
+      start: new Date(fromDate),
+      end: new Date(toDate)
     }
     this.chartInfo = { patientId: this.patientId, fromDate: fromDate, toDate: toDate, eventRange: event || 'all' };
   }
@@ -106,20 +104,23 @@ export class VitalsComponent implements OnInit {
       } catch (error) {
         extraData = patientData.extraData || {};
       }
+      this.patientId = patientData.userID
+      const fromDates = new Date(this.selectedDateRange.start).getTime();
+      const toDates = new Date(this.selectedDateRange.end).getTime();
+      this.chartInfo = { patientId: patientData.userID, fromDate:fromDates, toDate:toDates };
       if (!!extraData.vitals) {
         this.vitals = vitals.filter(k => (extraData.vitals || []).find(i => k.vitalType === i));
       } else {
         this.vitals = [];
       }
-      this.patientId = patientData.userID
-      const fromDates = this.selectedDateRange.start;
-      const toDates = this.selectedDateRange.end;
-      this.chartInfo = { patientId: patientData.userID, fromDate: fromDates, toDate: toDates, eventRange: 'all' };
     }, error => {
       throw error;
     });
   }
   selectedDate(event) {
-    console.log('dateRange', event);
+    const ranges = event;
+    if(ranges.start && ranges.end){
+      this.chartInfo = { patientId: this.patientId, fromDate: ranges.start.getTime(), toDate: ranges.end.getTime()};
+    }
   }
 }

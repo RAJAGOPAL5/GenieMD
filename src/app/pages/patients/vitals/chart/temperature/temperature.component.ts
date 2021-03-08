@@ -91,7 +91,8 @@ export class TemperatureComponent implements OnInit {
         data: [],
         label: '',
       }
-    ];    this.getData();
+    ]; 
+    this.getData();
   }
   constructor(
     private vitalService: VitalsService,

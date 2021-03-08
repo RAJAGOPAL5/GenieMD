@@ -19,9 +19,9 @@
                 Custom Date
             </span>
             <span class="ps-2">
-                <input nbInput placeholder="Pick a date range" class="form-control" [nbDatepicker]="formcontrol"
+                <input nbInput placeholder="Pick a date range" class="form-control" [nbDatepicker]="datepicker"
                     size="small" [(ngModel)]="selectedDateRange">
-                <nb-rangepicker #formcontrol (dateChange)="selectedDate($event)"></nb-rangepicker>
+                <nb-rangepicker #datepicker (rangeChange)="selectedDate($event)"></nb-rangepicker>
             </span>
         </div>
     </nb-card-header>
