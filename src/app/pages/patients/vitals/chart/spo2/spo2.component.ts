@@ -12,7 +12,12 @@ import { VitalsService } from 'src/app/shared/service/vitals.service';
 })
 export class Spo2Component implements OnInit {
 
-  public lineChartData: ChartDataSets[] = [];
+  public lineChartData: ChartDataSets[] = [
+    {
+      data: [],
+      label: '',
+    }
+  ];
   public lineChartLabels: Label[] = [];
   public lineChartColors: Color[] = [
     { // red
@@ -82,8 +87,12 @@ export class Spo2Component implements OnInit {
   }
   set data(res) {
     this.chartData = res;
-    this.lineChartData = [];
-    this.getData();
+    this.lineChartData = [
+      {
+        data: [],
+        label: '',
+      }
+    ];    this.getData();
   }
   constructor(
     private vitalService: VitalsService,

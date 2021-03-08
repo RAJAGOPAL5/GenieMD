@@ -11,7 +11,12 @@ import { NbThemeService } from '@nebular/theme';
   styleUrls: ['./weight.component.scss']
 })
 export class WeightComponent implements OnInit {
-  public lineChartData: ChartDataSets[] = [];
+  public lineChartData: ChartDataSets[] = [
+    {
+      data: [],
+      label: '',
+    }
+  ];
   public lineChartLabels: Label[] = [];
   public lineChartColors: Color[] = [
     { // blue
@@ -81,8 +86,12 @@ export class WeightComponent implements OnInit {
   }
   set data(res) {
     this.chartData = res;
-    this.lineChartData = [];
-    this.getData();
+    this.lineChartData = [
+      {
+        data: [],
+        label: '',
+      }
+    ];    this.getData();
   }
   constructor(
     private vitalService: VitalsService,

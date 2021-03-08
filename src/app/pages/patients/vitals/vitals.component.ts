@@ -32,7 +32,8 @@ export class VitalsComponent implements OnInit {
     private vitalsService: VitalsService, private profileService: ProfileService,
     private ls: LanguageService, private patientService: PatientsService,
     private translate: TranslateService, private route: ActivatedRoute,
-    private clinicService: ClinicService, private formBuilder: FormBuilder) {
+    private clinicService: ClinicService, private formBuilder: FormBuilder,
+    ) {
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
   }
@@ -43,6 +44,10 @@ export class VitalsComponent implements OnInit {
   patientId: any;
   isLoading = false;
   event: any;
+  selectedDateRange = {
+    start: moment('1900-02-01').valueOf(),
+    end: moment().add(1, 'days').valueOf()
+  }
   ngOnInit(): void {
     console.log('route', this.route.snapshot.parent.params.patientId)
     this.route.parent.paramMap.subscribe(params => {
@@ -79,6 +84,10 @@ export class VitalsComponent implements OnInit {
     } else if (event === 'all') {
       fromDate = moment('1900-02-01').valueOf();
     }
+    this.selectedDateRange = {
+      start: fromDate,
+      end: toDate
+    }
     this.chartInfo = { patientId: this.patientId, fromDate: fromDate, toDate: toDate, eventRange: event || 'all' };
   }
   getData(patientId) {
@@ -103,14 +112,14 @@ export class VitalsComponent implements OnInit {
         this.vitals = [];
       }
       this.patientId = patientData.userID
-      const fromDates = moment('1900-02-01').valueOf();
-      const toDates = moment().add(1, 'days').valueOf();
+      const fromDates = this.selectedDateRange.start;
+      const toDates = this.selectedDateRange.end;
       this.chartInfo = { patientId: patientData.userID, fromDate: fromDates, toDate: toDates, eventRange: 'all' };
     }, error => {
       throw error;
     });
   }
-  selectedDate() {
-    console.log('dateRange');
+  selectedDate(event) {
+    console.log('dateRange', event);
   }
 }

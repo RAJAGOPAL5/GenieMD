@@ -13,7 +13,12 @@ import { VitalsService } from 'src/app/shared/service/vitals.service';
   styleUrls: ['./blood-pressure.component.scss']
 })
 export class BloodPressureComponent implements OnInit {
-  public lineChartData: ChartDataSets[] = [];
+  public lineChartData: ChartDataSets[] = [
+    {
+      data: [],
+      label: '',
+    }
+  ];
   public lineChartLabels: Label[] = [];
   public lineChartColors: Color[] = [
     { // green
@@ -100,7 +105,12 @@ export class BloodPressureComponent implements OnInit {
   }
   set data(res) {
     this.chartData = res;
-    this.lineChartData = [];
+    this.lineChartData = [
+      {
+        data: [],
+        label: '',
+      }
+    ];
     this.getData();
   }
   constructor(

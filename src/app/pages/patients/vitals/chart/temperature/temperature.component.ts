@@ -11,7 +11,12 @@ import { NbThemeService } from '@nebular/theme';
   styleUrls: ['./temperature.component.scss']
 })
 export class TemperatureComponent implements OnInit {
-  public lineChartData: ChartDataSets[] = [];
+  public lineChartData: ChartDataSets[] = [
+    {
+      data: [],
+      label: '',
+    }
+  ];
   public lineChartLabels: Label[] = [];
   public lineChartColors: Color[] = [
     { // pink
@@ -81,8 +86,12 @@ export class TemperatureComponent implements OnInit {
   }
   set data(res) {
     this.chartData = res;
-    this.lineChartData = [];
-    this.getData();
+    this.lineChartData = [
+      {
+        data: [],
+        label: '',
+      }
+    ];    this.getData();
   }
   constructor(
     private vitalService: VitalsService,

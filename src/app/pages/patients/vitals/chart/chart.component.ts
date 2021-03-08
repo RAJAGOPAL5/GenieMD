@@ -25,7 +25,12 @@ export class ChartComponent implements OnInit {
     this.initChart();
   }
   vitals = vitals;
-  public lineChartData: ChartDataSets[] = [];
+  public lineChartData: ChartDataSets[] = [
+    {
+      data: [],
+      label: '',
+    }
+  ];
   public lineChartLabels: Label[] = [];
   public lineChartColors: Color[] = [];
   public lineChartLegend = true;
