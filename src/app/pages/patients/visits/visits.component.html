@@ -1,1 +1,29 @@
-<p>visits works!</p>
+<ng-container>
+    <div class="row p-3">
+        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center cursor-pointer">
+            <img src="assets/icon/prev-date.svg" class="img-ht">
+        </div>
+        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center" style="cursor: pointer;">
+            <p (click)="dateSelect()" class="text-style4"></p>
+        </div>
+        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center cursor-pointer">
+            <img src="assets/icon/next-date.svg" class="img-ht">
+        </div>
+    </div>
+    <ng-container *ngIf="timeSlots.length != 0">
+        <div class="row p-3">
+            <div class="col-5 col-md-5 col-sm-5 col-lg-3 col-xl-3 text-center"
+                *ngFor="let item of timeSlots">
+                <button class="form-control form-group m-2"
+                    type="button">{{item}}</button>
+            </div>
+        </div>
+    </ng-container>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center pt-2 text-center"
+        *ngIf="timeSlots.length == 0">
+        <h5>No Slots available</h5>
+        <h5>Please select another date</h5>
+
+    </div>
+
+</ng-container>
