@@ -46,6 +46,7 @@ export class CareTeamComponent implements OnInit {
       userID: this.profileService.id,
       patientID: this.patientId
     };
+    this.isLoading = true;
     this.dependent.find(payload).subscribe((res: any) => {
       this.careTeam = res.list.map(item => {
         item.name = `${item.firstName} ${item.lastName}`.trim();
@@ -55,6 +56,8 @@ export class CareTeamComponent implements OnInit {
         item.name = `${item.firstName} ${item.lastName}`.trim();
         return { name: item.name, image: item.imageUrl };
       });
+    }, error => {
+      this.isLoading = false;
     });
   }
   getProfile() {

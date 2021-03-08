@@ -1,4 +1,4 @@
-import { ElementRef, OnChanges } from '@angular/core';
+import { ElementRef, OnChanges, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 interface UserView {
@@ -16,12 +16,13 @@ interface ViewModel {
   templateUrl: './care-circle.component.html',
   styleUrls: ['./care-circle.component.scss']
 })
-export class CareCircleComponent implements OnInit, OnChanges {
+export class CareCircleComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild('circleContainer', { static: true }) circleEl: ElementRef<any>;
   @Input() config: ViewModel = {
     primary: {},
     items: []
-  }
+  };
+  @Output() stopLoader: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
@@ -32,6 +33,11 @@ export class CareCircleComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.render();
+  }
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.stopLoader.emit();
+    }, 1000 * 5);
   }
 
   render() {

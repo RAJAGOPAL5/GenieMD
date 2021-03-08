@@ -9,7 +9,7 @@
     content: "";
     position: absolute;
     top: 0; left: 0;
-    border: 2px solid #3366ff;
+    // border: 2px solid #3366ff;
     width: calc( 100% - 2px * 2);
     height: calc( 100% - 2px * 2 );
     border-radius: 50%;
@@ -29,4 +29,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  #care-circle ::ng-deep ngx-avatar .avatar-container {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5) !important;
+    border-radius: 50% !important;
   }
