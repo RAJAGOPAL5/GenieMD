@@ -2,21 +2,21 @@
     <nb-card-header>
         <div class="d-flex w-100">
             <span class="ps-2 subtitle d-flex align-items-center">
-                Date Range
+                {{'kDateRange' | translate}}
             </span>
             <span class="ps-2">
                 <nb-button-group ghost size="small" outline shape="rectangle">
-                    <button nbButtonToggle status="primary" (click)="getList('all')" class="m-1" pressed>All</button>
-                    <button nbButtonToggle status="primary" (click)="getList('1w')" class="m-1">1w</button>
-                    <button nbButtonToggle status="primary" (click)="getList('1m')" class="m-1">1m</button>
-                    <button nbButtonToggle status="primary" (click)="getList('3m')" class="m-1">3m</button>
-                    <button nbButtonToggle status="primary" (click)="getList('6m')" class="m-1">6m</button>
-                    <button nbButtonToggle status="primary" (click)="getList('1y')" class="m-1">1y</button>
+                    <button nbButtonToggle status="primary" (click)="getList('all')" class="m-1" pressed>{{'kAll' | translate}}</button>
+                    <button nbButtonToggle status="primary" (click)="getList('1w')" class="m-1">{{'k1w' | translate}}</button>
+                    <button nbButtonToggle status="primary" (click)="getList('1m')" class="m-1">{{'k1m' | translate}}</button>
+                    <button nbButtonToggle status="primary" (click)="getList('3m')" class="m-1">{{'k3m' | translate}}</button>
+                    <button nbButtonToggle status="primary" (click)="getList('6m')" class="m-1">{{'k6m' | translate}}</button>
+                    <button nbButtonToggle status="primary" (click)="getList('1y')" class="m-1">{{'k1y' | translate}}</button>
                 </nb-button-group>
             </span>
             <span class="ms-auto"></span>
             <span class="subtitle d-flex align-items-center">
-                Custom Date
+                {{'kCustomDate' | translate}}
             </span>
             <span class="ps-2">
                 <input nbInput placeholder="Pick a date range" class="form-control" [nbDatepicker]="datepicker"
@@ -45,7 +45,7 @@
                         <app-temperature [data]="chartInfo"></app-temperature>
                     </ng-container>
                     <ng-container *ngSwitchDefault>
-                        No Records found
+                        {{'kNoRecordsFound' | translate}}
                     </ng-container>
                 </ng-container>
                 <!-- <app-vital-chart *ngFor="let item of vitals" [type]="item?.vitalType" [name]="item?.displayName"
