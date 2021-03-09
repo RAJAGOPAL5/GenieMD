@@ -128,6 +128,13 @@ export class AddComponent implements OnInit {
   }
   onSubmit() {
     // console.log(this.profileForm, this.selectedItem);
+    let extraData = {};
+    if (this.profileExtraData) {
+      extraData = this.profileExtraData;
+      extraData['dateofbirth'] = this.setDOB(this.profileForm.value.dob);
+      extraData['phoneNumber'] = this.profileForm.value.handphone ? this.profileForm.value.handphone : '';
+      extraData['vitals'] = this.profileForm.value.vitals;
+    }
     this.isLoading = true;
     if (this.profileForm.invalid) {
       this.isLoading = false;
@@ -149,26 +156,7 @@ export class AddComponent implements OnInit {
         city: this.profileForm.value.city ? this.profileForm.value.city : '',
         country: this.profileForm.value.country ? this.profileForm.value.country : '',
         zipCode: this.profileForm.value.zipcode ? this.profileForm.value.zipcode : '',
-        extraData: {
-          clinicID: this.clinic.clinicID,
-          clinicName: this.clinicService.config ? this.clinicService.config.name : this.clinicService.clinic.name,
-          companyCode: '',
-          dateofbirth: this.setDOB(this.profileForm.value.dob),
-          governmentID: '',
-          ms: '0',
-          notifications: {
-            email: true,
-            push: true,
-            sms: true
-          },
-          password: this.profileForm.value.password,
-          phoneNumber: this.profileForm.value.handphone ? this.profileForm.value.handphone : '',
-          planID: -1,
-          planMemberCount: -1,
-          planName: '',
-          referralCode: '',
-          vitals: this.profileForm.value.vitals
-        },
+        extraData: extraData,
         firstName: this.profileForm.value.firstName,
         gender: `${this.profileForm.value.gender}`,
         imageURL: '',

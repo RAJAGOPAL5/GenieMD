@@ -57,11 +57,14 @@
 .nb-theme-default {
 	nb-route-tabset ul {
 		li {
-			a {
-			outline: 0 !important;
+			a :focus {
+			outline: none !important;
 			}
 		}
 	}
+}
+nb-route-tabset > ul > li :focus {
+	outline: none !important;
 }
 /* end Patients status */
 

@@ -154,7 +154,8 @@ export class TemperatureComponent implements OnInit {
       },
       legend: {
         labels: {
-          usePointStyle: true
+          usePointStyle: true,
+          fontColor: theme === 'dark' ? 'white' : 'black'
         }
       },
       elements:
