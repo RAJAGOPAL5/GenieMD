@@ -1,3 +1,62 @@
+<form class="form-question" [nbSpinner]="isLoading">
+    <nb-card>
+        <div class="row ">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <nb-card-header>
+                    <div class="w-100 pt-2">
+                        <nb-select class="form-control w-100 p-0" fullWidth name="speciality"
+                            placeholder="Please select a speciality" [(ngModel)]="selectSpeciality"
+                            (ngModelChange)="getProvidersList($event)">
+                            <nb-option *ngFor="let val of providerSpeciality" value="{{val.type}}"> {{val.type}}
+                            </nb-option>
+
+                        </nb-select>
+                    </div>
+                </nb-card-header>
+                <nb-card-body>
+                    <nb-list class="own-scroll" nbInfiniteList [threshold]="15"
+                        *ngIf="providersList.length !== 0 ;else noRecrd">
+                        <nb-list-item class="cursor-pointer d-flex justify-content-between"
+                            *ngFor="let provider of providersList" (click)="getProviderDetails(provider.npi)">
+                            <div class="row">
+                                <div class="col-md-3 col-lg-3 col-sm-3 col-3 col-xl-3 mr-2 pt-4">
+                                    <ngx-avatar name="{{provider.practiceName}}" src="{{provider?.imageUrl}}"
+                                        cornerRadius="10" [round]="true" size="50" class="image-size">
+                                    </ngx-avatar>
+                                </div>
+                                <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 ml-3 pr-0 text-left">
+                                    <span class="subtitle">{{provider?.practiceName}}</span>
+                                    <span class="d-block">{{provider?.specialties}}</span>
+                                    <span class="d-block font-weight-bold" style="color:000000;"
+                                        *ngIf="provider.status == 'Offline'"> {{provider.status}}</span>
+                                    <span class="d-block font-weight-bold" style="color:green;"
+                                        *ngIf="provider.status == 'Available Now'"> {{provider.status}}</span>
+                                    <span class="d-block font-weight-bold" style="color:red;"
+                                        *ngIf="provider.status == 'Accepts Scheduled Visits'">
+                                        {{provider.status}}</span>
+                                    <span class="d-block font-weight-bold" style="color:#3498db;"
+                                        *ngIf="provider.status == 'Report Symptoms, Get CallBack'">
+                                        {{provider.status}}</span>
+                                    <span class="d-block font-weight-bold" style="color:orange;"
+                                        *ngIf="provider.status == 'Report Symptoms, Get Treatment'">
+                                        {{provider.status}}</span>
+                                </div>
+                            </div>
+                        </nb-list-item>
+                    </nb-list>
+
+                    <ng-template #noRecrd>
+                        <div class="text-center">
+                            <span>No Providers Found</span>
+                        </div>
+                    </ng-template>
+                </nb-card-body>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </nb-card>
+</form>
 <!-- <ng-container>
     <div class="row p-3">
         <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center cursor-pointer">
@@ -27,4 +86,3 @@
     </div>
 
 </ng-container> -->
-<p>visits coming soon..</p>

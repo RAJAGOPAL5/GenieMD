@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
+  providerNPiID : string;
   profile: any;
   extraData: any;
   id: string;
@@ -37,6 +38,18 @@ export class ProfileService {
   }
   add(payload) {
     return this.http.post(`Clinics/AddPatient`, payload);
+  }
+
+  getProviderName(npiID) {
+    return this.http.get(`User/GetUsername/${npiID}`);
+  }
+
+  getUserStart(payload) {
+    return this.http.post(`Encounters/GetStats`, payload);
+  }
+
+  getAvailable(payload) {
+    return this.http.post(`Appointments/RecurringCollection`, payload);
   }
 
 }

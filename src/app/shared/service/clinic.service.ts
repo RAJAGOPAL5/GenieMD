@@ -39,4 +39,13 @@ export class ClinicService {
   searchPatients(payload){
     return this.http.post(`Clinics/SearchPatients`, payload);
   }
+
+  getProvidersList(payload) {
+    return this.http.post(`HealthcareProvider/NetworkHcp/List`, payload);
+  }
+
+  getPhysicianCategoryList(payload) {
+    return this.http.get(`HealthcareProvider/NetworkCategory/List/${payload}`);    
+  }
+
 }
