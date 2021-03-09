@@ -26,22 +26,26 @@ export class VisitsComponent implements OnInit {
   providerName: any;
   providerData: any;
   isLoading = false;
-
+  totalAppointment = [];
+  appointmentlistResult: any;
+  pageNumber = 1;
+  pageSize = 25;
 
   constructor(private clinicService: ClinicService,
    private toastrService: NbToastrService,
    private profileService: ProfileService) { }
 
   ngOnInit(): void {
-    this.clinic = this.clinicService.clinic;
-    this.clinicID = '1000089'
-    this.clinicService.getPhysicianCategoryList(this.clinicID).subscribe((data: any) => {
-      this.providerSpeciality = data.physicianCategoryList;
-      console.log('getPhysicianCategoryList', this.providerSpeciality);
-    }, error => {
-      this.toastrService.danger(error.error.errorMessage? error.error.errorMessage: 'Cannot get Physician list');
-    });
-    this.getList();
+    // this.clinic = this.clinicService.clinic;
+    // console.log('clinic', this.clinic);
+    // this.clinicID = '1000089'
+    // this.clinicService.getPhysicianCategoryList(this.clinicID).subscribe((data: any) => {
+    //   this.providerSpeciality = data.physicianCategoryList;
+    //   console.log('getPhysicianCategoryList', this.providerSpeciality);
+    // }, error => {
+    //   this.toastrService.danger(error.error.errorMessage? error.error.errorMessage: 'Cannot get Physician list');
+    // });
+    // this.getList();
   }
 
   getList() {
@@ -180,6 +184,77 @@ export class VisitsComponent implements OnInit {
       // this.providerAvailableDetails(payLoad);
 
     });
+  }
+
+
+  // getAppointments(userId) {
+  //   this.profileService.getAppointmentList(userId).subscribe((data: any) => {
+  //     this.appointmentlistResult = data.encounterList.filter(item => {
+  //       return item.meeting && !item.meeting.onDemand && item.status != 2
+  //         && item.status != 5 && item.status != 6;
+  //     });
+  //     this.appointmentlistResult = this.appointmentlistResult.map((item, index) => { item.index = index; return item; });
+  //     console.log('before sorting-> all-appointments', JSON.parse(JSON.stringify(this.appointmentlistResult)));
+  //     this.appointmentlistResult = this.sortAppointments();
+  //     const appointmentss = this.appointmentlistResult.slice(((this.pageNumber - 1) * this.pageSize), ((this.pageNumber) * this.pageSize));
+  //     const collectionAppointment = [];
+  //     let result = {};
+  //     appointmentss.map((item => {
+  //       if (item.meeting.users.length > 0) {
+  //         if (item.meeting.users[1].userName != item.providerID) {
+  //           item.meeting.users.reverse();
+  //         }
+  //       }
+  //     }));
+  //     appointmentss.forEach(element => {
+  //       result = {
+  //         Name: element.meeting.users[1].firstName + ' ' + element.meeting.users[1].lastName,
+  //         subject: element.meeting.subject,
+  //         scheduled: new Date(element.meeting.startTime),
+  //         //  - (new Date().getTimezoneOffset() * 60 * 1000)),
+  //         duration: element.meeting.duration + ' ' + 'min',
+  //         imageUrl: element.meeting.users[1].imageUrl,
+  //         meetingId: element.meeting.meetingId,
+  //         providerID: element.providerID,
+  //         type: element.type,
+  //         encounterID: element.encounterID,
+  //         protocolID: element.protocolID
+
+  //       };
+  //       collectionAppointment.push(result);
+  //       data = {};
+  //     });
+  //     this.totalAppointment = collectionAppointment;
+  //     console.log('total appointment 12345',this.totalAppointment)
+  //     if (this.clinicTimeFormat ) {
+  //       this.totalAppointment.map(item => {
+  //         // item.scheduled = moment(item.scheduled).format(this.clinicTimeFormat);
+  //         item.scheduled = this.datePipe.transform(item.scheduled, this.clinicTimeFormat);
+  //         return item;
+          
+  //       });
+  //     } else {
+  //       this.totalAppointment.map(item => {
+  //         item.scheduled = moment(item.scheduled).format('ddd, MMM Do YYYY hh:mm a Z');        
+  //         return item;
+  //       });
+  //     }
+  //   }, error => {
+  //     this.toastrService.danger(error.error.errorMessage);
+
+  //   });
+  // }
+
+  sortAppointments() {
+    this.appointmentlistResult.sort((a, b) => {
+      const x = a.meeting.startTime;
+      const y = b.meeting.startTime;
+      if (x < y) { return -1; }
+      if (x > y) {
+        return 1;
+      } else { return 0; }
+    });
+    return this.appointmentlistResult;
   }
 
 }
