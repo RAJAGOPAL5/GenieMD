@@ -6,12 +6,13 @@ import { NbDialogModule, NbLayoutModule, NbThemeModule, NbIconModule } from '@ne
 import { MissingTranslationHandler, MissingTranslationHandlerParams, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { DevicesComponent } from './components/devices/devices.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "../../assets/i18n/", ".json");
 }
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, FooterComponent, DevicesComponent],
   imports: [
     CommonModule,
     NbLayoutModule,
