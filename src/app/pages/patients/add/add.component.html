@@ -273,10 +273,36 @@
                                         id="plan" placeholder="Plan">
                                 </div>
                             </div>
-                        </div>                      
+                        </div>     
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <h6>Insurance Card Photos</h6>
+                                      <div class="avatar-zone">
+                                          <img [src]="frontImageURl">
+                                      </div> 
+                                        <div class="m-4 text-center">
+                                        <input type="file" hidden #choosefile (change)="changeFrontFile($event)">
+                                        <button nbButton status="primary" class="mr-1" type="button" (click)="choosefile.click()">
+                                            Upload front image
+                                        </button>
+                                        </div>
+                            </div>
+                        </div>    
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="avatar-zone">
+                                    <img [src]="backImageURL">
+                                </div> 
+                                  <div class="m-4 text-center">
+                                    <input type="file" hidden #chooseBackfile (change)="changeBackFile($event)">
+                                    <button nbButton status="primary" class="mr-1" type="button" (click)="chooseBackfile.click()">
+                                        Upload Back image
+                                    </button>
+                                    </div>
+                            </div>
+                        </div>                     
                 </nb-tab>
                 <nb-tab tabTitle="Emergency Contact">
-                    <!-- <form [formGroup]="profileForm" class="m-auto w-60"> -->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group mb-1">

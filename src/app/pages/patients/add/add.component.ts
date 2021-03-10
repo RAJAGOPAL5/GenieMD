@@ -38,6 +38,9 @@ export class AddComponent implements OnInit {
   mediType = [{ name: 'Private', id: 0 }, { name: 'Medicare', id: 1 }, { name: 'Medicare advantage', id: 2 }, { name: 'Tricase', id: 3 }];
 
   @ViewChild('birthDate', { static: false }) birthDate: any;
+  dataurl: any;
+  frontImageURl: any;
+  backImageURL: any;
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
@@ -109,6 +112,8 @@ export class AddComponent implements OnInit {
           emergencyRelation: this.profileExtraData.emergencyContact.relation,
           emergencyNumber:this.profileExtraData.emergencyContact.number
         });
+        this.frontImageURl = this.profileExtraData.insurance.frontImage;
+        this.backImageURL =  this.profileExtraData.insurance.backImage;   
         if (this.profileData.monitored === 0) {
           this.profileForm.patchValue({
             monitored: false
@@ -172,7 +177,9 @@ export class AddComponent implements OnInit {
         medType: this.profileForm.value.medType,
         policyNumber: this.profileForm.value.policyNumber,
         groupNumber: this.profileForm.value.groupNumber,
-        plan:this.profileForm.value.plan
+        plan: this.profileForm.value.plan,
+        frontImage: this.frontImageURl,
+        backImage: this.backImageURL
       },
       extraData = {}
     if (this.profileExtraData) {
@@ -285,17 +292,6 @@ export class AddComponent implements OnInit {
           push: true,
           sms: true
         },
-        insurance: {
-          policyHolder: this.profileForm.value.policyHolder,
-          holderName: this.profileForm.value.holderName,
-          insuranceDob: this.profileForm.value.insuranceDob,
-          claimAddress: this.profileForm.value.claimAddress,
-          insuranceCarrier: this.profileForm.value.insuranceCarrier,
-          medType: this.profileForm.value.medType,
-          policyNumber: this.profileForm.value.policyNumber,
-          groupNumber: this.profileForm.value.groupNumber,
-          plan:this.profileForm.value.plan
-        },
         password: this.profileForm.value.password,
         phoneNumber: this.profileForm.value.handphone ? this.profileForm.value.handphone : '',
         planID: -1,
@@ -367,4 +363,43 @@ export class AddComponent implements OnInit {
   cancelPatient() {
     this.dialogRef.close();
   }
+
+  changeFrontFile(event: any, type?) {
+    this.isLoading = true;
+    this.userID = this.profileService.id;
+    let object;
+    if (event.target && event.target.files && event.target.files[0]) {
+      object = { file: event.target.files[0], url: this.dataurl };
+    }
+    const file = object.file;
+    const sd: any = new FormData();
+    sd.append('Content-Type', file.type);
+    sd.append('file', file);
+    this.profileService.uploadFile(sd, this.userID).subscribe((res: any) => {
+      this.isLoading = false;
+      this.frontImageURl = res.url;
+    }, err => {
+      this.toastrService.danger(err.error.errorMessage? err.error.errorMessage: 'Image upload failed');
+    });
+  }
+
+  changeBackFile(event: any, type?) {
+    this.isLoading = true;
+    this.userID = this.profileService.id;
+    let object;
+    if (event.target && event.target.files && event.target.files[0]) {
+      object = { file: event.target.files[0], url: this.dataurl };
+    }
+    const file = object.file;
+    const sd: any = new FormData();
+    sd.append('Content-Type', file.type);
+    sd.append('file', file);
+    this.profileService.uploadFile(sd, this.userID).subscribe((res: any) => {
+      this.isLoading = false;
+      this.backImageURL = res.url;
+    }, err => {
+      this.toastrService.danger(err.error.errorMessage? err.error.errorMessage: 'Image upload failed');
+    });
+  }
+
 }

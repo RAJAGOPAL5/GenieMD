@@ -51,5 +51,8 @@ export class ProfileService {
   getAvailable(payload) {
     return this.http.post(`Appointments/RecurringCollection`, payload);
   }
-
+  
+  uploadFile(payLoad, userId) {
+    return this.http.post('Files/UploadFile/' + userId, payLoad);
+  }
 }
