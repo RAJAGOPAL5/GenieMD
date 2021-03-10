@@ -10,6 +10,7 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { languages, states, morbidity, gender, vitals, diseaseState, preferredLanguage } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
+import { retryWhen } from 'rxjs/operators';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -38,6 +39,8 @@ export class AddComponent implements OnInit {
   showPreferredLanguages = false;
 
   @ViewChild('birthDate', { static: false }) birthDate: any;
+  submitted: boolean;
+  diseaseStates: any;
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
@@ -65,6 +68,7 @@ export class AddComponent implements OnInit {
     this.createForm();
   }
   getProfilePatch() {
+    var variousDisease;
     const patientPayload = {
       userID: this.profileService.id,
       clinicID: this.clinic.clinicID,
@@ -82,6 +86,12 @@ export class AddComponent implements OnInit {
         }
         console.log('this.profileExtraData', this.profileExtraData);
 
+        try{
+          variousDisease =  JSON.parse(this.profileExtraData.diseaseState);
+        }catch(e){
+          variousDisease =  this.profileExtraData.diseaseState || {};
+        } 
+
         this.profileForm.patchValue({
           firstName: this.profileData.firstName,
           lastName: this.profileData.lastName,
@@ -98,7 +108,26 @@ export class AddComponent implements OnInit {
           language: this.profileData.languageId,
           vitals: !!this.profileExtraData.vitals ? this.profileExtraData.vitals : [],
           mrn: this.profileExtraData.MRN ? this.profileExtraData.MRN : '',
+          diseaseState:variousDisease,
+          preferredLanguage: this.profileExtraData.preferredLanguage ,
+          // customLanguage:this.profileExtraData.otherLanguage,
+          // customDisease:this.profileExtraData.otherDisease
+
         });
+        if(this.profileExtraData.otherLanguage){
+          this.showPreferredLanguages = true;
+          this.profileForm.addControl('customLanguage', new FormControl('', [Validators.required]));
+          this.profileForm.patchValue({
+            customLanguage:this.profileExtraData.otherLanguage
+          });
+        }
+        if(this.profileExtraData.otherDisease){
+          this.showOtherDisease = true;
+          this.profileForm.addControl('customDisease', new FormControl('', [Validators.required]));
+          this.profileForm.patchValue({
+            customDisease:this.profileExtraData.otherDisease
+          });
+        }
         if (this.profileData.monitored === 0) {
           this.profileForm.patchValue({
             monitored: false
@@ -137,7 +166,11 @@ export class AddComponent implements OnInit {
     });
   }
   onSubmit() {
+    this.submitted= true;
     // console.log(this.profileForm, this.selectedItem);
+    if (this.profileForm.invalid){
+      return;
+    }
     let extraData = {};
     if (this.profileExtraData) {
       extraData = this.profileExtraData;
@@ -145,6 +178,11 @@ export class AddComponent implements OnInit {
       extraData['phoneNumber'] = this.profileForm.value.handphone ? this.profileForm.value.handphone : '';
       extraData['vitals'] = this.profileForm.value.vitals;
       extraData['MRN'] = this.profileForm.value.mrn;
+      extraData['diseaseState'] = JSON.stringify(this.profileForm.value.diseaseState);
+      extraData['otherDisease'] = this.profileForm.value.customDisease ? this.profileForm.value.customDisease: "";
+      extraData['preferredLanguage'] = this.profileForm.value.preferredLanguage ;
+      extraData['otherLanguage'] = this.profileForm.value.customLanguage ? this.profileForm.value.customLanguage : ""; 
+
     }
     this.isLoading = true;
     if (this.profileForm.invalid) {
@@ -323,7 +361,7 @@ export class AddComponent implements OnInit {
     this.dialogRef.close();
   }
   onchange() {
-    const selectedDisease = this.profileForm.value.diseaseState.filter(item => item === 'Other');
+    const selectedDisease = this.profileForm.value.diseaseState.filter(item => item === 10);
     if (selectedDisease && selectedDisease.length) {
       this.showOtherDisease = true;
       this.profileForm.addControl('customDisease', new FormControl('', [Validators.required]));

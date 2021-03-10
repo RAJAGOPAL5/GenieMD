@@ -28,7 +28,7 @@
         
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group mb-1">
                                 <label for="inputFirstName" class="label"> <span class="danger"></span>{{'kGender' | translate}}</label>
                                 <nb-radio-group formControlName="gender" class="row d-flex justify-content-center pt-0 p-3"
@@ -144,14 +144,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6" *ngIf = "showPreferredLanguages">
-                            <div class="form-group mb-1">
-                                <label for="otherLanguages" class="label"> <span class="text-danger">*</span>
-                                    Other Preferred Language</label>
-                                <input type="text" fieldSize="medium" formControlName="customLanguage" nbInput fullWidth id="otherLanguages"
-                                    placeholder="Other Preferred Language">
-                            </div>
-                        </div>
                         <div class="col-md-6">
                             <div class="form-group mb-1">
                                 <label for="inputMorbidity" class="label"> <span class="danger"></span>
@@ -178,6 +170,8 @@
                                 </nb-select>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-1">
                                 <label for="diseaseState" class="label"> <span class="danger"></span>
@@ -185,21 +179,58 @@
                                 <div>
                                     <nb-select size="medium" fullWidth multiple id="diseaseState" placeholder="Select Disease State"
                                         formControlName="diseaseState" (selectedChange)="onchange()">
-                                        <nb-option *ngFor="let item of diseaseState" [value]="item?.name">{{item?.name}}
+                                        <nb-option *ngFor="let item of diseaseState" [value]="item?.id">{{item?.name}}
                                         </nb-option>
                                     </nb-select>
                                 </div>
+                                <div *ngIf="submitted && f.diseaseState.errors" class="error-form text-danger fs-15">
+                                       Disease State is required
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6" *ngIf = "showOtherDisease">
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="preferredLanguage" class="label"> <span class="danger"></span>
+                                    Preferred Language</label>
+                                <div>
+                                    <nb-select id="preferredLanguage" size="medium" class="w-100" fullWidth formControlName="preferredLanguage"
+                                        (selectedChange)="clickLanguage()" placeholder="Select Preferred Language">
+                                        <nb-option *ngFor="let item of preferredLanguage" [value]="item.id">
+                                            {{item?.name}}</nb-option>
+                                    </nb-select>
+                                </div>
+                                <div *ngIf="submitted && f.preferredLanguage.errors" class="error-form text-danger fs-15">
+                                       Preferred Language is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" *ngIf="showOtherDisease">
                             <div class="form-group mb-1">
                                 <label for="otherDisease" class="label"> <span class="text-danger">*</span>
                                     Other Disease State</label>
                                 <input type="text" fieldSize="medium" formControlName="customDisease" nbInput fullWidth id="otherDisease"
                                     placeholder="Other Disease">
                             </div>
+                            <div *ngIf="submitted && f.customDisease.errors" class="error-form text-danger fs-15">
+                                Custom Disease is required
+                            </div>
                         </div>
-                        <div class="col-md-6 my-auto">
+                        <div class="col-md-6" *ngIf="showPreferredLanguages">
+                            <div class="form-group mb-1">
+                                <label for="otherLanguages" class="label"> <span class="text-danger">*</span>
+                                    Other Preferred Language</label>
+                                <input type="text" fieldSize="medium" formControlName="customLanguage" nbInput fullWidth id="otherLanguages"
+                                    placeholder="Other Preferred Language">
+                            </div>
+                            <div *ngIf="submitted && f.customLanguage.errors" class="error-form text-danger fs-15">
+                                    Custom Language is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="form-group mt-5">
                                 <nb-checkbox status="info" formControlName="monitored">{{'kMonitored' | translate}}</nb-checkbox>
                             </div>
