@@ -1,4 +1,3 @@
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="m-auto w-60">
     <nb-card size="large" [nbSpinner]="isLoading">      
         <nb-card-header>
             <div class="row">
@@ -8,6 +7,7 @@
         <nb-card-body>
             <nb-tabset>
                 <nb-tab tabTitle="General">
+                    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="m-auto w-60">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-1">
@@ -177,9 +177,72 @@
                                 status="success">{{'kSave' | translate}}</button>
                         </div>
                     </div>
+                    </form>
                 </nb-tab>
                 <nb-tab tabTitle="Insurance">
-                  Tab content 2
+                    <form [formGroup]="insuranceForm" class="m-auto w-60">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-1">
+                                    <label for="policyHolder" class="label"> <span class="text-danger">*</span> 
+                                        Policy holder</label>
+                                    <input type="text" fieldSize="medium" formControlName="policyHolder" nbInput fullWidth
+                                        id="policyHolder" placeholder="Policy Holder">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-1">
+                                    <label for="holderName" class="label"> <span class="text-danger">*</span> 
+                                        Policy holder name</label>
+                                    <input type="text" fieldSize="medium" formControlName="holderName" nbInput fullWidth
+                                        id="holderName" placeholder="Policy holder name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-1">
+                                    <label for="dob" class="label"> <span class="text-danger">*</span> 
+                                        Date of Birth</label>
+                                    <input nbInput [nbDatepicker]="rangepicker" fieldSize="medium" formControlName="dob" nbInput fullWidth
+                                        id="dob" placeholder="Date of Birth">
+                                        <nb-rangepicker #rangepicker></nb-rangepicker>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-1">
+                                    <label for="claimAddress" class="label"> <span class="text-danger">*</span> 
+                                        Claim submission address</label>
+                                    <input type="text" fieldSize="medium" formControlName="claimAddress" nbInput fullWidth
+                                        id="claimAddress" placeholder="Claim submission address">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-1">
+                                    <label for="insuranceCarrier" class="label"> <span class="text-danger">*</span> 
+                                        Primary Insurance Carrier</label>
+                                    <input type="text" fieldSize="medium" formControlName="insuranceCarrier" nbInput fullWidth
+                                        id="insuranceCarrier" placeholder="Primary Insurance Carrier">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-1">
+                                    <label for="medType" class="label"> <span class="text-danger">*</span> 
+                                        Type</label>
+                                    <input type="text" fieldSize="medium" formControlName="medType" nbInput fullWidth
+                                        id="medType" placeholder="Type">
+                                </div>
+                            </div>
+                        </div>
+                    
+                        
+                
+                      
+                      
+                       
+                      </form>
                 </nb-tab>
                 <nb-tab tabTitle="Emergency Contact">
                     Tab content 3
@@ -191,4 +254,3 @@
         
         </nb-card-body>
     </nb-card>
-</form>
