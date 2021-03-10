@@ -155,12 +155,11 @@ export class AddComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.profileForm, this.selectedItem);
-    let extraData = {};
    var emergencyContact = {
       name: this.profileForm.value.emergencyName,
       relation: this.profileForm.value.emergencyRelation,
       number: this.profileForm.value.emergencyNumber
-    };
+    }
    var insurance = {
         policyHolder: this.profileForm.value.policyHolder,
         holderName: this.profileForm.value.holderName,
@@ -171,7 +170,8 @@ export class AddComponent implements OnInit {
         policyNumber: this.profileForm.value.policyNumber,
         groupNumber: this.profileForm.value.groupNumber,
         plan:this.profileForm.value.plan
-      }  
+      },
+      extraData = {}
     if (this.profileExtraData) {
       extraData = this.profileExtraData;
       extraData['dateofbirth'] = this.setDOB(this.profileForm.value.dob);
