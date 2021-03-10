@@ -129,15 +129,15 @@ export class AddComponent implements OnInit {
       morbidity: ['', ],
       monitored: ['', ],
       vitals: [[]],
-      policyHolder: ['', Validators.required],
-      holderName: ['', Validators.required],
-      insuranceDob: ['', Validators.required],
-      claimAddress: ['', Validators.required],
-      insuranceCarrier: ['', Validators.required],
-      medType: ['', Validators.required],
-      policyNumber: ['', Validators.required],
-      groupNumber: ['', Validators.required],
-      plan: ['', Validators.required],  
+      policyHolder: [''],
+      holderName: [''],
+      insuranceDob: [''],
+      claimAddress: [''],
+      insuranceCarrier: [''],
+      medType: [''],
+      policyNumber: [''],
+      groupNumber: [''],
+      plan: [''],  
       emergencyName: [''],
       emergencyRelation: [''],
       emergencyNumber:['']
@@ -151,6 +151,17 @@ export class AddComponent implements OnInit {
         name: this.profileForm.value.emergencyName,
         relation: this.profileForm.value.emergencyRelation,
         number: this.profileForm.value.emergencyNumber
+      },
+      insurance: {
+        policyHolder: this.profileForm.value.policyHolder,
+        holderName: this.profileForm.value.holderName,
+        insuranceDob: this.profileForm.value.insuranceDob,
+        claimAddress: this.profileForm.value.claimAddress,
+        insuranceCarrier: this.profileForm.value.insuranceCarrier,
+        medType: this.profileForm.value.medType,
+        policyNumber: this.profileForm.value.policyNumber,
+        groupNumber: this.profileForm.value.groupNumber,
+        plan:this.profileForm.value.plan
       }
     };
     if (this.profileExtraData) {
