@@ -137,14 +137,26 @@
                         <div class="col-md-6">
                             <div class="form-group mb-1">
                                 <label for="preferredLanguage" class="label"> <span class="danger"></span>
-                                    Preferred Language</label>
-                                <div>
-                                    <input type="text" id="preferredLanguage">
-                                </div>
+                                    preferred Language</label>
+                                    <div>
+                                        <nb-select id="preferredLanguage" size="medium" class="w-100" fullWidth formControlName="preferredLanguage"
+                                        (selectedChange)="clickLanguage()" placeholder="Select Preferred Language">
+                                            <nb-option *ngFor="let item of preferredLanguage" [value]="item.id">
+                                                {{item?.name}}</nb-option>
+                                        </nb-select>
+                                    </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-6" *ngIf = "showPreferredLanguages">
+                            <div class="form-group mb-1">
+                                <label for="otherLanguages" class="label"> <span class="text-danger">*</span>
+                                    Other Preferred Language</label>
+                                <input type="text" fieldSize="medium" formControlName="customLanguage" nbInput fullWidth id="otherLanguages"
+                                    placeholder="Other Preferred Language">
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group mb-1">
                                 <label for="inputMorbidity" class="label"> <span class="danger"></span>

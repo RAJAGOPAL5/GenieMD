@@ -93,5 +93,14 @@ export const diseaseState = [
     {id: 8, name: 'Cancer'},
     {id: 9, name: 'Mental Health'},
     {id: 10, name: 'Other'}
-]
+];
+
+export const preferredLanguage = [
+    { name: 'English', id: 1 },
+    { name: 'Spanish', id: 2 },
+    { name: 'Chinese', id: 3 },
+    { name: 'Tagalog', id: 4 },
+    { name: 'Vietnamese', id: 5 },
+    { name: 'Other', id: 6 },
+];
 

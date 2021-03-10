@@ -7,7 +7,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
-import { languages, states, morbidity, gender, vitals, diseaseState } from 'src/app/shared/constant/constant';
+import { languages, states, morbidity, gender, vitals, diseaseState, preferredLanguage } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
 @Component({
@@ -34,6 +34,8 @@ export class AddComponent implements OnInit {
   profileExtraData: any;
   diseaseState: any[] = [];
   showOtherDisease = false;
+  preferredLanguage: any[] = [];
+  showPreferredLanguages = false;
 
   @ViewChild('birthDate', { static: false }) birthDate: any;
   constructor(
@@ -59,6 +61,7 @@ export class AddComponent implements OnInit {
     this.vitals = vitals;
     this.languages = languages;
     this.diseaseState = diseaseState;
+    this.preferredLanguage = preferredLanguage;
     this.createForm();
   }
   getProfilePatch() {
@@ -127,7 +130,8 @@ export class AddComponent implements OnInit {
       morbidity: ['', ],
       monitored: ['', ],
       vitals: [[]],
-      diseaseState: [[]]
+      diseaseState: [[]],
+      preferredLanguage: ['', ]
     });
   }
   onSubmit() {
@@ -322,6 +326,18 @@ export class AddComponent implements OnInit {
       this.showOtherDisease = false;
       if (this.profileForm.get('customDisease')) {
         this.profileForm.removeControl('customDisease');
+      }
+    }
+  }
+  clickLanguage(){
+    const selectedLanguage = this.profileForm.value.preferredLanguage;
+    if(selectedLanguage === 6 ){
+      this.showPreferredLanguages = true;
+      this.profileForm.addControl('customLanguage', new FormControl('', [Validators.required]));
+    } else {
+      this.showPreferredLanguages = false;
+      if (this.profileForm.get('customLanguage')) {
+        this.profileForm.removeControl('customLanguage');
       }
     }
   }
