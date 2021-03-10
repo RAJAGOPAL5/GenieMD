@@ -5,7 +5,7 @@
             </div>
         </nb-card-header>
         <nb-card-body>
-            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="m-auto w-60">
+            <form [formGroup]="profileForm" class="m-auto w-60">
             <nb-tabset>
                 <nb-tab tabTitle="{{'kGeneral' | translate}}">
                     <div class="row">
@@ -174,7 +174,7 @@
                         </div>
                         <div class="col-auto d-flex justify-content-end">
                             <button class="mr-3" [disabled]="!profileForm.valid" nbButton
-                                status="success">{{'kSave' | translate}}</button>
+                            (click)="onSubmit()" status="success">{{'kSave' | translate}}</button>
                         </div>
                     </div>
                 </nb-tab>
@@ -340,7 +340,7 @@
                         </div> 
                   </nb-tab>
                   <nb-tab tabTitle="{{'kDevices' | translate}}">
-                    <button nbButton status="primary" (click)="open(devicedialog)">Add</button>
+                    <button nbButton status="primary" class="float-end" (click)="open(devicedialog)">Add</button>
                     <ng-template #devicedialog>
                         <nb-card class="dialog-card">
                             <nb-card-header>
