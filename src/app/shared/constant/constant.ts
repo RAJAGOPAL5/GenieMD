@@ -82,3 +82,10 @@ export const vitals = [
     { id: 4, name: 'Weight', displayName: 'Wt', vitalType: 6,  min: 50, max: 200  },
     { id: 5, name: 'Temperature', displayName: 'Temp', vitalType: 14,  min: -20, max: 80  }];
 
+export const relation =[
+    { id: 0, value: 'Father'},
+    { id: 1, value: 'Mother'},
+    { id: 2, value: 'Spouse'},
+    { id: 3, value: 'Brother'},
+    { id: 4, value: 'Sister'},
+    { id: 5, value: 'Other'}];

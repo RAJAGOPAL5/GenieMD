@@ -7,7 +7,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
-import { languages, states, morbidity, gender, vitals } from 'src/app/shared/constant/constant';
+import { languages, states, morbidity, gender, vitals, relation } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
 @Component({
@@ -17,6 +17,7 @@ import { LanguageService } from 'src/app/shared/service/language.service';
 })
 export class AddComponent implements OnInit {
   profileForm: FormGroup;
+  emergencyForm: FormGroup;
   profileData: any;
   userID: any;
   profile: any;
@@ -24,6 +25,7 @@ export class AddComponent implements OnInit {
   states: any[] = [];
   languages: any[] = [];
   morbidityID: any[] = [];
+  relation: any[] = [];
   toggleNgModel = false;
   actionName: any;
   isLoading = false;
@@ -58,6 +60,7 @@ export class AddComponent implements OnInit {
     this.morbidityID = morbidity;
     this.vitals = vitals;
     this.languages = languages;
+    this.relation = relation;
     this.createForm();
   }
   getProfilePatch() {
@@ -135,12 +138,21 @@ export class AddComponent implements OnInit {
       policyNumber: ['', Validators.required],
       groupNumber: ['', Validators.required],
       plan: ['', Validators.required],  
+      emergencyName: [''],
+      emergencyRelation: [''],
+      emergencyNumber:['']
     });
   }
 
   onSubmit() {
     // console.log(this.profileForm, this.selectedItem);
-    let extraData = {};
+    let extraData = {
+      emergencyContact: {
+        name: this.profileForm.value.emergencyName,
+        relation: this.profileForm.value.emergencyRelation,
+        number: this.profileForm.value.emergencyNumber
+      }
+    };
     if (this.profileExtraData) {
       extraData = this.profileExtraData;
       extraData['dateofbirth'] = this.setDOB(this.profileForm.value.dob);
