@@ -1,180 +1,194 @@
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="m-auto w-60">
-    <nb-card size="large" [nbSpinner]="isLoading">
+    <nb-card size="large" [nbSpinner]="isLoading">      
         <nb-card-header>
             <div class="row">
                 <div class="col-md-10 col-sm-9"> {{!!patientID ? 'Edit' :'Add'}} Patient</div>
             </div>
         </nb-card-header>
         <nb-card-body>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group mb-1">
-                        <label for="inputFirstName" class="label"> <span class="text-danger">*</span> 
-                            {{'kFirstName' | translate}}</label>
-                        <input type="text" fieldSize="medium" formControlName="firstName" nbInput fullWidth
-                            id="inputFirstName" placeholder="First Name">
+            <nb-tabset>
+                <nb-tab tabTitle="General">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="inputFirstName" class="label"> <span class="text-danger">*</span> 
+                                    {{'kFirstName' | translate}}</label>
+                                <input type="text" fieldSize="medium" formControlName="firstName" nbInput fullWidth
+                                    id="inputFirstName" placeholder="First Name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="inputLastName" class="label"> <span class="text-danger">*</span> 
+                                    {{'kLastName' | translate}}</label>
+                                <input type="text" fieldSize="medium" formControlName="lastName" nbInput fullWidth
+                                    id="inputLastName" placeholder="Last Name">
+                            </div>
+                        </div>
+        
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group mb-1">
-                        <label for="inputLastName" class="label"> <span class="text-danger">*</span> 
-                            {{'kLastName' | translate}}</label>
-                        <input type="text" fieldSize="medium" formControlName="lastName" nbInput fullWidth
-                            id="inputLastName" placeholder="Last Name">
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group mb-1">
-                        <label for="inputFirstName" class="label"> <span class="danger"></span>{{'kGender' | translate}}</label>
-                        <nb-radio-group formControlName="gender" class="row d-flex justify-content-center pt-0 p-3"
-                            name="my-radio-group">
-                            <nb-radio class=" col-md-4" *ngFor="let item of genderArr" [value]="item.value">{{item?.id}}
-                            </nb-radio>
-                        </nb-radio-group>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group mb-1">
-                        <div for="inputFirstName" class="label"> <span class="text-danger">*</span> 
-                            {{'kMsgDob' | translate}}</div>
-                        <input nbInput class="w-100" fieldSize="medium" formControlName="dob" placeholder="DD/MM/YYYY"
-                            [nbDatepicker]="formcontrol" fullWidth>
-                        <nb-datepicker #formcontrol></nb-datepicker>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group mb-1">
-                        <label for="inputLanguage" class="label"> <span class="text-danger">*</span>
-                            {{'kLanguage' | translate}}
-                        </label>
-                        <div>
-                            <nb-select size="medium" class="w-100" id="inputLanguage" formControlName="language"
-                                placeholder="Select Language" fullWidth>
-                                <nb-option *ngFor="let item of languages" [value]="item.id">{{item?.name}}
-                                </nb-option>
-
-                            </nb-select>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mb-1">
+                                <label for="inputFirstName" class="label"> <span class="danger"></span>{{'kGender' | translate}}</label>
+                                <nb-radio-group formControlName="gender" class="row d-flex justify-content-center pt-0 p-3"
+                                    name="my-radio-group">
+                                    <nb-radio class=" col-md-4" *ngFor="let item of genderArr" [value]="item.value">{{item?.id}}
+                                    </nb-radio>
+                                </nb-radio-group>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group mb-1 w-100">
-                        <label for="inputMobile" class="label"> <span class="text-danger">*</span>
-                            {{'kMobileNumber' | translate}}</label>
-                        <input fieldSize="medium" type="number" formControlName='handphone' nbInput fullWidth
-                            id="inputMobileNumber" placeholder="Mobile Number">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group mb-1">
-                        <label for="inputEmail" class="label"> <span class="text-danger">*</span>
-                            {{'kEmailAddress' | translate}}</label>
-                        <input fieldSize="medium" type="email" formControlName="email" nbInput fullWidth id="inputEmail"
-                            placeholder="Email">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group mb-1">
-                        <label for="inputAddress" class="label"> <span class="text-danger">*</span>
-                            {{'kAddress' | translate}}</label>
-                        <input type="text" fieldSize="medium" formControlName="address" nbInput fullWidth
-                            id="inputAddress" placeholder="Enter the Address">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group mb-1">
-                        <label for="inputCity" class="label"> <span class="text-danger">*</span>
-                            {{'kCity' | translate}}</label>
-                        <input type="text" fieldSize="medium" formControlName="city" nbInput fullWidth id="inputCity"
-                            placeholder="Enter the City">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group mb-1">
-                        <label for="inputState" class="label"> <span class="text-danger">*</span>
-                            {{'kState' | translate}}</label>
-                        <div>
-                            <nb-select id="inputState" size="medium" class="w-100" fullWidth formControlName="state"
-                                placeholder="Select State">
-                                <nb-option *ngFor="let item of states" [value]="item.abbreviation">
-                                    {{item?.abbreviation}}</nb-option>
-
-                            </nb-select>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <div for="inputFirstName" class="label"> <span class="text-danger">*</span> 
+                                    {{'kMsgDob' | translate}}</div>
+                                <input nbInput class="w-100" fieldSize="medium" formControlName="dob" placeholder="DD/MM/YYYY"
+                                    [nbDatepicker]="formcontrol" fullWidth>
+                                <nb-datepicker #formcontrol></nb-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="inputLanguage" class="label"> <span class="text-danger">*</span>
+                                    {{'kLanguage' | translate}}
+                                </label>
+                                <div>
+                                    <nb-select size="medium" class="w-100" id="inputLanguage" formControlName="language"
+                                        placeholder="Select Language" fullWidth>
+                                        <nb-option *ngFor="let item of languages" [value]="item.id">{{item?.name}}
+                                        </nb-option>
+        
+                                    </nb-select>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group mb-1">
-                        <label for="inputZipCode" class="label"> <span class="text-danger">*</span> 
-                            {{'kZipCode' | translate}}</label>
-                        <input type="text" fieldSize="medium" formControlName="zipcode" nbInput fullWidth
-                            id="inputZipCode" placeholder="Enter Zip Code">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group mb-1">
-                        <label for="inputCountry" class="label"> <span class="text-danger">*</span>
-                            {{'kCountry' | translate}}</label>
-                        <input type="text" fieldSize="medium" formControlName="country" nbInput fullWidth
-                            id="inputCountry" placeholder="Enter the Country">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group mb-1">
-                        <label for="inputMorbidity" class="label"> <span class="danger"></span>
-                            {{'kMorbidity' | translate}}</label>
-                        <div>
-                            <nb-select size="medium" fullWidth id="inputMorbidity" formControlName="morbidity"
-                                placeholder="Select Morbidity">
-                                <nb-option *ngFor="let item of morbidityID" [value]="item.id">{{item?.name}}
-                                </nb-option>
-                            </nb-select>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-1 w-100">
+                                <label for="inputMobile" class="label"> <span class="text-danger">*</span>
+                                    {{'kMobileNumber' | translate}}</label>
+                                <input fieldSize="medium" type="number" formControlName='handphone' nbInput fullWidth
+                                    id="inputMobileNumber" placeholder="Mobile Number">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="inputEmail" class="label"> <span class="text-danger">*</span>
+                                    {{'kEmailAddress' | translate}}</label>
+                                <input fieldSize="medium" type="email" formControlName="email" nbInput fullWidth id="inputEmail"
+                                    placeholder="Email">
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group mb-1">
-                        <label for="vitals" class="label">
-                        {{'kVitals' | translate}}</label>
-                        <nb-select size="medium" fullWidth multiple id="vitals" formControlName="vitals" placeholder="Select Vitals" [(selected)]="selectedItem">
-                            <!-- <nb-select-label *ngFor="let item of selectedItem">
-                                {{ item.displayName }}
-                            </nb-select-label> -->
-                            <nb-option *ngFor="let item of vitals" [value]="item?.vitalType">{{item?.displayName}}
-                            </nb-option>
-                        </nb-select>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="inputAddress" class="label"> <span class="text-danger">*</span>
+                                    {{'kAddress' | translate}}</label>
+                                <input type="text" fieldSize="medium" formControlName="address" nbInput fullWidth
+                                    id="inputAddress" placeholder="Enter the Address">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="inputCity" class="label"> <span class="text-danger">*</span>
+                                    {{'kCity' | translate}}</label>
+                                <input type="text" fieldSize="medium" formControlName="city" nbInput fullWidth id="inputCity"
+                                    placeholder="Enter the City">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 my-auto">
-                    <div class="form-group mt-5">
-                        <nb-checkbox status="info" formControlName="monitored">{{'kMonitored' | translate}}</nb-checkbox>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="inputState" class="label"> <span class="text-danger">*</span>
+                                    {{'kState' | translate}}</label>
+                                <div>
+                                    <nb-select id="inputState" size="medium" class="w-100" fullWidth formControlName="state"
+                                        placeholder="Select State">
+                                        <nb-option *ngFor="let item of states" [value]="item.abbreviation">
+                                            {{item?.abbreviation}}</nb-option>
+        
+                                    </nb-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="inputZipCode" class="label"> <span class="text-danger">*</span> 
+                                    {{'kZipCode' | translate}}</label>
+                                <input type="text" fieldSize="medium" formControlName="zipcode" nbInput fullWidth
+                                    id="inputZipCode" placeholder="Enter Zip Code">
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row  justify-content-end">
-                <div class="col-auto mr-2 ml-2 d-flex justify-content-end">
-                    <button nbButton status="danger" (click)=cancelPatient()>{{'kCancel' | translate}}</button>
-                </div>
-                <div class="col-auto d-flex justify-content-end">
-                    <button class="mr-3" [disabled]="!profileForm.valid" nbButton
-                        status="success">{{'kSave' | translate}}</button>
-                </div>
-            </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="inputCountry" class="label"> <span class="text-danger">*</span>
+                                    {{'kCountry' | translate}}</label>
+                                <input type="text" fieldSize="medium" formControlName="country" nbInput fullWidth
+                                    id="inputCountry" placeholder="Enter the Country">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="inputMorbidity" class="label"> <span class="danger"></span>
+                                    {{'kMorbidity' | translate}}</label>
+                                <div>
+                                    <nb-select size="medium" fullWidth id="inputMorbidity" formControlName="morbidity"
+                                        placeholder="Select Morbidity">
+                                        <nb-option *ngFor="let item of morbidityID" [value]="item.id">{{item?.name}}
+                                        </nb-option>
+                                    </nb-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="vitals" class="label">
+                                {{'kVitals' | translate}}</label>
+                                <nb-select size="medium" fullWidth multiple id="vitals" formControlName="vitals" placeholder="Select Vitals" [(selected)]="selectedItem">
+                                    <!-- <nb-select-label *ngFor="let item of selectedItem">
+                                        {{ item.displayName }}
+                                    </nb-select-label> -->
+                                    <nb-option *ngFor="let item of vitals" [value]="item?.vitalType">{{item?.displayName}}
+                                    </nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 my-auto">
+                            <div class="form-group mt-5">
+                                <nb-checkbox status="info" formControlName="monitored">{{'kMonitored' | translate}}</nb-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row  justify-content-end">
+                        <div class="col-auto mr-2 ml-2 d-flex justify-content-end">
+                            <button nbButton status="danger" (click)=cancelPatient()>{{'kCancel' | translate}}</button>
+                        </div>
+                        <div class="col-auto d-flex justify-content-end">
+                            <button class="mr-3" [disabled]="!profileForm.valid" nbButton
+                                status="success">{{'kSave' | translate}}</button>
+                        </div>
+                    </div>
+                </nb-tab>
+                <nb-tab tabTitle="Insurance">
+                  Tab content 2
+                </nb-tab>
+                <nb-tab tabTitle="Emergency Contact">
+                    Tab content 3
+                  </nb-tab>
+                  <nb-tab tabTitle="Devices">
+                    Tab content 4
+                  </nb-tab>
+               </nb-tabset>
+        
         </nb-card-body>
     </nb-card>
 </form>
