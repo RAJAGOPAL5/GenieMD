@@ -41,6 +41,7 @@ export class AddComponent implements OnInit {
   dataurl: any;
   frontImageURl: any;
   backImageURL: any;
+  deviceDialogRef: NbDialogRef<any>;
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
@@ -263,12 +264,12 @@ export class AddComponent implements OnInit {
     });
   }
 
-  open(dialog: TemplateRef<any>) {
-    this.dialogRef = this.dialogService.open(dialog);
+  open(devicedialog: TemplateRef<any>) {
+    this.deviceDialogRef = this.dialogService.open(devicedialog);
   }
   
   refclose() {
-    this.dialogRef.close();
+    this.deviceDialogRef.close();
   }
 
   updateProfile() {
