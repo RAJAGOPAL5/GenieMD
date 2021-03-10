@@ -7,7 +7,7 @@
         <nb-card-body>
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="m-auto w-60">
             <nb-tabset>
-                <nb-tab tabTitle="General">
+                <nb-tab tabTitle="{{'kGeneral' | translate}}">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-1">
@@ -178,16 +178,16 @@
                         </div>
                     </div>
                 </nb-tab>
-                <nb-tab tabTitle="Insurance">
+                <nb-tab tabTitle="{{'kInsurance' | translate}}">
                     <div class="row">
                     <div class="col-md-6">
                         <div class="form-group mb-1">
                             <label for="holderName" class="label">
-                                Relationship
+                                {{'kRelationship2' | translate}}
                             </label>
                             <div>
                                 <nb-select size="medium" id="holderName" formControlName="holderName"
-                                    placeholder="Relationship" fullWidth>
+                                    placeholder="{{'kRelationship2' | translate}}" fullWidth>
                                     <nb-option *ngFor="let item of policyHolderName" [value]="item.id">{{item?.name}}
                                     </nb-option>
                                 </nb-select>
@@ -197,9 +197,9 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
                                     <label for="policyHolder" class="label">
-                                        Policy holder Name</label>
+                                        {{'kPolicyHolderName' | translate}}</label>
                                     <input type="text" fieldSize="medium" formControlName="policyHolder" nbInput fullWidth
-                                        id="policyHolder" placeholder="Policy Holder Name">
+                                        id="policyHolder" placeholder="{{'kPolicyHolderName' | translate}}">
                                 </div>
                             </div>               
                         </div>
@@ -207,7 +207,7 @@
                             <div class="col-md-6">
                                     <div class="form-group mb-1">
                                         <div for="insuranceDob" class="label"> 
-                                            Date of Birth</div>
+                                            {{'kMsgDob' | translate}}</div>
                                         <input nbInput fullWidth fieldSize="medium" formControlName="insuranceDob" placeholder="DD/MM/YYYY"
                                             [nbDatepicker]="formcontrol" fullWidth>
                                         <nb-datepicker #formcontrol></nb-datepicker>
@@ -216,9 +216,9 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
                                     <label for="claimAddress" class="label">
-                                        Claim submission address</label>
+                                        {{'kClaimAddress' | translate}}</label>
                                     <input type="text" fieldSize="medium" formControlName="claimAddress" nbInput fullWidth
-                                        id="claimAddress" placeholder="Claim submission address">
+                                        id="claimAddress" placeholder="{{'kClaimAddress' | translate}}">
                                 </div>
                             </div>
                         </div>
@@ -226,15 +226,15 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
                                     <label for="insuranceCarrier" class="label">
-                                        Primary Insurance Carrier</label>
+                                          {{'kPrimaryInsuranceCarrier' | translate}}</label>
                                     <input type="text" fieldSize="medium" formControlName="insuranceCarrier" nbInput fullWidth
-                                        id="insuranceCarrier" placeholder="Primary Insurance Carrier">
+                                        id="insuranceCarrier" placeholder="{{'kPrimaryInsuranceCarrier' | translate}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
                                     <label for="medType" class="label">
-                                        Type
+                                        {{'kType2' | translate}}
                                     </label>
                                     <div>
                                         <nb-select size="medium" id="medType" formControlName="medType"
@@ -250,17 +250,17 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
                                     <label for="policyNumber" class="label">
-                                        Subscriber ID / Policy Number</label>
+                                         {{'kSubscriberID' | translate}}</label>
                                     <input type="text" fieldSize="medium" formControlName="policyNumber" nbInput fullWidth
-                                        id="policyNumber" placeholder="Subscriber ID / Policy Number">
+                                        id="policyNumber" placeholder="{{'kSubscriberID' | translate}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
                                     <label for="groupNumber" class="label">
-                                        Group Number</label>
+                                        {{'kGroupNumber' | translate}}</label>
                                     <input type="text" fieldSize="medium" formControlName="groupNumber" nbInput fullWidth
-                                        id="groupNumber" placeholder="Group Number">
+                                        id="groupNumber" placeholder="{{'kGroupNumber' | translate}}">
                                 </div>
                             </div>
                         </div>
@@ -268,22 +268,22 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
                                     <label for="plan" class="label">
-                                       Plan</label>
+                                        {{'kPlan' | translate}}</label>
                                     <input type="text" fieldSize="medium" formControlName="plan" nbInput fullWidth
-                                        id="plan" placeholder="Plan">
+                                        id="plan" placeholder="{{'kPlan' | translate}}">
                                 </div>
                             </div>
                         </div>     
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <h6>Insurance Card Photos</h6>
+                                <h6>{{'kInsuranceCardPhotos' | translate}}</h6>
                                       <div class="avatar-zone">
                                           <img [src]="frontImageURl">
                                       </div> 
                                         <div class="m-4 text-center">
                                         <input type="file" hidden #choosefile (change)="changeFrontFile($event)">
                                         <button nbButton status="primary" class="mr-1" type="button" (click)="choosefile.click()">
-                                            Upload front image
+                                            {{'kFrontImage' | translate}}
                                         </button>
                                         </div>
                             </div>
@@ -296,20 +296,20 @@
                                   <div class="m-4 text-center">
                                     <input type="file" hidden #chooseBackfile (change)="changeBackFile($event)">
                                     <button nbButton status="primary" class="mr-1" type="button" (click)="chooseBackfile.click()">
-                                        Upload Back image
+                                        {{'kBackImage' | translate}}
                                     </button>
                                     </div>
                             </div>
                         </div>                     
                 </nb-tab>
-                <nb-tab tabTitle="Emergency Contact">
+                <nb-tab tabTitle="{{'kEmergencyContact' | translate}}">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group mb-1">
                                     <label for="contactName" class="label">
-                                        Name</label>
+                                        {{'kName' | translate}}</label>
                                     <input type="text" fieldSize="medium" formControlName="emergencyName" nbInput fullWidth
-                                        id="contactName" placeholder="Name">
+                                        id="contactName" placeholder="{{'kName' | translate}}">
                                 </div>
                             </div>
                         </div>
@@ -317,7 +317,7 @@
                             <div class="col-md-12">
                                 <div class="form-group mb-1">
                                     <label for="relation" class="label">
-                                        Relation</label>
+                                        {{'kRelation' | translate}}</label>
                                     <div>
                                         <nb-select size="medium" fullWidth id="relation" formControlName="emergencyRelation"
                                              placeholder="Relation">
@@ -332,14 +332,14 @@
                             <div class="col-md-12">
                                 <div class="form-group mb-1">
                                     <label for="phoneNumber" class="label">
-                                        Phone Number</label>
+                                        {{'KPhoneNumber' | translate}}</label>
                                     <input type="text" fieldSize="medium" formControlName="emergencyNumber" nbInput fullWidth
-                                        id="phoneNumber" placeholder="PhoneNumber">
+                                        id="phoneNumber" placeholder="{{'KPhoneNumber' | translate}}">
                                 </div>
                             </div>
                         </div> 
                   </nb-tab>
-                  <nb-tab tabTitle="Devices">
+                  <nb-tab tabTitle="{{'kDevices' | translate}}">
                       </nb-tab>
                </nb-tabset>
             </form>
