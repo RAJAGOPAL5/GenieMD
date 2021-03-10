@@ -96,15 +96,15 @@ export class AddComponent implements OnInit {
           morbidity: this.profileData.morbidity,
           language: this.profileData.languageId,
           vitals: !!this.profileExtraData.vitals ? this.profileExtraData.vitals : [],
-          policyHolder: this.profileForm.value.policyHolder,
-          holderName: this.profileForm.value.holderName,
-          insuranceDob: this.profileForm.value.insuranceDob,
-          claimAddress: this.profileForm.value.claimAddress,
-          insuranceCarrier: this.profileForm.value.insuranceCarrier,
-          medType: this.profileForm.value.medType,
-          policyNumber: this.profileForm.value.policyNumber,
-          groupNumber: this.profileForm.value.groupNumber,
-          plan:this.profileForm.value.plan,
+          policyHolder: this.profileExtraData.insurance.policyHolder,
+          holderName: this.profileExtraData.insurance.holderName,
+          insuranceDob: new Date(this.profileExtraData.insurance.insuranceDob),
+          claimAddress: this.profileExtraData.insurance.claimAddress,
+          insuranceCarrier: this.profileExtraData.insurance.insuranceCarrier,
+          medType: this.profileExtraData.insurance.medType,
+          policyNumber: this.profileExtraData.insurance.policyNumber,
+          groupNumber: this.profileExtraData.insurance.groupNumber,
+          plan: this.profileExtraData.insurance.plan,
           emergencyName: this.profileExtraData.emergencyContact.name,
           emergencyRelation: this.profileExtraData.emergencyContact.relation,
           emergencyNumber:this.profileExtraData.emergencyContact.number
@@ -245,7 +245,6 @@ export class AddComponent implements OnInit {
         this.toastrService.danger(error.error.errorMessage);
       });
     }
-
   }
 
   getProfile() {
