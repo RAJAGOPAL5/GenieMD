@@ -136,14 +136,33 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-1">
+                                <label for="preferredLanguage" class="label"> <span class="danger"></span>
+                                    Preferred Language</label>
+                                <div>
+                                    <input type="text" id="preferredLanguage">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
                                 <label for="inputMorbidity" class="label"> <span class="danger"></span>
                                     {{'kMorbidity' | translate}}</label>
                                 <div>
-                                    <nb-select size="medium" fullWidth id="inputMorbidity" formControlName="morbidity"
-                                        placeholder="Select Morbidity">
+                                    <nb-select size="medium" fullWidth id="inputMorbidity" formControlName="morbidity" placeholder="Select Morbidity">
                                         <nb-option *ngFor="let item of morbidityID" [value]="item.id">{{item?.name}}
                                         </nb-option>
                                     </nb-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="diseaseState" class="label"> <span class="danger"></span>
+                                    Disease State</label>
+                                <div>
+                                   <input type="text" id="diseaseState">
                                 </div>
                             </div>
                         </div>
