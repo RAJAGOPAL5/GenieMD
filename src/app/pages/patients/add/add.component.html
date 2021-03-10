@@ -179,29 +179,29 @@
                     </div>
                 </nb-tab>
                 <nb-tab tabTitle="Insurance">
-                        <div class="row">
+                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-1">
+                            <label for="holderName" class="label">
+                                Relationship
+                            </label>
+                            <div>
+                                <nb-select size="medium" id="holderName" formControlName="holderName"
+                                    placeholder="Relationship" fullWidth>
+                                    <nb-option *ngFor="let item of policyHolderName" [value]="item.id">{{item?.name}}
+                                    </nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                    </div>         
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
                                     <label for="policyHolder" class="label">
-                                        Policy holder</label>
+                                        Policy holder Name</label>
                                     <input type="text" fieldSize="medium" formControlName="policyHolder" nbInput fullWidth
-                                        id="policyHolder" placeholder="Policy Holder">
+                                        id="policyHolder" placeholder="Policy Holder Name">
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group mb-1">
-                                    <label for="holderName" class="label">
-                                        Policy holder name
-                                    </label>
-                                    <div>
-                                        <nb-select size="medium" id="holderName" formControlName="holderName"
-                                            placeholder="Policy holder name" fullWidth>
-                                            <nb-option *ngFor="let item of policyHolderName" [value]="item.id">{{item?.name}}
-                                            </nb-option>
-                                        </nb-select>
-                                    </div>
-                                </div>
-                            </div>
+                            </div>               
                         </div>
                         <div class="row">
                             <div class="col-md-6">

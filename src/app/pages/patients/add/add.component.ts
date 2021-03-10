@@ -99,21 +99,21 @@ export class AddComponent implements OnInit {
           morbidity: this.profileData.morbidity,
           language: this.profileData.languageId,
           vitals: !!this.profileExtraData.vitals ? this.profileExtraData.vitals : [],
-          policyHolder: this.profileExtraData.insurance.policyHolder,
-          holderName: this.profileExtraData.insurance.holderName,
-          insuranceDob: new Date(this.profileExtraData.insurance.insuranceDob),
-          claimAddress: this.profileExtraData.insurance.claimAddress,
-          insuranceCarrier: this.profileExtraData.insurance.insuranceCarrier,
-          medType: this.profileExtraData.insurance.medType,
-          policyNumber: this.profileExtraData.insurance.policyNumber,
-          groupNumber: this.profileExtraData.insurance.groupNumber,
-          plan: this.profileExtraData.insurance.plan,
-          emergencyName: this.profileExtraData.emergencyContact.name,
-          emergencyRelation: this.profileExtraData.emergencyContact.relation,
-          emergencyNumber:this.profileExtraData.emergencyContact.number
+          policyHolder: this.profileExtraData.insurance?.policyHolder,
+          holderName: this.profileExtraData.insurance?.holderName,
+          insuranceDob: this.profileExtraData.insurance?.insuranceDob ? new Date(this.profileExtraData.insurance?.insuranceDob):'',
+          claimAddress: this.profileExtraData.insurance?.claimAddress,
+          insuranceCarrier: this.profileExtraData.insurance?.insuranceCarrier,
+          medType: this.profileExtraData.insurance?.medType,
+          policyNumber: this.profileExtraData.insurance?.policyNumber,
+          groupNumber: this.profileExtraData.insurance?.groupNumber,
+          plan: this.profileExtraData.insurance?.plan,
+          emergencyName: this.profileExtraData.emergencyContact?.name,
+          emergencyRelation: this.profileExtraData.emergencyContact?.relation,
+          emergencyNumber:this.profileExtraData.emergencyContact?.number
         });
-        this.frontImageURl = this.profileExtraData.insurance.frontImage;
-        this.backImageURL =  this.profileExtraData.insurance.backImage;   
+        this.frontImageURl = this.profileExtraData.insurance?.frontImage;
+        this.backImageURL =  this.profileExtraData.insurance?.backImage;   
         if (this.profileData.monitored === 0) {
           this.profileForm.patchValue({
             monitored: false
