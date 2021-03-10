@@ -32,6 +32,8 @@ export class AddComponent implements OnInit {
   vitals: any[] = [];
   selectedItem: any;
   profileExtraData: any;
+  policyHolderName = [{ name: 'Self', id: 0 }, { name: 'Spouse', id: 1 }, { name: 'Other', id: 2 }];
+  mediType = [{ name: 'Private', id: 0 }, { name: 'Medicare', id: 1 }, { name: 'Medicare advantage', id: 2 }, { name: 'Tricase', id: 3 }];
 
   @ViewChild('birthDate', { static: false }) birthDate: any;
   constructor(
@@ -123,9 +125,19 @@ export class AddComponent implements OnInit {
       zipcode: ['', Validators.required],
       morbidity: ['', ],
       monitored: ['', ],
-      vitals: [[]]
+      vitals: [[]],
+      policyHolder: ['', Validators.required],
+      holderName: ['', Validators.required],
+      insuranceDob: ['', Validators.required],
+      claimAddress: ['', Validators.required],
+      insuranceCarrier: ['', Validators.required],
+      medType: ['', Validators.required],
+      policyNumber: ['', Validators.required],
+      groupNumber: ['', Validators.required],
+      plan: ['', Validators.required],  
     });
   }
+
   onSubmit() {
     // console.log(this.profileForm, this.selectedItem);
     let extraData = {};
@@ -237,6 +249,17 @@ export class AddComponent implements OnInit {
           email: true,
           push: true,
           sms: true
+        },
+        insurance: {
+          policyHolder: this.profileForm.value.policyHolder,
+          holderName: this.profileForm.value.holderName,
+          insuranceDob: this.profileForm.value.insuranceDob,
+          claimAddress: this.profileForm.value.claimAddress,
+          insuranceCarrier: this.profileForm.value.insuranceCarrier,
+          medType: this.profileForm.value.medType,
+          policyNumber: this.profileForm.value.policyNumber,
+          groupNumber: this.profileForm.value.groupNumber,
+          plan:this.profileForm.value.plan
         },
         password: this.profileForm.value.password,
         phoneNumber: this.profileForm.value.handphone ? this.profileForm.value.handphone : '',

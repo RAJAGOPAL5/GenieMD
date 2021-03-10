@@ -5,9 +5,9 @@
             </div>
         </nb-card-header>
         <nb-card-body>
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="m-auto w-60">
             <nb-tabset>
                 <nb-tab tabTitle="General">
-                    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="m-auto w-60">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-1">
@@ -71,7 +71,7 @@
                                 <label for="inputMobile" class="label"> <span class="text-danger">*</span>
                                     {{'kMobileNumber' | translate}}</label>
                                 <input fieldSize="medium" type="number" formControlName='handphone' nbInput fullWidth
-                                    id="inputMobileNumber" placeholder="Mobile Number">
+                                    id="inputMobile" placeholder="Mobile Number">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -177,10 +177,8 @@
                                 status="success">{{'kSave' | translate}}</button>
                         </div>
                     </div>
-                    </form>
                 </nb-tab>
                 <nb-tab tabTitle="Insurance">
-                    <form [formGroup]="insuranceForm" class="m-auto w-60">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
@@ -192,20 +190,26 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
-                                    <label for="holderName" class="label"> <span class="text-danger">*</span> 
-                                        Policy holder name</label>
-                                    <input type="text" fieldSize="medium" formControlName="holderName" nbInput fullWidth
-                                        id="holderName" placeholder="Policy holder name">
+                                    <label for="holderName" class="label"> <span class="text-danger">*</span>
+                                        Policy holder name
+                                    </label>
+                                    <div>
+                                        <nb-select size="medium" id="holderName" formControlName="holderName"
+                                            placeholder="Policy holder name" fullWidth>
+                                            <nb-option *ngFor="let item of policyHolderName" [value]="item.id">{{item?.name}}
+                                            </nb-option>
+                                        </nb-select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
-                                    <label for="dob" class="label"> <span class="text-danger">*</span> 
+                                    <label for="insuranceDob" class="label"> <span class="text-danger">*</span> 
                                         Date of Birth</label>
-                                    <input nbInput [nbDatepicker]="rangepicker" fieldSize="medium" formControlName="dob" nbInput fullWidth
-                                        id="dob" placeholder="Date of Birth">
+                                    <input nbInput [nbDatepicker]="rangepicker" fieldSize="medium" formControlName="insuranceDob" nbInput fullWidth
+                                        id="insuranceDob" placeholder="Date of Birth">
                                         <nb-rangepicker #rangepicker></nb-rangepicker>
                                 </div>
                             </div>
@@ -229,20 +233,47 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-1">
-                                    <label for="medType" class="label"> <span class="text-danger">*</span> 
-                                        Type</label>
-                                    <input type="text" fieldSize="medium" formControlName="medType" nbInput fullWidth
-                                        id="medType" placeholder="Type">
+                                    <label for="medType" class="label"> <span class="text-danger">*</span>
+                                        Type
+                                    </label>
+                                    <div>
+                                        <nb-select size="medium" id="medType" formControlName="medType"
+                                            placeholder="Type" fullWidth>
+                                            <nb-option *ngFor="let item of mediType" [value]="item.id">{{item?.name}}
+                                            </nb-option>
+                                        </nb-select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    
-                        
-                
-                      
-                      
-                       
-                      </form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-1">
+                                    <label for="policyNumber" class="label"> <span class="text-danger">*</span> 
+                                        Subscriber ID / Policy Number</label>
+                                    <input type="text" fieldSize="medium" formControlName="policyNumber" nbInput fullWidth
+                                        id="policyNumber" placeholder="Subscriber ID / Policy Number">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-1">
+                                    <label for="groupNumber" class="label"> <span class="text-danger">*</span> 
+                                        Group Number</label>
+                                    <input type="text" fieldSize="medium" formControlName="groupNumber" nbInput fullWidth
+                                        id="groupNumber" placeholder="Group Number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-1">
+                                    <label for="plan" class="label"> <span class="text-danger">*</span> 
+                                       Plan</label>
+                                    <input type="text" fieldSize="medium" formControlName="plan" nbInput fullWidth
+                                        id="plan" placeholder="Plan">
+                                </div>
+                            </div>
+                        </div>                      
                 </nb-tab>
                 <nb-tab tabTitle="Emergency Contact">
                     Tab content 3
@@ -251,6 +282,6 @@
                     Tab content 4
                   </nb-tab>
                </nb-tabset>
-        
+            </form>
         </nb-card-body>
     </nb-card>
