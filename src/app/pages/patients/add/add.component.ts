@@ -146,12 +146,12 @@ export class AddComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.profileForm, this.selectedItem);
-    let extraData = {
-      emergencyContact: {
-        name: this.profileForm.value.emergencyName,
-        relation: this.profileForm.value.emergencyRelation,
-        number: this.profileForm.value.emergencyNumber
-      },
+   var emergencyContact = {
+      name: this.profileForm.value.emergencyName,
+      relation: this.profileForm.value.emergencyRelation,
+      number: this.profileForm.value.emergencyNumber
+    },
+    extraData = {
       insurance: {
         policyHolder: this.profileForm.value.policyHolder,
         holderName: this.profileForm.value.holderName,
@@ -169,6 +169,8 @@ export class AddComponent implements OnInit {
       extraData['dateofbirth'] = this.setDOB(this.profileForm.value.dob);
       extraData['phoneNumber'] = this.profileForm.value.handphone ? this.profileForm.value.handphone : '';
       extraData['vitals'] = this.profileForm.value.vitals;
+      extraData['emergencyContact'] = emergencyContact;
+
     }
     this.isLoading = true;
     if (this.profileForm.invalid) {
