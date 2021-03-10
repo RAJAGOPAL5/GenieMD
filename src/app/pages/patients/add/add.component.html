@@ -320,7 +320,7 @@
                                         {{'kRelation' | translate}}</label>
                                     <div>
                                         <nb-select size="medium" fullWidth id="relation" formControlName="emergencyRelation"
-                                             placeholder="Relation">
+                                             placeholder="{{'kRelation' | translate}}">
                                             <nb-option *ngFor="let item of relation" [value]="item.id">{{item?.value}}
                                             </nb-option>
                                         </nb-select>
