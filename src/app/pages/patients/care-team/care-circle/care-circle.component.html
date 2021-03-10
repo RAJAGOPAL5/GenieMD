@@ -1,5 +1,5 @@
 <div class="circle-graph p-4 d-flex justify-content-center" #circleContainer id="care-circle">
-    <ngx-avatar class="primary-circle" size="100" [name]="config?.primary?.name" [nbTooltip]="config?.primary?.name" nbTooltipStatus="primary" [src]="config?.primary?.image"></ngx-avatar>
+    <div [nbTooltip]="config?.primary?.name" nbTooltipStatus="primary" class="my-auto" style="z-index:1"><ngx-avatar class="primary-circle" size="100" [name]="config?.primary?.name" [src]="config?.primary?.image"></ngx-avatar></div>
     <div class="circle-item" *ngFor="let item of config?.items" [nbTooltip]="item?.name" nbTooltipStatus="primary">
         <ngx-avatar size="100" borderColor="#dee2e6" [name]="item?.name" [src]="item?.image"></ngx-avatar>
     </div>

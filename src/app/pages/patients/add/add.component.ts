@@ -1,15 +1,16 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit,TemplateRef, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
-import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
-import { languages, states, morbidity, gender, vitals, relation } from 'src/app/shared/constant/constant';
+import { NbDialogRef, NbToastrService, NbDialogService } from '@nebular/theme';
+import { languages, states, morbidity, gender, vitals,relation ,diseaseState, preferredLanguage } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
+import { retryWhen } from 'rxjs/operators';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -34,10 +35,16 @@ export class AddComponent implements OnInit {
   vitals: any[] = [];
   selectedItem: any;
   profileExtraData: any;
+  diseaseState: any[] = [];
+  showOtherDisease = false;
+  preferredLanguage: any[] = [];
+  showPreferredLanguages = false;
   policyHolderName = [{ name: 'Self', id: 0 }, { name: 'Spouse', id: 1 }, { name: 'Other', id: 2 }];
   mediType = [{ name: 'Private', id: 0 }, { name: 'Medicare', id: 1 }, { name: 'Medicare advantage', id: 2 }, { name: 'Tricase', id: 3 }];
 
   @ViewChild('birthDate', { static: false }) birthDate: any;
+  submitted: boolean;
+  diseaseStates: any;
   dataurl: any;
   frontImageURl: any;
   backImageURL: any;
@@ -63,10 +70,13 @@ export class AddComponent implements OnInit {
     this.morbidityID = morbidity;
     this.vitals = vitals;
     this.languages = languages;
+    this.diseaseState = diseaseState;
     this.relation = relation;
+    this.preferredLanguage = preferredLanguage;
     this.createForm();
   }
   getProfilePatch() {
+    var variousDisease;
     const patientPayload = {
       userID: this.profileService.id,
       clinicID: this.clinic.clinicID,
@@ -83,6 +93,12 @@ export class AddComponent implements OnInit {
           this.profileExtraData = this.profileData.extraData || {};
         }
         console.log('this.profileExtraData', this.profileExtraData);
+
+        try{
+          variousDisease =  JSON.parse(this.profileExtraData.diseaseState);
+        }catch(e){
+          variousDisease =  this.profileExtraData.diseaseState || {};
+        } 
 
         this.profileForm.patchValue({
           firstName: this.profileData.firstName,
@@ -110,10 +126,31 @@ export class AddComponent implements OnInit {
           plan: this.profileExtraData.insurance?.plan,
           emergencyName: this.profileExtraData.emergencyContact?.name,
           emergencyRelation: this.profileExtraData.emergencyContact?.relation,
-          emergencyNumber:this.profileExtraData.emergencyContact?.number
+          emergencyNumber:this.profileExtraData.emergencyContact?.number,
+          mrn: this.profileExtraData.MRN ? this.profileExtraData.MRN : '',
+          diseaseState:variousDisease,
+          preferredLanguage: this.profileExtraData.preferredLanguage ,
+          // customLanguage:this.profileExtraData.otherLanguage,
+          // customDisease:this.profileExtraData.otherDisease
+
         });
         this.frontImageURl = this.profileExtraData.insurance?.frontImage;
-        this.backImageURL =  this.profileExtraData.insurance?.backImage;   
+        this.backImageURL =  this.profileExtraData.insurance?.backImage;
+
+        if(this.profileExtraData.otherLanguage){
+          this.showPreferredLanguages = true;
+          this.profileForm.addControl('customLanguage', new FormControl('', [Validators.required]));
+          this.profileForm.patchValue({
+            customLanguage:this.profileExtraData.otherLanguage
+          });
+        }
+        if(this.profileExtraData.otherDisease){
+          this.showOtherDisease = true;
+          this.profileForm.addControl('customDisease', new FormControl('', [Validators.required]));
+          this.profileForm.patchValue({
+            customDisease:this.profileExtraData.otherDisease
+          });
+        }
         if (this.profileData.monitored === 0) {
           this.profileForm.patchValue({
             monitored: false
@@ -133,6 +170,7 @@ export class AddComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       dob: ['', Validators.required],
+      mrn: [''],
       handphone: ['', Validators.required],
       language: ['', Validators.required],
       email: ['', Validators.required],
@@ -154,16 +192,22 @@ export class AddComponent implements OnInit {
       medType: [''],
       policyNumber: [''],
       groupNumber: [''],
-      plan: [''],  
+      plan: [''],
       emergencyName: [''],
       emergencyRelation: [''],
-      emergencyNumber:['']
+      emergencyNumber:[''], 
+      diseaseState: [[]],
+      preferredLanguage: ['', ]
     });
   }
 
   onSubmit() {
+    this.submitted= true;
     // console.log(this.profileForm, this.selectedItem);
-   var emergencyContact = {
+    if (this.profileForm.invalid){
+      return;
+    }
+    var emergencyContact = {
       name: this.profileForm.value.emergencyName,
       relation: this.profileForm.value.emergencyRelation,
       number: this.profileForm.value.emergencyNumber
@@ -189,6 +233,12 @@ export class AddComponent implements OnInit {
       extraData['vitals'] = this.profileForm.value.vitals;
       extraData['emergencyContact'] = emergencyContact;
       extraData[ 'insurance' ] = insurance;
+      extraData['MRN'] = this.profileForm.value.mrn;
+      extraData['diseaseState'] = JSON.stringify(this.profileForm.value.diseaseState);
+      extraData['otherDisease'] = this.profileForm.value.customDisease ? this.profileForm.value.customDisease: "";
+      extraData['preferredLanguage'] = this.profileForm.value.preferredLanguage ;
+      extraData['otherLanguage'] = this.profileForm.value.customLanguage ? this.profileForm.value.customLanguage : ""; 
+
     }
     this.isLoading = true;
     if (this.profileForm.invalid) {
@@ -212,6 +262,7 @@ export class AddComponent implements OnInit {
         country: this.profileForm.value.country ? this.profileForm.value.country : '',
         zipCode: this.profileForm.value.zipcode ? this.profileForm.value.zipcode : '',
         extraData: extraData,
+        MRN: this.profileForm.value.mrn ? this.profileForm.value.mrn : '',
         firstName: this.profileForm.value.firstName,
         gender: `${this.profileForm.value.gender}`,
         imageURL: '',
@@ -306,7 +357,8 @@ export class AddComponent implements OnInit {
         planMemberCount: -1,
         planName: '',
         referralCode: '',
-        vitals: this.profileForm.value.vitals
+        vitals: this.profileForm.value.vitals,
+        MRN: this.profileForm.value.mrn ? this.profileForm.value.mrn : '',
       },
       firstName: this.profileForm.value.firstName,
       gender: `${this.profileForm.value.gender}`,
@@ -371,7 +423,31 @@ export class AddComponent implements OnInit {
   cancelPatient() {
     this.dialogRef.close();
   }
-
+  onchange() {
+    const selectedDisease = this.profileForm.value.diseaseState.filter(item => item === 10);
+    if (selectedDisease && selectedDisease.length) {
+      this.showOtherDisease = true;
+      this.profileForm.addControl('customDisease', new FormControl('', [Validators.required]));
+    } else {
+      this.showOtherDisease = false;
+      if (this.profileForm.get('customDisease')) {
+        this.profileForm.removeControl('customDisease');
+      }
+    }
+  }
+  clickLanguage(){
+    const selectedLanguage = this.profileForm.value.preferredLanguage;
+    if(selectedLanguage === 6 ){
+      this.showPreferredLanguages = true;
+      this.profileForm.addControl('customLanguage', new FormControl('', [Validators.required]));
+    } else {
+      this.showPreferredLanguages = false;
+      if (this.profileForm.get('customLanguage')) {
+        this.profileForm.removeControl('customLanguage');
+      }
+    }
+  }
+  
   changeFrontFile(event: any, type?) {
     this.isLoading = true;
     this.userID = this.profileService.id;
@@ -409,5 +485,4 @@ export class AddComponent implements OnInit {
       this.toastrService.danger(err.error.errorMessage? err.error.errorMessage: 'Image upload failed');
     });
   }
-
 }

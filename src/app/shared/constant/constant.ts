@@ -82,6 +82,19 @@ export const vitals = [
     { id: 4, name: 'Weight', displayName: 'Wt', vitalType: 6,  min: 50, max: 200  },
     { id: 5, name: 'Temperature', displayName: 'Temp', vitalType: 14,  min: -20, max: 80  }];
 
+export const diseaseState = [
+    {id: 1, name: 'Hypertension'},
+    {id: 2, name: 'High Cholesterol'},
+    {id: 3, name: 'Heart Disease'},
+    {id: 4, name: 'Diabetes'},
+    {id: 5, name: 'Kidney Disease'},
+    {id: 6, name: 'Heart Failure'},
+    {id: 7, name: 'Pulmonary Disease'},
+    {id: 8, name: 'Cancer'},
+    {id: 9, name: 'Mental Health'},
+    {id: 10, name: 'Other'}
+];
+
 export const relation =[
     { id: 0, value: 'Father'},
     { id: 1, value: 'Mother'},
@@ -89,3 +102,13 @@ export const relation =[
     { id: 3, value: 'Brother'},
     { id: 4, value: 'Sister'},
     { id: 5, value: 'Other'}];
+    
+export const preferredLanguage = [
+    { name: 'English', id: 1 },
+    { name: 'Spanish', id: 2 },
+    { name: 'Chinese', id: 3 },
+    { name: 'Tagalog', id: 4 },
+    { name: 'Vietnamese', id: 5 },
+    { name: 'Other', id: 6 },
+];
+
