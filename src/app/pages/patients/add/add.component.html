@@ -205,13 +205,13 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group mb-1">
-                                    <label for="insuranceDob" class="label"> <span class="text-danger">*</span> 
-                                        Date of Birth</label>
-                                    <input nbInput [nbDatepicker]="rangepicker" fieldSize="medium" formControlName="insuranceDob" nbInput fullWidth
-                                        id="insuranceDob" placeholder="Date of Birth">
-                                        <nb-rangepicker #rangepicker></nb-rangepicker>
-                                </div>
+                                    <div class="form-group mb-1">
+                                        <div for="insuranceDob" class="label"> <span class="text-danger">*</span> 
+                                            Date of Birth</div>
+                                        <input nbInput fullWidth fieldSize="medium" formControlName="insuranceDob" placeholder="DD/MM/YYYY"
+                                            [nbDatepicker]="formcontrol" fullWidth>
+                                        <nb-datepicker #formcontrol></nb-datepicker>
+                                    </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-1">

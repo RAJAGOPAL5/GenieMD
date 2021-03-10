@@ -95,7 +95,16 @@ export class AddComponent implements OnInit {
           city: this.profileData.city,
           morbidity: this.profileData.morbidity,
           language: this.profileData.languageId,
-          vitals: !!this.profileExtraData.vitals ? this.profileExtraData.vitals : []
+          vitals: !!this.profileExtraData.vitals ? this.profileExtraData.vitals : [],
+          policyHolder: this.profileForm.value.policyHolder,
+          holderName: this.profileForm.value.holderName,
+          insuranceDob: this.profileForm.value.insuranceDob,
+          claimAddress: this.profileForm.value.claimAddress,
+          insuranceCarrier: this.profileForm.value.insuranceCarrier,
+          medType: this.profileForm.value.medType,
+          policyNumber: this.profileForm.value.policyNumber,
+          groupNumber: this.profileForm.value.groupNumber,
+          plan:this.profileForm.value.plan
         });
         if (this.profileData.monitored === 0) {
           this.profileForm.patchValue({
@@ -146,13 +155,13 @@ export class AddComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.profileForm, this.selectedItem);
+    let extraData = {};
    var emergencyContact = {
       name: this.profileForm.value.emergencyName,
       relation: this.profileForm.value.emergencyRelation,
       number: this.profileForm.value.emergencyNumber
-    },
-    extraData = {
-      insurance: {
+    };
+   var insurance = {
         policyHolder: this.profileForm.value.policyHolder,
         holderName: this.profileForm.value.holderName,
         insuranceDob: this.profileForm.value.insuranceDob,
@@ -162,15 +171,14 @@ export class AddComponent implements OnInit {
         policyNumber: this.profileForm.value.policyNumber,
         groupNumber: this.profileForm.value.groupNumber,
         plan:this.profileForm.value.plan
-      }
-    };
+      }  
     if (this.profileExtraData) {
       extraData = this.profileExtraData;
       extraData['dateofbirth'] = this.setDOB(this.profileForm.value.dob);
       extraData['phoneNumber'] = this.profileForm.value.handphone ? this.profileForm.value.handphone : '';
       extraData['vitals'] = this.profileForm.value.vitals;
       extraData['emergencyContact'] = emergencyContact;
-
+      extraData[ 'insurance' ] = insurance;
     }
     this.isLoading = true;
     if (this.profileForm.invalid) {
