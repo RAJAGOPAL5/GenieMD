@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import * as moment from 'moment';
@@ -7,7 +7,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
-import { languages, states, morbidity, gender, vitals } from 'src/app/shared/constant/constant';
+import { languages, states, morbidity, gender, vitals, diseaseState } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
 @Component({
@@ -32,6 +32,8 @@ export class AddComponent implements OnInit {
   vitals: any[] = [];
   selectedItem: any;
   profileExtraData: any;
+  diseaseState: any[] = [];
+  showOtherDisease = false;
 
   @ViewChild('birthDate', { static: false }) birthDate: any;
   constructor(
@@ -56,6 +58,7 @@ export class AddComponent implements OnInit {
     this.morbidityID = morbidity;
     this.vitals = vitals;
     this.languages = languages;
+    this.diseaseState = diseaseState;
     this.createForm();
   }
   getProfilePatch() {
@@ -123,7 +126,8 @@ export class AddComponent implements OnInit {
       zipcode: ['', Validators.required],
       morbidity: ['', ],
       monitored: ['', ],
-      vitals: [[]]
+      vitals: [[]],
+      diseaseState: [[]]
     });
   }
   onSubmit() {
@@ -308,5 +312,17 @@ export class AddComponent implements OnInit {
 
   cancelPatient() {
     this.dialogRef.close();
+  }
+  onchange() {
+    const selectedDisease = this.profileForm.value.diseaseState.filter(item => item === 'Other');
+    if (selectedDisease && selectedDisease.length) {
+      this.showOtherDisease = true;
+      this.profileForm.addControl('customDisease', new FormControl('', [Validators.required]));
+    } else {
+      this.showOtherDisease = false;
+      if (this.profileForm.get('customDisease')) {
+        this.profileForm.removeControl('customDisease');
+      }
+    }
   }
 }

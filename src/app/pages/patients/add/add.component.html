@@ -159,26 +159,37 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-1">
-                                <label for="diseaseState" class="label"> <span class="danger"></span>
-                                    Disease State</label>
-                                <div>
-                                   <input type="text" id="diseaseState">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group mb-1">
                                 <label for="vitals" class="label">
-                                {{'kVitals' | translate}}</label>
-                                <nb-select size="medium" fullWidth multiple id="vitals" formControlName="vitals" placeholder="Select Vitals" [(selected)]="selectedItem">
+                                    {{'kVitals' | translate}}</label>
+                                <nb-select size="medium" fullWidth multiple id="vitals" formControlName="vitals" placeholder="Select Vitals"
+                                    [(selected)]="selectedItem">
                                     <!-- <nb-select-label *ngFor="let item of selectedItem">
                                         {{ item.displayName }}
                                     </nb-select-label> -->
                                     <nb-option *ngFor="let item of vitals" [value]="item?.vitalType">{{item?.displayName}}
                                     </nb-option>
                                 </nb-select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="diseaseState" class="label"> <span class="danger"></span>
+                                    Disease State</label>
+                                <div>
+                                    <nb-select size="medium" fullWidth multiple id="diseaseState" placeholder="Select Disease State"
+                                        formControlName="diseaseState" (selectedChange)="onchange()">
+                                        <nb-option *ngFor="let item of diseaseState" [value]="item?.name">{{item?.name}}
+                                        </nb-option>
+                                    </nb-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" *ngIf = "showOtherDisease">
+                            <div class="form-group mb-1">
+                                <label for="otherDisease" class="label"> <span class="text-danger">*</span>
+                                    Other Disease State</label>
+                                <input type="text" fieldSize="medium" formControlName="customDisease" nbInput fullWidth id="otherDisease"
+                                    placeholder="Other Disease">
                             </div>
                         </div>
                         <div class="col-md-6 my-auto">
