@@ -136,15 +136,10 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-1">
-                                <label for="preferredLanguage" class="label"> <span class="danger"></span>
-                                    preferred Language</label>
-                                    <div>
-                                        <nb-select id="preferredLanguage" size="medium" class="w-100" fullWidth formControlName="preferredLanguage"
-                                        (selectedChange)="clickLanguage()" placeholder="Select Preferred Language">
-                                            <nb-option *ngFor="let item of preferredLanguage" [value]="item.id">
-                                                {{item?.name}}</nb-option>
-                                        </nb-select>
-                                    </div>
+                                <label for="mrn" class="label"> <span class="text-danger"></span>
+                                   MRN</label>
+                                <input type="text" fieldSize="medium" formControlName="mrn" nbInput fullWidth id="mrn"
+                                    placeholder="Enter the MRN">
                             </div>
                         </div>
                     </div>

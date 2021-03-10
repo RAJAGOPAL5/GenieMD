@@ -96,7 +96,8 @@ export class AddComponent implements OnInit {
           city: this.profileData.city,
           morbidity: this.profileData.morbidity,
           language: this.profileData.languageId,
-          vitals: !!this.profileExtraData.vitals ? this.profileExtraData.vitals : []
+          vitals: !!this.profileExtraData.vitals ? this.profileExtraData.vitals : [],
+          mrn: this.profileExtraData.MRN ? this.profileExtraData.MRN : '',
         });
         if (this.profileData.monitored === 0) {
           this.profileForm.patchValue({
@@ -117,6 +118,7 @@ export class AddComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       dob: ['', Validators.required],
+      mrn: [''],
       handphone: ['', Validators.required],
       language: ['', Validators.required],
       email: ['', Validators.required],
@@ -142,6 +144,7 @@ export class AddComponent implements OnInit {
       extraData['dateofbirth'] = this.setDOB(this.profileForm.value.dob);
       extraData['phoneNumber'] = this.profileForm.value.handphone ? this.profileForm.value.handphone : '';
       extraData['vitals'] = this.profileForm.value.vitals;
+      extraData['MRN'] = this.profileForm.value.mrn;
     }
     this.isLoading = true;
     if (this.profileForm.invalid) {
@@ -165,6 +168,7 @@ export class AddComponent implements OnInit {
         country: this.profileForm.value.country ? this.profileForm.value.country : '',
         zipCode: this.profileForm.value.zipcode ? this.profileForm.value.zipcode : '',
         extraData: extraData,
+        MRN: this.profileForm.value.mrn ? this.profileForm.value.mrn : '',
         firstName: this.profileForm.value.firstName,
         gender: `${this.profileForm.value.gender}`,
         imageURL: '',
@@ -252,7 +256,8 @@ export class AddComponent implements OnInit {
         planMemberCount: -1,
         planName: '',
         referralCode: '',
-        vitals: this.profileForm.value.vitals
+        vitals: this.profileForm.value.vitals,
+        MRN: this.profileForm.value.mrn ? this.profileForm.value.mrn : '',
       },
       firstName: this.profileForm.value.firstName,
       gender: `${this.profileForm.value.gender}`,
