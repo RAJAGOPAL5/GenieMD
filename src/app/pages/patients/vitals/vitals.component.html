@@ -6,12 +6,12 @@
             </span>
             <span class="ps-2">
                 <nb-button-group ghost size="small" outline shape="rectangle">
-                    <button nbButtonToggle status="primary" (click)="getList('all')" class="m-1" pressed>{{'kAll' | translate}}</button>
-                    <button nbButtonToggle status="primary" (click)="getList('1w')" class="m-1">{{'k1w' | translate}}</button>
-                    <button nbButtonToggle status="primary" (click)="getList('1m')" class="m-1">{{'k1m' | translate}}</button>
-                    <button nbButtonToggle status="primary" (click)="getList('3m')" class="m-1">{{'k3m' | translate}}</button>
-                    <button nbButtonToggle status="primary" (click)="getList('6m')" class="m-1">{{'k6m' | translate}}</button>
-                    <button nbButtonToggle status="primary" (click)="getList('1y')" class="m-1">{{'k1y' | translate}}</button>
+                    <button nbButtonToggle status="primary" (click)="getList('all')" class="m-1" [pressed]="btnDeactive == 0">{{'kAll' | translate}}</button>
+                    <button nbButtonToggle status="primary" (click)="getList('1w')" class="m-1"  [pressed]="btnDeactive == 1">{{'k1w' | translate}}</button>
+                    <button nbButtonToggle status="primary" (click)="getList('1m')" class="m-1"  [pressed]="btnDeactive == 2">{{'k1m' | translate}}</button>
+                    <button nbButtonToggle status="primary" (click)="getList('3m')" class="m-1"  [pressed]="btnDeactive == 3">{{'k3m' | translate}}</button>
+                    <button nbButtonToggle status="primary" (click)="getList('6m')" class="m-1"  [pressed]="btnDeactive == 4">{{'k6m' | translate}}</button>
+                    <button nbButtonToggle status="primary" (click)="getList('1y')" class="m-1"  [pressed]="btnDeactive == 5">{{'k1y' | translate}}</button>
                 </nb-button-group>
             </span>
             <span class="ms-auto"></span>
