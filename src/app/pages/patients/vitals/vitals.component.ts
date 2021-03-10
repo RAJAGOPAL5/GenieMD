@@ -44,6 +44,7 @@ export class VitalsComponent implements OnInit {
   patientId: any;
   isLoading = false;
   event: any;
+  btnDeactive:any = 0;
   selectedDateRange = {
     start:new Date('1900-02-01'),
     end: new Date()
@@ -70,16 +71,22 @@ export class VitalsComponent implements OnInit {
     let fromDate = moment().add(-118, 'years').valueOf();
     const toDate = moment().valueOf();
     if (event === '1w') {
+      this.btnDeactive=1;
       fromDate = moment().add(-7, 'days').valueOf();
     } else if (event === '1m') {
+      this.btnDeactive=2;
       fromDate = moment().add(-1, 'months').valueOf();
     } else if (event === '3m') {
+      this.btnDeactive=3;
       fromDate = moment().add(-3, 'months').valueOf();
     } else if (event === '6m') {
+      this.btnDeactive=4;
       fromDate = moment().add(-6, 'months').valueOf();
     } else if (event === '1y') {
+      this.btnDeactive=5;
       fromDate = moment().add(-1, 'years').valueOf();
     } else if (event === 'all') {
+      this.btnDeactive=0;
       fromDate = moment('1900-02-01').valueOf();
     }
     this.selectedDateRange = {
@@ -118,6 +125,7 @@ export class VitalsComponent implements OnInit {
     });
   }
   selectedDate(event) {
+    this.btnDeactive = 9;
     const ranges = event;
     if(ranges.start && ranges.end){
       this.chartInfo = { patientId: this.patientId, fromDate: ranges.start.getTime(), toDate: ranges.end.getTime()};
