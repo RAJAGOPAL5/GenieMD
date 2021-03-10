@@ -396,6 +396,10 @@ export class AddComponent implements OnInit {
       this.toastrService.danger(error.error.errorMessage);
     });
   }
+  
+  get f() {
+    return this.profileForm.controls;
+  }
   addPatient() {
     const payload = {
       clinicID: this.clinic.clinicID,
