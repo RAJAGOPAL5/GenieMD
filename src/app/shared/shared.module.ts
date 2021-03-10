@@ -7,6 +7,7 @@ import { MissingTranslationHandler, MissingTranslationHandlerParams, TranslateLo
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DevicesComponent } from './components/devices/devices.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "../../assets/i18n/", ".json");
@@ -18,6 +19,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbLayoutModule,
     NbDialogModule.forChild(),
     NbIconModule,
+    ReactiveFormsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -27,7 +29,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         })
   ],
   exports: [NbLayoutModule,
-    TranslateModule
+    TranslateModule,
+    DevicesComponent
   ]
 })
 export class SharedModule { }

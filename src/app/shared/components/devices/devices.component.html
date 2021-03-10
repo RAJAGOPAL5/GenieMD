@@ -1,1 +1,33 @@
-<p>devices works!</p>
+<form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group mb-1">
+                <label for="deviceType" class="label"> <span class="text-danger">*</span> 
+                    Device Type</label>
+                <input type="text" fieldSize="medium" formControlName="deviceType" nbInput fullWidth
+                    id="deviceType" placeholder="Device Type">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group mb-1">
+                <label for="manufacturer" class="label"> <span class="text-danger">*</span> 
+                    Manufacturer</label>
+                <input type="text" fieldSize="medium" formControlName="manufacturer" nbInput fullWidth
+                    id="manufacturer" placeholder="Manufacturer">
+            </div>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group mb-1">
+                    <label for="serialNumber" class="label"> <span class="text-danger">*</span> 
+                        Serial Number</label>
+                    <input type="text" fieldSize="medium" formControlName="serialNumber" nbInput fullWidth
+                        id="serialNumber" placeholder="serialNumber">
+                </div>
+            </div>
+
+    </div>
+</form>

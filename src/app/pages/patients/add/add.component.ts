@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
-import { NbDialogRef, NbToastrService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { languages, states, morbidity, gender, vitals, relation } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
@@ -45,8 +45,7 @@ export class AddComponent implements OnInit {
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
     private toastrService: NbToastrService, private patientsService: PatientsService, protected dialogRef: NbDialogRef<any>,
-    private ls: LanguageService,
-    private translate: TranslateService
+    private ls: LanguageService, private translate: TranslateService, private dialogService: NbDialogService
     ) {
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
@@ -262,6 +261,14 @@ export class AddComponent implements OnInit {
       this.isLoading = false;
       this.toastrService.danger(error.error.errorMessage);
     });
+  }
+
+  open(dialog: TemplateRef<any>) {
+    this.dialogRef = this.dialogService.open(dialog);
+  }
+  
+  refclose() {
+    this.dialogRef.close();
   }
 
   updateProfile() {

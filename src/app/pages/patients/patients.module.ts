@@ -35,6 +35,7 @@ import { Spo2Component } from './vitals/chart/spo2/spo2.component';
 import { NgxDateRangeModule } from 'ngx-daterange';
 import { CareCircleComponent } from './care-team/care-circle/care-circle.component';
 import { AvatarModule } from 'ngx-avatar';
+import { SharedModule } from 'src/app/shared/shared.module';
 // export function HttpLoaderFactory(http: HttpClient) {
 //   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json');
 // }
@@ -54,7 +55,7 @@ import { AvatarModule } from 'ngx-avatar';
     TemperatureComponent,
     WeightComponent,
     Spo2Component,
-    CareCircleComponent
+    CareCircleComponent,
   ],
   imports: [
     CommonModule,
@@ -89,8 +90,9 @@ import { AvatarModule } from 'ngx-avatar';
     NbPopoverModule,
     NbCalendarRangeModule,
     NbCalendarModule,
-    AvatarModule
-  ],
+    AvatarModule,
+    SharedModule
+    ],
   entryComponents: [AddComponent]
 })
 export class PatientsModule { }
