@@ -104,7 +104,10 @@ export class AddComponent implements OnInit {
           medType: this.profileForm.value.medType,
           policyNumber: this.profileForm.value.policyNumber,
           groupNumber: this.profileForm.value.groupNumber,
-          plan:this.profileForm.value.plan
+          plan:this.profileForm.value.plan,
+          emergencyName: this.profileExtraData.emergencyContact.name,
+          emergencyRelation: this.profileExtraData.emergencyContact.relation,
+          emergencyNumber:this.profileExtraData.emergencyContact.number
         });
         if (this.profileData.monitored === 0) {
           this.profileForm.patchValue({
