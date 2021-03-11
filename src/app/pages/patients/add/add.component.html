@@ -1,7 +1,10 @@
-    <nb-card size="large" [nbSpinner]="isLoading">      
+    <nb-card size="large" [nbSpinner]="isLoading" class="card-width">      
         <nb-card-header>
-            <div class="row">
-                <div class="col-md-10 col-sm-9"> {{!!patientID ? 'Edit' :'Add'}} Patient</div>
+            <div class="row d-flex">
+                <div class="col-md-11 col-sm-9"> {{!!patientID ? 'Edit' :'Add'}} Patient</div>
+                <div class="col-md-1 col-1 d-flex justify-content-end"(click)="cancelPatient()">
+                <nb-icon icon="close-outline"></nb-icon>
+                </div>
             </div>
         </nb-card-header>
         <nb-card-body class="pt-0">

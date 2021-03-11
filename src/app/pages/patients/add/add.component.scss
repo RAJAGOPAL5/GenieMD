@@ -12,3 +12,10 @@ nb-tabset ::ng-deep > ul  {
     z-index: 500;
     background-color: white;
 }
+nb-tabset ::ng-deep > ul >li >a:focus  {
+   outline : none;
+}
+.card-width{
+    min-width: 878px;
+    max-width: 878px;
+}
