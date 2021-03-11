@@ -36,7 +36,7 @@
             </div>
             <div class="col-md-3 mt-3">
                 <div>
-                    <div class="d-flex">
+                    <div class="d-flex pb-2">
                         <nb-icon icon="map-marker-alt" nbTooltip="Location" nbTooltipPlacement="left" pack="font-awesome">
                         </nb-icon>
                         <div class="ps-2">
@@ -49,22 +49,19 @@
                             </div>
                         </div>
                     </div>
- 
-
-                     <nb-card>
-                        <nb-card-body class="example-items-col">
+                 <nb-card>
+                    <nb-card-body style="max-height:50px;overflow-x:auto">
                             <nb-tag-list>
-                                <nb-tag appearance="filled" *ngFor="let tree of DiseaseList" [text]="tree" status="primary"></nb-tag>
-                            </nb-tag-list>
-                        </nb-card-body>
-                      </nb-card>
-
+                                <nb-tag appearance="filled" *ngFor="let tree of diseaseList" size="tiny" [text]="tree" status="info"></nb-tag>
+                              </nb-tag-list>
+                    </nb-card-body>
+                 </nb-card>
                 </div>
             </div>
             <div class="col-md-2 mt-3">
-                <button nbButton ghost status="info">Insurance</button>
-                <button nbButton ghost status="info">Emergency Contact</button>
-                <button nbButton ghost status="info">Devices</button>
+                <button nbButton ghost size="small" status="info">Insurance</button>
+                <button nbButton ghost  size="small" status="info">Emergency Contact</button>
+                <button nbButton ghost  size="small" status="info">Devices</button>
             </div>
             <div class="col-md-2 mt-3">
                 <button nbButton status="primary" class="mb-2 w-100 btn-lg" size="small">

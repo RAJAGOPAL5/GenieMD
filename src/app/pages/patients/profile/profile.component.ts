@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NbIconLibraries, NbToastrService } from '@nebular/theme';
+import { NbIconLibraries, NbToastrService,NbTagComponent} from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
@@ -8,6 +8,7 @@ import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { languages, states, morbidity, gender,diseaseState } from 'src/app/shared/constant/constant';
+
 
 interface ViewModal {
   profile?: any;
@@ -89,9 +90,9 @@ export class ProfileComponent implements OnInit {
       catch{
         this.diseaseStateList = {};
       }
-
+      let a;
       this.diseaseList = this.diseaseStateList.map(item => {
-        let a = this.diseaseState.find(kItem => kItem.id === item);
+        a = this.diseaseState.find(kItem => kItem.id === item);
         return a.name;
       });
        
