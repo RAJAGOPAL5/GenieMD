@@ -92,7 +92,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     NbCalendarModule,
     AvatarModule,
     SharedModule,
-    NbTreeGridModule
+    NbTreeGridModule,
     ],
   entryComponents: [AddComponent]
 })
