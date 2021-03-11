@@ -2,10 +2,13 @@
     <nb-card-header>
         <div class="row">
             <div class="col-2 offset-10 p-0">
-                <button nbButton ghost size="gaint" class="f-right" (click)="open(dialog)">
+                <!-- <button nbButton ghost size="gaint" class="f-right" (click)="open(dialog)">
                     <nb-icon icon="plus" nbTooltip="Add Care Givers" nbTooltipStatus="control" status="primary">
                     </nb-icon>
-                </button>
+                </button> -->
+                <nb-actions size="medium" class="justify-content-end">
+                    <nb-action nbTooltip="Add Care Givers" nbTooltipPlacement="top" icon="plus-circle-outline" (click)="open(dialog)"></nb-action>
+                </nb-actions>
             </div>
         </div>
     </nb-card-header>
@@ -33,8 +36,8 @@
             <input type="text" nbInput placeholder="Caregiver Username" [(ngModel)]="careGiver" name="careGiver">
         </nb-card-body>
         <nb-card-footer>
-            <button nbButton status="danger" class="mx-3" (click)="refclose()">{{'kCancel' | translate}}</button>
-            <button nbButton status="primary" class="mx-4" (click)="notify()">{{'kOk' | translate}}</button>
+            <button nbButton status="danger" class="w-100 " (click)="refclose()">{{'kCancel' | translate}}</button>
+            <button nbButton status="primary" class="w-100" (click)="notify()">{{'kOk' | translate}}</button>
         </nb-card-footer>
     </nb-card>
 </ng-template>
@@ -48,8 +51,8 @@
             <p>{{'KDeleteCaregiver' | translate}}</p>
         </nb-card-body>
         <nb-card-footer>
-            <button nbButton status="primary" class="f-right" (click)="deleteRecord()">{{'kYes' | translate}}</button>
-            <button nbButton status="danger" class="f-right mx-3" (click)="close()">{{'kNo' | translate}}</button>
+            <button nbButton status="primary" class="f-right w-100" (click)="deleteRecord()">{{'kYes' | translate}}</button>
+            <button nbButton status="danger" class="f-right  w-100" (click)="close()">{{'kNo' | translate}}</button>
         </nb-card-footer>
     </nb-card>
 </ng-template>
