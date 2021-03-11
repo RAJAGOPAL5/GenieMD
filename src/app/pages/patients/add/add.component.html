@@ -394,7 +394,7 @@
                   </nb-tab>
                   <nb-tab tabTitle="{{'kDevices' | translate}}">
                     <nb-card-body>
-                        <app-devices></app-devices>
+                        <app-devices (deviceData)= "getRecord($event)"></app-devices>
                     </nb-card-body>     
                       </nb-tab>
                </nb-tabset>
