@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -35,7 +35,7 @@ export class ListComponent implements OnInit {
   isLoading = false;
   searchText = '';
   clinic: any;
-  filterPayload = { firstName: '', lastName: '', dob: '', gender: ''};
+  filterPayload = { firstName: '', lastName: '', dob: '', gender: '' };
   isFilter = false;
   registrationForm: FormGroup;
   dialogRef: any;
@@ -48,8 +48,12 @@ export class ListComponent implements OnInit {
     userID: this.profileService.id,
     count: 25,
     pageNumber: 1,
-    monitored : this.model.monitored,
+    monitored: this.model.monitored,
   };
+  payloadFilter = { pageNumber: 1 };
+  serviceHandle: boolean;
+  filterStatus: boolean;
+  patientData: any;
   constructor(
     private patientService: PatientsService,
     private profileService: ProfileService,
@@ -77,51 +81,23 @@ export class ListComponent implements OnInit {
       , distinctUntilChanged()
     ).subscribe((text: string) => {
       this.isSearching = true;
-      this.getData();
-    });
-  }
-
-  getData(monitored?: number) {
-    this.isLoading = true;
-    // tslint:disable-next-line:prefer-const
-    let payload = {
-      clinicID: this.clinicService.id,
-      name: this.searchText,
-      providerID: '',
-      userID: this.profileService.id,
-      pageNumber: 1,
-      count: 25,
-      // alarm: 0,
-      monitored,
-      // morbidity: 0,
-    };
-    // tslint:disable-next-line:no-unused-expression
-    monitored === undefined ? payload.name === '' && delete payload.monitored : '';
-    this.patientService.find(payload).subscribe((data: any) => {
-      this.users = data.clinicPatientList
-      .filter(item => (!!item.firstName || !!item.lastName))
-      .map(item => {
-        item.name = `${item.firstName} ${item.lastName}`.trim();
-        return item;
-      });
-      this.isLoading = false;
-      return;
-    }, error => {
-      this.isLoading = false;
+      this.payloadScroll.pageNumber = 1;
+      this.loadNext('search');
     });
   }
 
   showBadge() {
     this.isFilter = Object.keys(this.filterPayload).some(k => {
       return !!this.filterPayload[k];
-      });
+    });
   }
   addPatient(patientID?: number) {
     const modal = this.dialogService.open(AddComponent, { closeOnBackdropClick: false });
     modal.componentRef.instance.patientID = patientID;
     modal.onClose.subscribe(data => {
       if (!!data) {
-        this.getData();
+        this.payloadScroll.pageNumber = 1;
+        this.loadNext('add');
       }
     });
   }
@@ -131,24 +107,78 @@ export class ListComponent implements OnInit {
     modal.componentRef.instance.data = this.filterPayload;
     modal.onClose.subscribe(data => {
       if (!!data && data.type === 'filter') {
+        this.users = [];
+        this.searchText = '';
         this.users = data.data;
         this.filterPayload = data.payload;
+        this.payloadFilter = data.payloadService;
+        this.filterStatus = true;
+        this.isSearching = false;
+        this.payloadFilter.pageNumber++;
       } else if (!!data && data.type === 'clear') {
-        this.filterPayload = { firstName: '', lastName: '', dob: '', gender: ''};
-        this.getData();
+        this.filterPayload = { firstName: '', lastName: '', dob: '', gender: '' };
       }
       this.showBadge();
+      return ;
     });
   }
 
-  loadNext() {
-    /* Eleminate the initial call */
-    if (this.isSearching) { this.isSearching = false; } else {
-      /* Search infinite scroll */
-      this.searchText.length ? this.payloadScroll.name = this.searchText : '';
-      this.payloadScroll.name = this.searchText;
-      this.isLoading = true;
-      this.patientService.find(this.payloadScroll).subscribe((data: any) => {
+  search() {
+    this.searchText = '';
+  }
+
+  loadNext(search?: string, monitored?: number) {
+    this.isLoading = true;
+    /* Filter infinite scroll */
+    if (this.filterStatus && !this.isSearching) {
+      /* Eliminate multiple serveice call */
+      if (this.serviceHandle) {
+        return;
+      }
+      this.serviceHandle = true;
+      /* end */
+
+      this.clinicService.searchPatients(this.payloadFilter).subscribe((data: any) => {
+        this.serviceHandle = false;
+        if (this.users.length < data.total) {
+          data.clinicPatientList.map(item => {
+            item.name = `${item.firstName} ${item.lastName}`.trim();
+            return item;
+          });
+          this.isLoading = false;
+          this.payloadFilter.pageNumber++;
+          this.users.push(...data.clinicPatientList);
+          return;
+        }
+        this.isLoading = false;
+      }, error => {
+        this.isLoading = false;
+        this.toastrService.danger(error);
+      });
+
+    } else {
+      /* Default and search infinite scroll */
+
+      /* Eliminate multiple serveice call */
+      if (this.serviceHandle) {
+        return;
+      }
+      this.serviceHandle = true;
+      /* End */
+
+      if (search !== undefined) { this.users = []; }
+      if (monitored === undefined) { delete this.payloadScroll.monitored; } else {
+        this.users = [];
+        this.searchText = '';
+        this.payloadScroll.name = '';
+        this.payloadScroll.monitored = monitored;
+        this.payloadScroll.pageNumber = 1;
+      }
+      // tslint:disable-next-line:no-unused-expression
+      this.searchText.length >= 0 && monitored === undefined ? this.payloadScroll.name = this.searchText : '';
+      this.patientData = this.patientService.find(this.payloadScroll).subscribe((data: any) => {
+        this.serviceHandle = false;
+        this.filterStatus = false;
         if (this.users !== undefined && this.users.length < data.total) {
           data.clinicPatientList = data.clinicPatientList.map(item => {
             item.name = `${item.firstName} ${item.lastName}`.trim();
@@ -159,8 +189,8 @@ export class ListComponent implements OnInit {
           this.payloadScroll.pageNumber++;
         }
         this.isLoading = false;
-        return true;
-      }, error => {
+        return;
+        }, error => {
         this.isLoading = false;
         this.toastrService.danger(error);
       });
