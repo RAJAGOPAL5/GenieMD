@@ -36,8 +36,14 @@
             <input type="text" nbInput placeholder="Caregiver Username" [(ngModel)]="careGiver" name="careGiver">
         </nb-card-body>
         <nb-card-footer>
-            <button nbButton status="danger" class="w-100 " (click)="refclose()">{{'kCancel' | translate}}</button>
-            <button nbButton status="primary" class="w-100" (click)="notify()">{{'kOk' | translate}}</button>
+            <div class = "row justify-content-end"> 
+                <div class="col-5">
+                    <button nbButton status="danger" class="w-100" (click)="refclose()">{{'kCancel' | translate}}</button>
+                </div>
+                <div class="col-5">
+                    <button nbButton status="primary" class="w-100" (click)="notify()">{{'kOk' | translate}}</button>
+                </div>
+            </div>
         </nb-card-footer>
     </nb-card>
 </ng-template>

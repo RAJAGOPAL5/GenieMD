@@ -27,7 +27,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group mb-1">
+                         <div class="form-group mb-1">
                             <label for="manufacturer" class="label"> <span class="text-danger">*</span>
                                 Manufacturer</label>
                             <input type="text" fieldSize="medium" formControlName="manufacturer" nbInput fullWidth
@@ -48,10 +48,14 @@
             </form>
         </nb-card-body>
         <nb-card-footer>
-            <div class="float-end">
-                <button nbButton status="danger" size="small" (click)="refclose()">{{'kCancel' | translate}}</button>
-                <button nbButton status="success" class="ms-2" size="small" [disabled]="!deviceForm.valid"
+            <div class="row justify-content-end">
+                <div class="col-5">
+                    <button nbButton status="danger" class="w-100" size="small" (click)="refclose()">{{'kCancel' | translate}}</button>
+                </div>
+                <div class="col-5">
+                    <button nbButton status="success" class="w-100" size="small" [disabled]="!deviceForm.valid"
                     (click)="save()">{{'kSave' | translate}}</button>
+                </div>
             </div>
         </nb-card-footer>
 
