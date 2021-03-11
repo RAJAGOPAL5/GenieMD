@@ -36,8 +36,7 @@ export class TemperatureComponent implements OnInit {
       yAxes: [{
         ticks: {
           beginAtZero: true,
-          stepValue: 20,
-          steps: 2,
+          stepSize: 20,
           max: 100,
           min: 25
         },
@@ -56,9 +55,6 @@ export class TemperatureComponent implements OnInit {
           fontStyle: "bold"
         },
         type: 'time',
-        time: {
-          unit: 'day'
-        }
       }]
     },
     legend: {
@@ -103,7 +99,7 @@ export class TemperatureComponent implements OnInit {
     this.themeService.onThemeChange().subscribe(theme => {
       console.log('Theme changed: ', theme);
       this.theme = theme.name;
-      this.chartOptions();
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit);
     });
   }
   getData() {
@@ -137,7 +133,7 @@ export class TemperatureComponent implements OnInit {
         });
         this.lineChartData = [TempData]
       }
-      this.chartOptions();
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit);
     }, error => {
       this.isLoading = false;
       throw error;
@@ -145,7 +141,7 @@ export class TemperatureComponent implements OnInit {
   }
 
 
-  chartOptions() {
+  chartOptions(fromDate, toDate, unit) {
     const theme = this.theme;
     const lineChartOptions: any = {
       scales: {
@@ -180,20 +176,19 @@ export class TemperatureComponent implements OnInit {
       type: 'time',
       distribution: 'series',
       time: {
-        unit: 'day',
-        parser: 'DD/MM/YY',
+        unit: unit,
       },
       ticks: {
         fontColor: theme === 'dark' ? 'white' : 'black',
-        source: 'data'
+        min: fromDate,
+        max: toDate
       }
     }
 
     const yAxesScales = {
       ticks: {
         beginAtZero: true,
-        stepValue: 20,
-        steps: 2,
+        stepSize: 20,
         max: 100,
         min: 25,
         fontColor: theme === 'dark' ? 'white' : 'black',
