@@ -51,7 +51,7 @@
                     </div>
                  <!-- <nb-card>
                     <nb-card-body style="max-height:50px;overflow-x:auto"> -->
-                        <div class="d-flex pb-2">
+                        <div class="d-flex pb-2" *ngIf="!!diseaseList?.length">
                             <nb-icon icon="notes-medical" nbTooltip="Disease" nbTooltipPlacement="left" pack="font-awesome">
                             </nb-icon>
                             <div class="ps-2">
