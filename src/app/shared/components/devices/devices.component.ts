@@ -1,10 +1,6 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NbDialogRef, NbDialogService, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
-
-interface TreeNode<T> {
-  data: T;
-}
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'app-devices',
@@ -14,14 +10,17 @@ interface TreeNode<T> {
 export class DevicesComponent implements OnInit {
 
   deviceForm: FormGroup;
-  defaultColumns = ['Device Type', 'Serial Number', 'Manufacturer'];
-  // dataSource: NbTreeGridDataSource<FSEntry>;
   deviceDialogRef: NbDialogRef<any>;
-  deviceList = [];
+  isLoading = false;
+  data = [];
 
-  constructor(private fb: FormBuilder, 
-    private dialogService: NbDialogService) { 
-    // this.dataSource = this.dataSourceBuilder.create(this.data)
+
+  @Output() deviceData: EventEmitter<any> = new EventEmitter();
+  deleteDialogRef: NbDialogRef<any>;
+
+  constructor(private fb: FormBuilder,
+    private dialogService: NbDialogService,
+    private toastrService: NbToastrService) {
   }
 
   ngOnInit(): void {
@@ -32,33 +31,41 @@ export class DevicesComponent implements OnInit {
     this.deviceForm = this.fb.group({
       deviceType: ['', Validators.required],
       manufacturer: ['', Validators.required],
-      serialNumber: ['', Validators.required]     
+      serialNumber: ['']
     });
   }
 
-  data =  [
-    {
-      data: { deviceType: 'Projects', serialNumber: 'dir', manufacturer: '1.8 MB'  },
-      
-    },
-    {
-      data: { deviceType: 'Reports', serialNumber: 'dir', manufacturer: '4kB'},
-      
-    }
-   
-  ];
 
   open(devicedialog: TemplateRef<any>) {
     this.deviceDialogRef = this.dialogService.open(devicedialog);
   }
-  
+
   refclose() {
     this.deviceDialogRef.close();
+    this.deviceForm.reset();
   }
 
-  save(){
-    console.log('raw', this.deviceForm.getRawValue());
-    this.data.push({data: this.deviceForm.getRawValue()});
+  openDialog(deleteDialog: TemplateRef<any>) {
+    this.deleteDialogRef = this.dialogService.open(deleteDialog);
+  }
+
+  save() {
+    this.data.push(this.deviceForm.getRawValue());
+    this.toastrService.success('Device added successfully');
+    this.deviceDialogRef.close();
+    this.deviceForm.reset();
+    this.deviceData.emit(this.data);
+  }
+
+  delete(id) {
+    const index = this.data.findIndex(x => x.id == id);
+    const item = this.data.splice(index, 1);
+    this.toastrService.success('Device deleted successfully');
+    this.deleteDialogRef.close();
+  }
+
+  close() {
+    this.deleteDialogRef.close();
   }
 
 }
