@@ -401,14 +401,10 @@
             </form>
         </nb-card-body>
         <nb-card-footer>
-            <div class="row px-5 justify-content-end">
-                <div class="col-md-2 col-2 px-0 mr-2 ml-2 d-flex justify-content-end">
-                    <button nbButton class="w-100" status="danger" (click)=cancelPatient()>{{'kCancel' | translate}}</button>
-                </div>
-                <div class="col-md-2 px-0 col-2 d-flex justify-content-end" style="margin-left: 12px;">
-                    <button class="w-100" [disabled]="!profileForm.valid" nbButton
-                    (click)="onSubmit()" status="success">{{'kSave' | translate}}</button>
-                </div>
+            <div class="float-end">
+                <button nbButton status="danger"  size="small" (click)=cancel()>{{'kCancel' | translate}}</button>
+                <button nbButton status="success" [disabled]="!profileForm.valid" class="ms-2" size="small" (click)="onSubmit()">{{'kSave' | translate}}</button>
             </div>
+
         </nb-card-footer>
     </nb-card>

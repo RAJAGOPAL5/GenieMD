@@ -453,7 +453,7 @@ export class AddComponent implements OnInit {
     }
   }
 
-  cancelPatient() {
+  cancel() {
     this.dialogRef.close();
   }
   onchange() {
