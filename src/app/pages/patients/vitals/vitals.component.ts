@@ -24,7 +24,7 @@ export class VitalsComponent implements OnInit {
   @ViewChild('spoChart') mychart1: any;
   @ViewChild('weightChart') mychart2: any;
   @ViewChild('totalChart') mychart3: any;
-  chartInfo: { patientId: string; fromDate: any; toDate: any; eventRange? : string };
+  chartInfo: { patientId: string; fromDate: any; toDate: any; unit : string };
   form: FormGroup = this.formBuilder.group({
     dateRange: ''
   });
@@ -44,7 +44,7 @@ export class VitalsComponent implements OnInit {
   patientId: any;
   isLoading = false;
   event: any;
-  btnDeactive:any = 0;
+  noOfDays = -1;
   selectedDateRange = {
     start:new Date('1900-02-01'),
     end: new Date()
@@ -57,43 +57,35 @@ export class VitalsComponent implements OnInit {
       this.getData(this.patientId);
     });
 
-    this.duration = 'all';
+    this.duration = -1;
     this.timeduration = [
-      { title: '1 Week', val: '1w', class: '' },
-      { title: '1 Month', val: '1m', class: '' },
-      { title: '3 Month', val: '3m', class: 'selected' },
-      { title: '6 Month', val: '6m', class: '' },
-      { title: '1 Year', val: '1y', class: '' },
-      { title: 'All', val: 'all', class: '' }];
+      { title: '1 Week', val: 7, class: '' },
+      { title: '1 Month', val: 31, class: '' },
+      { title: '3 Month', val: 90, class: 'selected' },
+      { title: '6 Month', val: 180, class: '' },
+      { title: '1 Year', val: 365, class: '' },
+      { title: 'All', val: -1, class: '' }];
     this.userID = this.profileService.id;
   }
   getList(event: any) {
     let fromDate = moment().add(-118, 'years').valueOf();
     const toDate = moment().valueOf();
-    if (event === '1w') {
-      this.btnDeactive=1;
-      fromDate = moment().add(-7, 'days').valueOf();
-    } else if (event === '1m') {
-      this.btnDeactive=2;
-      fromDate = moment().add(-1, 'months').valueOf();
-    } else if (event === '3m') {
-      this.btnDeactive=3;
-      fromDate = moment().add(-3, 'months').valueOf();
-    } else if (event === '6m') {
-      this.btnDeactive=4;
-      fromDate = moment().add(-6, 'months').valueOf();
-    } else if (event === '1y') {
-      this.btnDeactive=5;
-      fromDate = moment().add(-1, 'years').valueOf();
-    } else if (event === 'all') {
-      this.btnDeactive=0;
-      fromDate = moment('1900-02-01').valueOf();
+    this.noOfDays = event;
+    let unit;
+    switch (event) {
+      case -1: fromDate = moment('1900-02-01').valueOf(); unit = 'month'; break;
+      case 7: fromDate = moment().add(-7, 'days').valueOf(); unit = 'day'; break;
+      case 31: fromDate = moment().add(-1, 'months').valueOf(); unit = 'day'; break;
+      case 90: fromDate = moment().add(-3, 'months').valueOf(); unit = 'month'; break;
+      case 180: fromDate = moment().add(-6, 'months').valueOf(); unit = 'month'; break;
+      case 365: fromDate = moment().add(-1, 'years').valueOf(); unit = 'month'; break;
+      default: fromDate = moment().add(-118, 'years').valueOf();unit = 'month';
     }
     this.selectedDateRange = {
       start: new Date(fromDate),
       end: new Date(toDate)
     }
-    this.chartInfo = { patientId: this.patientId, fromDate: fromDate, toDate: toDate, eventRange: event || 'all' };
+    this.chartInfo = { patientId: this.patientId, fromDate: fromDate, toDate: toDate, unit  };
   }
   getData(patientId) {
     this.isLoading = true;
@@ -114,7 +106,7 @@ export class VitalsComponent implements OnInit {
       this.patientId = patientData.userID
       const fromDates = new Date(this.selectedDateRange.start).getTime();
       const toDates = new Date(this.selectedDateRange.end).getTime();
-      this.chartInfo = { patientId: patientData.userID, fromDate:fromDates, toDate:toDates };
+      this.chartInfo = { patientId: patientData.userID, fromDate:fromDates, toDate:toDates, unit: 'month' };
       if (!!extraData.vitals) {
         this.vitals = vitals.filter(k => (extraData.vitals || []).find(i => k.vitalType === i));
       } else {
@@ -125,10 +117,10 @@ export class VitalsComponent implements OnInit {
     });
   }
   selectedDate(event) {
-    this.btnDeactive = 9;
     const ranges = event;
     if(ranges.start && ranges.end){
-      this.chartInfo = { patientId: this.patientId, fromDate: ranges.start.getTime(), toDate: ranges.end.getTime()};
+      const days =  moment(ranges.end).diff(moment(ranges.start), 'days')
+      this.chartInfo = { patientId: this.patientId, fromDate: ranges.start.getTime(), toDate: ranges.end.getTime(), unit: days <= 31 ?  'day'  : 'month'};
     }
   }
 }
