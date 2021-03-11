@@ -88,7 +88,7 @@ export class ProfileComponent implements OnInit {
         this.diseaseStateList =  JSON.parse(this.patientExtraData.diseaseState);
       }
       catch{
-        this.diseaseStateList = {};
+        this.diseaseStateList = [];
       }
       let a;
       this.diseaseList = this.diseaseStateList.map(item => {
