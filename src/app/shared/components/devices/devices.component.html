@@ -57,13 +57,13 @@
 
     </nb-card>
 </ng-template>
-<table class="table table-bordered">
+<table class="table table-striped">
     <thead>
         <tr>
             <th scope="col">Device Type</th>
             <th scope="col">Manufacturer</th>
             <th scope="col">Serial Number</th>
-            <th scope="col">Actions</th>
+            <th class="text-center" scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -71,7 +71,7 @@
             <td>{{item.deviceType}}</td>
             <td>{{item.manufacturer}}</td>
             <td>{{item.serialNumber}}</td>
-            <td>
+            <td class="text-center">
                 <nb-icon icon="trash" nbTooltip="Delete" (click)="openDialog(deleteDialog)" nbTooltipStatus="control"
                     status="primary"></nb-icon>
             </td>
