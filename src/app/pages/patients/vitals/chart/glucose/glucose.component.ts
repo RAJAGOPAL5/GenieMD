@@ -37,8 +37,7 @@ export class GlucoseComponent implements OnInit {
       yAxes: [{
         ticks: {
           beginAtZero: true,
-          stepValue: 20,
-          steps: 2,
+          stepSize: 50,
           max: 600,
           min: 0
         },
@@ -175,10 +174,9 @@ export class GlucoseComponent implements OnInit {
     const yAxesScales = {
       ticks: {
         beginAtZero: true,
-        stepValue: 20,
-        steps: 2,
         max: 600,
         min: 0,
+        stepSize: 50,
         fontColor: theme === 'dark' ? 'white' : 'black',
       },
       scaleLabel: {

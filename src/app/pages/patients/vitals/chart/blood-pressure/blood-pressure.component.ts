@@ -55,9 +55,8 @@ export class BloodPressureComponent implements OnInit {
       yAxes: [{
         ticks: {
           beginAtZero: true,
-          stepValue: 20,
-          steps: 20,
-          max: 250,
+          stepSize: 20,
+          max: 260,
           min: 40
         },
         scaleLabel: {
@@ -230,9 +229,8 @@ export class BloodPressureComponent implements OnInit {
     const yAxesScales = {
       ticks: {
         beginAtZero: true,
-        stepValue: 20,
-        steps: 20,
-        max: 250,
+        stepSize: 20,
+        max: 260,
         min: 40,
         fontColor: theme === 'dark' ? 'white' : 'black',
       },
