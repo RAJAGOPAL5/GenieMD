@@ -408,21 +408,9 @@
                         </div> 
                   </nb-tab>
                   <nb-tab tabTitle="{{'kDevices' | translate}}">
-                    <button nbButton status="primary" class="float-end" (click)="open(devicedialog)">Add</button>
-                    <ng-template #devicedialog>
-                        <nb-card class="dialog-card">
-                            <nb-card-header>
-                                <h6 class="text-center">Add Devices</h6>
-                            </nb-card-header>
-                            <nb-card-body>
-                                <app-devices></app-devices>
-                            </nb-card-body>
-                            <nb-card-footer>
-                                <button nbButton status="danger" class="mx-3" (click)="refclose()">{{'kCancel' | translate}}</button>
-                                <button nbButton status="primary" class="mx-4">{{'kSave' | translate}}</button>
-                            </nb-card-footer>
-                        </nb-card>
-                    </ng-template>
+                    <nb-card-body>
+                        <app-devices></app-devices>
+                    </nb-card-body>     
                       </nb-tab>
                </nb-tabset>
             </form>

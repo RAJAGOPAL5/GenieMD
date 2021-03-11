@@ -11,7 +11,7 @@ import {
   NbTabsetModule, NbUserModule, NbIconModule, NbSpinnerModule,
   NbButtonModule, NbRadioModule, NbSelectModule, NbToggleModule,
   NbDatepickerModule, NbActionsModule, NbButtonGroupModule, NbCheckboxModule,
-  NbBadgeModule, NbTooltipModule, NbPopoverModule, NbCalendarRangeModule, NbCalendarModule
+  NbBadgeModule, NbTooltipModule, NbPopoverModule, NbCalendarRangeModule, NbCalendarModule, NbTreeGridModule
 } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddComponent } from './add/add.component';
@@ -91,7 +91,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     NbCalendarRangeModule,
     NbCalendarModule,
     AvatarModule,
-    SharedModule
+    SharedModule,
+    NbTreeGridModule
     ],
   entryComponents: [AddComponent]
 })
