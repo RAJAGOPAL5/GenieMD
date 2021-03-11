@@ -97,7 +97,7 @@ export class AddComponent implements OnInit {
         try{
           variousDisease =  JSON.parse(this.profileExtraData.diseaseState);
         }catch(e){
-          variousDisease =  this.profileExtraData.diseaseState || {};
+          variousDisease =  this.profileExtraData.diseaseState || [];
         } 
 
         this.profileForm.patchValue({
