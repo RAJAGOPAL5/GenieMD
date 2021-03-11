@@ -83,7 +83,6 @@ export class ProfileComponent implements OnInit {
         this.language = this.languages.find(item => item.id === this.profileData.languageId);
       });
 
-   
       try{
         this.diseaseStateList =  JSON.parse(this.patientExtraData.diseaseState);
       }
@@ -93,7 +92,11 @@ export class ProfileComponent implements OnInit {
       let a;
       this.diseaseList = this.diseaseStateList.map(item => {
         a = this.diseaseState.find(kItem => kItem.id === item);
-        return a.name;
+        if(a.name === 'Other'){
+           return this.patientExtraData.otherDisease;
+        }else{
+          return a.name;
+        }
       });
        
       console.log("this.diseaseList:",this.diseaseList);

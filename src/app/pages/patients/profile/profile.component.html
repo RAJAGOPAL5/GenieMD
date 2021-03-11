@@ -49,26 +49,32 @@
                             </div>
                         </div>
                     </div>
-                 <nb-card>
-                    <nb-card-body style="max-height:50px;overflow-x:auto">
-                            <nb-tag-list>
-                                <nb-tag appearance="filled" *ngFor="let tree of diseaseList" size="tiny" [text]="tree" status="info"></nb-tag>
-                              </nb-tag-list>
-                    </nb-card-body>
-                 </nb-card>
+                 <!-- <nb-card>
+                    <nb-card-body style="max-height:50px;overflow-x:auto"> -->
+                        <div class="d-flex pb-2" *ngIf="!!diseaseList?.length">
+                            <nb-icon icon="notes-medical" nbTooltip="Disease" nbTooltipPlacement="left" pack="font-awesome">
+                            </nb-icon>
+                            <div class="ps-2">
+                                <nb-tag-list>
+                                    <nb-tag appearance="filled" *ngFor="let tree of diseaseList" size="tiny" [text]="tree" status="info"></nb-tag>
+                                  </nb-tag-list>
+                            </div>
+                        </div>
+                    <!-- </nb-card-body>
+                 </nb-card> -->
                 </div>
             </div>
             <div class="col-md-2 mt-3">
-                <button nbButton ghost size="small" status="info">Insurance</button>
-                <button nbButton ghost  size="small" status="info">Emergency Contact</button>
-                <button nbButton ghost  size="small" status="info">Devices</button>
+                <button nbButton ghost size="small" status="info" class="mb-2">Insurance</button>
+                <button nbButton ghost  size="small" status="info" class="mb-2">Emergency Contact</button>
+                <button nbButton ghost  size="small" status="info" class="mb-2">Devices</button>
             </div>
             <div class="col-md-2 mt-3">
-                <button nbButton status="primary" class="mb-2 w-100 btn-lg" size="small">
+                <button nbButton status="primary" class="mb-2 w-100 justify-content-start" size="small">
                     <nb-icon icon="message-circle-outline"></nb-icon>{{'kChat' | translate}}</button>
-                <button nbButton  [nbPopover]="templateRef" nbPopoverPlacement="right" status="success" class="mb-2 w-100 btn-lg" size="small">
+                <button nbButton  [nbPopover]="templateRef" nbPopoverPlacement="right" status="success" class="mb-2 w-100 justify-content-start" size="small">
                     <nb-icon icon="phone-call-outline"></nb-icon>{{'kCall' | translate}}</button>
-                <button nbButton status="warning" class="mb-2 w-100" size="small"><nb-icon icon="clock-outline"></nb-icon>{{'kSchedule' | translate}}</button>
+                <button nbButton status="warning" class="mb-2 w-100 justify-content-start" size="small"><nb-icon icon="clock-outline"></nb-icon>{{'kSchedule' | translate}}</button>
             </div> 
             <ng-template #templateRef>
                 <div class="p-3">
