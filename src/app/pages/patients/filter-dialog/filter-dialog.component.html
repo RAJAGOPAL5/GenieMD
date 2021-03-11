@@ -26,10 +26,10 @@
                 </nb-button-group>
             </div>
         </nb-card-body>
-        <nb-card-footer class="d-flex justify-content-center">
-            <button size="small" nbButton status="warning" (click)="resetFilter()"> {{'kClear' | translate}}</button>
-            <button size="small" class="ms-2" nbButton status="danger" (click)="close()">{{'kCancel' | translate}}</button>
-            <button size="small" class="ms-2" nbButton status="success" (click)="startSearch()" [disabled]="enableSearch() && !form.dirty">{{'kSearch' | translate}}</button>
+        <nb-card-footer class="d-flex justify-content-around">
+            <button size="small" class="col-md-2 col-2 d-flex w-25" nbButton status="warning" (click)="resetFilter()"> {{'kClear' | translate}}</button>
+            <button size="small" class="col-md-2 col-2 d-flex ms-2 w-25" nbButton status="danger" (click)="close()">{{'kCancel' | translate}}</button>
+            <button size="small" class="col-md-2 col-2 d-flex ms-2 w-25" nbButton status="success" (click)="startSearch()" [disabled]="enableSearch() && !form.dirty">{{'kSearch' | translate}}</button>
         </nb-card-footer>
     </nb-card>
 </form>

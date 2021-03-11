@@ -4,9 +4,9 @@
                 <div class="col-md-10 col-sm-9"> {{!!patientID ? 'Edit' :'Add'}} Patient</div>
             </div>
         </nb-card-header>
-        <nb-card-body>
+        <nb-card-body class="pt-0">
             <form [formGroup]="profileForm" class="m-auto w-60">
-            <nb-tabset>
+            <nb-tabset fullWidth >
                 <nb-tab tabTitle="{{'kGeneral' | translate}}">
                     <div class="row">
                         <div class="col-md-6">
@@ -54,14 +54,12 @@
                                 <label for="inputLanguage" class="label"> <span class="text-danger">*</span>
                                     {{'kLanguage' | translate}}
                                 </label>
-                                <div>
                                     <nb-select size="medium" class="w-100" id="inputLanguage" formControlName="language"
                                         placeholder="Select Language" fullWidth>
                                         <nb-option *ngFor="let item of languages" [value]="item.id">{{item?.name}}
                                         </nb-option>
         
                                     </nb-select>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -234,15 +232,6 @@
                             <div class="form-group mt-5">
                                 <nb-checkbox status="info" formControlName="monitored">{{'kMonitored' | translate}}</nb-checkbox>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row  justify-content-end">
-                        <div class="col-auto mr-2 ml-2 d-flex justify-content-end">
-                            <button nbButton status="danger" (click)=cancelPatient()>{{'kCancel' | translate}}</button>
-                        </div>
-                        <div class="col-auto d-flex justify-content-end">
-                            <button class="mr-3" [disabled]="!profileForm.valid" nbButton
-                            (click)="onSubmit()" status="success">{{'kSave' | translate}}</button>
                         </div>
                     </div>
                 </nb-tab>
@@ -427,4 +416,15 @@
                </nb-tabset>
             </form>
         </nb-card-body>
+        <nb-card-footer>
+            <div class="row px-5 justify-content-end">
+                <div class="col-md-2 col-2 px-0 mr-2 ml-2 d-flex justify-content-end">
+                    <button nbButton class="w-100" status="danger" (click)=cancelPatient()>{{'kCancel' | translate}}</button>
+                </div>
+                <div class="col-md-2 px-0 col-2 d-flex justify-content-end" style="margin-left: 12px;">
+                    <button class="w-100" [disabled]="!profileForm.valid" nbButton
+                    (click)="onSubmit()" status="success">{{'kSave' | translate}}</button>
+                </div>
+            </div>
+        </nb-card-footer>
     </nb-card>

@@ -4,3 +4,11 @@
     background-color:#CCCCCC;
     overflow: hidden;
 }
+
+nb-tabset ::ng-deep > ul  {
+    position: -webkit-sticky; /* Safari */
+    position: sticky; 
+    top:0;
+    z-index: 500;
+    background-color: white;
+}
