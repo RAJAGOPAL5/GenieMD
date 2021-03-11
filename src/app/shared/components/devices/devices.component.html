@@ -38,7 +38,7 @@
                             <label for="serialNumber" class="label"> <span class="text-danger">*</span>
                                 Serial Number</label>
                             <input type="text" fieldSize="medium" formControlName="serialNumber" nbInput fullWidth
-                                id="serialNumber" placeholder="serialNumber">
+                                id="serialNumber" placeholder="Serial Number">
                         </div>
                     </div>
                 </div>
@@ -47,27 +47,17 @@
         <nb-card-footer>
             <div class="float-end">
                 <button nbButton status="danger"  size="small" (click)="refclose()">{{'kCancel' | translate}}</button>
-                <button nbButton status="success" class="ms-2" size="small" [disabled]="!deviceForm.valid" (click)="saveForm()">{{'kSave' | translate}}</button>
+                <button nbButton status="success" class="ms-2" size="small" [disabled]="!deviceForm.valid" (click)="save()">{{'kSave' | translate}}</button>
             </div>
         </nb-card-footer>
 
     </nb-card>
 </ng-template>
 
-<table [nbTreeGrid]="dataSource">
+<table [nbTreeGrid]="data">
 
     <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="defaultColumns"></tr>
     <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: defaultColumns"></tr>
-
-    <!-- <ng-container [nbTreeGridColumnDef]="customColumn"> 
-   <th nbTreeGridHeaderCell  *nbTreeGridHeaderCellDef>
-        {{customColumn}}
-      </th> 
-     <td nbTreeGridCell *nbTreeGridCellDef="let row">
-        {{row.data[customColumn]}}
-      </td>
-    </ng-container>  -->
-
     <ng-container *ngFor="let column of defaultColumns; let index = index" [nbTreeGridColumnDef]="column">
         <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>
             {{column}}
