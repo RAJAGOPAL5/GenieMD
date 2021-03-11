@@ -519,6 +519,8 @@ export class AddComponent implements OnInit {
     });
   }
 
-
+  getRecord(event){
+    console.log('Got value', event)
+  }
 
 }
