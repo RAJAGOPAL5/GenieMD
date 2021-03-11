@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
-
+import {deviceTypes } from 'src/app/shared/constant/constant';
 @Component({
   selector: 'app-devices',
   templateUrl: './devices.component.html',
@@ -13,7 +13,7 @@ export class DevicesComponent implements OnInit {
   deviceDialogRef: NbDialogRef<any>;
   isLoading = false;
   data = [];
-
+  deviceTypes:any;
 
   @Output() deviceData: EventEmitter<any> = new EventEmitter();
   deleteDialogRef: NbDialogRef<any>;
@@ -25,6 +25,7 @@ export class DevicesComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.deviceTypes= deviceTypes;
   }
 
   createForm() {

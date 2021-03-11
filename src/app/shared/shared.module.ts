@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { NbDialogModule, NbLayoutModule, NbThemeModule, NbIconModule, NbInputModule, NbTreeGridModule, NbCardModule, NbButtonModule, NbActionsModule, NbPopoverModule, NbPopoverDirective } from '@nebular/theme';
+import { NbDialogModule, NbLayoutModule, NbThemeModule, NbIconModule, NbInputModule, NbTreeGridModule, NbCardModule, NbButtonModule, NbActionsModule, NbPopoverModule, NbPopoverDirective, NbSelectModule } from '@nebular/theme';
 import { MissingTranslationHandler, MissingTranslationHandlerParams, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -26,6 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NbActionsModule,
     NbButtonModule,
     NbPopoverModule,
+    NbSelectModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

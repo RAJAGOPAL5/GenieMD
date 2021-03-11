@@ -15,10 +15,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group mb-1">
-                            <label for="deviceType" class="label"> <span class="text-danger">*</span>
-                                Device Type</label>
-                            <input type="text" fieldSize="medium" formControlName="deviceType" nbInput fullWidth
-                                id="deviceType" placeholder="Device Type">
+                                <label for="deviceTypes" class="label"> <span class="danger"></span>
+                                   Device Type</label>
+                                    <nb-select id="deviceTypes" size="medium" fullWidth formControlName="deviceType"
+                                         placeholder="Select Device type">
+                                        <nb-option *ngFor="let item of deviceTypes" [value]="item.id">
+                                            {{item?.name}}</nb-option>
+                                    </nb-select>
                         </div>
                     </div>
                 </div>

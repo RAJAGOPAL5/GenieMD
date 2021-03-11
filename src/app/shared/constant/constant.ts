@@ -112,3 +112,11 @@ export const preferredLanguage = [
     { name: 'Other', id: 6 },
 ];
 
+    
+export const deviceTypes = [
+    { name: 'Thermometer', id: 1 },
+    { name: 'Scale', id: 2 },
+    { name: 'Blood Pressure Monitor', id: 3 },
+    { name: 'Pulse Oximeter', id: 4 },
+    { name: 'Glucose Meter', id: 5 },
+];
