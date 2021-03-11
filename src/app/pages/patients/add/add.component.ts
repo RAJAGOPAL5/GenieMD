@@ -101,7 +101,7 @@ export class AddComponent implements OnInit {
         try{
           variousDisease =  JSON.parse(this.profileExtraData.diseaseState);
         }catch(e){
-          variousDisease =  this.profileExtraData.diseaseState || {};
+          variousDisease =  this.profileExtraData.diseaseState || [];
         } 
 
         this.profileForm.patchValue({
@@ -119,33 +119,46 @@ export class AddComponent implements OnInit {
           morbidity: this.profileData.morbidity,
           language: this.profileData.languageId,
           vitals: !!this.profileExtraData.vitals ? this.profileExtraData.vitals : [],
-          policyHolder: this.profileExtraData.insurance?.policyHolder,
-          holderName: this.profileExtraData.insurance?.holderName,
-          insuranceDob: this.profileExtraData.insurance?.insuranceDob ? new Date(this.profileExtraData.insurance?.insuranceDob):'',
-          claimAddress: this.profileExtraData.insurance?.claimAddress,
-          insuranceCarrier: this.profileExtraData.insurance?.insuranceCarrier,
-          medType: this.profileExtraData.insurance?.medType,
-          policyNumber: this.profileExtraData.insurance?.policyNumber,
-          groupNumber: this.profileExtraData.insurance?.groupNumber,
-          plan: this.profileExtraData.insurance?.plan,
-          emergencyName: this.profileExtraData.emergencyContact?.name,
-          emergencyRelation: this.profileExtraData.emergencyContact?.relation,
-          emergencyNumber:this.profileExtraData.emergencyContact?.number,
+// tslint:disable-next-line: max-line-length
+          policyHolder: this.profileExtraData.insurance && this.profileExtraData.insurance.policyHolder ? this.profileExtraData.insurance.policyHolder : '',
+// tslint:disable-next-line: max-line-length
+          holderName: this.profileExtraData.insurance && this.profileExtraData.insurance.holderName ? this.profileExtraData.insurance.holderName : '',
+// tslint:disable-next-line: max-line-length
+          insuranceDob: this.profileExtraData.insurance && this.profileExtraData.insurance.insuranceDob ? new Date(this.profileExtraData.insurance.insuranceDob) : '',
+// tslint:disable-next-line: max-line-length
+          claimAddress: this.profileExtraData.insurance && this.profileExtraData.insurance.claimAddress ? this.profileExtraData.insurance.claimAddress : '',
+// tslint:disable-next-line: max-line-length
+          insuranceCarrier: this.profileExtraData.insurance && this.profileExtraData.insurance.insuranceCarrier ? this.profileExtraData.insurance.insuranceCarrier : '',
+// tslint:disable-next-line: max-line-length
+          medType: this.profileExtraData.insurance && this.profileExtraData.insurance.medType ? this.profileExtraData.insurance.medType : '',
+// tslint:disable-next-line: max-line-length
+          policyNumber: this.profileExtraData.insurance && this.profileExtraData.insurance.policyNumber ? this.profileExtraData.insurance.policyNumber : '',
+// tslint:disable-next-line: max-line-length
+          groupNumber: this.profileExtraData.insurance && this.profileExtraData.insurance.groupNumber ? this.profileExtraData.insurance.groupNumber : '',
+          plan: this.profileExtraData.insurance && this.profileExtraData.insurance.plan ? this.profileExtraData.insurance.plan : '',
+// tslint:disable-next-line: max-line-length
+          emergencyName: this.profileExtraData.emergencyContact && this.profileExtraData.emergencyContact.name ? this.profileExtraData.emergencyContact.name : '',
+// tslint:disable-next-line: max-line-length
+          emergencyRelation: this.profileExtraData.emergencyContact && this.profileExtraData.emergencyContact.relation ? this.profileExtraData.emergencyContact.relation : '',
+// tslint:disable-next-line: max-line-length
+          emergencyNumber: this.profileExtraData.emergencyContact && this.profileExtraData.emergencyContact.number ? this.profileExtraData.emergencyContact.number : '',
           mrn: this.profileExtraData.MRN ? this.profileExtraData.MRN : '',
-          diseaseState:variousDisease,
+          diseaseState: variousDisease,
           preferredLanguage: this.profileExtraData.preferredLanguage ,
           // customLanguage:this.profileExtraData.otherLanguage,
           // customDisease:this.profileExtraData.otherDisease
 
         });
-        this.frontImageURl = this.profileExtraData.insurance?.frontImage;
-        this.backImageURL =  this.profileExtraData.insurance?.backImage;
+// tslint:disable-next-line: max-line-length
+        this.frontImageURl = this.profileExtraData.insurance && this.profileExtraData.insurance.frontImage ? this.profileExtraData.insurance.frontImage : '';
+// tslint:disable-next-line: max-line-length
+        this.backImageURL =  this.profileExtraData.insurance && this.profileExtraData.insurance.backImage ? this.profileExtraData.insurance.backImage : '';
 
         if(this.profileExtraData.otherLanguage){
           this.showPreferredLanguages = true;
           this.profileForm.addControl('customLanguage', new FormControl('', [Validators.required]));
           this.profileForm.patchValue({
-            customLanguage:this.profileExtraData.otherLanguage
+            customLanguage: this.profileExtraData.otherLanguage
           });
         }
         if(this.profileExtraData.otherDisease){
@@ -199,24 +212,23 @@ export class AddComponent implements OnInit {
       plan: [''],
       emergencyName: [''],
       emergencyRelation: [''],
-      emergencyNumber:[''], 
+      emergencyNumber: [''],
       diseaseState: [[]],
-      preferredLanguage: ['', ]
     });
   }
 
   onSubmit() {
-    this.submitted= true;
+    this.submitted = true;
     // console.log(this.profileForm, this.selectedItem);
-    if (this.profileForm.invalid){
+    if (this.profileForm.invalid) {
       return;
     }
     var emergencyContact = {
       name: this.profileForm.value.emergencyName,
       relation: this.profileForm.value.emergencyRelation,
       number: this.profileForm.value.emergencyNumber
-    }
-   var insurance = {
+    };
+    var insurance = {
         policyHolder: this.profileForm.value.policyHolder,
         holderName: this.profileForm.value.holderName,
         insuranceDob: this.profileForm.value.insuranceDob,
@@ -228,8 +240,8 @@ export class AddComponent implements OnInit {
         plan: this.profileForm.value.plan,
         frontImage: this.frontImageURl,
         backImage: this.backImageURL
-      },
-      extraData = {}
+      };
+    var extraData = {};
     if (this.profileExtraData) {
       extraData = this.profileExtraData;
       extraData['dateofbirth'] = this.setDOB(this.profileForm.value.dob);
@@ -239,10 +251,8 @@ export class AddComponent implements OnInit {
       extraData[ 'insurance' ] = insurance;
       extraData['MRN'] = this.profileForm.value.mrn;
       extraData['diseaseState'] = JSON.stringify(this.profileForm.value.diseaseState);
-      extraData['otherDisease'] = this.profileForm.value.customDisease ? this.profileForm.value.customDisease: "";
-      extraData['preferredLanguage'] = this.profileForm.value.preferredLanguage ;
-      extraData['otherLanguage'] = this.profileForm.value.customLanguage ? this.profileForm.value.customLanguage : ""; 
-
+      extraData['otherDisease'] = this.profileForm.value.customDisease ? this.profileForm.value.customDisease : '';
+      extraData['otherLanguage'] = this.profileForm.value.customLanguage ? this.profileForm.value.customLanguage : '';
     }
     this.isLoading = true;
     if (this.profileForm.invalid) {
@@ -324,6 +334,24 @@ export class AddComponent implements OnInit {
     if (this.profileForm.value.dob && this.profileForm.value.dob !== '') {
       date = moment(this.profileForm.value.dob).format('YYYY-MM-DD');
     }
+    var emergencyContact = {
+      name: this.profileForm.value.emergencyName,
+      relation: this.profileForm.value.emergencyRelation,
+      number: this.profileForm.value.emergencyNumber
+    };
+    var insurance = {
+        policyHolder: this.profileForm.value.policyHolder,
+        holderName: this.profileForm.value.holderName,
+        insuranceDob: this.profileForm.value.insuranceDob,
+        claimAddress: this.profileForm.value.claimAddress,
+        insuranceCarrier: this.profileForm.value.insuranceCarrier,
+        medType: this.profileForm.value.medType,
+        policyNumber: this.profileForm.value.policyNumber,
+        groupNumber: this.profileForm.value.groupNumber,
+        plan: this.profileForm.value.plan,
+        frontImage: this.frontImageURl,
+        backImage: this.backImageURL
+      };
     const registerPayload = {
       email: this.profileForm.value.email,
       dob: date || '',
@@ -355,6 +383,11 @@ export class AddComponent implements OnInit {
         referralCode: '',
         vitals: this.profileForm.value.vitals,
         MRN: this.profileForm.value.mrn ? this.profileForm.value.mrn : '',
+        emergencyContact: emergencyContact,
+        insurance: insurance,
+        diseaseState: JSON.stringify(this.profileForm.value.diseaseState),
+        otherDisease: this.profileForm.value.customDisease ? this.profileForm.value.customDisease : '',
+        otherLanguage: this.profileForm.value.customLanguage ? this.profileForm.value.customLanguage : ''
       },
       firstName: this.profileForm.value.firstName,
       gender: `${this.profileForm.value.gender}`,
@@ -392,7 +425,7 @@ export class AddComponent implements OnInit {
       this.toastrService.danger(error.error.errorMessage);
     });
   }
-  
+
   get f() {
     return this.profileForm.controls;
   }
@@ -436,8 +469,8 @@ export class AddComponent implements OnInit {
     }
   }
   clickLanguage(){
-    const selectedLanguage = this.profileForm.value.preferredLanguage;
-    if(selectedLanguage === 6 ){
+    const selectedLanguage = this.profileForm.value.language;
+    if (selectedLanguage === 6 ) {
       this.showPreferredLanguages = true;
       this.profileForm.addControl('customLanguage', new FormControl('', [Validators.required]));
     } else {
@@ -447,7 +480,7 @@ export class AddComponent implements OnInit {
       }
     }
   }
-  
+
   changeFrontFile(event: any, type?) {
     this.isLoading = true;
     this.userID = this.profileService.id;

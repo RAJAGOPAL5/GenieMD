@@ -11,9 +11,9 @@
                 <div class="col-auto mt-1 mx-auto mb-3 position-relative">
                     <div class="badge-position cursor-pointer" *ngIf = "isFilter"><nb-badge text="99+" status="danger" position="top left" dotMode = true (click)="filterPatient()"></nb-badge></div>
                     <nb-actions size="tiny">
-                        <nb-action class="ps-0 pe-0" nbTooltip="Filter" nbTooltipPlacement="top" icon="funnel-outline" (click)="filterPatient()">
+                        <nb-action nbTooltip="Filter" nbTooltipPlacement="top" icon="funnel-outline" (click)="filterPatient()">
                         </nb-action>
-                        <nb-action nbTooltip="Add Patient" nbTooltipPlacement="top" class="pe-0" icon="plus-circle-outline" (click)="addPatient()"></nb-action>
+                        <nb-action nbTooltip="Add Patient" nbTooltipPlacement="top" icon="plus-circle-outline" (click)="addPatient()"></nb-action>
                     </nb-actions>
                 </div>
             </div>
