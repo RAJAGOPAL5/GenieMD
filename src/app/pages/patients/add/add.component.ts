@@ -6,16 +6,19 @@ import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
-import { NbDialogRef, NbToastrService, NbDialogService } from '@nebular/theme';
+import { NbDialogRef, NbToastrService, NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder, NbTreeGridDataSource } from '@nebular/theme';
 import { languages, states, morbidity, gender, vitals,relation ,diseaseState, preferredLanguage } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { retryWhen } from 'rxjs/operators';
+
+
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
 })
+
 export class AddComponent implements OnInit {
   profileForm: FormGroup;
   emergencyForm: FormGroup;
@@ -49,6 +52,7 @@ export class AddComponent implements OnInit {
   frontImageURl: any;
   backImageURL: any;
   deviceDialogRef: NbDialogRef<any>;
+
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
@@ -325,14 +329,6 @@ export class AddComponent implements OnInit {
     });
   }
 
-  open(devicedialog: TemplateRef<any>) {
-    this.deviceDialogRef = this.dialogService.open(devicedialog);
-  }
-
-  refclose() {
-    this.deviceDialogRef.close();
-  }
-
   updateProfile() {
     let date = '';
     if (this.profileForm.value.dob && this.profileForm.value.dob !== '') {
@@ -457,7 +453,7 @@ export class AddComponent implements OnInit {
     }
   }
 
-  cancelPatient() {
+  cancel() {
     this.dialogRef.close();
   }
   onchange() {
@@ -522,4 +518,7 @@ export class AddComponent implements OnInit {
       this.toastrService.danger(err.error.errorMessage? err.error.errorMessage: 'Image upload failed');
     });
   }
+
+
+
 }
