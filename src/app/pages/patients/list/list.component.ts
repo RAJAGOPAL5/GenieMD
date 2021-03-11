@@ -95,6 +95,7 @@ export class ListComponent implements OnInit {
       monitored,
       // morbidity: 0,
     };
+    this.payloadScroll.monitored = monitored;
     // tslint:disable-next-line:no-unused-expression
     monitored === undefined ? payload.name === '' && delete payload.monitored : '';
     this.patientService.find(payload).subscribe((data: any) => {

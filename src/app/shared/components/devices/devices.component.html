@@ -1,73 +1,68 @@
-<button nbButton status="primary" class="float-end" (click)="open(devicedialog)">Add</button>
+<div class="float-end">   
+        <nb-actions size="tiny">
+            <nb-action nbTooltip="Add Patient" nbTooltipPlacement="top" icon="plus-circle-outline"
+                (click)="open(devicedialog)"></nb-action>
+        </nb-actions>
+</div>
+
 <ng-template #devicedialog>
     <nb-card class="dialog-card">
         <nb-card-header>
             <h6 class="text-center">Add Devices</h6>
         </nb-card-header>
-    <nb-card-body>
-        <form [formGroup]="deviceForm" >
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group mb-1">
-                <label for="deviceType" class="label"> <span class="text-danger">*</span> 
-                    Device Type</label>
-                <input type="text" fieldSize="medium" formControlName="deviceType" nbInput fullWidth
-                    id="deviceType" placeholder="Device Type">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group mb-1">
-                <label for="manufacturer" class="label"> <span class="text-danger">*</span> 
-                    Manufacturer</label>
-                <input type="text" fieldSize="medium" formControlName="manufacturer" nbInput fullWidth
-                    id="manufacturer" placeholder="Manufacturer">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-                <div class="form-group mb-1">
-                    <label for="serialNumber" class="label"> <span class="text-danger">*</span> 
-                        Serial Number</label>
-                    <input type="text" fieldSize="medium" formControlName="serialNumber" nbInput fullWidth
-                        id="serialNumber" placeholder="serialNumber">
+        <nb-card-body>
+            <form [formGroup]="deviceForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                            <label for="deviceType" class="label"> <span class="text-danger">*</span>
+                                Device Type</label>
+                            <input type="text" fieldSize="medium" formControlName="deviceType" nbInput fullWidth
+                                id="deviceType" placeholder="Device Type">
+                        </div>
+                    </div>
                 </div>
-        </div>
-    </div>
-    <div class="row">
-    <button nbButton status="danger" class="w-25 mx-5 my-3 " (click)="refclose()">{{'kCancel' | translate}}</button>
-            <button nbButton status="primary" class="w-25 my-3" (click)="saveForm()">{{'kSave' | translate}}</button>
-        </div>
-</form>
-</nb-card-body>
-            
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                            <label for="manufacturer" class="label"> <span class="text-danger">*</span>
+                                Manufacturer</label>
+                            <input type="text" fieldSize="medium" formControlName="manufacturer" nbInput fullWidth
+                                id="manufacturer" placeholder="Manufacturer">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                            <label for="serialNumber" class="label"> <span class="text-danger">*</span>
+                                Serial Number</label>
+                            <input type="text" fieldSize="medium" formControlName="serialNumber" nbInput fullWidth
+                                id="serialNumber" placeholder="Serial Number">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="float-end">
+                <button nbButton status="danger"  size="small" (click)="refclose()">{{'kCancel' | translate}}</button>
+                <button nbButton status="success" class="ms-2" size="small" [disabled]="!deviceForm.valid" (click)="save()">{{'kSave' | translate}}</button>
+            </div>
+        </nb-card-footer>
+
     </nb-card>
 </ng-template>
 
-<table class="w-50" [nbTreeGrid]="dataSource">
+<table [nbTreeGrid]="data">
 
     <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="defaultColumns"></tr>
     <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: defaultColumns"></tr>
-
-    <!-- <ng-container [nbTreeGridColumnDef]="customColumn"> 
-   <th nbTreeGridHeaderCell  *nbTreeGridHeaderCellDef>
-        {{customColumn}}
-      </th> 
-     <td nbTreeGridCell *nbTreeGridCellDef="let row">
-        {{row.data[customColumn]}}
-      </td>
-    </ng-container>  -->
-
-    <ng-container *ngFor="let column of defaultColumns; let index = index"
-                  [nbTreeGridColumnDef]="column"
-                 >
-      <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>
-        {{column}}
-      </th>
-      <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column] || '-'}}</td>
+    <ng-container *ngFor="let column of defaultColumns; let index = index" [nbTreeGridColumnDef]="column">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>
+            {{column}}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column] || '-'}}</td>
     </ng-container>
 
-  </table>
-
+</table>

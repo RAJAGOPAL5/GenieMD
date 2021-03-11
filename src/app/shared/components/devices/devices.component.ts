@@ -6,11 +6,6 @@ interface TreeNode<T> {
   data: T;
 }
 
-interface FSEntry {
-  // deviceType: string;
-  // manufacturer: string;
-  // serialNumber: string;
-}
 @Component({
   selector: 'app-devices',
   templateUrl: './devices.component.html',
@@ -19,15 +14,14 @@ interface FSEntry {
 export class DevicesComponent implements OnInit {
 
   deviceForm: FormGroup;
-  defaultColumns = ['Device', 'Manufacturer', 'Serial Number' ];
-  dataSource: NbTreeGridDataSource<FSEntry>;
+  defaultColumns = ['Device Type', 'Serial Number', 'Manufacturer'];
+  // dataSource: NbTreeGridDataSource<FSEntry>;
   deviceDialogRef: NbDialogRef<any>;
   deviceList = [];
 
   constructor(private fb: FormBuilder, 
-    private dataSourceBuilder: NbTreeGridDataSourceBuilder<FSEntry>,
     private dialogService: NbDialogService) { 
-    this.dataSource = this.dataSourceBuilder.create(this.data)
+    // this.dataSource = this.dataSourceBuilder.create(this.data)
   }
 
   ngOnInit(): void {
@@ -44,11 +38,11 @@ export class DevicesComponent implements OnInit {
 
   data =  [
     {
-      data: { deviceType: 'Projects', manufacturer: '1.8 MB', serialNumber: 'dir' },
+      data: { deviceType: 'Projects', serialNumber: 'dir', manufacturer: '1.8 MB'  },
       
     },
     {
-      data: { deviceType: 'Reports', manufacturer: 'dir', serialNumber: '400 KB'},
+      data: { deviceType: 'Reports', serialNumber: 'dir', manufacturer: '4kB'},
       
     }
    
@@ -62,7 +56,7 @@ export class DevicesComponent implements OnInit {
     this.deviceDialogRef.close();
   }
 
-  saveForm(){
+  save(){
     console.log('raw', this.deviceForm.getRawValue());
     this.data.push({data: this.deviceForm.getRawValue()});
   }

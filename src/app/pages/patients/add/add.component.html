@@ -1,7 +1,10 @@
-    <nb-card size="large" [nbSpinner]="isLoading">      
+    <nb-card size="large" [nbSpinner]="isLoading" class="card-width">      
         <nb-card-header>
-            <div class="row">
-                <div class="col-md-10 col-sm-9"> {{!!patientID ? 'Edit' :'Add'}} Patient</div>
+            <div class="row d-flex">
+                <div class="col-md-11 col-sm-9"> {{!!patientID ? 'Edit' :'Add'}} Patient</div>
+                <div class="col-md-1 col-1 d-flex justify-content-end"(click)="cancelPatient()">
+                <nb-icon icon="close-outline"></nb-icon>
+                </div>
             </div>
         </nb-card-header>
         <nb-card-body class="pt-0">
@@ -45,8 +48,8 @@
                                 <div for="inputFirstName" class="label"> <span class="text-danger">*</span> 
                                     {{'kMsgDob' | translate}}</div>
                                 <input nbInput class="w-100" fieldSize="medium" formControlName="dob" placeholder="DD/MM/YYYY"
-                                    [nbDatepicker]="formcontrol" fullWidth>
-                                <nb-datepicker #formcontrol></nb-datepicker>
+                                    [nbDatepicker]="dobControl" fullWidth>
+                                <nb-datepicker #dobControl></nb-datepicker>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -170,13 +173,13 @@
                             <div class="form-group mb-1">
                                 <label for="diseaseState" class="label"> <span class="danger"></span>
                                     Disease State</label>
-                                <div>
+                                <!-- <div> -->
                                     <nb-select size="medium" fullWidth multiple id="diseaseState" placeholder="Select Disease State"
                                         formControlName="diseaseState" (selectedChange)="onchange()">
                                         <nb-option *ngFor="let item of diseaseState" [value]="item?.id">{{item?.name}}
                                         </nb-option>
                                     </nb-select>
-                                </div>
+                                <!-- </div> -->
                                 <div *ngIf="submitted && f.diseaseState.errors" class="error-form text-danger fs-15">
                                        Disease State is required
                                 </div>
@@ -186,13 +189,13 @@
                             <div class="form-group mb-1">
                                 <label for="preferredLanguage" class="label"> <span class="danger"></span>
                                     Preferred Language</label>
-                                <div>
-                                    <nb-select id="preferredLanguage" size="medium" class="w-100" fullWidth formControlName="language"
+                                <!-- <div> -->
+                                    <nb-select id="preferredLanguage" size="medium" fullWidth formControlName="language"
                                         (selectedChange)="clickLanguage()" placeholder="Select Preferred Language">
                                         <nb-option *ngFor="let item of preferredLanguage" [value]="item.id">
                                             {{item?.name}}</nb-option>
                                     </nb-select>
-                                </div>
+                                <!-- </div> -->
                                 <div *ngIf="submitted && f.preferredLanguage.errors" class="error-form text-danger fs-15">
                                        Preferred Language is required
                                 </div>
@@ -225,7 +228,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group mt-5">
+                            <div class="form-group mt-3">
                                 <nb-checkbox status="info" formControlName="monitored">{{'kMonitored' | translate}}</nb-checkbox>
                             </div>
                         </div>
@@ -262,8 +265,8 @@
                                         <div for="insuranceDob" class="label"> 
                                             {{'kMsgDob' | translate}}</div>
                                         <input nbInput fullWidth fieldSize="medium" formControlName="insuranceDob" placeholder="DD/MM/YYYY"
-                                            [nbDatepicker]="formcontrol" fullWidth>
-                                        <nb-datepicker #formcontrol></nb-datepicker>
+                                            [nbDatepicker]="insuranceDob" fullWidth>
+                                        <nb-datepicker #insuranceDob></nb-datepicker>
                                     </div>
                             </div>
                             <div class="col-md-6">
@@ -401,14 +404,10 @@
             </form>
         </nb-card-body>
         <nb-card-footer>
-            <div class="row px-5 justify-content-end">
-                <div class="col-md-2 col-2 px-0 mr-2 ml-2 d-flex justify-content-end">
-                    <button nbButton class="w-100" status="danger" (click)=cancelPatient()>{{'kCancel' | translate}}</button>
-                </div>
-                <div class="col-md-2 px-0 col-2 d-flex justify-content-end" style="margin-left: 12px;">
-                    <button class="w-100" [disabled]="!profileForm.valid" nbButton
-                    (click)="onSubmit()" status="success">{{'kSave' | translate}}</button>
-                </div>
+            <div class="float-end">
+                <button nbButton status="danger"  size="small" (click)=cancel()>{{'kCancel' | translate}}</button>
+                <button nbButton status="success" [disabled]="!profileForm.valid" class="ms-2" size="small" (click)="onSubmit()">{{'kSave' | translate}}</button>
             </div>
+
         </nb-card-footer>
     </nb-card>
