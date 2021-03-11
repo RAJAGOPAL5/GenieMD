@@ -19,7 +19,7 @@
                                    Device Type</label>
                                     <nb-select id="deviceTypes" size="medium" fullWidth formControlName="deviceType"
                                          placeholder="Select Device type">
-                                        <nb-option *ngFor="let item of deviceTypes" [value]="item.id">
+                                        <nb-option *ngFor="let item of deviceTypes" [value]="item.name">
                                             {{item?.name}}</nb-option>
                                     </nb-select>
                         </div>
