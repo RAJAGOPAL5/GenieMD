@@ -28,7 +28,7 @@
         
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group mb-1">
                                 <label for="inputFirstName" class="label"> <span class="danger"></span>{{'kGender' | translate}}</label>
                                 <nb-radio-group formControlName="gender" class="row d-flex justify-content-center pt-0 p-3"
@@ -50,6 +50,14 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+                            <div class="form-group mb-1 w-100">
+                                <label for="inputMobile" class="label"> <span class="text-danger">*</span>
+                                    {{'kMobileNumber' | translate}}</label>
+                                <input fieldSize="medium" type="number" formControlName='handphone' nbInput fullWidth id="inputMobile"
+                                    placeholder="Mobile Number">
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-6">
                             <div class="form-group mb-1">
                                 <label for="inputLanguage" class="label"> <span class="text-danger">*</span>
                                     {{'kLanguage' | translate}}
@@ -61,17 +69,9 @@
         
                                     </nb-select>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group mb-1 w-100">
-                                <label for="inputMobile" class="label"> <span class="text-danger">*</span>
-                                    {{'kMobileNumber' | translate}}</label>
-                                <input fieldSize="medium" type="number" formControlName='handphone' nbInput fullWidth
-                                    id="inputMobile" placeholder="Mobile Number">
-                            </div>
-                        </div>
                         <div class="col-md-6">
                             <div class="form-group mb-1">
                                 <label for="inputEmail" class="label"> <span class="text-danger">*</span>
@@ -80,16 +80,15 @@
                                     placeholder="Email">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-1">
                                 <label for="inputAddress" class="label"> <span class="text-danger">*</span>
                                     {{'kAddress' | translate}}</label>
-                                <input type="text" fieldSize="medium" formControlName="address" nbInput fullWidth
-                                    id="inputAddress" placeholder="Enter the Address">
+                                <input type="text" fieldSize="medium" formControlName="address" nbInput fullWidth id="inputAddress" placeholder="Enter the Address">
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-1">
                                 <label for="inputCity" class="label"> <span class="text-danger">*</span>
@@ -98,22 +97,20 @@
                                     placeholder="Enter the City">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-1">
                                 <label for="inputState" class="label"> <span class="text-danger">*</span>
                                     {{'kState' | translate}}</label>
                                 <div>
-                                    <nb-select id="inputState" size="medium" class="w-100" fullWidth formControlName="state"
-                                        placeholder="Select State">
+                                    <nb-select id="inputState" size="medium" class="w-100" fullWidth formControlName="state" placeholder="Select State">
                                         <nb-option *ngFor="let item of states" [value]="item.abbreviation">
                                             {{item?.abbreviation}}</nb-option>
-        
                                     </nb-select>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-1">
                                 <label for="inputZipCode" class="label"> <span class="text-danger">*</span> 
@@ -122,36 +119,21 @@
                                     id="inputZipCode" placeholder="Enter Zip Code">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-1">
                                 <label for="inputCountry" class="label"> <span class="text-danger">*</span>
                                     {{'kCountry' | translate}}</label>
-                                <input type="text" fieldSize="medium" formControlName="country" nbInput fullWidth
-                                    id="inputCountry" placeholder="Enter the Country">
+                                <input type="text" fieldSize="medium" formControlName="country" nbInput fullWidth id="inputCountry" placeholder="Enter the Country">
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-1">
                                 <label for="mrn" class="label"> <span class="text-danger"></span>
                                    MRN</label>
                                 <input type="text" fieldSize="medium" formControlName="mrn" nbInput fullWidth id="mrn"
                                     placeholder="Enter the MRN">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group mb-1">
-                                <label for="inputMorbidity" class="label"> <span class="danger"></span>
-                                    {{'kMorbidity' | translate}}</label>
-                                <div>
-                                    <nb-select size="medium" fullWidth id="inputMorbidity" formControlName="morbidity" placeholder="Select Morbidity">
-                                        <nb-option *ngFor="let item of morbidityID" [value]="item.id">{{item?.name}}
-                                        </nb-option>
-                                    </nb-select>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -169,6 +151,20 @@
                             </div>
                         </div>
                     </div>
+                    <!-- <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-1">
+                                <label for="inputMorbidity" class="label"> <span class="danger"></span>
+                                    {{'kMorbidity' | translate}}</label>
+                                <div>
+                                    <nb-select size="medium" fullWidth id="inputMorbidity" formControlName="morbidity" placeholder="Select Morbidity">
+                                        <nb-option *ngFor="let item of morbidityID" [value]="item.id">{{item?.name}}
+                                        </nb-option>
+                                    </nb-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-1">
@@ -191,7 +187,7 @@
                                 <label for="preferredLanguage" class="label"> <span class="danger"></span>
                                     Preferred Language</label>
                                 <div>
-                                    <nb-select id="preferredLanguage" size="medium" class="w-100" fullWidth formControlName="preferredLanguage"
+                                    <nb-select id="preferredLanguage" size="medium" class="w-100" fullWidth formControlName="language"
                                         (selectedChange)="clickLanguage()" placeholder="Select Preferred Language">
                                         <nb-option *ngFor="let item of preferredLanguage" [value]="item.id">
                                             {{item?.name}}</nb-option>
