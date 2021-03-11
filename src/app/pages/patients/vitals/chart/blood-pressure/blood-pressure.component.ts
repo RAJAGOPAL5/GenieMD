@@ -74,9 +74,6 @@ export class BloodPressureComponent implements OnInit {
           fontStyle: "bold"
         },
         type: 'time',
-        time: {
-          unit: 'day'
-        }
       }]
     },
     legend: {
@@ -104,6 +101,7 @@ export class BloodPressureComponent implements OnInit {
   }
   set data(res) {
     this.chartData = res;
+    console.log('chartData', this.chartData)
     this.lineChartData = [
       {
         data: [],
@@ -121,7 +119,7 @@ export class BloodPressureComponent implements OnInit {
     this.themeService.onThemeChange().subscribe(theme => {
       console.log('Theme changed: ', theme);
       this.theme = theme.name;
-      this.chartOptions();
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit);
     });
   }
 
@@ -175,14 +173,14 @@ export class BloodPressureComponent implements OnInit {
         });
         this.lineChartData = [heartRateData, systolicData, dialosticData]
       }
-      this.chartOptions();
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit);
     }, error => {
       this.isLoading = false;
       throw error;
     });
   }
 
-  chartOptions() {
+  chartOptions(fromDate, toDate, unit) {
     const theme = this.theme;
     const lineChartOptions: any = {
       scales: {
@@ -215,14 +213,13 @@ export class BloodPressureComponent implements OnInit {
         fontStyle: "bold"
       },
       type: 'time',
-      distribution: 'series',
       time: {
-        unit: 'day',
-        parser: 'DD/MM/YY',
+        unit: unit
       },
       ticks: {
         fontColor: theme === 'dark' ? 'white' : 'black',
-        source: 'data'
+        min: fromDate,
+        max: toDate
       }
     }
 
@@ -244,8 +241,6 @@ export class BloodPressureComponent implements OnInit {
 
     lineChartOptions.scales.yAxes = [yAxesScales];
     lineChartOptions.scales.xAxes = [xAxesScales];
-
     this.lineChartOptions = lineChartOptions;
   }
-
 }

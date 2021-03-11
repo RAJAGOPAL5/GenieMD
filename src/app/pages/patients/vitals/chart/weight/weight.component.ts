@@ -36,8 +36,7 @@ export class WeightComponent implements OnInit {
       yAxes: [{
         ticks: {
           beginAtZero: true,
-          stepValue: 20,
-          steps: 20,
+          stepSize: 20,
           max: 400,
           min: 50
         },
@@ -56,9 +55,6 @@ export class WeightComponent implements OnInit {
           fontStyle: "bold"
         },
         type: 'time',
-        time: {
-          unit: 'day'
-        }
       }]
     },
     legend: {
@@ -102,7 +98,7 @@ export class WeightComponent implements OnInit {
     this.themeService.onThemeChange().subscribe(theme => {
       console.log('Theme changed: ', theme);
       this.theme = theme.name;
-      this.chartOptions();
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit);
     });
   }
   getData() {
@@ -138,7 +134,7 @@ export class WeightComponent implements OnInit {
       } else {
         this.lineChartData = []
       }
-      this.chartOptions();
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit);
     }, error => {
       this.isLoading = false;
       throw error;
@@ -146,7 +142,7 @@ export class WeightComponent implements OnInit {
   }
 
 
-  chartOptions() {
+  chartOptions(fromDate, toDate, unit) {
     const theme = this.theme;
     const lineChartOptions: any = {
       scales: {
@@ -181,20 +177,19 @@ export class WeightComponent implements OnInit {
       type: 'time',
       distribution: 'series',
       time: {
-        unit: 'day',
-        parser: 'DD/MM/YY',
+        unit: unit,
       },
       ticks: {
         fontColor: theme === 'dark' ? 'white' : 'black',
-        source: 'data'
+        min: fromDate,
+        max: toDate
       }
     }
 
     const yAxesScales = {
       ticks: {
         beginAtZero: true,
-        stepValue: 20,
-        steps: 20,
+        stepSize: 20,
         max: 400,
         min: 50,
         fontColor: theme === 'dark' ? 'white' : 'black',
@@ -206,10 +201,8 @@ export class WeightComponent implements OnInit {
         fontStyle: "bold"
       }
     };
-
     lineChartOptions.scales.yAxes = [yAxesScales];
     lineChartOptions.scales.xAxes = [xAxesScales];
-
     this.lineChartOptions = lineChartOptions;
   }
 

@@ -1,4 +1,4 @@
-<nb-card [nbSpinner]="isLoading">
+<nb-card [nbSpinner]="isLoading" class="mb-1">
     <nb-card-body>
         <div class="row">
             <div class="col-md-2">
@@ -34,9 +34,9 @@
                     </p>
                 </div>
             </div>
-            <div class="col-md-4 mt-3">
+            <div class="col-md-3 mt-3">
                 <div>
-                    <div class="d-flex">
+                    <div class="d-flex pb-2">
                         <nb-icon icon="map-marker-alt" nbTooltip="Location" nbTooltipPlacement="left" pack="font-awesome">
                         </nb-icon>
                         <div class="ps-2">
@@ -49,13 +49,21 @@
                             </div>
                         </div>
                     </div>
-                    <p>
-                        <nb-icon icon="clock-outline" nbTooltip="Morbidity" nbTooltipPlacement="left"></nb-icon><span class="ps-2"
-                            *ngFor="let morbidity of morbidityValue">{{morbidity}}</span>
-                    </p>
+                 <nb-card>
+                    <nb-card-body style="max-height:50px;overflow-x:auto">
+                            <nb-tag-list>
+                                <nb-tag appearance="filled" *ngFor="let tree of diseaseList" size="tiny" [text]="tree" status="info"></nb-tag>
+                              </nb-tag-list>
+                    </nb-card-body>
+                 </nb-card>
                 </div>
             </div>
-            <div class="col-md-3 mt-3">
+            <div class="col-md-2 mt-3">
+                <button nbButton ghost size="small" status="info">Insurance</button>
+                <button nbButton ghost  size="small" status="info">Emergency Contact</button>
+                <button nbButton ghost  size="small" status="info">Devices</button>
+            </div>
+            <div class="col-md-2 mt-3">
                 <button nbButton status="primary" class="mb-2 w-100 btn-lg" size="small">
                     <nb-icon icon="message-circle-outline"></nb-icon>{{'kChat' | translate}}</button>
                 <button nbButton  [nbPopover]="templateRef" nbPopoverPlacement="right" status="success" class="mb-2 w-100 btn-lg" size="small">

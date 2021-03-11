@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NbIconLibraries, NbToastrService } from '@nebular/theme';
+import { NbIconLibraries, NbToastrService,NbTagComponent} from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
-import { languages, states, morbidity, gender } from 'src/app/shared/constant/constant';
+import { languages, states, morbidity, gender,diseaseState } from 'src/app/shared/constant/constant';
+
 
 interface ViewModal {
   profile?: any;
@@ -31,6 +32,9 @@ export class ProfileComponent implements OnInit {
   profileData: any;
   languages: any[] = [];
   language: string;
+  diseaseState: any[];
+  diseaseList: any[];
+  diseaseStateList: any;
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
@@ -57,6 +61,7 @@ export class ProfileComponent implements OnInit {
 
   getData() {
     this.morbiditys = morbidity;
+    this.diseaseState = diseaseState;
     const payload = {
       userID: this.profileService.id,
       clinicID: this.clinicService.id,
@@ -66,7 +71,7 @@ export class ProfileComponent implements OnInit {
       this.morbidityValue = [];
       this.patient = data;
       try{
-        this.patientExtraData = this.patient.extraData;
+        this.patientExtraData = JSON.parse(this.patient.extraData);
       }
       catch{
         this.patientExtraData = {};
@@ -77,18 +82,21 @@ export class ProfileComponent implements OnInit {
         this.profileData = res;
         this.language = this.languages.find(item => item.id === this.profileData.languageId);
       });
-      /* BELOW IS FOR FEATURE USE FOR MOBIDITY MULTI SELECT  */
 
-      // this.morbidityValue = [];
-      // this.patient.morbidity.map(item1 => {
-      //   this.morbiditys.map((item2) => {
-      //     if (item1 === item2.id) {
-      //       this.morbidityValue.push(item2.name);
-      //     }
-      //   });
-      // });
-
-      /* MOBIDITY MULTI SELECT END */
+   
+      try{
+        this.diseaseStateList =  JSON.parse(this.patientExtraData.diseaseState);
+      }
+      catch{
+        this.diseaseStateList = [];
+      }
+      let a;
+      this.diseaseList = this.diseaseStateList.map(item => {
+        a = this.diseaseState.find(kItem => kItem.id === item);
+        return a.name;
+      });
+       
+      console.log("this.diseaseList:",this.diseaseList);
 
 
     }, error => {
