@@ -47,7 +47,7 @@
         <nb-card-footer>
             <div class="float-end">
                 <button nbButton status="danger"  size="small" (click)="refclose()">{{'kCancel' | translate}}</button>
-                <button nbButton status="success" class="ms-2" size="small" (click)="saveForm()">{{'kSave' | translate}}</button>
+                <button nbButton status="success" class="ms-2" size="small" [disabled]="!deviceForm.valid" (click)="saveForm()">{{'kSave' | translate}}</button>
             </div>
         </nb-card-footer>
 
