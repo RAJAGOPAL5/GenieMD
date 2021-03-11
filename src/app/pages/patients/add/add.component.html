@@ -48,8 +48,8 @@
                                 <div for="inputFirstName" class="label"> <span class="text-danger">*</span> 
                                     {{'kMsgDob' | translate}}</div>
                                 <input nbInput class="w-100" fieldSize="medium" formControlName="dob" placeholder="DD/MM/YYYY"
-                                    [nbDatepicker]="formcontrol" fullWidth>
-                                <nb-datepicker #formcontrol></nb-datepicker>
+                                    [nbDatepicker]="dobControl" fullWidth>
+                                <nb-datepicker #dobControl></nb-datepicker>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -173,13 +173,13 @@
                             <div class="form-group mb-1">
                                 <label for="diseaseState" class="label"> <span class="danger"></span>
                                     Disease State</label>
-                                <div>
+                                <!-- <div> -->
                                     <nb-select size="medium" fullWidth multiple id="diseaseState" placeholder="Select Disease State"
                                         formControlName="diseaseState" (selectedChange)="onchange()">
                                         <nb-option *ngFor="let item of diseaseState" [value]="item?.id">{{item?.name}}
                                         </nb-option>
                                     </nb-select>
-                                </div>
+                                <!-- </div> -->
                                 <div *ngIf="submitted && f.diseaseState.errors" class="error-form text-danger fs-15">
                                        Disease State is required
                                 </div>
@@ -189,13 +189,13 @@
                             <div class="form-group mb-1">
                                 <label for="preferredLanguage" class="label"> <span class="danger"></span>
                                     Preferred Language</label>
-                                <div>
-                                    <nb-select id="preferredLanguage" size="medium" class="w-100" fullWidth formControlName="language"
+                                <!-- <div> -->
+                                    <nb-select id="preferredLanguage" size="medium" fullWidth formControlName="language"
                                         (selectedChange)="clickLanguage()" placeholder="Select Preferred Language">
                                         <nb-option *ngFor="let item of preferredLanguage" [value]="item.id">
                                             {{item?.name}}</nb-option>
                                     </nb-select>
-                                </div>
+                                <!-- </div> -->
                                 <div *ngIf="submitted && f.preferredLanguage.errors" class="error-form text-danger fs-15">
                                        Preferred Language is required
                                 </div>
@@ -265,8 +265,8 @@
                                         <div for="insuranceDob" class="label"> 
                                             {{'kMsgDob' | translate}}</div>
                                         <input nbInput fullWidth fieldSize="medium" formControlName="insuranceDob" placeholder="DD/MM/YYYY"
-                                            [nbDatepicker]="formcontrol" fullWidth>
-                                        <nb-datepicker #formcontrol></nb-datepicker>
+                                            [nbDatepicker]="insuranceDob" fullWidth>
+                                        <nb-datepicker #insuranceDob></nb-datepicker>
                                     </div>
                             </div>
                             <div class="col-md-6">
