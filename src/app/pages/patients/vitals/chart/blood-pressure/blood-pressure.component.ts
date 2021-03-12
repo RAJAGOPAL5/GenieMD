@@ -1,10 +1,12 @@
 import { BLACK_ON_WHITE_CSS_CLASS } from '@angular/cdk/a11y/high-contrast-mode/high-contrast-mode-detector';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { ChartDataSets } from 'chart.js';
 import * as moment from 'moment';
 import { Color, Label } from 'ng2-charts';
 import { VitalsService } from 'src/app/shared/service/vitals.service';
+import { BaseChartDirective } from 'ng2-charts';
+import * as Chart from 'chart.js';
 
 
 @Component({
@@ -95,6 +97,8 @@ export class BloodPressureComponent implements OnInit {
   isLoading = false;
   chartData: any;
   theme: string;
+  @ViewChild('chart', { static: true }) baseChart: ElementRef;
+  private chart: Chart;
   @Input()
   get data() {
     return this.chartData;
@@ -121,6 +125,7 @@ export class BloodPressureComponent implements OnInit {
       this.theme = theme.name;
       this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit, this.chartData.range);
     });
+    this.chart = new Chart(this.baseChart.nativeElement, {});
   }
 
   getData() {
@@ -172,6 +177,8 @@ export class BloodPressureComponent implements OnInit {
           }
         });
         this.lineChartData = [heartRateData, systolicData, dialosticData];
+        console.log('baseChart', this.baseChart);
+        this.chart.update();
       }
       this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit,  this.chartData.range);
     }, error => {
