@@ -1,6 +1,6 @@
 <p class="subtitle">{{'kBloodPressure' | translate}}</p>
 <div class="d-block" [nbSpinner]="isLoading">
     <canvas baseChart width="400" height="150" [datasets]="lineChartData" [labels]="lineChartLabels"
-        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins" [options]="lineChartOptions">
+        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins" [options]="lineChartOptions" #chart>
     </canvas>
 </div>
