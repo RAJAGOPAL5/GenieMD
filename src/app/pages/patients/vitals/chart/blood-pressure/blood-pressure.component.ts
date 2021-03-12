@@ -75,6 +75,7 @@ export class BloodPressureComponent implements OnInit {
           fontStyle: 'bold'
         },
         type: 'time',
+        distribution: 'series',
       }]
     },
     legend: {
@@ -215,7 +216,6 @@ export class BloodPressureComponent implements OnInit {
         fontStyle: 'bold'
       },
       type: 'time',
-
       ticks: {
         fontColor: theme === 'dark' ? 'white' : 'black',
       }
