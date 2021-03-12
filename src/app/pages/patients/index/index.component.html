@@ -1,8 +1,8 @@
 <div class="row d-flex h-100 mb-0">
-    <div class="col-md-3">
+    <div [ngClass] = "{'col-md-12': !isCompact, 'col-md-3' : isCompact}">
         <app-patient-list></app-patient-list>
     </div>
-    <div class="col-md-9 overflow-auto " id="rightSideDiv">
+    <div class="col-md-9 overflow-auto " id="rightSideDiv" *ngIf = "isCompact">
        <router-outlet></router-outlet>
     </div>
 </div>

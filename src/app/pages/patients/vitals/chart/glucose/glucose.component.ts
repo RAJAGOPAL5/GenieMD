@@ -45,7 +45,7 @@ export class GlucoseComponent implements OnInit {
           display: true,
           labelString: 'mg/dL',
           fontColor: '#3366ff',
-          fontStyle: "bold"
+          fontStyle: 'bold'
         }
       }],
       xAxes: [{
@@ -53,9 +53,10 @@ export class GlucoseComponent implements OnInit {
           display: true,
           labelString: 'Date',
           fontColor: '#3366ff',
-          fontStyle: "bold"
+          fontStyle: 'bold'
         },
         type: 'time',
+        distribution: 'series',
       }]
     },
     legend: {
@@ -88,7 +89,8 @@ export class GlucoseComponent implements OnInit {
         data: [],
         label: '',
       }
-    ];    this.getData();
+    ];
+    this.getData();
   }
   constructor(
     private vitalService: VitalsService,
@@ -99,7 +101,7 @@ export class GlucoseComponent implements OnInit {
     this.themeService.onThemeChange().subscribe(theme => {
       console.log('Theme changed: ', theme);
       this.theme = theme.name;
-      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit);
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
     });
   }
   getData() {
@@ -132,18 +134,18 @@ export class GlucoseComponent implements OnInit {
             GlucoseData.data.push(vialData.V);
           }
         });
-        this.lineChartData = [GlucoseData]
+        this.lineChartData = [GlucoseData];
       }
-      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit);
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
     }, error => {
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit,  this.chartData.range);
       this.isLoading = false;
-
       throw error;
     });
   }
 
 
-  chartOptions(fromDate, toDate, unit) {
+  chartOptions(fromDate, toDate, unit, range) {
     const theme = this.theme;
     const lineChartOptions: any = {
       scales: {
@@ -180,27 +182,39 @@ export class GlucoseComponent implements OnInit {
         display: true,
         labelString: 'mg/dL',
         fontColor: theme === 'dark' ? '#3366ff' : 'black',
-        fontStyle: "bold"
+        fontStyle: 'bold'
       }
-    }
+    };
 
-    const xAxesScales = {
-      time: {
-        unit: unit,
-      },
-      ticks: {
-        fontColor: theme === 'dark' ? 'white' : 'black',
-        min: fromDate,
-        max: toDate
-      },
+    const xAxesScales: any = {
       scaleLabel: {
         display: true,
         labelString: 'Date',
         fontColor: theme === 'dark' ? '#3366ff' : 'black',
-        fontStyle: "bold"
+        fontStyle: 'bold'
       },
       type: 'time',
+
+      ticks: {
+        fontColor: theme === 'dark' ? 'white' : 'black',
+        minRotation: 60
+
+      }
     };
+    if (range == -1) {
+      xAxesScales.time = {
+        unit: 'day',
+        parser: 'DD/MM/YY',
+      };
+      xAxesScales.ticks.source = 'data';
+    } else {
+      xAxesScales.time = {
+        unit,
+      };
+      xAxesScales.ticks.min =  fromDate;
+      xAxesScales.ticks.max = toDate;
+    }
+
 
     lineChartOptions.scales.yAxes = [yAxesScales];
     lineChartOptions.scales.xAxes = [xAxesScales];

@@ -21,6 +21,7 @@ export class IndexComponent implements OnInit {
   title: string;
   profile: any;
   theme: string = getUserPreferedTheme();
+  flag: any =true;;
   constructor(
     private sidebarService: NbSidebarService,
     private clinicService: ClinicService,
@@ -63,6 +64,18 @@ export class IndexComponent implements OnInit {
         pathMatch: 'prefix'
       },
       {
+        title: 'Providers',
+        icon: 'person-done-outline',
+      },
+      {
+        title: 'Charts',
+        icon: 'pie-chart-outline',
+      },
+      {
+        title: 'Help',
+        icon: 'question-mark-circle-outline',
+      },
+      {
         title: 'Logout',
         icon: 'unlock-outline',
         pathMatch: 'prefix'
@@ -81,9 +94,15 @@ export class IndexComponent implements OnInit {
   }
 
   toggleSidebar() {
-    this.sidebarService.toggle();
+    if(this.flag){
+      this.sidebarService.collapse();
+      this.flag = !this.flag;
+    } else{
+      this.sidebarService.compact();
+      this.flag = !this.flag;
+    }
+    
   }
-
   toggleTheme(theme: string) {
     if(theme === 'default') {
       this.theme = 'dark';

@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
-import { NbDialogRef, NbToastrService, NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder, NbTreeGridDataSource } from '@nebular/theme';
+import { NbDialogRef, NbToastrService, NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder, NbTreeGridDataSource, NbThemeService } from '@nebular/theme';
 import { languages, states, morbidity, gender, vitals,relation ,diseaseState, preferredLanguage } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
@@ -52,19 +52,32 @@ export class AddComponent implements OnInit {
   frontImageURl: any;
   backImageURL: any;
   deviceDialogRef: NbDialogRef<any>;
+  emergency: any;
+  insurance: any;
+  insuranceObj: any;
+  theme: any;
+  fontColor: boolean;
+  devices: any;
 
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
     private toastrService: NbToastrService, private patientsService: PatientsService, protected dialogRef: NbDialogRef<any>,
-    private ls: LanguageService, private translate: TranslateService, private dialogService: NbDialogService
+    private ls: LanguageService, private translate: TranslateService, private dialogService: NbDialogService,
+    private themeService: NbThemeService,
     ) {
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
      }
 
   ngOnInit(): void {
+    this.createForm();
+    this.themeService.onThemeChange().subscribe(theme => {
+      this.theme = theme.name;
+    });
+    this.fontColor =  this.theme === 'dark' ? true : false;
     this.clinic = this.clinicService.clinic;
+    console.log('clinic', this.clinicService)
     if (!!this.patientID) {
       this.isLoading = true;
       this.getProfilePatch();
@@ -77,8 +90,15 @@ export class AddComponent implements OnInit {
     this.diseaseState = diseaseState;
     this.relation = relation;
     this.preferredLanguage = preferredLanguage;
-    this.createForm();
-  }
+    try{
+      this.insuranceObj = JSON.parse(this.clinicService.config?.extendedSettings?.insurance);
+    }
+    catch{
+      this.insuranceObj = {};
+    }
+    this.insurance = this.insuranceObj.enabled;
+    this.emergency = this.clinicService.config?.extendedSettings?.emergencyContact === "true" ? true : false;
+  } 
   getProfilePatch() {
     var variousDisease;
     const patientPayload = {
@@ -153,6 +173,7 @@ export class AddComponent implements OnInit {
         this.frontImageURl = this.profileExtraData.insurance && this.profileExtraData.insurance.frontImage ? this.profileExtraData.insurance.frontImage : '';
 // tslint:disable-next-line: max-line-length
         this.backImageURL =  this.profileExtraData.insurance && this.profileExtraData.insurance.backImage ? this.profileExtraData.insurance.backImage : '';
+        this.devices = this.profileExtraData.iHealthDevices;
 
         if(this.profileExtraData.otherLanguage){
           this.showPreferredLanguages = true;
@@ -253,6 +274,7 @@ export class AddComponent implements OnInit {
       extraData['diseaseState'] = JSON.stringify(this.profileForm.value.diseaseState);
       extraData['otherDisease'] = this.profileForm.value.customDisease ? this.profileForm.value.customDisease : '';
       extraData['otherLanguage'] = this.profileForm.value.customLanguage ? this.profileForm.value.customLanguage : '';
+      extraData['iHealthDevices'] = this.devices;
     }
     this.isLoading = true;
     if (this.profileForm.invalid) {
@@ -279,7 +301,7 @@ export class AddComponent implements OnInit {
         MRN: this.profileForm.value.mrn ? this.profileForm.value.mrn : '',
         firstName: this.profileForm.value.firstName,
         gender: `${this.profileForm.value.gender}`,
-        imageURL: '',
+        imageURL: this.profileData.imageURL,
         lastName: this.profileForm.value.lastName,
         latitude: '0',
         locationTime: this.profileData.locationTime ? this.profileData.locationTime : '',
@@ -370,6 +392,7 @@ export class AddComponent implements OnInit {
         dateofbirth: this.setDOB(this.profileForm.value.dob),
         governmentID: '',
         ms: '0',
+       iHealthDevices: this.devices,
         notifications: {
           email: true,
           push: true,
@@ -391,7 +414,7 @@ export class AddComponent implements OnInit {
       },
       firstName: this.profileForm.value.firstName,
       gender: `${this.profileForm.value.gender}`,
-      imageURL: '',
+      imageURL: this.profileData.imageURL,
       lastName: this.profileForm.value.lastName,
       latitude: '0',
       locationTime: this.profile.locationTime ? this.profile.locationTime : '',
@@ -519,8 +542,34 @@ export class AddComponent implements OnInit {
     });
   }
 
+  changeProfile(event: any) {
+    // this.isLoading = true;
+    this.isLoading = true;
+    this.userID = this.profileService.id;
+    let object;
+    if (event.target && event.target.files && event.target.files[0]) {
+      object = { file: event.target.files[0], url: this.dataurl };
+    }
+    console.log('object', object);
+    const file = object.file;
+    const sd: any = new FormData();
+    sd.append('Content-Type', file.type);
+    sd.append('file', file);
+    this.profileService.uploadFile(sd, this.userID).subscribe((res: any) => {
+      this.isLoading = false;
+      if (this.profileData === undefined) {
+        this.profileData = {};
+        this.profileData.imageURL = res.url;
+      } else {
+        this.profileData.imageURL = res.url;
+      }
+    }, err => {
+      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage: 'Image upload failed');
+    });
+  }
+
   getRecord(event){
-    console.log('Got value', event)
+    this.devices = JSON.stringify(event);
   }
 
 }

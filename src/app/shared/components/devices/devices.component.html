@@ -1,26 +1,28 @@
-<div class="float-end">
+<div class="row justify-content-end">
+    <div class="col-1 ps-1">
     <nb-actions size="medium">
-        <nb-action nbTooltip="Add Patient" nbTooltipPlacement="top" icon="plus-circle-outline"
+        <nb-action nbTooltip="Add" nbTooltipPlacement="top" icon="plus-circle-outline"
             (click)="open(devicedialog)"></nb-action>
     </nb-actions>
+</div>
 </div>
 
 <ng-template #devicedialog>
     <nb-card class="dialog-card">
         <nb-card-header>
-            <h6 class="text-center">Add Devices</h6>
+            <h6 class="text-center">Add Device</h6>
         </nb-card-header>
         <nb-card-body>
             <form [formGroup]="deviceForm">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group mb-1">
-                                <label for="deviceTypes" class="label"> <span class="danger"></span>
+                                <label for="deviceTypes" class="label"> <span class="text-danger">*</span>
                                    Device Type</label>
                                     <nb-select id="deviceTypes" size="medium" fullWidth formControlName="deviceType"
-                                         placeholder="Select Device type">
-                                        <nb-option *ngFor="let item of deviceTypes" [value]="item.name">
-                                            {{item?.name}}</nb-option>
+                                         placeholder="Select Device type" (selectedChange)="onchange($event)">
+                                        <nb-option *ngFor="let item of deviceTypes" [value]="item">
+                                            {{item?.type}}</nb-option>
                                     </nb-select>
                         </div>
                     </div>
@@ -32,6 +34,16 @@
                                 Manufacturer</label>
                             <input type="text" fieldSize="medium" formControlName="manufacturer" nbInput fullWidth
                                 id="manufacturer" placeholder="Manufacturer">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                         <div class="form-group mb-1">
+                            <label for="deviceName" class="label"> <span class="text-danger">*</span>
+                                Device Name</label>
+                            <input type="text" fieldSize="medium" formControlName="deviceName" nbInput fullWidth
+                                id="deviceName" placeholder="Device Name">
                         </div>
                     </div>
                 </div>
@@ -49,11 +61,11 @@
         </nb-card-body>
         <nb-card-footer>
             <div class="row justify-content-end">
-                <div class="col-5">
-                    <button nbButton status="danger" class="w-100" size="small" (click)="refclose()">{{'kCancel' | translate}}</button>
+                <div class="col-5 pe-2">
+                    <button nbButton status="danger" class="w-100" size="medium" (click)="refclose()">{{'kCancel' | translate}}</button>
                 </div>
-                <div class="col-5">
-                    <button nbButton status="success" class="w-100" size="small" [disabled]="!deviceForm.valid"
+                <div class="col-5 ps-2">
+                    <button nbButton status="success" class="w-100" size="medium" [disabled]="!deviceForm.valid"
                     (click)="save()">{{'kSave' | translate}}</button>
                 </div>
             </div>
@@ -64,24 +76,26 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">Device Type</th>
-            <th scope="col">Manufacturer</th>
-            <th scope="col">Serial Number</th>
-            <th class="text-center" scope="col">Actions</th>
+            <th scope="col" class="subtitle">Manufacturer</th>
+            <th scope="col" class="subtitle">Device Type</th>
+            <th scope="col" class="subtitle">Device Name</th>
+            <th scope="col" class="subtitle">Serial Number</th>
+            <th class="text-center subtitle" scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let item of data">
-            <td>{{item.deviceType}}</td>
-            <td>{{item.manufacturer}}</td>
-            <td>{{item.serialNumber}}</td>
+        <tr *ngFor="let item of deviceList; let i=index">
+            <td class="subtitle">{{item.manufacturer}}</td>
+            <td class="subtitle">{{item.deviceType}}</td>
+            <td class="subtitle">{{item.deviceName}}</td>
+            <td class="subtitle">{{item.serialNumber}}</td>
             <td class="text-center">
-                <nb-icon icon="trash" nbTooltip="Delete" (click)="openDialog(deleteDialog)" nbTooltipStatus="control"
-                    status="primary"></nb-icon>
+                <nb-icon icon="trash" nbTooltip="Delete" class="icon-font" (click)="openDialog(deleteDialog, i)" nbTooltipStatus="control"
+                    status="danger" pack="font-awesome" nbTooltipStatus="black"></nb-icon>
             </td>
         </tr>
-        <tr *ngIf="data.length==0" class="text-center">
-            <td colspan="4">
+        <tr *ngIf="deviceList.length==0" class="text-center">
+            <td colspan="5">
                 <p>No Records Found</p>
             </td>
         </tr>
@@ -94,7 +108,7 @@
         </nb-card-header>
         <nb-card-body>
             <div class="float-end">
-                <button nbButton status="success" size="small" (click)="delete(id)">Yes</button>
+                <button nbButton status="success" size="small" (click)="delete()">Yes</button>
                 <button nbButton status="danger" class="ms-2" size="small" (click)="close()">No</button>
             </div>
         </nb-card-body>
