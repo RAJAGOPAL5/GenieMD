@@ -99,7 +99,7 @@ export class Spo2Component implements OnInit {
     this.themeService.onThemeChange().subscribe(theme => {
       console.log('Theme changed: ', theme);
       this.theme = theme.name;
-      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit);
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
     });
   }
   getData() {
@@ -134,7 +134,7 @@ export class Spo2Component implements OnInit {
         });
         this.lineChartData = [spo2Data];
       }
-      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit);
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
     }, error => {
       this.isLoading = false;
       throw error;
@@ -142,7 +142,7 @@ export class Spo2Component implements OnInit {
   }
 
 
-  chartOptions(fromDate, toDate, unit) {
+  chartOptions(fromDate, toDate, unit, range) {
     const theme = this.theme;
     const lineChartOptions: any = {
       scales: {
@@ -167,23 +167,32 @@ export class Spo2Component implements OnInit {
       }
     };
 
-    const xAxesScales = {
+    const xAxesScales: any = {
       scaleLabel: {
         display: true,
         labelString: 'Date',
         fontColor: theme === 'dark' ? '#3366ff' : 'black',
-        fontStyle: "bold"
+        fontStyle: 'bold'
       },
       type: 'time',
-      time: {
-        unit: unit,
-      },
+
       ticks: {
         fontColor: theme === 'dark' ? 'white' : 'black',
-        min: fromDate,
-        max: toDate
       }
     };
+    if (range == -1) {
+      xAxesScales.time = {
+        unit: 'day',
+        parser: 'DD/MM/YY',
+      };
+      xAxesScales.ticks.source = 'data';
+    } else {
+      xAxesScales.time = {
+        unit,
+      };
+      xAxesScales.ticks.min =  fromDate;
+      xAxesScales.ticks.max = toDate;
+    }
 
     const yAxesScales = {
       ticks: {

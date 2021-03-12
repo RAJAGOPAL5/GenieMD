@@ -24,7 +24,7 @@ export class VitalsComponent implements OnInit {
   @ViewChild('spoChart') mychart1: any;
   @ViewChild('weightChart') mychart2: any;
   @ViewChild('totalChart') mychart3: any;
-  chartInfo: { patientId: string; fromDate: any; toDate: any; unit : string };
+  chartInfo: { patientId: string; fromDate: any; toDate: any; unit: string, range?: number };
   form: FormGroup = this.formBuilder.group({
     dateRange: ''
   });
@@ -79,13 +79,13 @@ export class VitalsComponent implements OnInit {
       case 90: fromDate = moment().add(-3, 'months').valueOf(); unit = 'month'; break;
       case 180: fromDate = moment().add(-6, 'months').valueOf(); unit = 'month'; break;
       case 365: fromDate = moment().add(-1, 'years').valueOf(); unit = 'month'; break;
-      default: fromDate = moment().add(-118, 'years').valueOf();unit = 'month';
+      default: fromDate = moment().add(-118, 'years').valueOf(); unit = 'month';
     }
     this.selectedDateRange = {
       start: new Date(fromDate),
       end: new Date(toDate)
-    }
-    this.chartInfo = { patientId: this.patientId, fromDate: fromDate, toDate: toDate, unit  };
+    };
+    this.chartInfo = { patientId: this.patientId, fromDate, toDate, unit, range: event  };
   }
   getData(patientId) {
     this.isLoading = true;
@@ -103,10 +103,10 @@ export class VitalsComponent implements OnInit {
       } catch (error) {
         extraData = patientData.extraData || {};
       }
-      this.patientId = patientData.userID
+      this.patientId = patientData.userID;
       const fromDates = new Date(this.selectedDateRange.start).getTime();
       const toDates = new Date(this.selectedDateRange.end).getTime();
-      this.chartInfo = { patientId: patientData.userID, fromDate:fromDates, toDate:toDates, unit: 'month' };
+      this.chartInfo = { patientId: patientData.userID, fromDate: fromDates, toDate: toDates, unit: 'month', range: -1};
       if (!!extraData.vitals) {
         this.vitals = vitals.filter(k => (extraData.vitals || []).find(i => k.vitalType === i));
       } else {
@@ -118,9 +118,15 @@ export class VitalsComponent implements OnInit {
   }
   selectedDate(event) {
     const ranges = event;
-    if(ranges.start && ranges.end){
-      const days =  moment(ranges.end).diff(moment(ranges.start), 'days')
-      this.chartInfo = { patientId: this.patientId, fromDate: ranges.start.getTime(), toDate: ranges.end.getTime(), unit: days <= 31 ?  'day'  : 'month'};
+    if (ranges.start && ranges.end) {
+      const days = moment(ranges.end).diff(moment(ranges.start), 'days');
+      this.chartInfo = {
+        patientId: this.patientId,
+        fromDate: ranges.start.getTime(),
+        toDate: ranges.end.getTime(),
+        unit: days <= 31 ? 'day' : 'month',
+        range: 0
+      };
     }
   }
 }
