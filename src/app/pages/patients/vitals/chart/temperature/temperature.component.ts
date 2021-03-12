@@ -55,6 +55,7 @@ export class TemperatureComponent implements OnInit {
           fontStyle: "bold"
         },
         type: 'time',
+        distribution: 'series',
       }]
     },
     legend: {
