@@ -1,8 +1,10 @@
-<div class="float-end">
+<div class="row justify-content-end">
+    <div class="col-1 ps-1">
     <nb-actions size="medium">
         <nb-action nbTooltip="Add Devices" nbTooltipPlacement="top" icon="plus-circle-outline"
             (click)="open(devicedialog)"></nb-action>
     </nb-actions>
+</div>
 </div>
 
 <ng-template #devicedialog>
@@ -25,7 +27,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group mb-1">
-                                <label for="deviceTypes" class="label"> <span class="danger">*</span>
+                                <label for="deviceTypes" class="label"> <span class="text-danger">*</span>
                                    Device Type</label>
                                     <nb-select id="deviceTypes" size="medium" fullWidth formControlName="deviceType"
                                          placeholder="Select Device type">
@@ -59,11 +61,11 @@
         </nb-card-body>
         <nb-card-footer>
             <div class="row justify-content-end">
-                <div class="col-5">
-                    <button nbButton status="danger" class="w-100" size="small" (click)="refclose()">{{'kCancel' | translate}}</button>
+                <div class="col-5 pe-2">
+                    <button nbButton status="danger" class="w-100" size="medium" (click)="refclose()">{{'kCancel' | translate}}</button>
                 </div>
-                <div class="col-5">
-                    <button nbButton status="success" class="w-100" size="small" [disabled]="!deviceForm.valid"
+                <div class="col-5 ps-2">
+                    <button nbButton status="success" class="w-100" size="medium" [disabled]="!deviceForm.valid"
                     (click)="save()">{{'kSave' | translate}}</button>
                 </div>
             </div>
