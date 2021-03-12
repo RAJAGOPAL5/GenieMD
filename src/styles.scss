@@ -97,3 +97,18 @@ nb-list-item {
 		}
 	}
 }
+.nb-theme-dark {
+	nb-user.user-profile {
+		.user-picture {
+			height: 7.5rem !important;
+			width: 7.5rem !important;
+		}
+	}
+}
+.nb-theme-dark {
+	nb-user.user-profile {
+		.info-container {
+		display: none;
+		}
+	}
+}
