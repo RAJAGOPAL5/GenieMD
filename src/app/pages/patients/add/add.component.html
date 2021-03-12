@@ -345,11 +345,16 @@
                             </div>
                         </div>     
                         <div class="row">
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-12">
                                 <h6>{{'kInsuranceCardPhotos' | translate}}</h6>
-                                      <div class="avatar-zone">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                      <div *ngIf='frontImageURl' class="avatar-zone w-100">
                                           <img [src]="frontImageURl">
                                       </div> 
+                                      <div *ngIf='!frontImageURl' class="avatar-zone w-100">
+                                        <img src="assets/svg/plain_card.svg" class="w-100">
+                                      </div>
                                         <div class="m-4 text-center">
                                         <input type="file" hidden #choosefile (change)="changeFrontFile($event)">
                                         <button nbButton status="primary" class="mr-1" type="button" (click)="choosefile.click()">
@@ -357,12 +362,13 @@
                                         </button>
                                         </div>
                             </div>
-                        </div>    
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <div class="avatar-zone">
+                            <div class="col-md-6 mb-3">
+                                  <div *ngIf='backImageURL' class="avatar-zone w-100">
                                     <img [src]="backImageURL">
-                                </div> 
+                                  </div> 
+                                  <div *ngIf='!backImageURL' class="avatar-zone w-100">
+                                    <img src="assets/svg/plain_card.svg" class="w-100">
+                                  </div>
                                   <div class="m-4 text-center">
                                     <input type="file" hidden #chooseBackfile (change)="changeBackFile($event)">
                                     <button nbButton status="primary" class="mr-1" type="button" (click)="chooseBackfile.click()">
@@ -370,7 +376,7 @@
                                     </button>
                                     </div>
                             </div>
-                        </div>                     
+                        </div>                       
                 </nb-tab>
                 <nb-tab tabTitle="{{'kEmergencyContact' | translate}}" *ngIf= "emergency">
                         <div class="row">
@@ -422,7 +428,7 @@
                 <button nbButton status="danger"  size="small" (click)=cancel()>{{'kCancel' | translate}}</button>
                 <button nbButton status="success" [disabled]="!profileForm.valid" class="ms-2" size="small" (click)="onSubmit()">{{'kSave' | translate}}</button>
             </div> -->
-            <div class="row px-5 justify-content-end">
+            <div class="row px-4 justify-content-end">
                 <div class="col-md-2 col-2 px-0 mr-2 ml-2 d-flex justify-content-end">
                     <button nbButton class="w-100" status="danger" (click)=cancel()>{{'kCancel' | translate}}</button>
                 </div>
