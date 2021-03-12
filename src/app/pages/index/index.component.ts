@@ -81,7 +81,7 @@ export class IndexComponent implements OnInit {
   }
 
   toggleSidebar() {
-    this.sidebarService.toggle();
+    this.sidebarService.toggle(true, 'right');
   }
 
   toggleTheme(theme: string) {
