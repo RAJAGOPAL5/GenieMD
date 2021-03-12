@@ -91,7 +91,7 @@
             <td class="subtitle">{{item.serialNumber}}</td>
             <td class="text-center">
                 <nb-icon icon="trash" nbTooltip="Delete" class="icon-font" (click)="openDialog(deleteDialog, i)" nbTooltipStatus="control"
-                    status="danger" pack="font-awesome"></nb-icon>
+                    status="danger" pack="font-awesome" nbTooltipStatus="black"></nb-icon>
             </td>
         </tr>
         <tr *ngIf="deviceList.length==0" class="text-center">
