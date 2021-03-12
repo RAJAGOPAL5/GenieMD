@@ -55,4 +55,8 @@ export class ProfileService {
   uploadFile(payLoad, userId) {
     return this.http.post('Files/UploadFile/' + userId, payLoad);
   }
+
+  getDevices(){
+    return this.http.get(`Devices/SmartDevices/List`); 
+  }
 }

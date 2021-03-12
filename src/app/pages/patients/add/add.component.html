@@ -224,9 +224,9 @@
                                 <input type="text" fieldSize="medium" formControlName="customDisease" nbInput fullWidth id="otherDisease"
                                     placeholder="Other Disease">
                             </div>
-                            <div *ngIf="submitted && f.customDisease.errors" class="error-form text-danger fs-15">
+                            <!-- <div *ngIf="submitted && f.customDisease?.errors" class="error-form text-danger fs-15">
                                 Custom Disease is required
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-6" *ngIf="showPreferredLanguages">
                             <div class="form-group mb-1">
@@ -235,9 +235,9 @@
                                 <input type="text" fieldSize="medium" formControlName="customLanguage" nbInput fullWidth id="otherLanguages"
                                     placeholder="Other Preferred Language">
                             </div>
-                            <div *ngIf="submitted && f.customLanguage.errors" class="error-form text-danger fs-15">
+                            <!-- <div *ngIf="submitted && f.customLanguage.errors" class="error-form text-danger fs-15">
                                     Custom Language is required
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="row">
@@ -411,7 +411,7 @@
                   </nb-tab>
                   <nb-tab tabTitle="{{'kDevices' | translate}}">
                     <nb-card-body>
-                        <app-devices (deviceData)= "getRecord($event)"></app-devices>
+                        <app-devices (deviceData)= "getRecord($event)" [dataDevice]="devices"></app-devices>
                     </nb-card-body>     
                       </nb-tab>
                </nb-tabset>

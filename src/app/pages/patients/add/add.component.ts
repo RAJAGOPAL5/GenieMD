@@ -57,6 +57,7 @@ export class AddComponent implements OnInit {
   insuranceObj: any;
   theme: any;
   fontColor: boolean;
+  devices: any;
 
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
@@ -74,6 +75,7 @@ export class AddComponent implements OnInit {
       this.theme = theme.name;
     });
     this.clinic = this.clinicService.clinic;
+    console.log('clinic', this.clinicService)
     if (!!this.patientID) {
       this.isLoading = true;
       this.getProfilePatch();
@@ -275,6 +277,7 @@ export class AddComponent implements OnInit {
       extraData['diseaseState'] = JSON.stringify(this.profileForm.value.diseaseState);
       extraData['otherDisease'] = this.profileForm.value.customDisease ? this.profileForm.value.customDisease : '';
       extraData['otherLanguage'] = this.profileForm.value.customLanguage ? this.profileForm.value.customLanguage : '';
+      extraData['iHealthDevices'] = this.devices;
     }
     this.isLoading = true;
     if (this.profileForm.invalid) {
@@ -392,6 +395,7 @@ export class AddComponent implements OnInit {
         dateofbirth: this.setDOB(this.profileForm.value.dob),
         governmentID: '',
         ms: '0',
+       iHealthDevices: this.devices,
         notifications: {
           email: true,
           push: true,
@@ -568,7 +572,7 @@ export class AddComponent implements OnInit {
   }
 
   getRecord(event){
-    console.log('Got value', event)
+    this.devices = JSON.stringify(event);
   }
 
 }
