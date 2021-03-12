@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
-import { NbDialogRef, NbToastrService, NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder, NbTreeGridDataSource } from '@nebular/theme';
+import { NbDialogRef, NbToastrService, NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder, NbTreeGridDataSource, NbThemeService } from '@nebular/theme';
 import { languages, states, morbidity, gender, vitals,relation ,diseaseState, preferredLanguage } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
@@ -52,19 +52,32 @@ export class AddComponent implements OnInit {
   frontImageURl: any;
   backImageURL: any;
   deviceDialogRef: NbDialogRef<any>;
+  emergency: any;
+  insurance: any;
+  insuranceObj: any;
+  theme: any;
+  fontColor: boolean;
+  devices: any;
 
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
     private toastrService: NbToastrService, private patientsService: PatientsService, protected dialogRef: NbDialogRef<any>,
-    private ls: LanguageService, private translate: TranslateService, private dialogService: NbDialogService
+    private ls: LanguageService, private translate: TranslateService, private dialogService: NbDialogService,
+    private themeService: NbThemeService,
     ) {
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
      }
 
   ngOnInit(): void {
+    this.createForm();
+    this.themeService.onThemeChange().subscribe(theme => {
+      this.theme = theme.name;
+    });
+    this.fontColor =  this.theme === 'dark' ? true : false;
     this.clinic = this.clinicService.clinic;
+    console.log('clinic', this.clinicService)
     if (!!this.patientID) {
       this.isLoading = true;
       this.getProfilePatch();
@@ -77,8 +90,15 @@ export class AddComponent implements OnInit {
     this.diseaseState = diseaseState;
     this.relation = relation;
     this.preferredLanguage = preferredLanguage;
-    this.createForm();
-  }
+    try{
+      this.insuranceObj = JSON.parse(this.clinicService.config?.extendedSettings?.insurance);
+    }
+    catch{
+      this.insuranceObj = {};
+    }
+    this.insurance = this.insuranceObj.enabled;
+    this.emergency = this.clinicService.config?.extendedSettings?.emergencyContact === "true" ? true : false;
+  } 
   getProfilePatch() {
     var variousDisease;
     const patientPayload = {
@@ -253,6 +273,7 @@ export class AddComponent implements OnInit {
       extraData['diseaseState'] = JSON.stringify(this.profileForm.value.diseaseState);
       extraData['otherDisease'] = this.profileForm.value.customDisease ? this.profileForm.value.customDisease : '';
       extraData['otherLanguage'] = this.profileForm.value.customLanguage ? this.profileForm.value.customLanguage : '';
+      extraData['iHealthDevices'] = this.devices;
     }
     this.isLoading = true;
     if (this.profileForm.invalid) {
@@ -370,6 +391,7 @@ export class AddComponent implements OnInit {
         dateofbirth: this.setDOB(this.profileForm.value.dob),
         governmentID: '',
         ms: '0',
+       iHealthDevices: this.devices,
         notifications: {
           email: true,
           push: true,
@@ -541,12 +563,12 @@ export class AddComponent implements OnInit {
         this.profileData.imageURL = res.url;
       }
     }, err => {
-      this.toastrService.danger(err.error.errorMessage? err.error.errorMessage: 'Image upload failed');
+      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage: 'Image upload failed');
     });
   }
 
   getRecord(event){
-    console.log('Got value', event)
+    this.devices = JSON.stringify(event);
   }
 
 }

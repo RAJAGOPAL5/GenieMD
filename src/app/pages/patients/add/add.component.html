@@ -2,13 +2,13 @@
         <nb-card-header>
             <div class="row d-flex">
                 <div class="col-md-11 col-sm-9"> {{!!patientID ? 'Edit' :'Add'}} Patient</div>
-                <div class="col-md-1 col-1 d-flex justify-content-end" (click)="cancel()">
+                <div class="col-md-1 col-1 d-flex justify-content-end cursor-pointer" (click)="cancel()">
                       <nb-icon icon="close-outline"></nb-icon>
                 </div>
             </div>
         </nb-card-header>
         <nb-card-body class="pt-0">
-            <form [formGroup]="profileForm" class="m-auto w-60">
+            <form [formGroup]="profileForm" class="m-auto w-60" [ngClass]="{'dark': theme == 'dark', 'default': theme == 'default'}">
             <nb-tabset fullWidth >
                 <nb-tab tabTitle="{{'kGeneral' | translate}}">
                         <div class="row pb-3">
@@ -17,8 +17,9 @@
                                         [ngClass]="{'none': profileData?.monitored == 0,'success': profileData?.alarm == 0 && profileData?.monitored == 1, 'warning': profileData?.alarm == 1 && profileData?.monitored == 1, 'danger': profileData?.alarm == 2 && profileData?.monitored == 1}">
                                     </nb-user>
                                     <label for="file-input">
-                                        <nb-icon class="position-absolute bottom-0 end-0 bg-gray mx-4 cursor-pointer h-25 w-25" nbTooltip="Edit" icon="edit-outline"
-                                            ></nb-icon>
+                                        <nb-icon class="position-absolute top-0 end-0  cursor-pointer h-25 w-25 rounded-circle p-1 mt-1 border border-2"
+                                        [ngClass]="{'bg-darks': fontColor, 'bg-light': !fontColor}" nbTooltip="Edit" icon="edit-outline"
+                                        shape="rectangle" ></nb-icon>
                                     </label>
                                 
                                     <input id="file-input" (change)="changeProfile($event)" class="d-none" type="file" nbInput fullWidth fieldSize="small" placeholder="Input">
@@ -223,9 +224,9 @@
                                 <input type="text" fieldSize="medium" formControlName="customDisease" nbInput fullWidth id="otherDisease"
                                     placeholder="Other Disease">
                             </div>
-                            <div *ngIf="submitted && f.customDisease.errors" class="error-form text-danger fs-15">
+                            <!-- <div *ngIf="submitted && f.customDisease?.errors" class="error-form text-danger fs-15">
                                 Custom Disease is required
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-6" *ngIf="showPreferredLanguages">
                             <div class="form-group mb-1">
@@ -234,9 +235,9 @@
                                 <input type="text" fieldSize="medium" formControlName="customLanguage" nbInput fullWidth id="otherLanguages"
                                     placeholder="Other Preferred Language">
                             </div>
-                            <div *ngIf="submitted && f.customLanguage.errors" class="error-form text-danger fs-15">
+                            <!-- <div *ngIf="submitted && f.customLanguage.errors" class="error-form text-danger fs-15">
                                     Custom Language is required
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="row">
@@ -247,7 +248,7 @@
                         </div>
                     </div>
                 </nb-tab>
-                <nb-tab tabTitle="{{'kInsurance' | translate}}">
+                <nb-tab tabTitle="{{'kInsurance' | translate}}"  *ngIf= "insurance">
                     <div class="row">
                     <div class="col-md-6">
                         <div class="form-group mb-1">
@@ -377,7 +378,7 @@
                             </div>
                         </div>                       
                 </nb-tab>
-                <nb-tab tabTitle="{{'kEmergencyContact' | translate}}">
+                <nb-tab tabTitle="{{'kEmergencyContact' | translate}}" *ngIf= "emergency">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group mb-1">
@@ -416,7 +417,7 @@
                   </nb-tab>
                   <nb-tab tabTitle="{{'kDevices' | translate}}">
                     <nb-card-body>
-                        <app-devices (deviceData)= "getRecord($event)"></app-devices>
+                        <app-devices (deviceData)= "getRecord($event)" [dataDevice]="devices"></app-devices>
                     </nb-card-body>     
                       </nb-tab>
                </nb-tabset>
