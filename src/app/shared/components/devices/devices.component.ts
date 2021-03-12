@@ -20,6 +20,7 @@ export class DevicesComponent implements OnInit{
 
   @Output() deviceData: EventEmitter<any> = new EventEmitter();
   storeDevice: any;
+  deviceIndex: any;
   @Input() 
 
   get dataDevice() {
@@ -64,7 +65,6 @@ export class DevicesComponent implements OnInit{
   getDevicePatch(){
     try{
       this.deviceList = JSON.parse(this.dataDevice);
-      console.log('device list', this.deviceList)
     }
     catch (error) {
       this.deviceList = this.deviceList || [];
@@ -81,8 +81,9 @@ export class DevicesComponent implements OnInit{
     this.deviceForm.reset();
   }
 
-  openDialog(deleteDialog: TemplateRef<any>) {
+  openDialog(deleteDialog: TemplateRef<any>, indexList) {
     this.deleteDialogRef = this.dialogService.open(deleteDialog, { closeOnBackdropClick: false });
+    this.deviceIndex = indexList;
   }
 
   save() {
@@ -94,9 +95,9 @@ export class DevicesComponent implements OnInit{
     this.deviceData.emit(this.data);
   }
 
-  delete(id) {
-    const index = this.deviceList.findIndex(x => x.id == id);
-    const item = this.deviceList.splice(index, 1);
+  delete() {
+    const item = this.deviceList.splice(this.deviceIndex, 1);
+    this.deviceData.emit(this.deviceList);
     this.toastrService.success('Device deleted successfully');
     this.deleteDialogRef.close();
   }
