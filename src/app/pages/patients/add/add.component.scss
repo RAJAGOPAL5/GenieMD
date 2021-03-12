@@ -1,17 +1,26 @@
+@import 'src/themes';
+
 .avatar-zone{
     width:761px;
     height:250px;
     background-color:#CCCCCC;
     overflow: hidden;
 }
-
-nb-tabset ::ng-deep > ul  {
+.dark nb-tabset ::ng-deep > ul  {
     position: -webkit-sticky; /* Safari */
     position: sticky; 
     top:0;
     z-index: 500;
-    background-color:  nb-theme(background-basic-color-1);
+    background-color: #222b45;
 }
+.default nb-tabset ::ng-deep > ul  {
+    position: -webkit-sticky; /* Safari */
+    position: sticky; 
+    top:0;
+    z-index: 500;
+    background-color: white;
+}
+
 nb-tabset ::ng-deep > ul >li >a:focus  {
    outline : none;
 }

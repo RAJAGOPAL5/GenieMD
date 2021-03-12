@@ -2,13 +2,13 @@
         <nb-card-header>
             <div class="row d-flex">
                 <div class="col-md-11 col-sm-9"> {{!!patientID ? 'Edit' :'Add'}} Patient</div>
-                <div class="col-md-1 col-1 d-flex justify-content-end" (click)="cancel()">
+                <div class="col-md-1 col-1 d-flex justify-content-end cursor-pointer" (click)="cancel()">
                       <nb-icon icon="close-outline"></nb-icon>
                 </div>
             </div>
         </nb-card-header>
         <nb-card-body class="pt-0">
-            <form [formGroup]="profileForm" class="m-auto w-60">
+            <form [formGroup]="profileForm" class="m-auto w-60" [ngClass]="{'dark': theme == 'dark', 'default': theme == 'default'}">
             <nb-tabset fullWidth >
                 <nb-tab tabTitle="{{'kGeneral' | translate}}">
                         <div class="row pb-3">
@@ -247,7 +247,7 @@
                         </div>
                     </div>
                 </nb-tab>
-                <nb-tab tabTitle="{{'kInsurance' | translate}}">
+                <nb-tab tabTitle="{{'kInsurance' | translate}}"  *ngIf= "insurance">
                     <div class="row">
                     <div class="col-md-6">
                         <div class="form-group mb-1">
@@ -371,7 +371,7 @@
                             </div>
                         </div>                     
                 </nb-tab>
-                <nb-tab tabTitle="{{'kEmergencyContact' | translate}}">
+                <nb-tab tabTitle="{{'kEmergencyContact' | translate}}" *ngIf= "emergency">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group mb-1">
