@@ -38,3 +38,13 @@ nb-tabset ::ng-deep > ul >li >a:focus  {
 .cursor-pointer{
     cursor: pointer;
 }
+.edit-icon{
+    height: 40px;
+    width: 40px;
+}
+.bg-postion{
+    background-position: center;
+}
+nb-user ::ng-deep > div >div  {
+    background-position: center;
+}
