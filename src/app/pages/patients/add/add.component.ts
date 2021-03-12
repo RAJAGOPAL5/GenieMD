@@ -1,6 +1,7 @@
 import { Component, OnInit,TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/shared/service/auth.service';
+import { NbThemeService } from '@nebular/theme';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
@@ -52,12 +53,17 @@ export class AddComponent implements OnInit {
   frontImageURl: any;
   backImageURL: any;
   deviceDialogRef: NbDialogRef<any>;
+  emergency: any;
+  insurance: any;
+  insuranceObj: any;
+  theme: any;
 
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
     private toastrService: NbToastrService, private patientsService: PatientsService, protected dialogRef: NbDialogRef<any>,
-    private ls: LanguageService, private translate: TranslateService, private dialogService: NbDialogService
+    private themeService: NbThemeService,private ls: LanguageService, private translate: TranslateService, 
+    private dialogService: NbDialogService
     ) {
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
@@ -77,6 +83,17 @@ export class AddComponent implements OnInit {
     this.diseaseState = diseaseState;
     this.relation = relation;
     this.preferredLanguage = preferredLanguage;
+    try{
+      this.insuranceObj = JSON.parse(this.clinicService.config.extendedSettings.insurance);
+    }
+    catch{
+      this.insuranceObj = {};
+    }
+    this.insurance = this.insuranceObj.enabled;
+    this.emergency = this.clinicService.config.extendedSettings.emergencyContact === "true" ? true : false;
+    this.themeService.onThemeChange().subscribe(theme => {
+      this.theme = theme.name;
+    });
     this.createForm();
   }
   getProfilePatch() {
