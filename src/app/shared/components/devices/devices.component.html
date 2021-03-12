@@ -16,24 +16,24 @@
             <form [formGroup]="deviceForm">
                 <div class="row">
                     <div class="col-md-12">
-                         <div class="form-group mb-1">
-                            <label for="manufacturer" class="label"> <span class="text-danger">*</span>
-                                Manufacturer</label>
-                            <input type="text" fieldSize="medium" formControlName="manufacturer" nbInput fullWidth
-                                id="manufacturer" placeholder="Manufacturer">
+                        <div class="form-group mb-1">
+                                <label for="deviceTypes" class="label"> <span class="text-danger">*</span>
+                                   Device Type</label>
+                                    <nb-select id="deviceTypes" size="medium" fullWidth formControlName="deviceType"
+                                         placeholder="Select Device type" (selectedChange)="onchange($event)">
+                                        <nb-option *ngFor="let item of deviceTypes" [value]="item">
+                                            {{item?.type}}</nb-option>
+                                    </nb-select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group mb-1">
-                                <label for="deviceTypes" class="label"> <span class="text-danger">*</span>
-                                   Device Type</label>
-                                    <nb-select id="deviceTypes" size="medium" fullWidth formControlName="deviceType"
-                                         placeholder="Select Device type">
-                                        <nb-option *ngFor="let item of deviceTypes" [value]="item.name">
-                                            {{item?.name}}</nb-option>
-                                    </nb-select>
+                         <div class="form-group mb-1">
+                            <label for="manufacturer" class="label"> <span class="text-danger">*</span>
+                                Manufacturer</label>
+                            <input type="text" fieldSize="medium" formControlName="manufacturer" nbInput fullWidth
+                                id="manufacturer" placeholder="Manufacturer">
                         </div>
                     </div>
                 </div>

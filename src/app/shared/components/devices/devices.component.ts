@@ -29,7 +29,6 @@ export class DevicesComponent implements OnInit{
 
   set dataDevice(res){
     this.storeDevice = res;
-    console.log('res', res);
     this.getDevicePatch();
   }
   
@@ -42,7 +41,8 @@ export class DevicesComponent implements OnInit{
   ngOnInit(): void {
     this.createForm();
     // this.getDevices();
-    this.deviceTypes= deviceTypes;
+    this.deviceTypes = deviceTypes;
+    console.log('device',this.deviceTypes)
   }
 
   createForm() {
@@ -62,6 +62,14 @@ export class DevicesComponent implements OnInit{
     });
   }
 
+  onchange(event){ 
+      this.deviceForm.patchValue({
+        deviceName: event.name,
+        manufacturer: event.manufacturer,
+        serialNumber: event.model,
+      }); 
+  }
+   
   getDevicePatch(){
     try{
       this.deviceList = JSON.parse(this.dataDevice);
@@ -87,8 +95,13 @@ export class DevicesComponent implements OnInit{
   }
 
   save() {
-    this.data.push(this.deviceForm.getRawValue());
-    console.log('data', this.data)
+    const payload = {
+      deviceName: this.deviceForm.value.deviceName,
+      manufacturer: this.deviceForm.value.manufacturer,
+      serialNumber: this.deviceForm.value.serialNumber,
+      deviceType: this.deviceForm.value.deviceType.type
+    }
+    this.data.push(payload);
     this.toastrService.success('Device added successfully');
     this.deviceDialogRef.close();
     this.deviceForm.reset();

@@ -114,9 +114,9 @@ export const preferredLanguage = [
 
     
 export const deviceTypes = [
-    { name: 'Thermometer', id: 1 },
-    { name: 'Scale', id: 2 },
-    { name: 'Blood Pressure Monitor', id: 3 },
-    { name: 'Pulse Oximeter', id: 4 },
-    { name: 'Glucose Meter', id: 5 },
+    { id: 1, name: 'Thermometer', type: "Thermometer", model: "PT3SBT", manufacturer: "iHealth" },
+    { id: 2, name: "iHealth Scales", type: "Scale", model: "HS2S", manufacturer: "iHealth" },
+    { id: 3, name: "iHealth Blood Pressure", type: "Blood Pressure Monitor", model: "KN-550BT", manufacturer: "iHealth" },
+    { id: 4, name: "iHealth Pulse Oximeter", type: "Pulse Oximeter", model: "PO3", manufacturer: "iHealth" },
+    { id: 5, name: "iHealth Glucose Meter", type: "Glucose Meter", model: "BG5s", manufacturer: "iHealth" },
 ];
