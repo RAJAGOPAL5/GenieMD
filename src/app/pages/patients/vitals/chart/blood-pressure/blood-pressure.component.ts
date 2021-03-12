@@ -218,6 +218,8 @@ export class BloodPressureComponent implements OnInit {
       type: 'time',
       ticks: {
         fontColor: theme === 'dark' ? 'white' : 'black',
+        autoSkip: true,
+        minRotation: 60
       }
     };
     if (range == -1) {

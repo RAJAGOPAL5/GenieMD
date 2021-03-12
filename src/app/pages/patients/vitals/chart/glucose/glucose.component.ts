@@ -197,6 +197,8 @@ export class GlucoseComponent implements OnInit {
 
       ticks: {
         fontColor: theme === 'dark' ? 'white' : 'black',
+        minRotation: 60
+
       }
     };
     if (range == -1) {
