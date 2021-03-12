@@ -1,13 +1,12 @@
 import { Component, OnInit,TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/shared/service/auth.service';
-import { NbThemeService } from '@nebular/theme';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
-import { NbDialogRef, NbToastrService, NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder, NbTreeGridDataSource } from '@nebular/theme';
+import { NbDialogRef, NbToastrService, NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder, NbTreeGridDataSource, NbThemeService } from '@nebular/theme';
 import { languages, states, morbidity, gender, vitals,relation ,diseaseState, preferredLanguage } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
@@ -57,19 +56,23 @@ export class AddComponent implements OnInit {
   insurance: any;
   insuranceObj: any;
   theme: any;
+  fontColor: boolean;
 
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
     private toastrService: NbToastrService, private patientsService: PatientsService, protected dialogRef: NbDialogRef<any>,
-    private themeService: NbThemeService,private ls: LanguageService, private translate: TranslateService, 
-    private dialogService: NbDialogService
+    private ls: LanguageService, private translate: TranslateService, private dialogService: NbDialogService,
+    private themeService: NbThemeService,
     ) {
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
      }
 
   ngOnInit(): void {
+    this.themeService.onThemeChange().subscribe(theme => {
+      this.theme = theme.name;
+    });
     this.clinic = this.clinicService.clinic;
     if (!!this.patientID) {
       this.isLoading = true;
@@ -95,7 +98,7 @@ export class AddComponent implements OnInit {
       this.theme = theme.name;
     });
     this.createForm();
-  }
+  } 
   getProfilePatch() {
     var variousDisease;
     const patientPayload = {
@@ -232,6 +235,8 @@ export class AddComponent implements OnInit {
       emergencyNumber: [''],
       diseaseState: [[]],
     });
+    const theme = this.theme;
+    this.fontColor =  theme === 'dark' ? true : false;
   }
 
   onSubmit() {

@@ -17,8 +17,9 @@
                                         [ngClass]="{'none': profileData?.monitored == 0,'success': profileData?.alarm == 0 && profileData?.monitored == 1, 'warning': profileData?.alarm == 1 && profileData?.monitored == 1, 'danger': profileData?.alarm == 2 && profileData?.monitored == 1}">
                                     </nb-user>
                                     <label for="file-input">
-                                        <nb-icon class="position-absolute bottom-0 end-0 bg-gray mx-4 cursor-pointer h-25 w-25" nbTooltip="Edit" icon="edit-outline"
-                                            ></nb-icon>
+                                        <nb-icon class="position-absolute top-0 end-0  cursor-pointer h-25 w-25 rounded-circle p-1 mt-1 border border-2"
+                                        [ngClass]="{'bg-darks': fontColor, 'bg-light': !fontColor}" nbTooltip="Edit" icon="edit-outline"
+                                        shape="rectangle" ></nb-icon>
                                     </label>
                                 
                                     <input id="file-input" (change)="changeProfile($event)" class="d-none" type="file" nbInput fullWidth fieldSize="small" placeholder="Input">
