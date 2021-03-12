@@ -71,6 +71,7 @@ export class AddComponent implements OnInit {
      }
 
   ngOnInit(): void {
+    this.createForm();
     this.themeService.onThemeChange().subscribe(theme => {
       this.theme = theme.name;
     });
@@ -89,17 +90,16 @@ export class AddComponent implements OnInit {
     this.relation = relation;
     this.preferredLanguage = preferredLanguage;
     try{
-      this.insuranceObj = JSON.parse(this.clinicService.config.extendedSettings.insurance);
+      this.insuranceObj = JSON.parse(this.clinicService.config?.extendedSettings?.insurance);
     }
     catch{
       this.insuranceObj = {};
     }
     this.insurance = this.insuranceObj.enabled;
-    this.emergency = this.clinicService.config.extendedSettings.emergencyContact === "true" ? true : false;
+    this.emergency = this.clinicService.config?.extendedSettings?.emergencyContact === "true" ? true : false;
     this.themeService.onThemeChange().subscribe(theme => {
       this.theme = theme.name;
     });
-    this.createForm();
   } 
   getProfilePatch() {
     var variousDisease;
