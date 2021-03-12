@@ -75,6 +75,7 @@ export class AddComponent implements OnInit {
     this.themeService.onThemeChange().subscribe(theme => {
       this.theme = theme.name;
     });
+    this.fontColor =  this.theme === 'dark' ? true : false;
     this.clinic = this.clinicService.clinic;
     console.log('clinic', this.clinicService)
     if (!!this.patientID) {
@@ -97,9 +98,6 @@ export class AddComponent implements OnInit {
     }
     this.insurance = this.insuranceObj.enabled;
     this.emergency = this.clinicService.config?.extendedSettings?.emergencyContact === "true" ? true : false;
-    this.themeService.onThemeChange().subscribe(theme => {
-      this.theme = theme.name;
-    });
   } 
   getProfilePatch() {
     var variousDisease;
@@ -237,8 +235,6 @@ export class AddComponent implements OnInit {
       emergencyNumber: [''],
       diseaseState: [[]],
     });
-    const theme = this.theme;
-    this.fontColor =  theme === 'dark' ? true : false;
   }
 
   onSubmit() {
@@ -567,7 +563,7 @@ export class AddComponent implements OnInit {
         this.profileData.imageURL = res.url;
       }
     }, err => {
-      this.toastrService.danger(err.error.errorMessage? err.error.errorMessage: 'Image upload failed');
+      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage: 'Image upload failed');
     });
   }
 
