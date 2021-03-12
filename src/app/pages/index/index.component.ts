@@ -68,8 +68,8 @@ export class IndexComponent implements OnInit {
         icon: 'person-done-outline',
       },
       {
-        title: 'Charts',
-        icon: 'pie-chart-outline',
+        title: 'Chat',
+        icon: 'message-circle-outline',
       },
       {
         title: 'Help',
