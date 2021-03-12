@@ -1,7 +1,7 @@
 <div class="row justify-content-end">
     <div class="col-1 ps-1">
     <nb-actions size="medium">
-        <nb-action nbTooltip="Add Devices" nbTooltipPlacement="top" icon="plus-circle-outline"
+        <nb-action nbTooltip="Add" nbTooltipPlacement="top" icon="plus-circle-outline"
             (click)="open(devicedialog)"></nb-action>
     </nb-actions>
 </div>
@@ -10,7 +10,7 @@
 <ng-template #devicedialog>
     <nb-card class="dialog-card">
         <nb-card-header>
-            <h6 class="text-center">Add Devices</h6>
+            <h6 class="text-center">Add Device</h6>
         </nb-card-header>
         <nb-card-body>
             <form [formGroup]="deviceForm">
@@ -90,8 +90,8 @@
             <td class="subtitle">{{item.deviceName}}</td>
             <td class="subtitle">{{item.serialNumber}}</td>
             <td class="text-center">
-                <nb-icon icon="trash" nbTooltip="Delete" (click)="openDialog(deleteDialog, i)" nbTooltipStatus="control"
-                    status="primary"></nb-icon>
+                <nb-icon icon="trash" nbTooltip="Delete" class="icon-font" (click)="openDialog(deleteDialog, i)" nbTooltipStatus="control"
+                    status="danger" pack="font-awesome"></nb-icon>
             </td>
         </tr>
         <tr *ngIf="deviceList.length==0" class="text-center">
