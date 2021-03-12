@@ -38,6 +38,7 @@ export class ProfileComponent implements OnInit {
   relation: any[] = [];
   relationName = '';
   showEmergency = false;
+  showPatient = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
