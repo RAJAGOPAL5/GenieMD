@@ -3,15 +3,15 @@
         <img src="assets/svg/404.svg" class="w-100">
         <h1 class="text-center text-muted">Patient not found</h1>
     </nb-card-body>
-    <nb-card-body *ngIf="showPatient">
+    <nb-card-body *ngIf="!showPatient">
         <div class="row">
             <div class="col-md-2">
-                <div class="py-2 text-center">
-                    <nb-user class="justify-content-center pb-2" size="giant" [name]="patientName"
+                <div class="py-2">
+                    <nb-user class="pb-2 ps-2" size="giant" [name]="patientName"
                         [picture]="patient?.imageUrl" onlyPicture='true'>
                     </nb-user>
-                    <div class="subtitle">{{patientName}}</div>
-                    <div class="caption">{{patient?.dob}}</div>
+                    <div class="subtitle ps-2">{{patientName}}</div>
+                    <div class="caption ps-2">{{patient?.dob}}</div>
                 </div>
             </div>
             <div class="col-md-3 break-word">
@@ -67,7 +67,7 @@
                                     <div *ngIf="patientExtraData?.emergencyContact.relation">{{relationName}}</div>
                                 </div>
                                 <div *ngIf = "!patientExtraData?.emergencyContact">
-                                    ---
+                                    No Emergency Contact Found
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
         </div>
         <div class="row">
             <div class="offset-md-2 col-md-10">
-                <div class="d-flex pb-2" *ngIf="!!diseaseList?.length">
+                <div class="d-flex" *ngIf="!!diseaseList?.length">
                     <nb-icon icon="notes-medical" nbTooltip="Disease State" nbTooltipPlacement="left" pack="font-awesome">
                     </nb-icon>
                     <div class="ps-2">
@@ -106,4 +106,4 @@
         </div>
     </nb-card-body>
 </nb-card>
-<nb-route-tabset [tabs]="tabs"></nb-route-tabset>
+<nb-route-tabset [tabs]="tabs" *ngIf="!showPatient"></nb-route-tabset>
