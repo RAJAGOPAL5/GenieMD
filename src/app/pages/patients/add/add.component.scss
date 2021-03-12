@@ -10,7 +10,7 @@ nb-tabset ::ng-deep > ul  {
     position: sticky; 
     top:0;
     z-index: 500;
-    background-color: white;
+    background-color:  nb-theme(background-basic-color-1);
 }
 nb-tabset ::ng-deep > ul >li >a:focus  {
    outline : none;
