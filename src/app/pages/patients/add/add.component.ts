@@ -279,7 +279,7 @@ export class AddComponent implements OnInit {
         MRN: this.profileForm.value.mrn ? this.profileForm.value.mrn : '',
         firstName: this.profileForm.value.firstName,
         gender: `${this.profileForm.value.gender}`,
-        imageURL: '',
+        imageURL: this.profileData.imageURL,
         lastName: this.profileForm.value.lastName,
         latitude: '0',
         locationTime: this.profileData.locationTime ? this.profileData.locationTime : '',
@@ -391,7 +391,7 @@ export class AddComponent implements OnInit {
       },
       firstName: this.profileForm.value.firstName,
       gender: `${this.profileForm.value.gender}`,
-      imageURL: '',
+      imageURL: this.profileData.imageURL,
       lastName: this.profileForm.value.lastName,
       latitude: '0',
       locationTime: this.profile.locationTime ? this.profile.locationTime : '',
@@ -514,6 +514,32 @@ export class AddComponent implements OnInit {
     this.profileService.uploadFile(sd, this.userID).subscribe((res: any) => {
       this.isLoading = false;
       this.backImageURL = res.url;
+    }, err => {
+      this.toastrService.danger(err.error.errorMessage? err.error.errorMessage: 'Image upload failed');
+    });
+  }
+
+  changeProfile(event: any) {
+    // this.isLoading = true;
+    this.isLoading = true;
+    this.userID = this.profileService.id;
+    let object;
+    if (event.target && event.target.files && event.target.files[0]) {
+      object = { file: event.target.files[0], url: this.dataurl };
+    }
+    console.log('object', object);
+    const file = object.file;
+    const sd: any = new FormData();
+    sd.append('Content-Type', file.type);
+    sd.append('file', file);
+    this.profileService.uploadFile(sd, this.userID).subscribe((res: any) => {
+      this.isLoading = false;
+      if (this.profileData === undefined) {
+        this.profileData = {};
+        this.profileData.imageURL = res.url;
+      } else {
+        this.profileData.imageURL = res.url;
+      }
     }, err => {
       this.toastrService.danger(err.error.errorMessage? err.error.errorMessage: 'Image upload failed');
     });
