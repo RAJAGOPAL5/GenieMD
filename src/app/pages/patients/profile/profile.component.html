@@ -1,5 +1,9 @@
 <nb-card [nbSpinner]="isLoading" class="mb-1">
-    <nb-card-body>
+    <nb-card-body *ngIf="showPatient">
+        <img src="assets/svg/404.svg" class="w-100">
+        <h1 class="text-center text-muted">Patient not found</h1>
+    </nb-card-body>
+    <nb-card-body *ngIf="showPatient">
         <div class="row">
             <div class="col-md-2">
                 <div class="py-2 text-center">
