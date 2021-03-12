@@ -38,7 +38,7 @@ export class DevicesComponent implements OnInit {
 
 
   open(devicedialog: TemplateRef<any>) {
-    this.deviceDialogRef = this.dialogService.open(devicedialog);
+    this.deviceDialogRef = this.dialogService.open(devicedialog, { closeOnBackdropClick: false });
   }
 
   refclose() {
@@ -47,7 +47,7 @@ export class DevicesComponent implements OnInit {
   }
 
   openDialog(deleteDialog: TemplateRef<any>) {
-    this.deleteDialogRef = this.dialogService.open(deleteDialog);
+    this.deleteDialogRef = this.dialogService.open(deleteDialog, { closeOnBackdropClick: false });
   }
 
   save() {
