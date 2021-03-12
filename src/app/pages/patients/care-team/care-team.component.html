@@ -35,12 +35,12 @@
         <nb-card-body>
             <input type="text" nbInput placeholder="Caregiver Username" [(ngModel)]="careGiver" name="careGiver">
         </nb-card-body>
-        <nb-card-footer>
-            <div class = "row justify-content-end"> 
-                <div class="col-5">
+        <nb-card-footer >
+            <div class = "row justify-content-center"> 
+                <div class="col-6">
                     <button nbButton status="danger" class="w-100" (click)="refclose()">{{'kCancel' | translate}}</button>
                 </div>
-                <div class="col-5">
+                <div class="col-6">
                     <button nbButton status="primary" class="w-100" (click)="notify()">{{'kOk' | translate}}</button>
                 </div>
             </div>
