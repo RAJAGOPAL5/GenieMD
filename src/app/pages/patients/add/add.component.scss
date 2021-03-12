@@ -28,8 +28,13 @@ nb-tabset ::ng-deep > ul >li >a:focus  {
     min-width: 878px;
     max-width: 878px;
 }
-.bg-gray{
-    background-color: #ced4da;
+
+.bg-darks {
+    background-color: #222b45;
+}
+
+.bg-light {
+    background-color: white;
 }
 .cursor-pointer{
     cursor: pointer;
