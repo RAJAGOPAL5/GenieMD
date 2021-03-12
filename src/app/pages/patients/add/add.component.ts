@@ -173,6 +173,7 @@ export class AddComponent implements OnInit {
         this.frontImageURl = this.profileExtraData.insurance && this.profileExtraData.insurance.frontImage ? this.profileExtraData.insurance.frontImage : '';
 // tslint:disable-next-line: max-line-length
         this.backImageURL =  this.profileExtraData.insurance && this.profileExtraData.insurance.backImage ? this.profileExtraData.insurance.backImage : '';
+        this.devices = this.profileExtraData.iHealthDevices;
 
         if(this.profileExtraData.otherLanguage){
           this.showPreferredLanguages = true;

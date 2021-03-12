@@ -87,6 +87,7 @@ export class DevicesComponent implements OnInit{
 
   save() {
     this.data.push(this.deviceForm.getRawValue());
+    console.log('data', this.data)
     this.toastrService.success('Device added successfully');
     this.deviceDialogRef.close();
     this.deviceForm.reset();
