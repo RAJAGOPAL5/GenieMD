@@ -60,10 +60,10 @@
         <nb-card-footer>
             <div class="row justify-content-end">
                 <div class="col-5 pe-2">
-                    <button nbButton status="danger" class="w-100" size="small" (click)="refclose()">{{'kCancel' | translate}}</button>
+                    <button nbButton status="danger" class="w-100" size="medium" (click)="refclose()">{{'kCancel' | translate}}</button>
                 </div>
                 <div class="col-5 ps-2">
-                    <button nbButton status="success" class="w-100" size="small" [disabled]="!deviceForm.valid"
+                    <button nbButton status="success" class="w-100" size="medium" [disabled]="!deviceForm.valid"
                     (click)="save()">{{'kSave' | translate}}</button>
                 </div>
             </div>
