@@ -64,6 +64,18 @@ export class IndexComponent implements OnInit {
         pathMatch: 'prefix'
       },
       {
+        title: 'Providers',
+        icon: 'person-done-outline',
+      },
+      {
+        title: 'Charts',
+        icon: 'pie-chart-outline',
+      },
+      {
+        title: 'Help',
+        icon: 'question-mark-circle-outline',
+      },
+      {
         title: 'Logout',
         icon: 'unlock-outline',
         pathMatch: 'prefix'
