@@ -122,7 +122,6 @@ export class BloodPressureComponent implements OnInit {
       this.theme = theme.name;
       this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit, this.chartData.range);
     });
-    this.chart = new Chart(this.baseChart.nativeElement, {});
   }
 
   getData() {
