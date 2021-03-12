@@ -7,7 +7,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
-import { languages, states, morbidity, gender,diseaseState } from 'src/app/shared/constant/constant';
+import { languages, states, morbidity, gender,diseaseState, relation } from 'src/app/shared/constant/constant';
 
 
 interface ViewModal {
@@ -35,6 +35,9 @@ export class ProfileComponent implements OnInit {
   diseaseState: any[];
   diseaseList: any[];
   diseaseStateList: any;
+  relation: any[] = [];
+  relationName = '';
+  showEmergency = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
@@ -57,6 +60,9 @@ export class ProfileComponent implements OnInit {
       this.getData();
     });
     this.languages =  languages;
+    this.relation = relation;
+// tslint:disable-next-line: max-line-length
+    this.showEmergency = this.clinicService.config.extendedSettings && this.clinicService.config.extendedSettings.emergencyContact && this.clinicService.config.extendedSettings.emergencyContact === 'true' ? true : false
   }
 
   getData() {
@@ -70,10 +76,9 @@ export class ProfileComponent implements OnInit {
     this.patientService.findById(payload).subscribe((data: any) => {
       this.morbidityValue = [];
       this.patient = data;
-      try{
+      try {
         this.patientExtraData = JSON.parse(this.patient.extraData);
-      }
-      catch{
+      } catch {
         this.patientExtraData = {};
       }
       this.patientName = `${this.patient.firstName} ${this.patient.lastName}`;
@@ -83,25 +88,26 @@ export class ProfileComponent implements OnInit {
         this.language = this.languages.find(item => item.id === this.profileData.languageId);
       });
 
-      try{
+      try {
         this.diseaseStateList =  JSON.parse(this.patientExtraData.diseaseState);
-      }
-      catch{
+      } catch {
         this.diseaseStateList = [];
       }
       let a;
       this.diseaseList = this.diseaseStateList.map(item => {
         a = this.diseaseState.find(kItem => kItem.id === item);
-        if(a.name === 'Other'){
-           return this.patientExtraData.otherDisease;
-        }else{
-          return a.name;
+        if (a) {
+          if (a.name === 'Other') {
+            return this.patientExtraData.otherDisease;
+         } else {
+           return a.name;
+         }
         }
       });
-       
-      console.log("this.diseaseList:",this.diseaseList);
-
-
+      console.log('diseaseList', this.patientExtraData);
+      if (this.patientExtraData.emergencyContact && this.patientExtraData.emergencyContact.relation) {
+        this.relationName =  this.relation.find (item => item.id === this.patientExtraData.emergencyContact.relation).value;
+      }
     }, error => {
       console.log('error');
     });
@@ -176,5 +182,8 @@ export class ProfileComponent implements OnInit {
       this.isLoading = false;
       this.toastrService.danger(error.error.errorMessage);
     });
+  }
+  trimContact(data) {
+    return data && data.trim() !== '' ? data : '---';
   }
 }
