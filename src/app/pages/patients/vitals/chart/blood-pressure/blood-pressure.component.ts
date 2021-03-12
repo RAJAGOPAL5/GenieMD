@@ -5,7 +5,6 @@ import { ChartDataSets } from 'chart.js';
 import * as moment from 'moment';
 import { Color, Label } from 'ng2-charts';
 import { VitalsService } from 'src/app/shared/service/vitals.service';
-import { BaseChartDirective } from 'ng2-charts';
 import * as Chart from 'chart.js';
 
 
@@ -97,8 +96,6 @@ export class BloodPressureComponent implements OnInit {
   isLoading = false;
   chartData: any;
   theme: string;
-  @ViewChild('chart', { static: true }) baseChart: ElementRef;
-  private chart: Chart;
   @Input()
   get data() {
     return this.chartData;
@@ -177,11 +174,10 @@ export class BloodPressureComponent implements OnInit {
           }
         });
         this.lineChartData = [heartRateData, systolicData, dialosticData];
-        console.log('baseChart', this.baseChart);
-        this.chart.update();
       }
       this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit,  this.chartData.range);
     }, error => {
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit,  this.chartData.range);
       this.isLoading = false;
       throw error;
     });

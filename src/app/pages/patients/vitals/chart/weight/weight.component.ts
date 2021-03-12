@@ -137,6 +137,7 @@ export class WeightComponent implements OnInit {
       }
       this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
     }, error => {
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit,  this.chartData.range);
       this.isLoading = false;
       throw error;
     });
