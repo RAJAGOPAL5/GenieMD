@@ -204,7 +204,7 @@ getPatientData(){
    this.getList();
   }, error => {
     this.toastrService.danger(error.error.errorMessage? error.error.errorMessage: 'Cannot get Patient data');
-  });
+  })
 }
 
 }
