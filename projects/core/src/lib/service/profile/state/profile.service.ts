@@ -14,29 +14,67 @@ export class ProfileService {
     return this.profile.userID;
   }
 
-  get(id: string) {
-    return this.http.get(`Profile/${id}`)
-      .pipe(
-        tap(project => {
-          this.profile = project;
-          try {
-            this.extraData = JSON.parse(this.profile.extraData);
-          } catch (error) {
-            this.extraData = {};
-          }
-        })
-      );
+  async get(id: string) {
+    try {
+      this.profileStore.setLoading(true);
+      await this.http.get(`Profile/${id}`)
+        .pipe(
+          tap(project => {
+            this.profile = project;
+            try {
+              this.extraData = JSON.parse(this.profile.extraData);
+            } catch (error) {
+              this.extraData = {};
+            }
+            this.profileStore.update({
+              profile: project,
+              extraData: this.extraData
+            })
+          })
+        ).toPromise();
+    } catch (error) {
+      this.profileStore.setError(error);
+    } finally {
+      this.profileStore.setLoading(false);
+    }
   }
 
-  sendEmail(payload) {
-    return this.http.post(`system/SendEmail`, payload);
+  async sendEmail(payload) {
+    try{
+      this.profileStore.setLoading(true);
+      await this.http.post(`system/SendEmail`, payload).toPromise();
+
+    }catch(error){   
+      this.profileStore.setError(error);
+    }finally{
+      this.profileStore.setLoading(false);
+    }
   }
 
-  update(payload) {
-    return this.http.post(`Profile/Update`, payload);
+
+
+  async update(payload) {
+    try{
+      this.profileStore.setLoading(true);
+      await this.http.post(`Profile/Update`, payload).toPromise();
+
+    }catch(error){
+      this.profileStore.setError(error);
+    }finally{
+      this.profileStore.setLoading(false);
+    }
   }
-  add(payload) {
-    return this.http.post(`Clinics/AddPatient`, payload);
+  async add(payload) {
+    try{
+      this.profileStore.setLoading(true);
+      await this.http.post(`Clinics/AddPatient`, payload).toPromise();
+
+    }catch(error){
+      this.profileStore.setError(error);
+    }finally{
+      this.profileStore.setLoading(false);
+    }
+
   }
 
 }
