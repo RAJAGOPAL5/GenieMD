@@ -1,6 +1,7 @@
     <nb-card size="large" class="h-100" style="overflow: auto" [nbSpinner]="isLoading">
         <div class="row ">
             <div class="col-md-6 offset-md-3">
+                <ng-container *ngIf="!showSlots">
                 <nb-card-header>
                     <div class="w-100 pt-2">
                       <input type="search" nbInput fullWidth status="basic" class="mb-3" name="searchText" id="searchText" 
@@ -45,13 +46,16 @@
                             </div>
                         </nb-list-item>
                     </nb-list>
-
                     <ng-template #noRecrd>
                         <div class="text-center">
                             <span>No Providers Found</span>
                         </div>
                     </ng-template>
                 </nb-card-body>
+            </ng-container>
+                <ng-container *ngIf="showSlots">
+                    <app-time-slots></app-time-slots>
+                </ng-container>
             </div>
         </div>
     </nb-card>

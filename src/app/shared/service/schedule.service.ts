@@ -23,4 +23,7 @@ export class ScheduleService {
   notificationUser(content) {
     return this.http.post(`Notifications/NotifyUsersWithOptions`, content);
   }
+  getAvailableSlots(payload) {
+    return this.http.post(`Appointments/RecurringCollection`, payload);
+  }
 }

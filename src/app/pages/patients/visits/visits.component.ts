@@ -36,6 +36,7 @@ export class VisitsComponent implements OnInit {
   patient: any;
   patientID: string;
   userID: string;
+  showSlots = false;
 
   constructor(
    private clinicService: ClinicService,
@@ -150,48 +151,30 @@ export class VisitsComponent implements OnInit {
   }
 
   getProviderDetails(npiId) {
+    this.isLoading = true;
     this.profileService.providerNPiID = npiId;
     // tslint:disable-next-line:triple-equals
     this.providerDetails = this.dataList.find(a => a.npi == npiId);
+    console.log('this.providerDetails', this.providerDetails);
     this.npiId = npiId;
     if (this.npiId) {
-      const payLoad = {
-        userID: this.profileService.id,
-        clinicID: this.clinicService.id,
-        providerID: this.npiId,
-        types: [
-          { type: 6, providerOnly: true, status: [0, 1, 4] },
-          { type: 0, providerOnly: false, status: [0, 1] },
-          { type: 3, providerOnly: false, status: [0, 1] },
-          { type: 4, providerOnly: true, status: [7], },
-          { type: 7, providerOnly: true, status: [2] },
-          { type: 1, providerOnly: true, status: [0, 1, 4] }
-        ]
-      };
       this.getUserName(npiId);
     } else {
+      this.isLoading = false;
       this.toastrService.danger('NPI ID is not provided');
     }
   }
 
   getUserName(npiId) {
     this.profileService.getProviderName(this.npiId).subscribe((data: any) => {
+      console.log('this.providerData', this.providerData);
       this.providerData = data;
       this.providerName = this.providerData.username;
-      const payLoad = {
-        userID: this.profileService.id,
-        clinicID: this.clinicService.id,
-        providerID: this.providerName,
-        types: [
-          { type: 6, providerOnly: true, status: [0, 1, 4] },
-          { type: 0, providerOnly: false, status: [0, 1] },
-          { type: 3, providerOnly: false, status: [0, 1] },
-          { type: 4, providerOnly: true, status: [7], },
-          { type: 7, providerOnly: true, status: [2] },
-          { type: 1, providerOnly: true, status: [0, 1, 4] }
-        ]
-      };
-    });
+      this.getAvailableSlots();
+    }, error => {
+      this.isLoading = false;
+    }
+    );
   }
 
   searchProvider() {
@@ -220,10 +203,10 @@ export class VisitsComponent implements OnInit {
 
 getAppointments(userID) {
   this.scheduleService.getAppointmentList(userID).subscribe((data: any) => {
-    console.log('appointments',data)
+    console.log('appointments', data);
     this.appointmentlistResult = data.encounterList.filter(item => {
-      return item.meeting && !item.meeting.onDemand && item.status != 2
-        && item.status != 5 && item.status != 6;
+      return item.meeting && !item.meeting.onDemand && item.status !== 2
+        && item.status !== 5 && item.status !== 6;
       // && this.CompareDate(item.meeting.startTime);
     });
     this.appointmentlistResult = this.appointmentlistResult.map((item, index) => { item.index = index; return item; });
@@ -234,7 +217,7 @@ getAppointments(userID) {
     let result = {};
     appointmentss.map((item => {
       if (item.meeting.users.length > 0) {
-        if (item.meeting.users[1].userName != item.providerID) {
+        if (item.meeting.users[1].userName !== item.providerID) {
           item.meeting.users.reverse();
         }
       }
@@ -258,17 +241,16 @@ getAppointments(userID) {
       data = {};
     });
     this.totalAppointment = collectionAppointment;
-    console.log('total appointment',this.totalAppointment)
+    console.log('total appointment', this.totalAppointment);
     // if (this.clinicTimeFormat ) {
     //   this.totalAppointment.map(item => {
     //     // item.scheduled = moment(item.scheduled).format(this.clinicTimeFormat);
     //     item.scheduled = this.datePipe.transform(item.scheduled, this.clinicTimeFormat);
     //     return item;
-        
     //   });
     // } else {
     //   this.totalAppointment.map(item => {
-    //     item.scheduled = moment(item.scheduled).format('ddd, MMM Do YYYY hh:mm a Z');        
+    //     item.scheduled = moment(item.scheduled).format('ddd, MMM Do YYYY hh:mm a Z');
     //     return item;
     //   });
     // }
@@ -291,5 +273,20 @@ sortAppointments() {
   });
   return this.appointmentlistResult;
 }
+  getAvailableSlots() {
+    const payload = {
+      date: new Date().getTime(),
+      npiList: [this.npiId ? this.npiId : 1174784501]
+    };
+    this.scheduleService.getAvailableSlots(payload).subscribe(data => {
+      console.log('data', data);
+      this.showSlots = true;
+      this.isLoading = false;
+    }, error => {
+      this.showSlots = true;
+      this.isLoading = false;
+
+    });
+  }
 
 }

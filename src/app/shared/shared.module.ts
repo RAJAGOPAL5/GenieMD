@@ -41,7 +41,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   exports: [NbLayoutModule,
     TranslateModule,
-    DevicesComponent
+    DevicesComponent,
+    TimeSlotsComponent
   ]
 })
 export class SharedModule { }
