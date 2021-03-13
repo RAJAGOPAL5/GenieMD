@@ -8,8 +8,8 @@ export class ScheduleService {
 
   constructor(private http: HttpClient) { }
 
-  getAppointmentList(userId) {
-    return this.http.get(`Encounters/ListBasedOnMeeting/${userId}`);
+  getAppointmentList(userID) {
+    return this.http.get(`Encounters/ListBasedOnMeeting/${userID}`);
   }
 
   deleteAppointment(content) {

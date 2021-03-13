@@ -4,6 +4,7 @@ import { NbToastrService } from '@nebular/theme';
 import { PatientService } from 'projects/core/src/lib/service/patient/state/patient.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
+import { ScheduleService } from 'src/app/shared/service/schedule.service';
 
 @Component({
   selector: 'app-visits',
@@ -34,15 +35,18 @@ export class VisitsComponent implements OnInit {
   searchText = '';
   patient: any;
   patientID: string;
+  userID: string;
 
   constructor(
-    private clinicService: ClinicService,
-    private toastrService: NbToastrService,
-    private profileService: ProfileService,
-    private patientService: PatientService,
-    private activatedRoute: ActivatedRoute) { }
+   private clinicService: ClinicService,
+   private toastrService: NbToastrService,
+   private profileService: ProfileService,
+   private patientService: PatientService,
+   private activatedRoute: ActivatedRoute,
+   private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
+    this.userID = this.profileService.id;
     this.activatedRoute.parent.paramMap.subscribe(params => {
       this.patientID = params.get('patientId');
     });
@@ -213,5 +217,79 @@ export class VisitsComponent implements OnInit {
       this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Cannot get Patient data');
     });
   }
+
+getAppointments(userID) {
+  this.scheduleService.getAppointmentList(userID).subscribe((data: any) => {
+    console.log('appointments',data)
+    this.appointmentlistResult = data.encounterList.filter(item => {
+      return item.meeting && !item.meeting.onDemand && item.status != 2
+        && item.status != 5 && item.status != 6;
+      // && this.CompareDate(item.meeting.startTime);
+    });
+    this.appointmentlistResult = this.appointmentlistResult.map((item, index) => { item.index = index; return item; });
+    console.log('before sorting-> all-appointments', JSON.parse(JSON.stringify(this.appointmentlistResult)));
+    this.appointmentlistResult = this.sortAppointments();
+    const appointmentss = this.appointmentlistResult.slice(((this.pageNumber - 1) * this.pageSize), ((this.pageNumber) * this.pageSize));
+    const collectionAppointment = [];
+    let result = {};
+    appointmentss.map((item => {
+      if (item.meeting.users.length > 0) {
+        if (item.meeting.users[1].userName != item.providerID) {
+          item.meeting.users.reverse();
+        }
+      }
+    }));
+    appointmentss.forEach(element => {
+      result = {
+        Name: element.meeting.users[1].firstName + ' ' + element.meeting.users[1].lastName,
+        subject: element.meeting.subject,
+        scheduled: new Date(element.meeting.startTime),
+        //  - (new Date().getTimezoneOffset() * 60 * 1000)),
+        duration: element.meeting.duration + ' ' + 'min',
+        imageUrl: element.meeting.users[1].imageUrl,
+        meetingId: element.meeting.meetingId,
+        providerID: element.providerID,
+        type: element.type,
+        encounterID: element.encounterID,
+        protocolID: element.protocolID
+
+      };
+      collectionAppointment.push(result);
+      data = {};
+    });
+    this.totalAppointment = collectionAppointment;
+    console.log('total appointment',this.totalAppointment)
+    // if (this.clinicTimeFormat ) {
+    //   this.totalAppointment.map(item => {
+    //     // item.scheduled = moment(item.scheduled).format(this.clinicTimeFormat);
+    //     item.scheduled = this.datePipe.transform(item.scheduled, this.clinicTimeFormat);
+    //     return item;
+        
+    //   });
+    // } else {
+    //   this.totalAppointment.map(item => {
+    //     item.scheduled = moment(item.scheduled).format('ddd, MMM Do YYYY hh:mm a Z');        
+    //     return item;
+    //   });
+    // }
+    this.isLoading = false;
+  }, error => {
+    this.isLoading = false;
+    this.toastrService.danger(error.error.errorMessage);
+
+  });
+}
+
+sortAppointments() {
+  this.appointmentlistResult.sort((a, b) => {
+    const x = a.meeting.startTime;
+    const y = b.meeting.startTime;
+    if (x < y) { return -1; }
+    if (x > y) {
+      return 1;
+    } else { return 0; }
+  });
+  return this.appointmentlistResult;
+}
 
 }
