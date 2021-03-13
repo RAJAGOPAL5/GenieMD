@@ -130,7 +130,7 @@ export class ListComponent implements OnInit {
   loadNext(search?: string, monitored?: number) {
     this.isLoading = true;
     /* Filter infinite scroll */
-    if (this.filterStatus && !this.isSearching) {
+    if (this.filterStatus && !this.isSearching && !monitored) {
       /* Eliminate multiple serveice call */
       if (this.serviceHandle) {
         return;
