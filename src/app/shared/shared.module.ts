@@ -8,12 +8,13 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DevicesComponent } from './components/devices/devices.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TimeSlotsComponent } from './components/time-slots/time-slots.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "../../assets/i18n/", ".json");
 }
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, DevicesComponent],
+  declarations: [HeaderComponent, FooterComponent, DevicesComponent, TimeSlotsComponent],
   imports: [
     CommonModule,
     NbLayoutModule,
