@@ -2,12 +2,18 @@ import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
 
 export interface VitalsState {
-   key: string;
+  userID: any;
+  fromDate: any;
+  toDate: any;
+  vitalType: any;
 }
 
 export function createInitialState(): VitalsState {
   return {
-    key: ''
+    userID: '',
+    fromDate: '',
+    toDate: '',
+    vitalType: '',
   };
 }
 
