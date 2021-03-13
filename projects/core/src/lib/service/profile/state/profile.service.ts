@@ -40,13 +40,13 @@ export class ProfileService {
   }
 
   async sendEmail(payload) {
-    try{
+    try {
       this.profileStore.setLoading(true);
       await this.http.post(`system/SendEmail`, payload).toPromise();
 
-    }catch(error){   
+    } catch (error) {
       this.profileStore.setError(error);
-    }finally{
+    } finally {
       this.profileStore.setLoading(false);
     }
   }
@@ -54,24 +54,24 @@ export class ProfileService {
 
 
   async update(payload) {
-    try{
+    try {
       this.profileStore.setLoading(true);
       await this.http.post(`Profile/Update`, payload).toPromise();
 
-    }catch(error){
+    } catch (error) {
       this.profileStore.setError(error);
-    }finally{
+    } finally {
       this.profileStore.setLoading(false);
     }
   }
   async add(payload) {
-    try{
+    try {
       this.profileStore.setLoading(true);
       await this.http.post(`Clinics/AddPatient`, payload).toPromise();
 
-    }catch(error){
+    } catch (error) {
       this.profileStore.setError(error);
-    }finally{
+    } finally {
       this.profileStore.setLoading(false);
     }
 

@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
 
 export interface ProfileState {
-profile?:any;
-extraData?:any;
+  profile?: any;
+  extraData?: any;
 }
 
 export function createInitialState(): ProfileState {
   return {
-  
+
   };
 }
 
