@@ -11,9 +11,10 @@ export interface NotificationState {
   url?: string;
   userID: string;
   users?: string[];
-  payload?: {};
-  smsMessages?: any;
-  pushNotification?: {};
+  payload?:{};
+  smsMessages?:any;
+  pushNotification?:{};
+  notifyInfo?: any;
 }
 
 export function createInitialState(): NotificationState {
