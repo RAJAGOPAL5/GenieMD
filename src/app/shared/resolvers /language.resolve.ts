@@ -27,8 +27,6 @@ export class LanguageResolve implements Resolve<any> {
             const combine$ = combineLatest(englishLanguage$,
                 (englishLanguage: any) => {
                     const object = Object.assign({}, ...englishLanguage);
-                    console.log('datas', englishLanguage);
-                    console.log('object', object);
                     this.ls.state = object;
                     return <any>{
                         englishLanguage
@@ -58,8 +56,6 @@ export class LanguageResolve implements Resolve<any> {
                     englishLanguage = [];
                 }
                 const object = Object.assign({}, ...englishLanguage);
-                console.log('datas', englishLanguage);
-                console.log('object', object);
                 this.ls.state = object;
                 return <any>{
                     englishLanguage

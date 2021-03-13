@@ -42,7 +42,6 @@ export class DevicesComponent implements OnInit{
     this.createForm();
     // this.getDevices();
     this.deviceTypes = deviceTypes;
-    console.log('device',this.deviceTypes)
   }
 
   createForm() {
@@ -56,7 +55,6 @@ export class DevicesComponent implements OnInit{
 
   getDevices(){
     this.profileService.getDevices().subscribe((res: any) => {
-      console.log('get devices', res);
     }, error => {
       this.toastrService.danger('Cannot get devices');
     });

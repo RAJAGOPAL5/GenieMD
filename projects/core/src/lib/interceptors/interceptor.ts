@@ -66,8 +66,7 @@ export class CoreHttpInterceptor implements HttpInterceptor {
                 },
                 error => {
                     // logging the http response to browser's console in case of a failuer
-                    if (event instanceof HttpResponse) {
-                        console.log('api call error :', event);
+                    if (error instanceof HttpResponse) {
                     }
                 }
             )

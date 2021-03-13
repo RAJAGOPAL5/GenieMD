@@ -50,9 +50,7 @@ export class VitalsComponent implements OnInit {
     end: new Date()
   }
   ngOnInit(): void {
-    console.log('route', this.route.snapshot.parent.params.patientId)
     this.route.parent.paramMap.subscribe(params => {
-      console.log('params', params);
       this.patientId = params.get('patientId');
       this.getData(this.patientId);
     });

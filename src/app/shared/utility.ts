@@ -13,7 +13,6 @@ export const getUserPreferedTheme  = () => {
     return localStorage.getItem('theme') || theme;
 }
 export const getTimeRange = (fromDate, toDate, type) => {
-  console.log('dates', fromDate, toDate, type)
   const range = moment.range(fromDate, toDate);
   // const start = moment("2017-01-01T13:30:00");
   // const end = moment("2017-01-05T01:45:12");

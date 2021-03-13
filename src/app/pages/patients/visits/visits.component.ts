@@ -51,7 +51,6 @@ export class VisitsComponent implements OnInit {
     this.clinicID = this.clinicService.id;
     this.clinicService.getPhysicianCategoryList(this.clinicID).subscribe((data: any) => {
       this.providerSpeciality = data.physicianCategoryList;
-      console.log('getPhysicianCategoryList', this.providerSpeciality);
     }, error => {
       this.toastrService.danger(error.error.errorMessage? error.error.errorMessage: 'Cannot get Physician list');
     });
@@ -131,7 +130,6 @@ export class VisitsComponent implements OnInit {
         };
       });
       this.providersList = this.totalProviderCollection;
-      console.log(this.providersList, 'list provider');
     }, error => {
       this.toastrService.danger('Cannot get provider list');
     });
@@ -146,7 +144,6 @@ export class VisitsComponent implements OnInit {
     this.profileService.providerNPiID = npiId;
     this.providerDetails = this.dataList.find(a => a.npi == npiId);
     this.npiId = npiId;
-    console.log('npi', this.npiId)
     if (this.npiId) {
       const payLoad = {
         userID: this.profileService.id,
@@ -169,7 +166,6 @@ export class VisitsComponent implements OnInit {
 
   getUserName(npiId) {
     this.profileService.getProviderName(this.npiId).subscribe((data: any) => {
-      console.log('getuser', data);
       this.providerData = data;
       this.providerName = this.providerData.username;
       const payLoad = {

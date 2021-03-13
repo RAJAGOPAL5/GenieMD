@@ -19,15 +19,13 @@ export class AuthService {
       await this.http.post('Email/SignIn/', payload)
         .pipe(
           tap((project: any) => {
-            console.log('Login result:', project);
             this.authStore.update({
               userID: project.userID,
               RegistrationComplete: project.RegistrationComplete
-            })
+            });
           })
         ).toPromise();
     } catch (error) {
-      console.log('Login error', error.statusText)
       this.authStore.setError(error);
     }
   }

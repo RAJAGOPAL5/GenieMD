@@ -82,7 +82,6 @@ export class AddComponent implements OnInit {
     });
     this.fontColor =  this.theme === 'dark' ? true : false;
     this.clinic = this.clinicService.clinic;
-    console.log('clinic', this.clinicService)
     if (!!this.patientID) {
       this.isLoading = true;
       this.getProfilePatch();
@@ -117,13 +116,11 @@ export class AddComponent implements OnInit {
       const clinicPatient = items;
       this.profileService.get(clinicPatient.userID).subscribe((res: any) => {
         this.profileData = res;
-        console.log('this.profileData', this.profileData);
         try {
           this.profileExtraData = JSON.parse(this.profileData.extraData);
         } catch (error) {
           this.profileExtraData = this.profileData.extraData || {};
         }
-        console.log('this.profileExtraData', this.profileExtraData);
 
         try{
           variousDisease =  JSON.parse(this.profileExtraData.diseaseState);
@@ -248,7 +245,6 @@ export class AddComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    // console.log(this.profileForm, this.selectedItem);
     if (this.profileForm.invalid) {
       return;
     }
@@ -353,7 +349,6 @@ export class AddComponent implements OnInit {
 profileSave() {
   this.profilePictureEvent ? this.registerPayload.imageURL = this.imageURL : '' ;
   this.profileService.update(this.registerPayload).subscribe((res: any) => {
-    console.log('edit paitent', res);
     this.isLoading = false;
     this.toastrService.success('Patient Updated Successfully');
     this.dialogRef.close(true);
@@ -453,7 +448,6 @@ profileSave() {
     // tslint:disable-next-line:no-unused-expression
     this.profileForm.value.morbidity === '' ? delete registerPayload.morbidity : '';
     this.profileService.update(registerPayload).subscribe((res: any) => {
-      console.log('updatedprofle', res);
       const firstList = {
         firstName: this.profileForm.value.firstName,
         lastName: this.profileForm.value.lastName,
@@ -569,7 +563,6 @@ profileSave() {
     if (event.target && event.target.files && event.target.files[0]) {
       object = { file: event.target.files[0], url: this.dataurl };
     }
-    console.log('object', object);
     const file = object.file;
     const sd: any = new FormData();
     sd.append('Content-Type', file.type);

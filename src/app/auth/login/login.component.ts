@@ -85,11 +85,9 @@ export class LoginComponent extends NbLoginComponent implements OnInit  {
 }
 
   getDynamicLanguage(clinicOemID) {
-    console.log(navigator.language);
     if (navigator.language.includes('-')) {
       var browserLang: any = navigator.language.split('-');
       browserLang = browserLang[0];
-      console.log(browserLang[0]);
     } else {
       var browserLang: any = navigator.language;
     }

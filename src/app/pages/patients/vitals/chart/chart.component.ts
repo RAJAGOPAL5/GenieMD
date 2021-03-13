@@ -49,7 +49,6 @@ export class ChartComponent implements OnInit {
       label: this.name
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, this.type).subscribe((data: any) => {
-      console.log('data', data);
       if(data) {
         (data.vitalsList || []).forEach(item => {
           this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM'));
@@ -115,8 +114,6 @@ export class ChartComponent implements OnInit {
 
   }
   initChart() {
-    console.log('type', this.type);
-    console.log('name', this.name);
     this.getData();
     this.initChartData(this.type);
   }

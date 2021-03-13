@@ -106,7 +106,6 @@ export class ProfileComponent implements OnInit {
             }
           }
         });
-        console.log('diseaseList', this.patientExtraData);
         if (this.patientExtraData.emergencyContact && this.patientExtraData.emergencyContact.relation) {
           this.relationName = this.relation.find(item => item.id === this.patientExtraData.emergencyContact.relation).value;
         }
@@ -114,7 +113,6 @@ export class ProfileComponent implements OnInit {
         this.showPatient = true;
       }
     }, error => {
-      console.log('error', error);
     });
   }
 

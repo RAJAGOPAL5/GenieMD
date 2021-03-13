@@ -103,7 +103,6 @@ export class BloodPressureComponent implements OnInit {
   }
   set data(res) {
     this.chartData = res;
-    console.log('BP', this.chartData);
     this.lineChartData = [
       {
         data: [],
@@ -119,7 +118,6 @@ export class BloodPressureComponent implements OnInit {
 
   ngOnInit(): void {
     this.themeService.onThemeChange().subscribe(theme => {
-      console.log('Theme changed: ', theme);
       this.theme = theme.name;
       this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit, this.chartData.range);
     });

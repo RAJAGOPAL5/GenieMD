@@ -98,7 +98,6 @@ export class TemperatureComponent implements OnInit {
 
   ngOnInit(): void {
     this.themeService.onThemeChange().subscribe(theme => {
-      console.log('Theme changed: ', theme);
       this.theme = theme.name;
       this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
     });
