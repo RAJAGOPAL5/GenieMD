@@ -1,33 +1,36 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store, StoreConfig } from '@datorama/akita';
 
 export interface ClinicState {
-   key: string;
-   member: boolean;
-   oemID: number;
-   clinicID: string;
-   clinicConfig: string;
-   mainClinic: boolean;
-   languageID: number;
+  //  key?: string;
+  //  member?: boolean;
+  //  oemID?: number;
+  //  clinicID?: string;
+  clinicConfig?: any;
+  //  mainClinic?: boolean;
+  //  languageID?: number;
+  clinic?: any;
 }
 
 export function createInitialState(): ClinicState {
   return {
-    key: '',
-    member: false,
-    oemID: 0,
-    clinicID: '',
-    clinicConfig: '',
-    mainClinic: false,
-    languageID: 0,
+    // key: '',
+    // member: false,
+    // oemID: 0,
+    // clinicID: '',
+    // clinicConfig: '',
+    // mainClinic: false,
+    // languageID: 0,
   };
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 @StoreConfig({ name: 'clinic' })
 export class ClinicStore extends Store<ClinicState> {
 
-  constructor() {
+  constructor(private http: HttpClient, private router: Router) {
     super(createInitialState());
   }
 

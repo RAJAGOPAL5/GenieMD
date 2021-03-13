@@ -1,4 +1,4 @@
-import { Component, OnInit,TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
@@ -6,8 +6,11 @@ import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
-import { NbDialogRef, NbToastrService, NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder, NbTreeGridDataSource, NbThemeService } from '@nebular/theme';
-import { languages, states, morbidity, gender, vitals,relation ,diseaseState, preferredLanguage } from 'src/app/shared/constant/constant';
+import {
+  NbDialogRef, NbToastrService, NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder,
+  NbTreeGridDataSource, NbThemeService
+} from '@nebular/theme';
+import { languages, states, morbidity, gender, vitals, relation, diseaseState, preferredLanguage } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { retryWhen } from 'rxjs/operators';
@@ -70,19 +73,18 @@ export class AddComponent implements OnInit {
     private toastrService: NbToastrService, private patientsService: PatientsService, protected dialogRef: NbDialogRef<any>,
     private ls: LanguageService, private translate: TranslateService, private dialogService: NbDialogService,
     private themeService: NbThemeService,
-    ) {
+  ) {
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
-     }
+  }
 
   ngOnInit(): void {
     this.createForm();
     this.themeService.onThemeChange().subscribe(theme => {
       this.theme = theme.name;
     });
-    this.fontColor =  this.theme === 'dark' ? true : false;
+    this.fontColor = this.theme === 'dark' ? true : false;
     this.clinic = this.clinicService.clinic;
-    console.log('clinic', this.clinicService)
     if (!!this.patientID) {
       this.isLoading = true;
       this.getProfilePatch();
@@ -97,17 +99,16 @@ export class AddComponent implements OnInit {
     this.diseaseState = diseaseState;
     this.relation = relation;
     this.preferredLanguage = preferredLanguage;
-    try{
+    try {
       this.insuranceObj = JSON.parse(this.clinicService.config?.extendedSettings?.insurance);
-    }
-    catch{
+    } catch {
       this.insuranceObj = {};
     }
     this.insurance = this.insuranceObj.enabled;
-    this.emergency = this.clinicService.config?.extendedSettings?.emergencyContact === "true" ? true : false;
-  } 
+    this.emergency = this.clinicService.config?.extendedSettings?.emergencyContact === 'true' ? true : false;
+  }
   getProfilePatch() {
-    var variousDisease;
+    let variousDisease;
     const patientPayload = {
       userID: this.profileService.id,
       clinicID: this.clinic.clinicID,
@@ -117,18 +118,16 @@ export class AddComponent implements OnInit {
       const clinicPatient = items;
       this.profileService.get(clinicPatient.userID).subscribe((res: any) => {
         this.profileData = res;
-        console.log('this.profileData', this.profileData);
         try {
           this.profileExtraData = JSON.parse(this.profileData.extraData);
         } catch (error) {
           this.profileExtraData = this.profileData.extraData || {};
         }
-        console.log('this.profileExtraData', this.profileExtraData);
 
-        try{
-          variousDisease =  JSON.parse(this.profileExtraData.diseaseState);
-        }catch(e){
-          variousDisease =  this.profileExtraData.diseaseState || [];
+        try {
+          variousDisease = JSON.parse(this.profileExtraData.diseaseState);
+        } catch (e) {
+          variousDisease = this.profileExtraData.diseaseState || [];
         }
         this.imageURL = this.profileData.imageURL ? this.profileData.imageURL : this.defaultImageURL;
 
@@ -147,54 +146,54 @@ export class AddComponent implements OnInit {
           morbidity: this.profileData.morbidity,
           language: this.profileData.languageId,
           vitals: !!this.profileExtraData.vitals ? this.profileExtraData.vitals : [],
-// tslint:disable-next-line: max-line-length
+          // tslint:disable-next-line: max-line-length
           policyHolder: this.profileExtraData.insurance && this.profileExtraData.insurance.policyHolder ? this.profileExtraData.insurance.policyHolder : '',
-// tslint:disable-next-line: max-line-length
+          // tslint:disable-next-line: max-line-length
           holderName: this.profileExtraData.insurance && this.profileExtraData.insurance.holderName ? this.profileExtraData.insurance.holderName : '',
-// tslint:disable-next-line: max-line-length
+          // tslint:disable-next-line: max-line-length
           insuranceDob: this.profileExtraData.insurance && this.profileExtraData.insurance.insuranceDob ? new Date(this.profileExtraData.insurance.insuranceDob) : '',
-// tslint:disable-next-line: max-line-length
+          // tslint:disable-next-line: max-line-length
           claimAddress: this.profileExtraData.insurance && this.profileExtraData.insurance.claimAddress ? this.profileExtraData.insurance.claimAddress : '',
-// tslint:disable-next-line: max-line-length
+          // tslint:disable-next-line: max-line-length
           insuranceCarrier: this.profileExtraData.insurance && this.profileExtraData.insurance.insuranceCarrier ? this.profileExtraData.insurance.insuranceCarrier : '',
-// tslint:disable-next-line: max-line-length
+          // tslint:disable-next-line: max-line-length
           medType: this.profileExtraData.insurance && this.profileExtraData.insurance.medType ? this.profileExtraData.insurance.medType : '',
-// tslint:disable-next-line: max-line-length
+          // tslint:disable-next-line: max-line-length
           policyNumber: this.profileExtraData.insurance && this.profileExtraData.insurance.policyNumber ? this.profileExtraData.insurance.policyNumber : '',
-// tslint:disable-next-line: max-line-length
+          // tslint:disable-next-line: max-line-length
           groupNumber: this.profileExtraData.insurance && this.profileExtraData.insurance.groupNumber ? this.profileExtraData.insurance.groupNumber : '',
           plan: this.profileExtraData.insurance && this.profileExtraData.insurance.plan ? this.profileExtraData.insurance.plan : '',
-// tslint:disable-next-line: max-line-length
+          // tslint:disable-next-line: max-line-length
           emergencyName: this.profileExtraData.emergencyContact && this.profileExtraData.emergencyContact.name ? this.profileExtraData.emergencyContact.name : '',
-// tslint:disable-next-line: max-line-length
+          // tslint:disable-next-line: max-line-length
           emergencyRelation: this.profileExtraData.emergencyContact && this.profileExtraData.emergencyContact.relation ? this.profileExtraData.emergencyContact.relation : '',
-// tslint:disable-next-line: max-line-length
+          // tslint:disable-next-line: max-line-length
           emergencyNumber: this.profileExtraData.emergencyContact && this.profileExtraData.emergencyContact.number ? this.profileExtraData.emergencyContact.number : '',
           mrn: this.profileExtraData.MRN ? this.profileExtraData.MRN : '',
           diseaseState: variousDisease,
-          preferredLanguage: this.profileExtraData.preferredLanguage ,
+          preferredLanguage: this.profileExtraData.preferredLanguage,
           // customLanguage:this.profileExtraData.otherLanguage,
           // customDisease:this.profileExtraData.otherDisease
 
         });
-// tslint:disable-next-line: max-line-length
+        // tslint:disable-next-line: max-line-length
         this.frontImageURl = this.profileExtraData.insurance && this.profileExtraData.insurance.frontImage ? this.profileExtraData.insurance.frontImage : '';
-// tslint:disable-next-line: max-line-length
-        this.backImageURL =  this.profileExtraData.insurance && this.profileExtraData.insurance.backImage ? this.profileExtraData.insurance.backImage : '';
+        // tslint:disable-next-line: max-line-length
+        this.backImageURL = this.profileExtraData.insurance && this.profileExtraData.insurance.backImage ? this.profileExtraData.insurance.backImage : '';
         this.devices = this.profileExtraData.iHealthDevices;
 
-        if(this.profileExtraData.otherLanguage){
+        if (this.profileExtraData.otherLanguage) {
           this.showPreferredLanguages = true;
           this.profileForm.addControl('customLanguage', new FormControl('', [Validators.required]));
           this.profileForm.patchValue({
             customLanguage: this.profileExtraData.otherLanguage
           });
         }
-        if(this.profileExtraData.otherDisease){
+        if (this.profileExtraData.otherDisease) {
           this.showOtherDisease = true;
           this.profileForm.addControl('customDisease', new FormControl('', [Validators.required]));
           this.profileForm.patchValue({
-            customDisease:this.profileExtraData.otherDisease
+            customDisease: this.profileExtraData.otherDisease
           });
         }
         if (this.profileData.monitored === 0) {
@@ -227,8 +226,8 @@ export class AddComponent implements OnInit {
       city: ['', Validators.required],
       state: ['', Validators.required],
       zipcode: ['', Validators.required],
-      morbidity: ['', ],
-      monitored: ['', ],
+      morbidity: [''],
+      monitored: [''],
       vitals: [[]],
       policyHolder: [''],
       holderName: [''],
@@ -248,41 +247,40 @@ export class AddComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    // console.log(this.profileForm, this.selectedItem);
     if (this.profileForm.invalid) {
       return;
     }
-    var emergencyContact = {
+    const emergencyContact = {
       name: this.profileForm.value.emergencyName,
       relation: this.profileForm.value.emergencyRelation,
       number: this.profileForm.value.emergencyNumber
     };
-    var insurance = {
-        policyHolder: this.profileForm.value.policyHolder,
-        holderName: this.profileForm.value.holderName,
-        insuranceDob: this.profileForm.value.insuranceDob,
-        claimAddress: this.profileForm.value.claimAddress,
-        insuranceCarrier: this.profileForm.value.insuranceCarrier,
-        medType: this.profileForm.value.medType,
-        policyNumber: this.profileForm.value.policyNumber,
-        groupNumber: this.profileForm.value.groupNumber,
-        plan: this.profileForm.value.plan,
-        frontImage: this.frontImageURl,
-        backImage: this.backImageURL
-      };
-    var extraData = {};
+    const insurance = {
+      policyHolder: this.profileForm.value.policyHolder,
+      holderName: this.profileForm.value.holderName,
+      insuranceDob: this.profileForm.value.insuranceDob,
+      claimAddress: this.profileForm.value.claimAddress,
+      insuranceCarrier: this.profileForm.value.insuranceCarrier,
+      medType: this.profileForm.value.medType,
+      policyNumber: this.profileForm.value.policyNumber,
+      groupNumber: this.profileForm.value.groupNumber,
+      plan: this.profileForm.value.plan,
+      frontImage: this.frontImageURl,
+      backImage: this.backImageURL
+    };
+    let extraData: any = {};
     if (this.profileExtraData) {
       extraData = this.profileExtraData;
-      extraData['dateofbirth'] = this.setDOB(this.profileForm.value.dob);
-      extraData['phoneNumber'] = this.profileForm.value.handphone ? this.profileForm.value.handphone : '';
-      extraData['vitals'] = this.profileForm.value.vitals;
-      extraData['emergencyContact'] = emergencyContact;
-      extraData[ 'insurance' ] = insurance;
-      extraData['MRN'] = this.profileForm.value.mrn;
-      extraData['diseaseState'] = JSON.stringify(this.profileForm.value.diseaseState);
-      extraData['otherDisease'] = this.profileForm.value.customDisease ? this.profileForm.value.customDisease : '';
-      extraData['otherLanguage'] = this.profileForm.value.customLanguage ? this.profileForm.value.customLanguage : '';
-      extraData['iHealthDevices'] = this.devices;
+      extraData.dateofbirth = this.setDOB(this.profileForm.value.dob);
+      extraData.phoneNumber = this.profileForm.value.handphone ? this.profileForm.value.handphone : '';
+      extraData.vitals = this.profileForm.value.vitals;
+      extraData.emergencyContact = emergencyContact;
+      extraData.insurance = insurance;
+      extraData.MRN = this.profileForm.value.mrn;
+      extraData.diseaseState = JSON.stringify(this.profileForm.value.diseaseState);
+      extraData.otherDisease = this.profileForm.value.customDisease ? this.profileForm.value.customDisease : '';
+      extraData.otherLanguage = this.profileForm.value.customLanguage ? this.profileForm.value.customLanguage : '';
+      extraData.iHealthDevices = this.devices;
     }
     this.isLoading = true;
     if (this.profileForm.invalid) {
@@ -305,7 +303,7 @@ export class AddComponent implements OnInit {
         city: this.profileForm.value.city ? this.profileForm.value.city : '',
         country: this.profileForm.value.country ? this.profileForm.value.country : '',
         zipCode: this.profileForm.value.zipcode ? this.profileForm.value.zipcode : '',
-        extraData: extraData,
+        extraData,
         MRN: this.profileForm.value.mrn ? this.profileForm.value.mrn : '',
         firstName: this.profileForm.value.firstName,
         gender: `${this.profileForm.value.gender}`,
@@ -350,17 +348,16 @@ export class AddComponent implements OnInit {
     }
   }
 
-profileSave() {
-  this.profilePictureEvent ? this.registerPayload.imageURL = this.imageURL : '' ;
-  this.profileService.update(this.registerPayload).subscribe((res: any) => {
-    console.log('edit paitent', res);
-    this.isLoading = false;
-    this.toastrService.success('Patient Updated Successfully');
-    this.dialogRef.close(true);
-  }, error => {
-    this.isLoading = false;
-  });
-}
+  profileSave() {
+    this.registerPayload.imageURL = this.profilePictureEvent ?  this.imageURL : '';
+    this.profileService.update(this.registerPayload).subscribe((res: any) => {
+      this.isLoading = false;
+      this.toastrService.success('Patient Updated Successfully');
+      this.dialogRef.close(true);
+    }, error => {
+      this.isLoading = false;
+    });
+  }
   getProfile() {
     this.profileService.get(this.userID).subscribe((res: any) => {
       this.profile = res;
@@ -376,24 +373,24 @@ profileSave() {
     if (this.profileForm.value.dob && this.profileForm.value.dob !== '') {
       date = moment(this.profileForm.value.dob).format('YYYY-MM-DD');
     }
-    var emergencyContact = {
+    const emergencyContact = {
       name: this.profileForm.value.emergencyName,
       relation: this.profileForm.value.emergencyRelation,
       number: this.profileForm.value.emergencyNumber
     };
-    var insurance = {
-        policyHolder: this.profileForm.value.policyHolder,
-        holderName: this.profileForm.value.holderName,
-        insuranceDob: this.profileForm.value.insuranceDob,
-        claimAddress: this.profileForm.value.claimAddress,
-        insuranceCarrier: this.profileForm.value.insuranceCarrier,
-        medType: this.profileForm.value.medType,
-        policyNumber: this.profileForm.value.policyNumber,
-        groupNumber: this.profileForm.value.groupNumber,
-        plan: this.profileForm.value.plan,
-        frontImage: this.frontImageURl,
-        backImage: this.backImageURL
-      };
+    const insurance = {
+      policyHolder: this.profileForm.value.policyHolder,
+      holderName: this.profileForm.value.holderName,
+      insuranceDob: this.profileForm.value.insuranceDob,
+      claimAddress: this.profileForm.value.claimAddress,
+      insuranceCarrier: this.profileForm.value.insuranceCarrier,
+      medType: this.profileForm.value.medType,
+      policyNumber: this.profileForm.value.policyNumber,
+      groupNumber: this.profileForm.value.groupNumber,
+      plan: this.profileForm.value.plan,
+      frontImage: this.frontImageURl,
+      backImage: this.backImageURL
+    };
     const registerPayload = {
       email: this.profileForm.value.email,
       dob: date || '',
@@ -412,7 +409,7 @@ profileSave() {
         dateofbirth: this.setDOB(this.profileForm.value.dob),
         governmentID: '',
         ms: '0',
-       iHealthDevices: this.devices,
+        iHealthDevices: this.devices,
         notifications: {
           email: true,
           push: true,
@@ -426,8 +423,8 @@ profileSave() {
         referralCode: '',
         vitals: this.profileForm.value.vitals,
         MRN: this.profileForm.value.mrn ? this.profileForm.value.mrn : '',
-        emergencyContact: emergencyContact,
-        insurance: insurance,
+        emergencyContact,
+        insurance,
         diseaseState: JSON.stringify(this.profileForm.value.diseaseState),
         otherDisease: this.profileForm.value.customDisease ? this.profileForm.value.customDisease : '',
         otherLanguage: this.profileForm.value.customLanguage ? this.profileForm.value.customLanguage : ''
@@ -453,7 +450,6 @@ profileSave() {
     // tslint:disable-next-line:no-unused-expression
     this.profileForm.value.morbidity === '' ? delete registerPayload.morbidity : '';
     this.profileService.update(registerPayload).subscribe((res: any) => {
-      console.log('updatedprofle', res);
       const firstList = {
         firstName: this.profileForm.value.firstName,
         lastName: this.profileForm.value.lastName,
@@ -511,9 +507,9 @@ profileSave() {
       }
     }
   }
-  clickLanguage(){
+  clickLanguage() {
     const selectedLanguage = this.profileForm.value.language;
-    if (selectedLanguage === 6 ) {
+    if (selectedLanguage === 6) {
       this.showPreferredLanguages = true;
       this.profileForm.addControl('customLanguage', new FormControl('', [Validators.required]));
     } else {
@@ -539,7 +535,7 @@ profileSave() {
       this.isLoading = false;
       this.frontImageURl = res.url;
     }, err => {
-      this.toastrService.danger(err.error.errorMessage? err.error.errorMessage: 'Image upload failed');
+      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage : 'Image upload failed');
     });
   }
 
@@ -558,7 +554,7 @@ profileSave() {
       this.isLoading = false;
       this.backImageURL = res.url;
     }, err => {
-      this.toastrService.danger(err.error.errorMessage? err.error.errorMessage: 'Image upload failed');
+      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage : 'Image upload failed');
     });
   }
 
@@ -569,7 +565,6 @@ profileSave() {
     if (event.target && event.target.files && event.target.files[0]) {
       object = { file: event.target.files[0], url: this.dataurl };
     }
-    console.log('object', object);
     const file = object.file;
     const sd: any = new FormData();
     sd.append('Content-Type', file.type);
@@ -579,19 +574,19 @@ profileSave() {
       this.imageURL = res.url;
       this.profileSave();
     }, err => {
-      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage: 'Image upload failed');
+      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage : 'Image upload failed');
     });
   }
   readURL(event: any): void {
     this.profilePictureEvent = event;
     if (event.target.files && event.target.files[0]) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = e => this.imageURL = reader.result;
-        reader.readAsDataURL(file);
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => this.imageURL = reader.result;
+      reader.readAsDataURL(file);
     }
-}
-  getRecord(event){
+  }
+  getRecord(event) {
     this.devices = JSON.stringify(event);
   }
 

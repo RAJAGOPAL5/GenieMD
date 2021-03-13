@@ -9,7 +9,7 @@ import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
 
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: '',
     component: NbAuthComponent,
@@ -20,7 +20,7 @@ const routes: Routes = [
         resolve: {
           language: LanguageResolve
         },
-        data:{ title:'login'},
+        data: { title: 'login' },
       },
       {
         path: 'forgot',
@@ -28,7 +28,7 @@ const routes: Routes = [
         resolve: {
           language: LanguageResolve
         },
-        data:{ title:'Forgot Password'},
+        data: { title: 'Forgot Password' },
 
       },
       {
@@ -37,7 +37,7 @@ const routes: Routes = [
         resolve: {
           language: LanguageResolve
         },
-        data:{ title:'register'},
+        data: { title: 'register' },
 
       }
     ]

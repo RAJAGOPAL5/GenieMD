@@ -19,7 +19,7 @@ export interface NotificationState {
 
 export function createInitialState(): NotificationState {
   return {
-    clinicID: '' ,
+    clinicID: '',
     command: '',
     message: '',
     messageContent: '',
@@ -28,9 +28,9 @@ export function createInitialState(): NotificationState {
     url: '',
     userID: '',
     users: [],
-    payload:{},
-    smsMessages:'',
-    pushNotification:{},
+    payload: {},
+    smsMessages: '',
+    pushNotification: {},
   };
 }
 

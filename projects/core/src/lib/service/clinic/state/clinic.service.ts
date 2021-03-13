@@ -1,41 +1,40 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
 import { ClinicStore } from './clinic.store';
 
-@Injectable({ 
-  providedIn: 'root' 
+@Injectable({
+  providedIn: 'root'
 })
 export class ClinicService {
-  seTitle(title: any) {
-    throw new Error('Method not implemented.');
-  }
-  clinic: any = {};
-  private cliniConfig: any = {};
-  constructor(private clinicStore: ClinicStore, private http: HttpClient) {
-  }
+  cliniConfig: any;
 
-  get config(): any {
-    return this.cliniConfig;
+  constructor(private clinicStore: ClinicStore, private http: HttpClient, private router: Router) {
   }
-
-  get id() {
-    return localStorage.getItem('clinicId');
-  }
-
-  find(id: string): any {
-    return this.http.get<any>(`Clinics/${id || '1000202'}`)
-    .pipe(
-      map(project => {
-        this.clinic = project;
-        localStorage.setItem('clinicId', id);
-        try {
-          this.cliniConfig = JSON.parse(this.clinic.clinicConfig)
-        } catch (error) {
-          this.cliniConfig = {};
-        }
-        return project || {};
-      })
-    );
+  async find(id: string) {
+    try {
+      this.clinicStore.setLoading(true);
+      await this.http.get<any>(`Clinics/${id}`)
+        .pipe(
+          tap((project: any) => {
+            try {
+              this.cliniConfig = JSON.parse(project?.clinicConfig);
+            } catch (error) {
+              this.cliniConfig = {};
+            }
+            localStorage.setItem('clinicId', id);
+            this.clinicStore.update({
+              clinic: project,
+              clinicConfig: this.cliniConfig
+            })
+          })
+        ).toPromise();
+    } catch (error) {
+      console.log("Clinic Finding error:", error.statusText);
+      this.clinicStore.setError(error);
+    } finally {
+      this.clinicStore.setLoading(false);
+    }
   }
 }

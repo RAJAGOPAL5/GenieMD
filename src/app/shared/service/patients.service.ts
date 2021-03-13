@@ -1,7 +1,7 @@
 import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {of as observableOf,  Observable } from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,7 @@ export class PatientsService {
     }));
   }
 
-  deleteCareGiver(payload){
-    return this.http.post(`DependentResources/DeleteCareGiver`,payload)
+  deleteCareGiver(payload) {
+    return this.http.post(`DependentResources/DeleteCareGiver`, payload);
   }
-
 }

@@ -46,13 +46,11 @@ export class VitalsComponent implements OnInit {
   event: any;
   noOfDays = -1;
   selectedDateRange = {
-    start:new Date('1900-02-01'),
+    start: new Date('1900-02-01'),
     end: new Date()
-  }
+  };
   ngOnInit(): void {
-    console.log('route', this.route.snapshot.parent.params.patientId)
     this.route.parent.paramMap.subscribe(params => {
-      console.log('params', params);
       this.patientId = params.get('patientId');
       this.getData(this.patientId);
     });

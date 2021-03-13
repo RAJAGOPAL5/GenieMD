@@ -11,21 +11,21 @@ export class ProfileService {
   }
 
   get id() {
-    return this.profile.userID
+    return this.profile.userID;
   }
 
   get(id: string) {
     return this.http.get(`Profile/${id}`)
-    .pipe(
-      tap(project => {
-        this.profile = project;
-        try {
-          this.extraData = JSON.parse(this.profile.extraData);
-        } catch (error) {
-          this.extraData = {};
-        }
-      })
-    );
+      .pipe(
+        tap(project => {
+          this.profile = project;
+          try {
+            this.extraData = JSON.parse(this.profile.extraData);
+          } catch (error) {
+            this.extraData = {};
+          }
+        })
+      );
   }
 
   sendEmail(payload) {

@@ -19,34 +19,35 @@ interface ViewModal {
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent extends NbLoginComponent implements OnInit  {
+export class LoginComponent extends NbLoginComponent implements OnInit {
   version: string = environment.version;
   isLoading = false;
-  model: ViewModal = {username: '', password: ''};
+  model: ViewModal = { username: '', password: '' };
   logo: string;
   title: string;
   showMessages: any = {};
   showContent = false;
-  constructor(private clinicService: ClinicService, 
+  constructor(
+    private clinicService: ClinicService,
     private authService: AuthService,
     private toastrService: NbToastrService,
     private ls: LanguageService,
     private translate: TranslateService,
     @Inject(NB_AUTH_OPTIONS)
-    protected service: NbAuthService, 
-    protected cd: ChangeDetectorRef, 
+    protected service: NbAuthService,
+    protected cd: ChangeDetectorRef,
     protected router: Router,
-    ) {
+  ) {
     super(service, {}, cd, router);
     translate.use('en');
-    translate.setTranslation('en', this.ls.state);  
+    translate.setTranslation('en', this.ls.state);
   }
 
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;
     this.title = this.clinicService.config.name;
-    if(this.clinicService.id) {
-      if(!this.ls.state) {
+    if (this.clinicService.id) {
+      if (!this.ls.state) {
         this.translatePage(this.clinicService.id);
       } else {
         this.showContent = true;
@@ -65,37 +66,37 @@ export class LoginComponent extends NbLoginComponent implements OnInit  {
     const username = this.model.username;
     const password = this.model.password;
     const result$ = this.authService.logIn(username, password)
-    .subscribe(result => {
-      this.router.navigate([this.clinicService.id ,result.userID,'patients']);
-      this.isLoading = false;
-    }, error => {
-      this.isLoading = false;
-      this.toastrService.danger(error.error.errorMessage? error.error.errorMessage: 'Invalid username or password');
-    });
+      .subscribe(result => {
+        this.router.navigate([this.clinicService.id, result.userID, 'patients']);
+        this.isLoading = false;
+      }, error => {
+        this.isLoading = false;
+        this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Invalid username or password');
+      });
   }
 
   translatePage(clinicID?: string) {
     if (clinicID) {
       if (this.clinicService.clinic) {
         this.getDynamicLanguage(this.clinicService.clinic.oemID);
-    } else {
-      this.getDefaultLangauge();
+      } else {
+        this.getDefaultLangauge();
+      }
     }
   }
-}
 
   getDynamicLanguage(clinicOemID) {
-    console.log(navigator.language);
+    let browserLang;
     if (navigator.language.includes('-')) {
-      var browserLang: any = navigator.language.split('-');
+      browserLang = navigator.language.split('-');
       browserLang = browserLang[0];
-      console.log(browserLang[0]);
     } else {
-      var browserLang: any = navigator.language;
+      browserLang = navigator.language;
     }
     this.clinicService.getLanguageList().subscribe((resp: any) => {
       const browserCode: any = resp.list.find(item => item.code === browserLang);
       if (browserCode) {
+        // tslint:disable-next-line:triple-equals
         if (this.clinicService.clinic.oemID == '100') {
           const browserPayloadDefualt = {
             oemID: 0,
@@ -108,7 +109,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit  {
             } catch (error) {
               response = {};
             }
-            const object = Object.assign({},response);
+            const object = Object.assign({}, response);
             this.ls.state = object;
             this.translate.use('en');
             this.translate.setTranslation('en', this.ls.state);
@@ -138,7 +139,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit  {
               } catch (error) {
                 response = [];
               }
-              const object = Object.assign({},response);
+              const object = Object.assign({}, response);
               this.ls.state = object;
               this.translate.use('en');
               this.translate.setTranslation('en', this.ls.state);
@@ -148,7 +149,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit  {
       } else {
         this.getDefaultLangauge();
       }
-    })
+    });
   }
   getDefaultLangauge() {
     // refers to english language with default oemID

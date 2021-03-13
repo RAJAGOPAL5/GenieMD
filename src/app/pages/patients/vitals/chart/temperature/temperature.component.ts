@@ -44,7 +44,7 @@ export class TemperatureComponent implements OnInit {
           display: true,
           labelString: 'Celcius',
           fontColor: '#3366ff',
-          fontStyle: "bold"
+          fontStyle: 'bold'
         }
       }],
       xAxes: [{
@@ -52,7 +52,7 @@ export class TemperatureComponent implements OnInit {
           display: true,
           labelString: 'Date',
           fontColor: '#3366ff',
-          fontStyle: "bold"
+          fontStyle: 'bold'
         },
         type: 'time',
         distribution: 'series',
@@ -88,7 +88,7 @@ export class TemperatureComponent implements OnInit {
         data: [],
         label: '',
       }
-    ]; 
+    ];
     this.getData();
   }
   constructor(
@@ -98,9 +98,8 @@ export class TemperatureComponent implements OnInit {
 
   ngOnInit(): void {
     this.themeService.onThemeChange().subscribe(theme => {
-      console.log('Theme changed: ', theme);
       this.theme = theme.name;
-      this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit, this.chartData.range);
     });
   }
   getData() {
@@ -132,9 +131,9 @@ export class TemperatureComponent implements OnInit {
             TempData.data.push(vialData.T);
           }
         });
-        this.lineChartData = [TempData]
+        this.lineChartData = [TempData];
       }
-      this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit, this.chartData.range);
     }, error => {
       this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit,  this.chartData.range);
       this.isLoading = false;
@@ -183,6 +182,7 @@ export class TemperatureComponent implements OnInit {
 
       }
     };
+    // tslint:disable-next-line:triple-equals
     if (range == -1) {
       xAxesScales.time = {
         unit: 'day',
@@ -209,7 +209,7 @@ export class TemperatureComponent implements OnInit {
         display: true,
         labelString: 'Celcius',
         fontColor: theme === 'dark' ? 'white' : 'black',
-        fontStyle: "bold"
+        fontStyle: 'bold'
       }
     };
 

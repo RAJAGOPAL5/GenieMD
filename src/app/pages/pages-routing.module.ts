@@ -11,7 +11,7 @@ const routes: Routes = [
     resolve: {
       language: LanguageResolve
     },
-    data:{ title: 'Patients'},
+    data: { title: 'Patients'},
     loadChildren: () => import('./patients/patients.module').then(m => PatientsModule)
   }
 ];

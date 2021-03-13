@@ -15,11 +15,13 @@ export class LanguageResolve implements Resolve<any> {
 
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
         const clinic = route.parent.data.clinicConfig;
+        // tslint:disable-next-line:triple-equals
         if (clinic.oemID == '100') {
             const englishPayload = {
                 oemID: 0,
                 languageID: clinic.languageID
-            }
+            };
+            // tslint:disable-next-line:triple-equals
             if (clinic.languageID == '0') {
                 englishPayload.languageID = '1';
             }
@@ -27,45 +29,44 @@ export class LanguageResolve implements Resolve<any> {
             const combine$ = combineLatest(englishLanguage$,
                 (englishLanguage: any) => {
                     const object = Object.assign({}, ...englishLanguage);
-                    console.log('datas', englishLanguage);
-                    console.log('object', object);
                     this.ls.state = object;
-                    return <any>{
+                    // tslint:disable-next-line:no-angle-bracket-type-assertion
+                    return <any> {
                         englishLanguage
                     };
-                })
+                });
             return combine$;
         } else {
-        const payload = {
-            oemID: clinic.oemID,
-            languageID: clinic.languageID
+            const payload = {
+                oemID: clinic.oemID,
+                languageID: clinic.languageID
+            };
+            const englishPayload = {
+                oemID: 0,
+                languageID: clinic.languageID,
+            };
+            // tslint:disable-next-line:triple-equals
+            if (clinic.languageID == '0') {
+                englishPayload.languageID = '1';
+                payload.languageID = '1';
+            }
+            const userLanguage$ = this.ls.getList(payload);
+            const englishLanguage$ = this.ls.getList(englishPayload);
+            const combine$ = combineLatest(userLanguage$, englishLanguage$,
+                (userLanguage: any, englishLanguage: any) => {
+                    try {
+                        englishLanguage = englishLanguage;
+                    } catch (error) {
+                        englishLanguage = [];
+                    }
+                    const object = Object.assign({}, ...englishLanguage);
+                    this.ls.state = object;
+                    // tslint:disable-next-line:no-angle-bracket-type-assertion
+                    return <any> {
+                        englishLanguage
+                    };
+                });
+            return combine$;
         }
-        const englishPayload = {
-            oemID: 0,
-            languageID: clinic.languageID,
-        }
-        if (clinic.languageID == '0') {
-            englishPayload.languageID = '1';
-            payload.languageID = '1';
-        }
-        const userLanguage$ = this.ls.getList(payload);
-        const englishLanguage$ = this.ls.getList(englishPayload);
-        const combine$ = combineLatest(userLanguage$, englishLanguage$,
-            (userLanguage: any, englishLanguage: any) => {
-                try {
-                    englishLanguage = englishLanguage;
-                } catch (error) {
-                    englishLanguage = [];
-                }
-                const object = Object.assign({}, ...englishLanguage);
-                console.log('datas', englishLanguage);
-                console.log('object', object);
-                this.ls.state = object;
-                return <any>{
-                    englishLanguage
-                };
-            })
-        return combine$;
-        }
-    };
+    }
 }

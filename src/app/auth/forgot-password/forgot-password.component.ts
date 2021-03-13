@@ -24,7 +24,8 @@ export class ForgotPasswordComponent extends NbRequestPasswordComponent implemen
   logo: string;
   title: string;
 
-  constructor(private clinicService: ClinicService,
+  constructor(
+    private clinicService: ClinicService,
     private authService: AuthService,
     private ls: LanguageService,
     private translate: TranslateService,

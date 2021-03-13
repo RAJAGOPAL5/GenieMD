@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NbIconLibraries, NbToastrService,NbTagComponent} from '@nebular/theme';
+import { NbIconLibraries, NbToastrService, NbTagComponent} from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
-import { languages, states, morbidity, gender,diseaseState, relation } from 'src/app/shared/constant/constant';
+import { languages, states, morbidity, gender, diseaseState, relation } from 'src/app/shared/constant/constant';
 
 
 interface ViewModal {
@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit {
     this.languages =  languages;
     this.relation = relation;
 // tslint:disable-next-line: max-line-length
-    this.showEmergency = this.clinicService.config.extendedSettings && this.clinicService.config.extendedSettings.emergencyContact && this.clinicService.config.extendedSettings.emergencyContact === 'true' ? true : false
+    this.showEmergency = this.clinicService.config.extendedSettings && this.clinicService.config.extendedSettings.emergencyContact && this.clinicService.config.extendedSettings.emergencyContact === 'true' ? true : false;
   }
 
   getData() {
@@ -106,7 +106,6 @@ export class ProfileComponent implements OnInit {
             }
           }
         });
-        console.log('diseaseList', this.patientExtraData);
         if (this.patientExtraData.emergencyContact && this.patientExtraData.emergencyContact.relation) {
           this.relationName = this.relation.find(item => item.id === this.patientExtraData.emergencyContact.relation).value;
         }
@@ -114,7 +113,6 @@ export class ProfileComponent implements OnInit {
         this.showPatient = true;
       }
     }, error => {
-      console.log('error', error);
     });
   }
 

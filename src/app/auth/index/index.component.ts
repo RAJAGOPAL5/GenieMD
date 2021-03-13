@@ -8,9 +8,9 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
-  version: string = environment.version
+  version: string = environment.version;
   imageURL: string;
-  constructor( private clinicService: ClinicService,) { }
+  constructor( private clinicService: ClinicService) { }
 
   ngOnInit(): void {
     this.imageURL = this.clinicService.config.backgroundIcon;

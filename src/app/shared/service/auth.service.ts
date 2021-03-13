@@ -41,6 +41,6 @@ export class AuthService {
     this.userInfo = undefined;
     const clinicId = this.clinicService.id;
     localStorage.clear();
-    this.router.navigate([clinicId,'auth']);
+    this.router.navigate([clinicId, 'auth']);
   }
 }

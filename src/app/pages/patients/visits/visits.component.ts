@@ -4,6 +4,7 @@ import { NbToastrService } from '@nebular/theme';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
+import { ScheduleService } from 'src/app/shared/service/schedule.service';
 
 @Component({
   selector: 'app-visits',
@@ -12,7 +13,7 @@ import { ProfileService } from 'src/app/shared/service/profile.service';
 })
 export class VisitsComponent implements OnInit {
 
-  timeSlots = []
+  timeSlots = [];
   providerSpeciality: any;
   clinic: any;
   clinicID: any;
@@ -34,28 +35,29 @@ export class VisitsComponent implements OnInit {
   searchText = '';
   patient: any;
   patientID: string;
+  userID: string;
 
-  constructor(private clinicService: ClinicService,
+  constructor(
+   private clinicService: ClinicService,
    private toastrService: NbToastrService,
    private profileService: ProfileService,
    private patientService: PatientsService,
-   private activatedRoute: ActivatedRoute) { }
+   private activatedRoute: ActivatedRoute,
+   private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe(params => {
+    this.userID = this.profileService.id;
+    this.activatedRoute.parent.paramMap.subscribe(params => {
       this.patientID = params.get('patientId');
     });
     this.getPatientData();
     this.clinic = this.clinicService.clinic;
-    console.log('clinic', this.clinic);
-    this.clinicID = '1000089'
+    this.clinicID = this.clinicService.id;
     this.clinicService.getPhysicianCategoryList(this.clinicID).subscribe((data: any) => {
       this.providerSpeciality = data.physicianCategoryList;
-      console.log('getPhysicianCategoryList', this.providerSpeciality);
     }, error => {
-      this.toastrService.danger(error.error.errorMessage? error.error.errorMessage: 'Cannot get Physician list');
+      this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Cannot get Physician list');
     });
-    this.getList();
   }
 
   getList() {
@@ -70,7 +72,7 @@ export class VisitsComponent implements OnInit {
       name: '',
       networkId: this.clinicService.id,
       pageNumber: 1,
-      practiceStates: 'CA',
+      practiceStates: this.patient.state,
       practiceType: 2,
       sortBy: 'serviceType',
       specialties: this.selectSpeciality,
@@ -85,9 +87,8 @@ export class VisitsComponent implements OnInit {
     }
     this.clinicService.getProvidersList(payload).subscribe((data: any) => {
       this.isLoading = false;
-      console.log('data', data);
       if (data.errorMessage) {
-        this.toastrService.danger(data.errorMessage);
+        this.toastrService.danger(data.errorMessage ? data.errorMessage : 'Cannot get Provider list');
         return;
       }
       this.listOfProvider = {
@@ -102,14 +103,19 @@ export class VisitsComponent implements OnInit {
       this.dataList = data.networkHcpList;
       this.totalProviderCollection = [];
       this.dataList.forEach(element => {
+        // tslint:disable-next-line:no-bitwise
         if ((element.serviceType & 1) === 0) {
           this.listOfProvider.status = 'Offline';
+          // tslint:disable-next-line:no-bitwise
         } else if ((element.serviceType & 2) === 2) {
           this.listOfProvider.status = 'Available Now';
+          // tslint:disable-next-line:no-bitwise
         } else if ((element.serviceType & 4) === 4) {
           this.listOfProvider.status = 'Accepts Scheduled Visits';
+          // tslint:disable-next-line:no-bitwise
         } else if ((element.serviceType & 16) === 16) {
           this.listOfProvider.status = 'Report Symptoms, Get CallBack';
+          // tslint:disable-next-line:no-bitwise
         } else if ((element.serviceType & 8) === 8) {
           this.listOfProvider.status = 'Report Symptoms, Get Treatment';
         } else {
@@ -133,7 +139,6 @@ export class VisitsComponent implements OnInit {
         };
       });
       this.providersList = this.totalProviderCollection;
-      console.log(this.providersList, 'list provider');
     }, error => {
       this.toastrService.danger('Cannot get provider list');
     });
@@ -146,9 +151,9 @@ export class VisitsComponent implements OnInit {
 
   getProviderDetails(npiId) {
     this.profileService.providerNPiID = npiId;
+    // tslint:disable-next-line:triple-equals
     this.providerDetails = this.dataList.find(a => a.npi == npiId);
     this.npiId = npiId;
-    console.log('npi', this.npiId)
     if (this.npiId) {
       const payLoad = {
         userID: this.profileService.id,
@@ -171,7 +176,6 @@ export class VisitsComponent implements OnInit {
 
   getUserName(npiId) {
     this.profileService.getProviderName(this.npiId).subscribe((data: any) => {
-      console.log('getuser', data);
       this.providerData = data;
       this.providerName = this.providerData.username;
       const payLoad = {
@@ -199,18 +203,93 @@ export class VisitsComponent implements OnInit {
     }
   }
 
-getPatientData(){
-  const payload = {
-    userID: this.profileService.id,
-    clinicID: this.clinicService.id,
-    patientID: this.patientID
-  };
-  this.patientService.findById(payload).subscribe((data: any) => {
-   this.patient = data;
-    console.log('patient', this.patient);
+  getPatientData() {
+    const payload = {
+      userID: this.profileService.id,
+      clinicID: this.clinicService.id,
+      patientID: this.patientID
+    };
+    this.patientService.findById(payload).subscribe((data: any) => {
+      this.patient = data;
+      this.getList();
+    }, error => {
+      console.log('error', error);
+      this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Cannot get Patient data');
+    });
+  }
+
+getAppointments(userID) {
+  this.scheduleService.getAppointmentList(userID).subscribe((data: any) => {
+    console.log('appointments',data)
+    this.appointmentlistResult = data.encounterList.filter(item => {
+      return item.meeting && !item.meeting.onDemand && item.status != 2
+        && item.status != 5 && item.status != 6;
+      // && this.CompareDate(item.meeting.startTime);
+    });
+    this.appointmentlistResult = this.appointmentlistResult.map((item, index) => { item.index = index; return item; });
+    console.log('before sorting-> all-appointments', JSON.parse(JSON.stringify(this.appointmentlistResult)));
+    this.appointmentlistResult = this.sortAppointments();
+    const appointmentss = this.appointmentlistResult.slice(((this.pageNumber - 1) * this.pageSize), ((this.pageNumber) * this.pageSize));
+    const collectionAppointment = [];
+    let result = {};
+    appointmentss.map((item => {
+      if (item.meeting.users.length > 0) {
+        if (item.meeting.users[1].userName != item.providerID) {
+          item.meeting.users.reverse();
+        }
+      }
+    }));
+    appointmentss.forEach(element => {
+      result = {
+        Name: element.meeting.users[1].firstName + ' ' + element.meeting.users[1].lastName,
+        subject: element.meeting.subject,
+        scheduled: new Date(element.meeting.startTime),
+        //  - (new Date().getTimezoneOffset() * 60 * 1000)),
+        duration: element.meeting.duration + ' ' + 'min',
+        imageUrl: element.meeting.users[1].imageUrl,
+        meetingId: element.meeting.meetingId,
+        providerID: element.providerID,
+        type: element.type,
+        encounterID: element.encounterID,
+        protocolID: element.protocolID
+
+      };
+      collectionAppointment.push(result);
+      data = {};
+    });
+    this.totalAppointment = collectionAppointment;
+    console.log('total appointment',this.totalAppointment)
+    // if (this.clinicTimeFormat ) {
+    //   this.totalAppointment.map(item => {
+    //     // item.scheduled = moment(item.scheduled).format(this.clinicTimeFormat);
+    //     item.scheduled = this.datePipe.transform(item.scheduled, this.clinicTimeFormat);
+    //     return item;
+        
+    //   });
+    // } else {
+    //   this.totalAppointment.map(item => {
+    //     item.scheduled = moment(item.scheduled).format('ddd, MMM Do YYYY hh:mm a Z');        
+    //     return item;
+    //   });
+    // }
+    this.isLoading = false;
   }, error => {
-    this.toastrService.danger(error.error.errorMessage? error.error.errorMessage: 'Cannot get Physician list');
+    this.isLoading = false;
+    this.toastrService.danger(error.error.errorMessage);
+
   });
+}
+
+sortAppointments() {
+  this.appointmentlistResult.sort((a, b) => {
+    const x = a.meeting.startTime;
+    const y = b.meeting.startTime;
+    if (x < y) { return -1; }
+    if (x > y) {
+      return 1;
+    } else { return 0; }
+  });
+  return this.appointmentlistResult;
 }
 
 }

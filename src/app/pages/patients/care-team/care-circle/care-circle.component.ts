@@ -7,8 +7,8 @@ interface UserView {
 }
 
 interface ViewModel {
-  primary?: UserView
-  items?: UserView[]
+  primary?: UserView;
+  items?: UserView[];
 }
 
 @Component({
@@ -43,11 +43,13 @@ export class CareCircleComponent implements OnInit, OnChanges, AfterViewInit {
   render() {
     const width = this.circleEl.nativeElement.clientWidth;
     const circles = this.circleEl.nativeElement.querySelectorAll('.circle-item');
-    let angle = 360-90, dangle = 360 / (this.config.items || []).length;
-    for( let i = 0; i < circles.length; ++i ){
-      let circle = circles[i]
-      angle += dangle
-      circle.style.transform = `rotate(${angle}deg) translate(${width / 2}px) rotate(-${angle}deg)`
+    let angle = 360 - 90;
+    const dangle = 360 / (this.config.items || []).length;
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < circles.length; ++i) {
+      const circle = circles[i];
+      angle += dangle;
+      circle.style.transform = `rotate(${angle}deg) translate(${width / 2}px) rotate(-${angle}deg)`;
     }
   }
 

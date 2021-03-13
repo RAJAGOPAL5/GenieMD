@@ -8,12 +8,43 @@ export class DependentService {
 
   constructor(private dependentStore: DependentStore, private http: HttpClient) {
   }
-  find(payload: { userID: any; patientID: any; }) {
-    return this.http.get(`DependentResources/CareGivers/${payload.userID}/${payload.patientID}`);
+  async find(payload: { userID: any; patientID: any; }) {
+    try {
+      this.dependentStore.setLoading(true);
+      await this.http.get(`DependentResources/CareGivers/${payload.userID}/${payload.patientID}`)
+        .pipe(
+          tap((dependents: any) => {
+            console.log("dependent object::", dependents);
+            this.dependentStore.update({
+              dependent: dependents.list,
+            })
+          })
+        ).toPromise();
+    } catch (error) {
+      this.dependentStore.setError(error);
+    } finally {
+      this.dependentStore.setLoading(false);
+    }
   }
 
-  findById(payload: { name: string; userID: string; }) {
-    return this.http.post(`DependentResources/CreateDependent`, payload);
+  async findById(payload: { name: string; userID: string; }) {
+    try {
+      this.dependentStore.setLoading(true);
+      await this.http.post(`DependentResources/CreateDependent`, payload)
+        .pipe(
+          tap((dependentInfo: any) => {
+            console.log("dependent Info::", dependentInfo);
+            this.dependentStore.update({
+              dependentInfo: dependentInfo
+            })
+          })
+        ).toPromise();
+    } catch (error) {
+      this.dependentStore.setError(error);
+    } finally {
+      this.dependentStore.setLoading(false);
+    }
+
   }
 
 }

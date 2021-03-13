@@ -45,7 +45,7 @@ export class Spo2Component implements OnInit {
           display: true,
           labelString: 'Percentage',
           fontColor: '#3366ff',
-          fontStyle: "bold"
+          fontStyle: 'bold'
         }
       }],
       xAxes: [{
@@ -53,7 +53,7 @@ export class Spo2Component implements OnInit {
           display: true,
           labelString: 'Date',
           fontColor: '#3366ff',
-          fontStyle: "bold"
+          fontStyle: 'bold'
         },
         type: 'time',
         distribution: 'series',
@@ -89,7 +89,8 @@ export class Spo2Component implements OnInit {
         data: [],
         label: '',
       }
-    ];    this.getData();
+    ];
+    this.getData();
   }
   constructor(
     private vitalService: VitalsService,
@@ -98,9 +99,8 @@ export class Spo2Component implements OnInit {
 
   ngOnInit(): void {
     this.themeService.onThemeChange().subscribe(theme => {
-      console.log('Theme changed: ', theme);
       this.theme = theme.name;
-      this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit, this.chartData.range);
     });
   }
   getData() {
@@ -135,7 +135,7 @@ export class Spo2Component implements OnInit {
         });
         this.lineChartData = [spo2Data];
       }
-      this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit, this.chartData.range);
     }, error => {
       this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit,  this.chartData.range);
       this.isLoading = false;
@@ -184,6 +184,7 @@ export class Spo2Component implements OnInit {
 
       }
     };
+    // tslint:disable-next-line:triple-equals
     if (range == -1) {
       xAxesScales.time = {
         unit: 'day',
@@ -210,7 +211,7 @@ export class Spo2Component implements OnInit {
         display: true,
         labelString: 'Percentage',
         fontColor: theme === 'dark' ? '#3366ff' : 'black',
-        fontStyle: "bold"
+        fontStyle: 'bold'
       }
     };
 
