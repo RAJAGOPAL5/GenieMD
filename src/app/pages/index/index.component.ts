@@ -21,7 +21,7 @@ export class IndexComponent implements OnInit {
   title: string;
   profile: any;
   theme: string = getUserPreferedTheme();
-  flag: any =true;;
+  flag: any = true;
   constructor(
     private sidebarService: NbSidebarService,
     private clinicService: ClinicService,
@@ -47,11 +47,11 @@ export class IndexComponent implements OnInit {
 
   listernUserPreferedColorChange() {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-      const theme = e.matches ? "dark" : "default";
+      const theme = e.matches ? 'dark' : 'default';
       this.zone.runTask(() => {
         this.theme = theme;
         this.themeService.changeTheme(this.theme);
-      })
+      });
     });
   }
 
@@ -81,7 +81,7 @@ export class IndexComponent implements OnInit {
         pathMatch: 'prefix'
         // link: '/auth/login'
       },
-    )
+    );
   }
 
   registerEvents() {
@@ -94,19 +94,19 @@ export class IndexComponent implements OnInit {
   }
 
   toggleSidebar() {
-    if(this.flag){
+    if (this.flag) {
       this.sidebarService.collapse();
       this.flag = !this.flag;
-    } else{
+    } else {
       this.sidebarService.compact();
       this.flag = !this.flag;
     }
-    
+
   }
   toggleTheme(theme: string) {
-    if(theme === 'default') {
+    if (theme === 'default') {
       this.theme = 'dark';
-    } else if(theme === 'dark') {
+    } else if (theme === 'dark') {
       this.theme = 'default';
     }
     localStorage.setItem('theme', this.theme);

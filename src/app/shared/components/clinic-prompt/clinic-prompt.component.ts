@@ -10,7 +10,7 @@ import { NbDialogRef } from '@nebular/theme';
 export class ClinicPromptComponent implements OnInit {
   clinicID: '';
   constructor(private router: Router,
-    private ref:NbDialogRef<ClinicPromptComponent>) { }
+              private ref: NbDialogRef<ClinicPromptComponent>) { }
 
   ngOnInit(): void {
 

@@ -44,7 +44,7 @@ export class WeightComponent implements OnInit {
           display: true,
           labelString: 'lbs',
           fontColor: '#3366ff',
-          fontStyle: "bold"
+          fontStyle: 'bold'
         }
       }],
       xAxes: [{
@@ -52,7 +52,7 @@ export class WeightComponent implements OnInit {
           display: true,
           labelString: 'Date',
           fontColor: '#3366ff',
-          fontStyle: "bold"
+          fontStyle: 'bold'
         },
         type: 'time',
         distribution: 'series',
@@ -99,7 +99,7 @@ export class WeightComponent implements OnInit {
   ngOnInit(): void {
     this.themeService.onThemeChange().subscribe(theme => {
       this.theme = theme.name;
-      this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit, this.chartData.range);
     });
   }
   getData() {
@@ -131,11 +131,11 @@ export class WeightComponent implements OnInit {
             weightData.data.push(vialData.W);
           }
         });
-        this.lineChartData = [weightData]
+        this.lineChartData = [weightData];
       } else {
-        this.lineChartData = []
+        this.lineChartData = [];
       }
-      this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit, this.chartData.range);
     }, error => {
       this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit,  this.chartData.range);
       this.isLoading = false;
@@ -184,6 +184,7 @@ export class WeightComponent implements OnInit {
 
       }
     };
+    // tslint:disable-next-line:triple-equals
     if (range == -1) {
       xAxesScales.time = {
         unit: 'day',
@@ -210,7 +211,7 @@ export class WeightComponent implements OnInit {
         display: true,
         labelString: 'lbs',
         fontColor: theme === 'dark' ? 'white' : 'black',
-        fontStyle: "bold"
+        fontStyle: 'bold'
       }
     };
     lineChartOptions.scales.yAxes = [yAxesScales];

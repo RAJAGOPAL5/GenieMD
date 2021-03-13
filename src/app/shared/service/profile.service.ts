@@ -4,7 +4,7 @@ import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
-  providerNPiID : string;
+  providerNPiID: string;
   profile: any;
   extraData: any;
   id: string;
@@ -17,16 +17,16 @@ export class ProfileService {
 
   get(id: string) {
     return this.http.get(`Profile/${id}`)
-    .pipe(
-      tap(project => {
-        this.profile = project;
-        try {
-          this.extraData = JSON.parse(this.profile.extraData);
-        } catch (error) {
-          this.extraData = {};
-        }
-      })
-    );
+      .pipe(
+        tap(project => {
+          this.profile = project;
+          try {
+            this.extraData = JSON.parse(this.profile.extraData);
+          } catch (error) {
+            this.extraData = {};
+          }
+        })
+      );
   }
 
   sendEmail(payload) {
@@ -51,12 +51,12 @@ export class ProfileService {
   getAvailable(payload) {
     return this.http.post(`Appointments/RecurringCollection`, payload);
   }
-  
+
   uploadFile(payLoad, userId) {
     return this.http.post('Files/UploadFile/' + userId, payLoad);
   }
 
-  getDevices(){
-    return this.http.get(`Devices/SmartDevices/List`); 
+  getDevices() {
+    return this.http.get(`Devices/SmartDevices/List`);
   }
 }

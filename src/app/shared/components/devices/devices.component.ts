@@ -1,38 +1,39 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
-import {deviceTypes } from 'src/app/shared/constant/constant';
+import { deviceTypes } from 'src/app/shared/constant/constant';
 import { ProfileService } from '../../service/profile.service';
 @Component({
   selector: 'app-devices',
   templateUrl: './devices.component.html',
   styleUrls: ['./devices.component.scss']
 })
-export class DevicesComponent implements OnInit{
+export class DevicesComponent implements OnInit {
 
   deviceForm: FormGroup;
   deviceDialogRef: NbDialogRef<any>;
   isLoading = false;
   data = [];
-  deviceTypes:any;
+  deviceTypes: any;
   deleteDialogRef: NbDialogRef<any>;
   deviceList: any;
 
   @Output() deviceData: EventEmitter<any> = new EventEmitter();
   storeDevice: any;
   deviceIndex: any;
-  @Input() 
+  @Input()
 
   get dataDevice() {
     return this.storeDevice;
   }
 
-  set dataDevice(res){
+  set dataDevice(res) {
     this.storeDevice = res;
     this.getDevicePatch();
   }
-  
-  constructor(private fb: FormBuilder,
+
+  constructor(
+    private fb: FormBuilder,
     private dialogService: NbDialogService,
     private toastrService: NbToastrService,
     private profileService: ProfileService) {
@@ -53,28 +54,27 @@ export class DevicesComponent implements OnInit{
     });
   }
 
-  getDevices(){
+  getDevices() {
     this.profileService.getDevices().subscribe((res: any) => {
     }, error => {
       this.toastrService.danger('Cannot get devices');
     });
   }
 
-  onchange(event){ 
-      this.deviceForm.patchValue({
-        deviceName: event.name,
-        manufacturer: event.manufacturer,
-        serialNumber: event.model,
-      }); 
+  onchange(event) {
+    this.deviceForm.patchValue({
+      deviceName: event.name,
+      manufacturer: event.manufacturer,
+      serialNumber: event.model,
+    });
   }
-   
-  getDevicePatch(){
-    try{
+
+  getDevicePatch() {
+    try {
       this.deviceList = JSON.parse(this.dataDevice);
-    }
-    catch (error) {
+    } catch (error) {
       this.deviceList = this.deviceList || [];
-    } 
+    }
   }
 
 
@@ -98,7 +98,7 @@ export class DevicesComponent implements OnInit{
       manufacturer: this.deviceForm.value.manufacturer,
       serialNumber: this.deviceForm.value.serialNumber,
       deviceType: this.deviceForm.value.deviceType.type
-    }
+    };
     this.data.push(payload);
     this.toastrService.success('Device added successfully');
     this.deviceDialogRef.close();

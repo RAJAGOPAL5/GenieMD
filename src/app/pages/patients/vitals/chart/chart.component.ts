@@ -49,7 +49,7 @@ export class ChartComponent implements OnInit {
       label: this.name
     };
     this.vitalService.getData(this.chartData.patientId, fromDate, toDate, this.type).subscribe((data: any) => {
-      if(data) {
+      if (data) {
         (data.vitalsList || []).forEach(item => {
           this.lineChartLabels.push(moment(item.vitalDate).format('DD/MM'));
           let vialData;
@@ -74,42 +74,42 @@ export class ChartComponent implements OnInit {
           backgroundColor: 'rgba(255,0,0,0.3)',
         },
       ];
-        break;
+              break;
       case 2: this.lineChartColors = [
         {
           borderColor: 'black',
           backgroundColor: 'rgba(153, 171, 128,0.3)',
         },
       ];
-        break;
+              break;
       case 3: this.lineChartColors = [
         {
           borderColor: 'black',
           backgroundColor: 'rgba(190, 212, 209,0.3)',
         },
       ];
-        break;
+              break;
       case 6: this.lineChartColors = [
         {
           borderColor: 'black',
           backgroundColor: 'rgba(172, 194, 232,0.3)',
         },
       ];
-        break;
+              break;
       case 14: this.lineChartColors = [
         {
           borderColor: 'black',
           backgroundColor: 'rgba(196, 171, 186,0.3)',
         },
       ];
-        break;
+               break;
       default: this.lineChartColors = [
         {
           borderColor: 'black',
           backgroundColor: 'rgba(255,0,0,0.3)',
         },
       ];
-        break;
+               break;
     }
 
   }

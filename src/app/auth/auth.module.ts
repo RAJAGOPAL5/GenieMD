@@ -6,7 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SharedModule } from '../shared/shared.module';
 import { IndexComponent } from './index/index.component';
-import { NbButtonModule, NbCardModule, NbDatepickerModule, NbFormFieldModule, NbIconModule, NbInputModule, NbRadioModule, NbSpinnerModule, NbStepperModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbDatepickerModule, NbFormFieldModule, NbIconModule,
+   NbInputModule, NbRadioModule, NbSpinnerModule, NbStepperModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NbAuthModule, NbPasswordAuthStrategy, NbPasswordAuthStrategyOptions } from '@nebular/auth';

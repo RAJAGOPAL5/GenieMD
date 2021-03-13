@@ -13,7 +13,8 @@ import { Spinkit } from 'ng-http-loader';
 export class AppComponent implements OnInit {
   title = 'remote-patient-monitoring';
   public spinkit = Spinkit;
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: Title
     ) { }
@@ -24,7 +25,7 @@ export class AppComponent implements OnInit {
     ).subscribe(() => {
       const rt = this.getChild(this.activatedRoute);
       rt.data.subscribe(data => {
-        this.titleService.setTitle(data.title)
+        this.titleService.setTitle(data.title);
       });
     });
   }

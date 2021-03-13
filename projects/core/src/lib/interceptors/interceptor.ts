@@ -44,8 +44,9 @@ export class CoreHttpInterceptor implements HttpInterceptor {
 
         path += `/${request.url}`;
         const spinner = request.params.get('ignoreInterceptor');
-        if (spinner && spinner == 'true'){
-            path = `${request.url}`
+        // tslint:disable-next-line:triple-equals
+        if (spinner && spinner == 'true') {
+            path = `${request.url}`;
         }
         // For Dev server starts (UnComment this block when pushing to server)
         // if (request.url.indexOf('dev.axquisite.online') > -1) {

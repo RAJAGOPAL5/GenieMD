@@ -220,6 +220,7 @@ export class BloodPressureComponent implements OnInit {
         minRotation: 60
       }
     };
+    // tslint:disable-next-line:triple-equals
     if (range == -1) {
       xAxesScales.time = {
         unit: 'day',

@@ -11,14 +11,14 @@ export interface NotificationState {
   url?: string;
   userID: string;
   users?: string[];
-  payload?:{};
-  smsMessages?:any;
-  pushNotification?:{};
+  payload?: {};
+  smsMessages?: any;
+  pushNotification?: {};
 }
 
 export function createInitialState(): NotificationState {
   return {
-    clinicID: '' ,
+    clinicID: '',
     command: '',
     message: '',
     messageContent: '',
@@ -27,9 +27,9 @@ export function createInitialState(): NotificationState {
     url: '',
     userID: '',
     users: [],
-    payload:{},
-    smsMessages:'',
-    pushNotification:{},
+    payload: {},
+    smsMessages: '',
+    pushNotification: {},
   };
 }
 

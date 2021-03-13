@@ -95,14 +95,13 @@ export const diseaseState = [
     {id: 10, name: 'Other'}
 ];
 
-export const relation =[
-    { id: 0, value: 'Father'},
-    { id: 1, value: 'Mother'},
-    { id: 2, value: 'Spouse'},
-    { id: 3, value: 'Brother'},
-    { id: 4, value: 'Sister'},
-    { id: 5, value: 'Other'}];
-    
+export const relation = [
+    { id: 0, value: 'Father' },
+    { id: 1, value: 'Mother' },
+    { id: 2, value: 'Spouse' },
+    { id: 3, value: 'Brother' },
+    { id: 4, value: 'Sister' },
+    { id: 5, value: 'Other' }];
 export const preferredLanguage = [
     { name: 'English', id: 1 },
     { name: 'Spanish', id: 2 },
@@ -111,12 +110,10 @@ export const preferredLanguage = [
     { name: 'Vietnamese', id: 5 },
     { name: 'Other', id: 6 },
 ];
-
-    
 export const deviceTypes = [
-    { id: 1, name: 'Thermometer', type: "Thermometer", model: "PT3SBT", manufacturer: "iHealth" },
-    { id: 2, name: "iHealth Scales", type: "Scale", model: "HS2S", manufacturer: "iHealth" },
-    { id: 3, name: "iHealth Blood Pressure", type: "Blood Pressure Monitor", model: "KN-550BT", manufacturer: "iHealth" },
-    { id: 4, name: "iHealth Pulse Oximeter", type: "Pulse Oximeter", model: "PO3", manufacturer: "iHealth" },
-    { id: 5, name: "iHealth Glucose Meter", type: "Glucose Meter", model: "BG5s", manufacturer: "iHealth" },
+    { id: 1, name: 'Thermometer', type: 'Thermometer', model: 'PT3SBT', manufacturer: 'iHealth' },
+    { id: 2, name: 'iHealth Scales', type: 'Scale', model: 'HS2S', manufacturer: 'iHealth' },
+    { id: 3, name: 'iHealth Blood Pressure', type: 'Blood Pressure Monitor', model: 'KN-550BT', manufacturer: 'iHealth' },
+    { id: 4, name: 'iHealth Pulse Oximeter', type: 'Pulse Oximeter', model: 'PO3', manufacturer: 'iHealth' },
+    { id: 5, name: 'iHealth Glucose Meter', type: 'Glucose Meter', model: 'BG5s', manufacturer: 'iHealth' },
 ];

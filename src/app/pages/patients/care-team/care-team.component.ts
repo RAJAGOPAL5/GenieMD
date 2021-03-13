@@ -17,7 +17,7 @@ import { ProfileService } from 'src/app/shared/service/profile.service';
 export class CareTeamComponent implements OnInit {
   isLoading = false;
   careTeam: any;
-  patientId: any
+  patientId: any;
   carTeam: any;
   patientInfo: any;
   careGiver: '';
@@ -27,7 +27,8 @@ export class CareTeamComponent implements OnInit {
   deleteDialogRef: any;
   careGiverUsername: any;
   team: any = {};
-  constructor(private dependent: DependentService, private authService: AuthService,
+  constructor(
+    private dependent: DependentService, private authService: AuthService,
     private route: ActivatedRoute, private dialogService: NbDialogService,
     private ns: NotificationService, private patientService: PatientsService,
     private profileService: ProfileService, private clinicService: ClinicService,
@@ -37,7 +38,7 @@ export class CareTeamComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.patientId = this.route.snapshot.parent.params['patientId'];
+    this.patientId = this.route.snapshot.parent.params.patientId;
     this.getCareTeam();
     this.getProfile();
   }
@@ -65,13 +66,13 @@ export class CareTeamComponent implements OnInit {
       userID: this.profileService.id,
       clinicID: this.clinicService.id,
       patientID: this.patientId
-    }
+    };
     this.patientService.findById(payload).subscribe((data: any) => {
       this.patientInfo = data;
       this.team.primary = {
         name: `${data.firstName} ${data.lastName}`.trim(),
         image: data.imageUrl
-      }
+      };
     });
   }
   open(dialog: TemplateRef<any>) {
@@ -90,15 +91,18 @@ export class CareTeamComponent implements OnInit {
       requesterUsername: this.patientInfo.patientID
     };
     const data = {
-      'userID': this.profileService.id,
-      'command': JSON.stringify(cmd),
-      'messageType': 10,
-      'subject': `Message from ${this.patientInfo.firstName} ${this.patientInfo.lastName}`,
-      'clinicID': this.clinicService.id,
-      'message': `Message from ${this.patientInfo.firstName} ${this.patientInfo.lastName}-- Please login to iVisit and visit Notification Center for details.`,
-      'messageContent': `${this.patientInfo.firstName} ${this.patientInfo.lastName} is requesting to add you as a Caregiver to ${this.patientInfo.firstName} ${this.patientInfo.lastName}. Tap to accept`,
-      'url': "https://geniemd-generalfiles.s3.amazonaws.com/c7257a550c8a45f3a6361d1f691b94e9.png?AWSAccessKeyId=AKIAIZH5KUW5NWRU5FDQ&Expires=1926574136&Signature=epieTnvW2e2Nk3VdB07VtZgwl70%3D",
-      'users': [this.careGiver],
+      userID: this.profileService.id,
+      command: JSON.stringify(cmd),
+      messageType: 10,
+      subject: `Message from ${this.patientInfo.firstName} ${this.patientInfo.lastName}`,
+      clinicID: this.clinicService.id,
+      message: `Message from ${this.patientInfo.firstName} ${this.patientInfo.lastName}
+      -- Please login to iVisit and visit Notification Center for details.`,
+      messageContent: `${this.patientInfo.firstName} ${this.patientInfo.lastName},
+      is requesting to add you as a Caregiver to ${this.patientInfo.firstName} ${this.patientInfo.lastName}. Tap to accept`,
+      // tslint:disable-next-line:max-line-length
+      url: 'https://geniemd-generalfiles.s3.amazonaws.com/c7257a550c8a45f3a6361d1f691b94e9.png?AWSAccessKeyId=AKIAIZH5KUW5NWRU5FDQ&Expires=1926574136&Signature=epieTnvW2e2Nk3VdB07VtZgwl70%3D',
+      users: [this.careGiver],
     };
     this.ns.notifyOptions(data).subscribe((response: any) => {
       this.carTeam = response;
@@ -116,15 +120,15 @@ export class CareTeamComponent implements OnInit {
   }
   deleteRecord() {
     const payload = {
-      "careGiverUsername": this.careGiverUsername,
-      "dependentUsername": this.patientInfo.patientID,
-      "userID": this.profileService.id,
-    }
+      careGiverUsername: this.careGiverUsername,
+      dependentUsername: this.patientInfo.patientID,
+      userID: this.profileService.id,
+    };
     this.patientService.deleteCareGiver(payload).subscribe((res: any) => {
       this.getCareTeam();
       this.deleteDialogRef.close();
     }, error => {
 
-    })
+    });
   }
 }

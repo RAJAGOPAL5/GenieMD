@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
 
 export interface DependentState {
-  userID: any; 
+  userID: any;
   patientID: any;
 }
 
@@ -12,7 +12,6 @@ export function createInitialState(): DependentState {
     patientID: '',
   };
 }
-
 @Injectable({ providedIn: 'root' })
 @StoreConfig({ name: 'dependent' })
 export class DependentStore extends Store<DependentState> {

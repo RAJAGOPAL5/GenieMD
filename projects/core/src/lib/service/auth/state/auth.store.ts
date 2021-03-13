@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store, StoreConfig } from '@datorama/akita';
 
 export interface AuthState {
-  RegistrationComplete?:string;
+  RegistrationComplete?: string;
   userID?: string;
 }
 

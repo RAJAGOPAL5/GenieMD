@@ -23,20 +23,20 @@ export class ClinicService {
 
   find(id: string): any {
     return this.http.get<any>(`Clinics/${id}`)
-    .pipe(
-      map(project => {
-        this.clinic = project;
-        this.id = id;
-        try {
-          this.cliniConfig = JSON.parse(this.clinic.clinicConfig)
-        } catch (error) {
-          this.cliniConfig = {};
-        }
-        return project || {};
-      })
-    );
+      .pipe(
+        map(project => {
+          this.clinic = project;
+          this.id = id;
+          try {
+            this.cliniConfig = JSON.parse(this.clinic.clinicConfig);
+          } catch (error) {
+            this.cliniConfig = {};
+          }
+          return project || {};
+        })
+      );
   }
-  searchPatients(payload){
+  searchPatients(payload) {
     return this.http.post(`Clinics/SearchPatients`, payload);
   }
 
@@ -45,7 +45,7 @@ export class ClinicService {
   }
 
   getPhysicianCategoryList(payload) {
-    return this.http.get(`HealthcareProvider/NetworkCategory/List/${payload}`);    
+    return this.http.get(`HealthcareProvider/NetworkCategory/List/${payload}`);
   }
 
 }

@@ -12,7 +12,7 @@ import { ProfileService } from 'src/app/shared/service/profile.service';
 })
 export class VisitsComponent implements OnInit {
 
-  timeSlots = []
+  timeSlots = [];
   providerSpeciality: any;
   clinic: any;
   clinicID: any;
@@ -35,16 +35,16 @@ export class VisitsComponent implements OnInit {
   patient: any;
   patientID: string;
 
-  constructor(private clinicService: ClinicService,
-   private toastrService: NbToastrService,
-   private profileService: ProfileService,
-   private patientService: PatientService,
-   private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private clinicService: ClinicService,
+    private toastrService: NbToastrService,
+    private profileService: ProfileService,
+    private patientService: PatientService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
- 
     this.activatedRoute.parent.paramMap.subscribe(params => {
-    this.patientID = params.get('patientId');
+      this.patientID = params.get('patientId');
     });
     this.getPatientData();
     this.clinic = this.clinicService.clinic;
@@ -52,7 +52,7 @@ export class VisitsComponent implements OnInit {
     this.clinicService.getPhysicianCategoryList(this.clinicID).subscribe((data: any) => {
       this.providerSpeciality = data.physicianCategoryList;
     }, error => {
-      this.toastrService.danger(error.error.errorMessage? error.error.errorMessage: 'Cannot get Physician list');
+      this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Cannot get Physician list');
     });
   }
 
@@ -84,7 +84,7 @@ export class VisitsComponent implements OnInit {
     this.clinicService.getProvidersList(payload).subscribe((data: any) => {
       this.isLoading = false;
       if (data.errorMessage) {
-        this.toastrService.danger(data.errorMessage? data.errorMessage: 'Cannot get Provider list');
+        this.toastrService.danger(data.errorMessage ? data.errorMessage : 'Cannot get Provider list');
         return;
       }
       this.listOfProvider = {
@@ -99,14 +99,19 @@ export class VisitsComponent implements OnInit {
       this.dataList = data.networkHcpList;
       this.totalProviderCollection = [];
       this.dataList.forEach(element => {
+        // tslint:disable-next-line:no-bitwise
         if ((element.serviceType & 1) === 0) {
           this.listOfProvider.status = 'Offline';
+          // tslint:disable-next-line:no-bitwise
         } else if ((element.serviceType & 2) === 2) {
           this.listOfProvider.status = 'Available Now';
+          // tslint:disable-next-line:no-bitwise
         } else if ((element.serviceType & 4) === 4) {
           this.listOfProvider.status = 'Accepts Scheduled Visits';
+          // tslint:disable-next-line:no-bitwise
         } else if ((element.serviceType & 16) === 16) {
           this.listOfProvider.status = 'Report Symptoms, Get CallBack';
+          // tslint:disable-next-line:no-bitwise
         } else if ((element.serviceType & 8) === 8) {
           this.listOfProvider.status = 'Report Symptoms, Get Treatment';
         } else {
@@ -142,6 +147,7 @@ export class VisitsComponent implements OnInit {
 
   getProviderDetails(npiId) {
     this.profileService.providerNPiID = npiId;
+    // tslint:disable-next-line:triple-equals
     this.providerDetails = this.dataList.find(a => a.npi == npiId);
     this.npiId = npiId;
     if (this.npiId) {
@@ -193,19 +199,19 @@ export class VisitsComponent implements OnInit {
     }
   }
 
-getPatientData(){
-  const payload = {
-    userID: this.profileService.id,
-    clinicID: this.clinicService.id,
-    patientID: this.patientID
-  };
-  this.patientService.findById(payload).subscribe((data: any) => {
-   this.patient = data;
-   this.getList();
-  }, error => {
-    console.log('error', error);
-    this.toastrService.danger(error.error.errorMessage? error.error.errorMessage: 'Cannot get Patient data');
-  })
-}
+  getPatientData() {
+    const payload = {
+      userID: this.profileService.id,
+      clinicID: this.clinicService.id,
+      patientID: this.patientID
+    };
+    this.patientService.findById(payload).subscribe((data: any) => {
+      this.patient = data;
+      this.getList();
+    }, error => {
+      console.log('error', error);
+      this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Cannot get Patient data');
+    });
+  }
 
 }
