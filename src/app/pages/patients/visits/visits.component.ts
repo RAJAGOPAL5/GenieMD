@@ -42,20 +42,19 @@ export class VisitsComponent implements OnInit {
    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe(params => {
-      this.patientID = params.get('patientId');
+ 
+    this.activatedRoute.parent.paramMap.subscribe(params => {
+    this.patientID = params.get('patientId');
     });
     this.getPatientData();
     this.clinic = this.clinicService.clinic;
-    console.log('clinic', this.clinic);
-    this.clinicID = '1000089'
+    this.clinicID = this.clinicService.id;
     this.clinicService.getPhysicianCategoryList(this.clinicID).subscribe((data: any) => {
       this.providerSpeciality = data.physicianCategoryList;
       console.log('getPhysicianCategoryList', this.providerSpeciality);
     }, error => {
       this.toastrService.danger(error.error.errorMessage? error.error.errorMessage: 'Cannot get Physician list');
     });
-    this.getList();
   }
 
   getList() {
@@ -70,7 +69,7 @@ export class VisitsComponent implements OnInit {
       name: '',
       networkId: this.clinicService.id,
       pageNumber: 1,
-      practiceStates: 'CA',
+      practiceStates: this.patient.state,
       practiceType: 2,
       sortBy: 'serviceType',
       specialties: this.selectSpeciality,
@@ -85,9 +84,8 @@ export class VisitsComponent implements OnInit {
     }
     this.clinicService.getProvidersList(payload).subscribe((data: any) => {
       this.isLoading = false;
-      console.log('data', data);
       if (data.errorMessage) {
-        this.toastrService.danger(data.errorMessage);
+        this.toastrService.danger(data.errorMessage? data.errorMessage: 'Cannot get Provider list');
         return;
       }
       this.listOfProvider = {
@@ -207,9 +205,9 @@ getPatientData(){
   };
   this.patientService.findById(payload).subscribe((data: any) => {
    this.patient = data;
-    console.log('patient', this.patient);
+   this.getList();
   }, error => {
-    this.toastrService.danger(error.error.errorMessage? error.error.errorMessage: 'Cannot get Physician list');
+    this.toastrService.danger(error.error.errorMessage? error.error.errorMessage: 'Cannot get Patient data');
   });
 }
 
