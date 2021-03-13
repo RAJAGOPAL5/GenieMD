@@ -27,6 +27,8 @@ export class AuthService {
         ).toPromise();
     } catch (error) {
       this.authStore.setError(error);
+    } finally {
+      this.authStore.setLoading(false);
     }
   }
 
