@@ -155,7 +155,6 @@ export class VisitsComponent implements OnInit {
     this.profileService.providerNPiID = npiId;
     // tslint:disable-next-line:triple-equals
     this.providerDetails = this.dataList.find(a => a.npi == npiId);
-    console.log('this.providerDetails', this.providerDetails);
     this.npiId = npiId;
     if (this.npiId) {
       this.getUserName(npiId);
@@ -167,7 +166,6 @@ export class VisitsComponent implements OnInit {
 
   getUserName(npiId) {
     this.profileService.getProviderName(this.npiId).subscribe((data: any) => {
-      console.log('this.providerData', this.providerData);
       this.providerData = data;
       this.providerName = this.providerData.username;
       this.getAvailableSlots();
@@ -196,21 +194,18 @@ export class VisitsComponent implements OnInit {
       this.patient = data;
       this.getList();
     }, error => {
-      console.log('error', error);
       this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Cannot get Patient data');
     });
   }
 
 getAppointments(userID) {
   this.scheduleService.getAppointmentList(userID).subscribe((data: any) => {
-    console.log('appointments', data);
     this.appointmentlistResult = data.encounterList.filter(item => {
       return item.meeting && !item.meeting.onDemand && item.status !== 2
         && item.status !== 5 && item.status !== 6;
       // && this.CompareDate(item.meeting.startTime);
     });
     this.appointmentlistResult = this.appointmentlistResult.map((item, index) => { item.index = index; return item; });
-    console.log('before sorting-> all-appointments', JSON.parse(JSON.stringify(this.appointmentlistResult)));
     this.appointmentlistResult = this.sortAppointments();
     const appointmentss = this.appointmentlistResult.slice(((this.pageNumber - 1) * this.pageSize), ((this.pageNumber) * this.pageSize));
     const collectionAppointment = [];
@@ -241,7 +236,6 @@ getAppointments(userID) {
       data = {};
     });
     this.totalAppointment = collectionAppointment;
-    console.log('total appointment', this.totalAppointment);
     // if (this.clinicTimeFormat ) {
     //   this.totalAppointment.map(item => {
     //     // item.scheduled = moment(item.scheduled).format(this.clinicTimeFormat);
@@ -279,7 +273,6 @@ sortAppointments() {
       npiList: [this.npiId ? this.npiId : 1174784501]
     };
     this.scheduleService.getAvailableSlots(payload).subscribe(data => {
-      console.log('data', data);
       this.showSlots = true;
       this.isLoading = false;
     }, error => {
