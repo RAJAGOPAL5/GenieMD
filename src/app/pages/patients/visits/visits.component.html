@@ -1,11 +1,11 @@
-<!-- <form class="form-question" [nbSpinner]="isLoading">
-    <nb-card>
+    <nb-card class="h-100" [nbSpinner]="isLoading">
         <div class="row ">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
+            <div class="col-md-6 offset-md-3">
                 <nb-card-header>
                     <div class="w-100 pt-2">
-                        <nb-select class="form-control w-100 p-0" fullWidth name="speciality"
+                      <input type="search" nbInput fullWidth status="basic" class="mb-3" name="searchText" id="searchText" 
+                      placeholder="Search for a doctor" [(ngModel)]="searchText" (keyup)="searchProvider()">
+                        <nb-select class="w-100 p-0" fullWidth name="speciality"
                             placeholder="Please select a speciality" [(ngModel)]="selectSpeciality"
                             (ngModelChange)="getProvidersList($event)">
                             <nb-option *ngFor="let val of providerSpeciality" value="{{val.type}}"> {{val.type}}
@@ -53,87 +53,5 @@
                     </ng-template>
                 </nb-card-body>
             </div>
-            <div class="col-md-3"></div>
         </div>
     </nb-card>
-</form> -->
-
-<!-- <div class="row justify-content-center p-0">
-    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12 appointments-container">
-      <div class="row header-container card-header justify-content-center">
-        <div class="align-self-center h3 w-100 text-center text-primary p-2">
-          {{'kMyAppointments' | translate }}
-        </div>
-      </div>
-      <div *ngFor="let provider of totalAppointment; let i=index">
-        <div class="row justify-content-center p-4">
-          <div class="row justify-content-center w-100 mb-3">
-            <div class="col-xl-3 col-lg-3 col-md-3 col-4">
-              <ngx-avatar id="provider" name="{{provider.name}}" src="{{provider?.imageUrl}}" cornerRadius="10"
-                [round]="false" class="image-size">
-              </ngx-avatar>
-            </div>
-            <div class="col-xl-9 col-lg-9 col-md-9 col-8 p-0">
-              <p class="text-info my-2">{{provider?.Name}}</p>
-              <p class="text-muted sub-text my-2"> {{provider?.subject}}</p>
-              <p class="text-muted sub-text my-2"> {{provider?.scheduled}}&nbsp; - &nbsp;{{provider?.duration}}</p>
-            </div>
-          </div>
-          <div class="row w-100 my-2">
-            <div class="col-md-4  col-4  col-lg-4 col-sm-4 px-1">
-              <button type="button" class="btn bt-outline-success w-100" (click)="joinMeeting(provider)">{{'kJoin' | translate }}
-              </button>
-            </div>
-            <div class="col-md-4  col-4 col-lg-4 col-sm-4 px-1">
-              <button type="button" class="btn btn-outline-info w-100" (click)="rescheduleModel(provider,rescheduleContent)">
-                {{'kReschedule' | translate }}</button>
-            </div>
-            <div class="col-md-4  col-4 col-lg-4 col-sm-4 px-1">
-              <button type="button" class="btn btn-outline-danger w-100"
-                (click)="cancelAppointment(provider.meetingId,deleteContent)">
-                {{'kCancel' | translate }} </button>
-            </div>
-          </div>
-        </div>
-        <div class="row w-100 m-0">
-          <div class="col-md-12 p-0">
-            <hr class="m-1" *ngIf="i!==totalAppointment.length-1">
-          </div>
-        </div>
-      </div>
-      <div class="h4 text-center text-info p-4" *ngIf="appointmentlistResult?.length == 0 && type === 'video'">
-        <p>{{'kNoAppointmentsAvailable' | translate }}</p>
-      </div>
-    </div>
-  </div> -->
-
-<!-- <ng-container>
-    <div class="row p-3">
-        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center cursor-pointer">
-            <img src="assets/icon/prev-date.svg" class="img-ht">
-        </div>
-        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center" style="cursor: pointer;">
-            <p (click)="dateSelect()" class="text-style4"></p>
-        </div>
-        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center cursor-pointer">
-            <img src="assets/icon/next-date.svg" class="img-ht">
-        </div>
-    </div>
-    <ng-container *ngIf="timeSlots.length != 0">
-        <div class="row p-3">
-            <div class="col-5 col-md-5 col-sm-5 col-lg-3 col-xl-3 text-center"
-                *ngFor="let item of timeSlots">
-                <button class="form-control form-group m-2"
-                    type="button">{{item}}</button>
-            </div>
-        </div>
-    </ng-container>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center pt-2 text-center"
-        *ngIf="timeSlots.length == 0">
-        <h5>No Slots available</h5>
-        <h5>Please select another date</h5>
-
-    </div>
-
-</ng-container> -->
-<p>Visits works!</p>
