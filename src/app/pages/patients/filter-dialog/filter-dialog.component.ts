@@ -85,7 +85,7 @@ export class FilterDialogComponent implements OnInit {
         return item;
       });
       this.isLoading = false;
-      this.dialogRef.close({data: res.clinicPatientList, type: 'filter', payload: this.form.getRawValue()});
+      this.dialogRef.close({data: res.clinicPatientList, type: 'filter', payload: this.form.getRawValue(), payloadService: payload});
     }, error => {
       this.isLoading = false;
       this.toastr.danger(error.error ? error.error : 'Failed to search patient');
