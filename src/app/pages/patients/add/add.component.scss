@@ -1,14 +1,50 @@
+@import 'src/themes';
+
 .avatar-zone{
     width:761px;
-    height:250px;
-    background-color:#CCCCCC;
+    height:232px;
     overflow: hidden;
 }
-
-nb-tabset ::ng-deep > ul  {
-    position: -webkit-sticky; /* Safari */
+.dark nb-tabset ::ng-deep > ul  {
+    position: --webkit-sticky; /* Safari */
+    position: sticky; 
+    top:0;
+    z-index: 500;
+    background-color: #222b45;
+}
+.default nb-tabset ::ng-deep > ul  {
+    position: --webkit-sticky; /* Safari */
     position: sticky; 
     top:0;
     z-index: 500;
     background-color: white;
+}
+
+nb-tabset ::ng-deep > ul >li >a:focus  {
+   outline : none;
+}
+.card-width{
+    min-width: 878px;
+    max-width: 878px;
+}
+
+.bg-darks {
+    background-color: #222b45;
+}
+
+.bg-light {
+    background-color: white;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.edit-icon{
+    height: 40px;
+    width: 40px;
+}
+.bg-postion{
+    background-position: center;
+}
+nb-user ::ng-deep > div >div  {
+    background-position: center;
 }

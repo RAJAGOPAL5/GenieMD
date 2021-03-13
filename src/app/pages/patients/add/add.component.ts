@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientsService } from 'src/app/shared/service/patients.service';
-import { NbDialogRef, NbToastrService, NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder, NbTreeGridDataSource } from '@nebular/theme';
+import { NbDialogRef, NbToastrService, NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder, NbTreeGridDataSource, NbThemeService } from '@nebular/theme';
 import { languages, states, morbidity, gender, vitals,relation ,diseaseState, preferredLanguage } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
@@ -44,7 +44,6 @@ export class AddComponent implements OnInit {
   showPreferredLanguages = false;
   policyHolderName = [{ name: 'Self', id: 0 }, { name: 'Spouse', id: 1 }, { name: 'Other', id: 2 }];
   mediType = [{ name: 'Private', id: 0 }, { name: 'Medicare', id: 1 }, { name: 'Medicare advantage', id: 2 }, { name: 'Tricase', id: 3 }];
-
   @ViewChild('birthDate', { static: false }) birthDate: any;
   submitted: boolean;
   diseaseStates: any;
@@ -52,22 +51,43 @@ export class AddComponent implements OnInit {
   frontImageURl: any;
   backImageURL: any;
   deviceDialogRef: NbDialogRef<any>;
+  emergency: any;
+  insurance: any;
+  insuranceObj: any;
+  theme: any;
+  fontColor: boolean;
+  devices: any;
+  profilePictureEvent: any;
+  registerPayload: any;
+  imageURL: any;
+  imageSrc: string;
+  // tslint:disable-next-line:max-line-length
+  defaultImageURL = 'https://geniemd-generalfiles.s3.amazonaws.com/08fb6fbc4ceb4549ab9803ea4624df2d.png?AWSAccessKeyId=AKIAIZH5KUW5NWRU5FDQ&Expires=1930919200&Signature=XMhr6ne%2BzLmr0FwBRIXZdHIrjRA%3D';
 
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
     private toastrService: NbToastrService, private patientsService: PatientsService, protected dialogRef: NbDialogRef<any>,
-    private ls: LanguageService, private translate: TranslateService, private dialogService: NbDialogService
+    private ls: LanguageService, private translate: TranslateService, private dialogService: NbDialogService,
+    private themeService: NbThemeService,
     ) {
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
      }
 
   ngOnInit(): void {
+    this.createForm();
+    this.themeService.onThemeChange().subscribe(theme => {
+      this.theme = theme.name;
+    });
+    this.fontColor =  this.theme === 'dark' ? true : false;
     this.clinic = this.clinicService.clinic;
+    console.log('clinic', this.clinicService)
     if (!!this.patientID) {
       this.isLoading = true;
       this.getProfilePatch();
+    } else {
+      this.imageURL = this.defaultImageURL;
     }
     this.actionName = this.patientID ? 'Edit Patient' : 'Create Patient';
     this.states = states;
@@ -77,8 +97,15 @@ export class AddComponent implements OnInit {
     this.diseaseState = diseaseState;
     this.relation = relation;
     this.preferredLanguage = preferredLanguage;
-    this.createForm();
-  }
+    try{
+      this.insuranceObj = JSON.parse(this.clinicService.config?.extendedSettings?.insurance);
+    }
+    catch{
+      this.insuranceObj = {};
+    }
+    this.insurance = this.insuranceObj.enabled;
+    this.emergency = this.clinicService.config?.extendedSettings?.emergencyContact === "true" ? true : false;
+  } 
   getProfilePatch() {
     var variousDisease;
     const patientPayload = {
@@ -102,7 +129,8 @@ export class AddComponent implements OnInit {
           variousDisease =  JSON.parse(this.profileExtraData.diseaseState);
         }catch(e){
           variousDisease =  this.profileExtraData.diseaseState || [];
-        } 
+        }
+        this.imageURL = this.profileData.imageURL ? this.profileData.imageURL : this.defaultImageURL;
 
         this.profileForm.patchValue({
           firstName: this.profileData.firstName,
@@ -153,6 +181,7 @@ export class AddComponent implements OnInit {
         this.frontImageURl = this.profileExtraData.insurance && this.profileExtraData.insurance.frontImage ? this.profileExtraData.insurance.frontImage : '';
 // tslint:disable-next-line: max-line-length
         this.backImageURL =  this.profileExtraData.insurance && this.profileExtraData.insurance.backImage ? this.profileExtraData.insurance.backImage : '';
+        this.devices = this.profileExtraData.iHealthDevices;
 
         if(this.profileExtraData.otherLanguage){
           this.showPreferredLanguages = true;
@@ -253,6 +282,7 @@ export class AddComponent implements OnInit {
       extraData['diseaseState'] = JSON.stringify(this.profileForm.value.diseaseState);
       extraData['otherDisease'] = this.profileForm.value.customDisease ? this.profileForm.value.customDisease : '';
       extraData['otherLanguage'] = this.profileForm.value.customLanguage ? this.profileForm.value.customLanguage : '';
+      extraData['iHealthDevices'] = this.devices;
     }
     this.isLoading = true;
     if (this.profileForm.invalid) {
@@ -264,7 +294,7 @@ export class AddComponent implements OnInit {
       if (this.profileForm.value.dob && this.profileForm.value.dob !== '') {
         date = moment(this.profileForm.value.dob).format('YYYY-MM-DD');
       }
-      const registerPayload = {
+      this.registerPayload = {
         email: this.profileForm.value.email,
         dob: date || '',
         birthdate: moment(this.profileForm.value.dob).valueOf(),
@@ -279,7 +309,7 @@ export class AddComponent implements OnInit {
         MRN: this.profileForm.value.mrn ? this.profileForm.value.mrn : '',
         firstName: this.profileForm.value.firstName,
         gender: `${this.profileForm.value.gender}`,
-        imageURL: '',
+        imageURL: this.profilePictureEvent ? this.imageURL : '',
         lastName: this.profileForm.value.lastName,
         latitude: '0',
         locationTime: this.profileData.locationTime ? this.profileData.locationTime : '',
@@ -295,15 +325,16 @@ export class AddComponent implements OnInit {
         morbidity: this.profileForm.value.morbidity,
         monitored: this.profileForm.value.monitored ? 1 : 0,
       };
-      this.profileService.update(registerPayload).subscribe((res: any) => {
-        console.log('edit paitent', res);
-        this.isLoading = false;
-        this.toastrService.success('Patient Updated Successfully');
-        this.dialogRef.close(true);
-      }, error => {
-        this.isLoading = false;
-      });
+      if (this.profilePictureEvent) {
+        this.changeProfile(this.profilePictureEvent);
+      } else {
+        this.profileSave();
+      }
+
     } else {
+      if (this.profilePictureEvent) {
+        this.changeProfile(this.profilePictureEvent);
+      }
       const signUpPayload = {
         email: this.profileForm.value.email,
         password: this.profileForm.value.password,
@@ -319,6 +350,17 @@ export class AddComponent implements OnInit {
     }
   }
 
+profileSave() {
+  this.profilePictureEvent ? this.registerPayload.imageURL = this.imageURL : '' ;
+  this.profileService.update(this.registerPayload).subscribe((res: any) => {
+    console.log('edit paitent', res);
+    this.isLoading = false;
+    this.toastrService.success('Patient Updated Successfully');
+    this.dialogRef.close(true);
+  }, error => {
+    this.isLoading = false;
+  });
+}
   getProfile() {
     this.profileService.get(this.userID).subscribe((res: any) => {
       this.profile = res;
@@ -370,6 +412,7 @@ export class AddComponent implements OnInit {
         dateofbirth: this.setDOB(this.profileForm.value.dob),
         governmentID: '',
         ms: '0',
+       iHealthDevices: this.devices,
         notifications: {
           email: true,
           push: true,
@@ -391,7 +434,7 @@ export class AddComponent implements OnInit {
       },
       firstName: this.profileForm.value.firstName,
       gender: `${this.profileForm.value.gender}`,
-      imageURL: '',
+      imageURL: this.profilePictureEvent ? this.imageURL : '',
       lastName: this.profileForm.value.lastName,
       latitude: '0',
       locationTime: this.profile.locationTime ? this.profile.locationTime : '',
@@ -453,7 +496,7 @@ export class AddComponent implements OnInit {
     }
   }
 
-  cancelPatient() {
+  cancel() {
     this.dialogRef.close();
   }
   onchange() {
@@ -519,6 +562,37 @@ export class AddComponent implements OnInit {
     });
   }
 
-
+  changeProfile(event: any) {
+    this.isLoading = true;
+    this.userID = this.profileService.id;
+    let object;
+    if (event.target && event.target.files && event.target.files[0]) {
+      object = { file: event.target.files[0], url: this.dataurl };
+    }
+    console.log('object', object);
+    const file = object.file;
+    const sd: any = new FormData();
+    sd.append('Content-Type', file.type);
+    sd.append('file', file);
+    this.profileService.uploadFile(sd, this.userID).subscribe((res: any) => {
+      this.isLoading = false;
+      this.imageURL = res.url;
+      this.profileSave();
+    }, err => {
+      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage: 'Image upload failed');
+    });
+  }
+  readURL(event: any): void {
+    this.profilePictureEvent = event;
+    if (event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = e => this.imageURL = reader.result;
+        reader.readAsDataURL(file);
+    }
+}
+  getRecord(event){
+    this.devices = JSON.stringify(event);
+  }
 
 }

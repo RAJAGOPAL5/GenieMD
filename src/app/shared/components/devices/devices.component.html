@@ -1,73 +1,116 @@
-<button nbButton status="primary" class="float-end" (click)="open(devicedialog)">Add</button>
+<div class="row justify-content-end">
+    <div class="col-1 ps-1">
+    <nb-actions size="medium">
+        <nb-action nbTooltip="Add" nbTooltipPlacement="top" icon="plus-circle-outline"
+            (click)="open(devicedialog)"></nb-action>
+    </nb-actions>
+</div>
+</div>
+
 <ng-template #devicedialog>
     <nb-card class="dialog-card">
         <nb-card-header>
-            <h6 class="text-center">Add Devices</h6>
+            <h6 class="text-center">Add Device</h6>
         </nb-card-header>
-    <nb-card-body>
-        <form [formGroup]="deviceForm" >
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group mb-1">
-                <label for="deviceType" class="label"> <span class="text-danger">*</span> 
-                    Device Type</label>
-                <input type="text" fieldSize="medium" formControlName="deviceType" nbInput fullWidth
-                    id="deviceType" placeholder="Device Type">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group mb-1">
-                <label for="manufacturer" class="label"> <span class="text-danger">*</span> 
-                    Manufacturer</label>
-                <input type="text" fieldSize="medium" formControlName="manufacturer" nbInput fullWidth
-                    id="manufacturer" placeholder="Manufacturer">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-                <div class="form-group mb-1">
-                    <label for="serialNumber" class="label"> <span class="text-danger">*</span> 
-                        Serial Number</label>
-                    <input type="text" fieldSize="medium" formControlName="serialNumber" nbInput fullWidth
-                        id="serialNumber" placeholder="serialNumber">
+        <nb-card-body>
+            <form [formGroup]="deviceForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                                <label for="deviceTypes" class="label"> <span class="text-danger">*</span>
+                                   Device Type</label>
+                                    <nb-select id="deviceTypes" size="medium" fullWidth formControlName="deviceType"
+                                         placeholder="Select Device type" (selectedChange)="onchange($event)">
+                                        <nb-option *ngFor="let item of deviceTypes" [value]="item">
+                                            {{item?.type}}</nb-option>
+                                    </nb-select>
+                        </div>
+                    </div>
                 </div>
-        </div>
-    </div>
-    <div class="row">
-    <button nbButton status="danger" class="w-25 mx-5 my-3 " (click)="refclose()">{{'kCancel' | translate}}</button>
-            <button nbButton status="primary" class="w-25 my-3" (click)="saveForm()">{{'kSave' | translate}}</button>
-        </div>
-</form>
-</nb-card-body>
-            
+                <div class="row">
+                    <div class="col-md-12">
+                         <div class="form-group mb-1">
+                            <label for="manufacturer" class="label"> <span class="text-danger">*</span>
+                                Manufacturer</label>
+                            <input type="text" fieldSize="medium" formControlName="manufacturer" nbInput fullWidth
+                                id="manufacturer" placeholder="Manufacturer">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                         <div class="form-group mb-1">
+                            <label for="deviceName" class="label"> <span class="text-danger">*</span>
+                                Device Name</label>
+                            <input type="text" fieldSize="medium" formControlName="deviceName" nbInput fullWidth
+                                id="deviceName" placeholder="Device Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                            <label for="serialNumber" class="label">
+                                Serial Number</label>
+                            <input type="text" fieldSize="medium" formControlName="serialNumber" nbInput fullWidth
+                                id="serialNumber" placeholder="Serial Number">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="row justify-content-end">
+                <div class="col-5 pe-2">
+                    <button nbButton status="danger" class="w-100" size="medium" (click)="refclose()">{{'kCancel' | translate}}</button>
+                </div>
+                <div class="col-5 ps-2">
+                    <button nbButton status="success" class="w-100" size="medium" [disabled]="!deviceForm.valid"
+                    (click)="save()">{{'kSave' | translate}}</button>
+                </div>
+            </div>
+        </nb-card-footer>
+
     </nb-card>
 </ng-template>
-
-<table class="w-50" [nbTreeGrid]="dataSource">
-
-    <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="defaultColumns"></tr>
-    <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: defaultColumns"></tr>
-
-    <!-- <ng-container [nbTreeGridColumnDef]="customColumn"> 
-   <th nbTreeGridHeaderCell  *nbTreeGridHeaderCellDef>
-        {{customColumn}}
-      </th> 
-     <td nbTreeGridCell *nbTreeGridCellDef="let row">
-        {{row.data[customColumn]}}
-      </td>
-    </ng-container>  -->
-
-    <ng-container *ngFor="let column of defaultColumns; let index = index"
-                  [nbTreeGridColumnDef]="column"
-                 >
-      <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>
-        {{column}}
-      </th>
-      <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column] || '-'}}</td>
-    </ng-container>
-
-  </table>
-
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col" class="subtitle">Manufacturer</th>
+            <th scope="col" class="subtitle">Device Type</th>
+            <th scope="col" class="subtitle">Device Name</th>
+            <th scope="col" class="subtitle">Serial Number</th>
+            <th class="text-center subtitle" scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of deviceList; let i=index">
+            <td class="subtitle">{{item.manufacturer}}</td>
+            <td class="subtitle">{{item.deviceType}}</td>
+            <td class="subtitle">{{item.deviceName}}</td>
+            <td class="subtitle">{{item.serialNumber}}</td>
+            <td class="text-center">
+                <nb-icon icon="trash" nbTooltip="Delete" class="icon-font" (click)="openDialog(deleteDialog, i)" nbTooltipStatus="control"
+                    status="danger" pack="font-awesome" nbTooltipStatus="black"></nb-icon>
+            </td>
+        </tr>
+        <tr *ngIf="deviceList.length==0" class="text-center">
+            <td colspan="5">
+                <p>No Records Found</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<ng-template #deleteDialog>
+    <nb-card class="dialog-card">
+        <nb-card-header>
+            <p class="subtitle">Are you sure want to delete?</p>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="float-end">
+                <button nbButton status="success" size="small" (click)="delete()">Yes</button>
+                <button nbButton status="danger" class="ms-2" size="small" (click)="close()">No</button>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</ng-template>

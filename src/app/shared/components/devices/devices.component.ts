@@ -1,70 +1,122 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NbDialogRef, NbDialogService, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
-
-interface TreeNode<T> {
-  data: T;
-}
-
-interface FSEntry {
-  // deviceType: string;
-  // manufacturer: string;
-  // serialNumber: string;
-}
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
+import {deviceTypes } from 'src/app/shared/constant/constant';
+import { ProfileService } from '../../service/profile.service';
 @Component({
   selector: 'app-devices',
   templateUrl: './devices.component.html',
   styleUrls: ['./devices.component.scss']
 })
-export class DevicesComponent implements OnInit {
+export class DevicesComponent implements OnInit{
 
   deviceForm: FormGroup;
-  defaultColumns = ['Device', 'Manufacturer', 'Serial Number' ];
-  dataSource: NbTreeGridDataSource<FSEntry>;
   deviceDialogRef: NbDialogRef<any>;
-  deviceList = [];
+  isLoading = false;
+  data = [];
+  deviceTypes:any;
+  deleteDialogRef: NbDialogRef<any>;
+  deviceList: any;
 
-  constructor(private fb: FormBuilder, 
-    private dataSourceBuilder: NbTreeGridDataSourceBuilder<FSEntry>,
-    private dialogService: NbDialogService) { 
-    this.dataSource = this.dataSourceBuilder.create(this.data)
+  @Output() deviceData: EventEmitter<any> = new EventEmitter();
+  storeDevice: any;
+  deviceIndex: any;
+  @Input() 
+
+  get dataDevice() {
+    return this.storeDevice;
+  }
+
+  set dataDevice(res){
+    this.storeDevice = res;
+    this.getDevicePatch();
+  }
+  
+  constructor(private fb: FormBuilder,
+    private dialogService: NbDialogService,
+    private toastrService: NbToastrService,
+    private profileService: ProfileService) {
   }
 
   ngOnInit(): void {
     this.createForm();
+    // this.getDevices();
+    this.deviceTypes = deviceTypes;
+    console.log('device',this.deviceTypes)
   }
 
   createForm() {
     this.deviceForm = this.fb.group({
       deviceType: ['', Validators.required],
+      deviceName: ['', Validators.required],
       manufacturer: ['', Validators.required],
-      serialNumber: ['', Validators.required]     
+      serialNumber: ['']
     });
   }
 
-  data =  [
-    {
-      data: { deviceType: 'Projects', manufacturer: '1.8 MB', serialNumber: 'dir' },
-      
-    },
-    {
-      data: { deviceType: 'Reports', manufacturer: 'dir', serialNumber: '400 KB'},
-      
-    }
+  getDevices(){
+    this.profileService.getDevices().subscribe((res: any) => {
+      console.log('get devices', res);
+    }, error => {
+      this.toastrService.danger('Cannot get devices');
+    });
+  }
+
+  onchange(event){ 
+      this.deviceForm.patchValue({
+        deviceName: event.name,
+        manufacturer: event.manufacturer,
+        serialNumber: event.model,
+      }); 
+  }
    
-  ];
+  getDevicePatch(){
+    try{
+      this.deviceList = JSON.parse(this.dataDevice);
+    }
+    catch (error) {
+      this.deviceList = this.deviceList || [];
+    } 
+  }
+
 
   open(devicedialog: TemplateRef<any>) {
-    this.deviceDialogRef = this.dialogService.open(devicedialog);
-  }
-  
-  refclose() {
-    this.deviceDialogRef.close();
+    this.deviceDialogRef = this.dialogService.open(devicedialog, { closeOnBackdropClick: false });
   }
 
-  saveForm(){
-    console.log('raw', this.deviceForm.getRawValue());
-    this.data.push({data: this.deviceForm.getRawValue()});
+  refclose() {
+    this.deviceDialogRef.close();
+    this.deviceForm.reset();
+  }
+
+  openDialog(deleteDialog: TemplateRef<any>, indexList) {
+    this.deleteDialogRef = this.dialogService.open(deleteDialog, { closeOnBackdropClick: false });
+    this.deviceIndex = indexList;
+  }
+
+  save() {
+    const payload = {
+      deviceName: this.deviceForm.value.deviceName,
+      manufacturer: this.deviceForm.value.manufacturer,
+      serialNumber: this.deviceForm.value.serialNumber,
+      deviceType: this.deviceForm.value.deviceType.type
+    }
+    this.data.push(payload);
+    this.toastrService.success('Device added successfully');
+    this.deviceDialogRef.close();
+    this.deviceForm.reset();
+    this.deviceData.emit(this.data);
+  }
+
+  delete() {
+    const item = this.deviceList.splice(this.deviceIndex, 1);
+    this.deviceData.emit(this.deviceList);
+    this.toastrService.success('Device deleted successfully');
+    this.deleteDialogRef.close();
+  }
+
+  close() {
+    this.deleteDialogRef.close();
   }
 
 }

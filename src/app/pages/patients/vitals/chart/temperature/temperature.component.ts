@@ -36,8 +36,7 @@ export class TemperatureComponent implements OnInit {
       yAxes: [{
         ticks: {
           beginAtZero: true,
-          stepValue: 20,
-          steps: 2,
+          stepSize: 20,
           max: 100,
           min: 25
         },
@@ -56,9 +55,7 @@ export class TemperatureComponent implements OnInit {
           fontStyle: "bold"
         },
         type: 'time',
-        time: {
-          unit: 'day'
-        }
+        distribution: 'series',
       }]
     },
     legend: {
@@ -103,7 +100,7 @@ export class TemperatureComponent implements OnInit {
     this.themeService.onThemeChange().subscribe(theme => {
       console.log('Theme changed: ', theme);
       this.theme = theme.name;
-      this.chartOptions();
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
     });
   }
   getData() {
@@ -137,15 +134,16 @@ export class TemperatureComponent implements OnInit {
         });
         this.lineChartData = [TempData]
       }
-      this.chartOptions();
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate,this.chartData.unit, this.chartData.range);
     }, error => {
+      this.chartOptions(this.chartData.fromDate, this.chartData.toDate, this.chartData.unit,  this.chartData.range);
       this.isLoading = false;
       throw error;
     });
   }
 
 
-  chartOptions() {
+  chartOptions(fromDate, toDate, unit, range) {
     const theme = this.theme;
     const lineChartOptions: any = {
       scales: {
@@ -170,30 +168,39 @@ export class TemperatureComponent implements OnInit {
       }
     };
 
-    const xAxesScales = {
+    const xAxesScales: any = {
       scaleLabel: {
         display: true,
         labelString: 'Date',
-        fontColor: theme === 'dark' ? 'white' : 'black',
-        fontStyle: "bold"
+        fontColor: theme === 'dark' ? '#3366ff' : 'black',
+        fontStyle: 'bold'
       },
       type: 'time',
-      distribution: 'series',
-      time: {
-        unit: 'day',
-        parser: 'DD/MM/YY',
-      },
+
       ticks: {
         fontColor: theme === 'dark' ? 'white' : 'black',
-        source: 'data'
+        minRotation: 60
+
       }
+    };
+    if (range == -1) {
+      xAxesScales.time = {
+        unit: 'day',
+        parser: 'DD/MM/YY',
+      };
+      xAxesScales.ticks.source = 'data';
+    } else {
+      xAxesScales.time = {
+        unit,
+      };
+      xAxesScales.ticks.min =  fromDate;
+      xAxesScales.ticks.max = toDate;
     }
 
     const yAxesScales = {
       ticks: {
         beginAtZero: true,
-        stepValue: 20,
-        steps: 2,
+        stepSize: 20,
         max: 100,
         min: 25,
         fontColor: theme === 'dark' ? 'white' : 'black',
