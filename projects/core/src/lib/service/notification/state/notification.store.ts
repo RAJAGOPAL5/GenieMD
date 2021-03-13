@@ -14,6 +14,7 @@ export interface NotificationState {
   payload?:{};
   smsMessages?:any;
   pushNotification?:{};
+  notifyInfo?: any;
 }
 
 export function createInitialState(): NotificationState {

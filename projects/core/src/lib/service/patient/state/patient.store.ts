@@ -11,6 +11,8 @@ export interface PatientState {
   clinicID: string;
   userID: string;
   providerID: string;
+  users?: any;
+  patientInfo?: any;
 }
 
 export function createInitialState(): PatientState {
