@@ -14,10 +14,10 @@ export class DependentService {
       await this.http.get(`DependentResources/CareGivers/${payload.userID}/${payload.patientID}`)
         .pipe(
           tap((dependents: any) => {
-            console.log("dependent object::", dependents);
+            console.log('dependent object::', dependents);
             this.dependentStore.update({
               dependent: dependents.list,
-            })
+            });
           })
         ).toPromise();
     } catch (error) {
@@ -33,10 +33,10 @@ export class DependentService {
       await this.http.post(`DependentResources/CreateDependent`, payload)
         .pipe(
           tap((dependentInfo: any) => {
-            console.log("dependent Info::", dependentInfo);
+            console.log('dependent Info::', dependentInfo);
             this.dependentStore.update({
-              dependentInfo: dependentInfo
-            })
+              dependentInfo,
+            });
           })
         ).toPromise();
     } catch (error) {

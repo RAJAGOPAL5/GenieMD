@@ -1,5 +1,57 @@
-    <nb-card size="large" class="h-100" style="overflow: auto" [nbSpinner]="isLoading">
-        <div class="row ">
+<nb-card size="large" class="h-100" style="overflow: auto" [nbSpinner]="isLoading" >
+  <div class="row justify-content-end mt-3">
+    <div class="col-1 ps-1" *ngIf="addSchedule">
+    <nb-actions size="medium">
+        <nb-action nbTooltip="Add Schedule" nbTooltipPlacement="top" icon="plus-circle-outline" (click)="showList()"></nb-action>
+    </nb-actions>
+</div>
+</div>
+  <div class="col-md-6 offset-md-3 text-center" *ngIf="!showProviderList">
+  <nb-card-body>
+          <nb-list class="own-scroll" nbInfiniteList [threshold]="15">
+            <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let provider of totalAppointment; let i=index">
+          <div class="row justify-content-center p-4">
+            <div class="row justify-content-center w-100 mb-3">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-4">
+                <ngx-avatar id="provider" name="{{provider.name}}" src="{{provider?.imageUrl}}" cornerRadius="10"
+                [round]="false" size='100'>
+              </ngx-avatar>
+              </div>
+              <div class="col-xl-9 col-lg-9 col-md-9 col-8 p-0">
+                <p class="text-info my-2">{{provider?.Name}}</p>
+                <p class="text-muted sub-text my-2"> {{provider?.subject}}</p>
+                <p class="text-muted sub-text my-2"> {{provider?.scheduled}}&nbsp; - &nbsp;{{provider?.duration}}</p>
+              </div>
+            </div>
+          
+
+           <div class="row w-100 my-2">
+            <div class="col-md-4  col-4  col-lg-4 col-sm-4 px-1">
+              <!-- <button nbButton fullWidth outline status="success" size="small" (click)="rescheduleModel(provider,rescheduleContent)">
+                {{'kJoin' | translate }}
+            </button> -->
+            </div> 
+            <div class="col-md-4  col-4  col-lg-4 col-sm-4 px-1">
+              <button nbButton fullWidth outline status="primary" size="small" (click)="rescheduleModal(rescheduleDialog)">
+                {{'kReschedule' | translate }}
+            </button>
+            </div>
+            <div class="col-md-4  col-4 col-lg-4 col-sm-4 px-1">
+              <button nbButton fullWidth outline status="danger" size="small" (click)="cancelAppointment(deleteDialog)">
+                {{'kCancel' | translate }}
+            </button>
+            </div>
+          </div>
+        </div>
+      </nb-list-item>
+    </nb-list>
+    <div class="h6 text-center p-4" *ngIf="appointmentlistResult?.length == 0">
+      No scheddules available. Tap + to add schedule.
+    </div>
+  </nb-card-body>
+  </div> 
+
+<div class="row " *ngIf="showProviderList">
             <div class="col-md-6 offset-md-3">
                 <ng-container *ngIf="!showSlots">
                 <nb-card-header>
@@ -57,5 +109,32 @@
                     <app-time-slots></app-time-slots>
                 </ng-container>
             </div>
-        </div>
+        </div> 
     </nb-card>
+
+    <ng-template #deleteDialog>
+      <nb-card class="dialog-card">
+          <nb-card-header>
+              <p class="subtitle">Are you sure want to cancel this appoitment?</p>
+          </nb-card-header>
+          <nb-card-body>
+              <div class="float-end">
+                  <button nbButton status="success" size="small" (click)="deleteAppointment()">Yes</button>
+                  <button nbButton status="danger" class="ms-2" size="small" (click)="close()">No</button>
+              </div>
+          </nb-card-body>
+      </nb-card>
+  </ng-template>
+  <ng-template #rescheduleDialog>
+    <nb-card class="dialog-card">
+        <nb-card-header>
+            <p class="subtitle">Are you sure want to reschedue this appoitment?</p>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="float-end">
+                <button nbButton status="success" size="small" (click)="rescheduleAppointment()">Yes</button>
+                <button nbButton status="danger" class="ms-2" size="small" (click)="closeReschedule()">No</button>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</ng-template>

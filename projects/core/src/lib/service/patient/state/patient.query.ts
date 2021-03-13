@@ -5,7 +5,7 @@ import { PatientStore, PatientState } from './patient.store';
 @Injectable({ providedIn: 'root' })
 export class PatientQuery extends Query<PatientState> {
   users$ = this.select('users');
-  patientInfo$ = this.select('patientInfo')
+  patientInfo$ = this.select('patientInfo');
 
   constructor(protected store: PatientStore) {
     super(store);

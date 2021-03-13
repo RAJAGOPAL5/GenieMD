@@ -29,7 +29,7 @@ export class ProfileService {
             this.profileStore.update({
               profile: project,
               extraData: this.extraData
-            })
+            });
           })
         ).toPromise();
     } catch (error) {

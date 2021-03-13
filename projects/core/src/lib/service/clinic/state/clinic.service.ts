@@ -27,11 +27,11 @@ export class ClinicService {
             this.clinicStore.update({
               clinic: project,
               clinicConfig: this.cliniConfig
-            })
+            });
           })
         ).toPromise();
     } catch (error) {
-      console.log("Clinic Finding error:", error.statusText);
+      console.log('Clinic Finding error:', error.statusText);
       this.clinicStore.setError(error);
     } finally {
       this.clinicStore.setLoading(false);

@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { NbToastrService } from '@nebular/theme';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { ScheduleService } from 'src/app/shared/service/schedule.service';
+
+const timeZone = require('moment-timezone');
+const momentjs = require('moment');
+const MomentRange = require('moment-range');
+const moment = MomentRange.extendMoment(momentjs);
 
 @Component({
   selector: 'app-visits',
@@ -37,14 +43,23 @@ export class VisitsComponent implements OnInit {
   patientID: string;
   userID: string;
   showSlots = false;
+  showProviderList = false;
+  addSchedule = true;
+  clinicTimeFormat: any;
+  deleteDialogRef: any;
+  deleteObj: { userID: string; flag: number; isOrganizer: boolean; meetingID: any; };
+  rescheduleDialogRef: any;
 
   constructor(
-   private clinicService: ClinicService,
-   private toastrService: NbToastrService,
-   private profileService: ProfileService,
-   private patientService: PatientsService,
-   private activatedRoute: ActivatedRoute,
-   private scheduleService: ScheduleService) { }
+    private clinicService: ClinicService,
+    private toastrService: NbToastrService,
+    private profileService: ProfileService,
+    private patientService: PatientsService,
+    private activatedRoute: ActivatedRoute,
+    private scheduleService: ScheduleService,
+    private datePipe: DatePipe,
+    private dialogService: NbDialogService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.userID = this.profileService.id;
@@ -59,6 +74,12 @@ export class VisitsComponent implements OnInit {
     }, error => {
       this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Cannot get Physician list');
     });
+    this.getAppointments(this.userID);
+  }
+
+  showList() {
+    this.showProviderList = true;
+    this.addSchedule = false;
   }
 
   getList() {
@@ -185,12 +206,14 @@ export class VisitsComponent implements OnInit {
   }
 
   getPatientData() {
+    this.isLoading = true;
     const payload = {
       userID: this.profileService.id,
       clinicID: this.clinicService.id,
       patientID: this.patientID
     };
     this.patientService.findById(payload).subscribe((data: any) => {
+      this.isLoading = false;
       this.patient = data;
       this.getList();
     }, error => {
@@ -198,75 +221,78 @@ export class VisitsComponent implements OnInit {
     });
   }
 
-getAppointments(userID) {
-  this.scheduleService.getAppointmentList(userID).subscribe((data: any) => {
-    this.appointmentlistResult = data.encounterList.filter(item => {
-      return item.meeting && !item.meeting.onDemand && item.status !== 2
-        && item.status !== 5 && item.status !== 6;
-      // && this.CompareDate(item.meeting.startTime);
-    });
-    this.appointmentlistResult = this.appointmentlistResult.map((item, index) => { item.index = index; return item; });
-    this.appointmentlistResult = this.sortAppointments();
-    const appointmentss = this.appointmentlistResult.slice(((this.pageNumber - 1) * this.pageSize), ((this.pageNumber) * this.pageSize));
-    const collectionAppointment = [];
-    let result = {};
-    appointmentss.map((item => {
-      if (item.meeting.users.length > 0) {
-        if (item.meeting.users[1].userName !== item.providerID) {
-          item.meeting.users.reverse();
+  getAppointments(userID) {
+    this.isLoading = true;
+    this.scheduleService.getAppointmentList(userID).subscribe((data: any) => {
+      this.appointmentlistResult = data.encounterList.filter(item => {
+        return item.meeting && !item.meeting.onDemand && item.status !== 2
+          && item.status !== 5 && item.status !== 6;
+        // && this.CompareDate(item.meeting.startTime);
+      });
+      this.appointmentlistResult = this.appointmentlistResult.map((item, index) => { item.index = index; return item; });
+      this.appointmentlistResult = this.sortAppointments();
+      const appointmentss = this.appointmentlistResult.slice(((this.pageNumber - 1) * this.pageSize), ((this.pageNumber) * this.pageSize));
+      const collectionAppointment = [];
+      let result = {};
+      appointmentss.map((item => {
+        if (item.meeting.users.length > 0) {
+          if (item.meeting.users[1].userName !== item.providerID) {
+            item.meeting.users.reverse();
+          }
         }
+      }));
+      appointmentss.forEach(element => {
+        result = {
+          Name: element.meeting.users[1].firstName + ' ' + element.meeting.users[1].lastName,
+          subject: element.meeting.subject,
+          scheduled: new Date(element.meeting.startTime),
+          //  - (new Date().getTimezoneOffset() * 60 * 1000)),
+          duration: element.meeting.duration + ' ' + 'min',
+          imageUrl: element.meeting.users[1].imageUrl,
+          meetingId: element.meeting.meetingId,
+          providerID: element.providerID,
+          type: element.type,
+          encounterID: element.encounterID,
+          protocolID: element.protocolID
+
+        };
+        collectionAppointment.push(result);
+        data = {};
+      });
+      this.totalAppointment = collectionAppointment;
+      this.clinicTimeFormat = (JSON.parse(this.clinic.clinicConfig)).clinicTimeFormat;
+
+      if (this.clinicTimeFormat) {
+        this.totalAppointment.map(item => {
+          item.scheduled = this.datePipe.transform(item.scheduled, this.clinicTimeFormat);
+          return item;
+
+        });
+      } else {
+        this.totalAppointment.map(item => {
+          item.scheduled = moment(item.scheduled).format('ddd, MMM Do YYYY hh:mm a Z');
+          return item;
+        });
       }
-    }));
-    appointmentss.forEach(element => {
-      result = {
-        Name: element.meeting.users[1].firstName + ' ' + element.meeting.users[1].lastName,
-        subject: element.meeting.subject,
-        scheduled: new Date(element.meeting.startTime),
-        //  - (new Date().getTimezoneOffset() * 60 * 1000)),
-        duration: element.meeting.duration + ' ' + 'min',
-        imageUrl: element.meeting.users[1].imageUrl,
-        meetingId: element.meeting.meetingId,
-        providerID: element.providerID,
-        type: element.type,
-        encounterID: element.encounterID,
-        protocolID: element.protocolID
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger(error.error.errorMessage);
 
-      };
-      collectionAppointment.push(result);
-      data = {};
     });
-    this.totalAppointment = collectionAppointment;
-    // if (this.clinicTimeFormat ) {
-    //   this.totalAppointment.map(item => {
-    //     // item.scheduled = moment(item.scheduled).format(this.clinicTimeFormat);
-    //     item.scheduled = this.datePipe.transform(item.scheduled, this.clinicTimeFormat);
-    //     return item;
-    //   });
-    // } else {
-    //   this.totalAppointment.map(item => {
-    //     item.scheduled = moment(item.scheduled).format('ddd, MMM Do YYYY hh:mm a Z');
-    //     return item;
-    //   });
-    // }
-    this.isLoading = false;
-  }, error => {
-    this.isLoading = false;
-    this.toastrService.danger(error.error.errorMessage);
+  }
 
-  });
-}
-
-sortAppointments() {
-  this.appointmentlistResult.sort((a, b) => {
-    const x = a.meeting.startTime;
-    const y = b.meeting.startTime;
-    if (x < y) { return -1; }
-    if (x > y) {
-      return 1;
-    } else { return 0; }
-  });
-  return this.appointmentlistResult;
-}
+  sortAppointments() {
+    this.appointmentlistResult.sort((a, b) => {
+      const x = a.meeting.startTime;
+      const y = b.meeting.startTime;
+      if (x < y) { return -1; }
+      if (x > y) {
+        return 1;
+      } else { return 0; }
+    });
+    return this.appointmentlistResult;
+  }
   getAvailableSlots() {
     const payload = {
       date: new Date().getTime(),
@@ -280,6 +306,31 @@ sortAppointments() {
       this.isLoading = false;
 
     });
+  }
+
+  cancelAppointment(deleteDialog: TemplateRef<any>) {
+    this.deleteDialogRef = this.dialogService.open(deleteDialog, { closeOnBackdropClick: false });
+  }
+
+  close() {
+    this.deleteDialogRef.close();
+  }
+
+  rescheduleModal(reschdeuleDialog: TemplateRef<any>) {
+    this.rescheduleDialogRef = this.dialogService.open(reschdeuleDialog, { closeOnBackdropClick: false });
+  }
+
+  closeReschedule() {
+    this.rescheduleDialogRef.close();
+  }
+
+  deleteAppointment() {
+    console.log('Delete appointment');
+  }
+
+  rescheduleAppointment() {
+    this.rescheduleDialogRef.close();
+    this.showProviderList = true;
   }
 
 }
