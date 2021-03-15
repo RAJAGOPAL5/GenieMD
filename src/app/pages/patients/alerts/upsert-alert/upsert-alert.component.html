@@ -1,0 +1,34 @@
+<nb-card size="medium" class="card-width">
+    <nb-card-header>
+         Notes
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+        <div class="col-md-12">
+            <!-- <input type="text" nbInput fullWidth fieldSize="giant" placeholder="Write notes"> -->
+            <textarea name="notes-area" id="" cols="40" rows="5" nbInput placeholder="Write notes" fullWidth [(ngModel)]="alertNote"></textarea>
+        </div>
+        <div class="col-md-12 text-right">
+            <button nbButton  status="danger" [disabled]="!alertNote" (click)="updateNotes()">Done</button>
+
+        </div>
+        <div class="col-md-12">
+            <nb-list>
+                <nb-list-item *ngFor="let note of notes">
+                  {{ note }}
+                </nb-list-item>
+              </nb-list>
+        </div>
+    </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row px-4 justify-content-end">
+            <div class="col-md-6">
+                <button nbButton class="w-100" status="danger" (click)="closeModal()">{{'kCancel' | translate}}</button>
+            </div>
+            <div class="col-md-6" >
+                <button class="w-100"  nbButton status="success" (click)="closeModal()">{{'kSave' | translate}}</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>

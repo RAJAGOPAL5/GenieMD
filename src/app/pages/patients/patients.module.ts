@@ -36,6 +36,7 @@ import { NgxDateRangeModule } from 'ngx-daterange';
 import { CareCircleComponent } from './care-team/care-circle/care-circle.component';
 import { AvatarModule } from 'ngx-avatar';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { UpsertAlertComponent } from './alerts/upsert-alert/upsert-alert.component';
 // export function HttpLoaderFactory(http: HttpClient) {
 //   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json');
 // }
@@ -56,6 +57,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     WeightComponent,
     Spo2Component,
     CareCircleComponent,
+    UpsertAlertComponent,
   ],
   imports: [
     CommonModule,
@@ -95,6 +97,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     NbTreeGridModule,
     NbTagModule
     ],
-  entryComponents: [AddComponent]
+  entryComponents: [AddComponent, UpsertAlertComponent]
 })
 export class PatientsModule { }

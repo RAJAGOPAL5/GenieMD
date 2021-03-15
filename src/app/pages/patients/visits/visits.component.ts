@@ -7,7 +7,6 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { ScheduleService } from 'src/app/shared/service/schedule.service';
 
-const timeZone = require('moment-timezone');
 const momentjs = require('moment');
 const MomentRange = require('moment-range');
 const moment = MomentRange.extendMoment(momentjs);

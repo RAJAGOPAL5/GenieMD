@@ -1,1 +1,49 @@
-<p>alerts works!</p>
+<nb-card size="large" class="h-100" [nbSpinner]="isLoading" >
+<nb-card-header>Alerts</nb-card-header>
+<nb-card-body>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" class="subtitle">Status</th>
+                    <th scope="col" class="subtitle">Created Date</th>
+                    <th scope="col" class="subtitle">Attended Date</th>
+                    <th scope="col" class="subtitle">Resolved Date</th>
+                    <th scope="col" class="subtitle">Notes</th>
+                    <th class="text-center subtitle" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of alerts;let i=index">
+                    <td class="align-middle">{{getStatus(item.alertStatus)}}</td>
+                    <td class="align-middle">{{item.alertTime}}</td>
+                    <td class="align-middle">{{item.alertAttended}}</td>
+                    <td class="align-middle">{{item.alertResolved}}</td>
+                    <td class="align-middle">
+                        <a (click)="viewData(item)" class="cursor-pointer">View Notes</a>
+                    </td>
+                    <td class="text-center">
+                        <button nbButton status="warning" outline (click)="resolveConfirmation(confirmation,item.id)" [disabled]="!!item.alertResolved">Resolve</button>
+                    </td>
+                </tr>
+                <tr class="text-center" *ngIf="!alerts.length">
+                    <td colspan="6">
+                        <p>No Records Found</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </nb-card-body>
+</nb-card>
+<ng-template #confirmation>
+    <nb-card class="dialog-card">
+        <nb-card-header>
+            <p class="subtitle">Are you sure want to resolve?</p>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="float-end">
+                <button nbButton status="success" size="small" (click)="close(true)">Yes</button>
+                <button nbButton status="danger" class="ms-2" size="small" (click)="close(false)">No</button>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</ng-template>
