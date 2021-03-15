@@ -260,7 +260,11 @@ export class VisitsComponent implements OnInit {
         data = {};
       });
       this.totalAppointment = collectionAppointment;
-      this.clinicTimeFormat = (JSON.parse(this.clinic.clinicConfig)).clinicTimeFormat;
+      try {
+        this.clinicTimeFormat = (JSON.parse(this.clinic.clinicConfig)).clinicTimeFormat;
+      } catch (error) {
+        console.log('Clinic time format error:', error.statusText);
+      }
 
       if (this.clinicTimeFormat) {
         this.totalAppointment.map(item => {
