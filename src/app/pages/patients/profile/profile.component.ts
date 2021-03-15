@@ -47,6 +47,7 @@ export class ProfileComponent implements OnInit {
   minutes: any;
   totalsec = 0;
   startStop = false;
+  timerStatus = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
@@ -64,10 +65,15 @@ export class ProfileComponent implements OnInit {
 
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
+        const trigeredPatient = event.url.split('/')[4];
+        if (!this.timerStatus && this.patientID !== trigeredPatient) {
           // Show loading indicator
           confirm('Are you sure to view other Patient details');
+        } else {
+
+        }
       }
-  });
+    });
   }
 
   ngOnInit(): void {
@@ -86,10 +92,12 @@ export class ProfileComponent implements OnInit {
 
   start() {
     this.countDown();
+    this.timerStatus = false;
   }
   stop(val) {
     this.total = val;
     this.startStop = true;
+    this.timerStatus = true;
     clearInterval(this.intervalId);
   }
 
