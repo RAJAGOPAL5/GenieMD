@@ -65,7 +65,6 @@ export class DevicesComponent implements OnInit {
     this.deviceForm.patchValue({
       deviceName: event.name,
       manufacturer: event.manufacturer,
-      serialNumber: event.model,
     });
   }
 

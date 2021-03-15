@@ -8,17 +8,17 @@
                     <th scope="col" class="subtitle">Created Date</th>
                     <th scope="col" class="subtitle">Attended Date</th>
                     <th scope="col" class="subtitle">Resolved Date</th>
-                    <th scope="col" class="subtitle">Notes</th>
+                    <th scope="col" class="subtitle text-center">Notes</th>
                     <th class="text-center subtitle" scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of alerts;let i=index">
-                    <td class="align-middle">{{getStatus(item.alertStatus)}}</td>
-                    <td class="align-middle">{{item.alertTime}}</td>
-                    <td class="align-middle">{{item.alertAttended}}</td>
-                    <td class="align-middle">{{item.alertResolved}}</td>
-                    <td class="align-middle">
+                    <td class="align-middle subtitle" [ngClass]="item.alertStatus == 1 ? 'text-danger' : item.alertStatus == 2 ? 'text-warning' :'text-success'">{{getStatus(item.alertStatus)}}</td>
+                    <td class="align-middle subtitle">{{item.alertTime | date : 'dd/MM/yy, h:mm a' || '-'}}</td>
+                    <td class="align-middle subtitle">{{item.alertAttended | date : 'dd/MM/yy, h:mm a' || '-'}}</td>
+                    <td class="align-middle subtitle">{{item.alertResolved | date : 'dd/MM/yy, h:mm a' || '-' }}</td>
+                    <td class="align-middle subtitle text-center">
                         <a (click)="viewData(item)" class="cursor-pointer">View Notes</a>
                     </td>
                     <td class="text-center">
