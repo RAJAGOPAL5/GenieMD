@@ -99,15 +99,16 @@ export class ProfileComponent implements OnInit {
     this.startStop = true;
     this.timerStatus = true;
     clearInterval(this.intervalId);
+    this.seconds = 0;
+    this.totalsec = 0;
   }
 
   countDown() {
     this.startStop = false;
     this.intervalId = window.setInterval(() => {
       this.seconds += 1;
-      if (this.seconds === 60) {
-        this.seconds = 0;
-      }
+      this.seconds === 60 ?
+        this.seconds = 0 : '';
       this.message = this.seconds;
       this.totalsec += 1;
       const countminute = this.totalsec / 60;
