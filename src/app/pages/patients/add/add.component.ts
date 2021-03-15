@@ -115,9 +115,8 @@ export class AddComponent implements OnInit {
       patientID: this.patientID
     };
     this.patientsService.findById(patientPayload).subscribe((items: any) => {
-      const clinicPatient = items;
-      this.profileService.get(clinicPatient.userID).subscribe((res: any) => {
-        this.profileData = res;
+      this.profileData = items;
+      this.profileService.get(this.profileData.userID).subscribe((res: any) => {
         try {
           this.profileExtraData = JSON.parse(this.profileData.extraData);
         } catch (error) {
@@ -136,11 +135,11 @@ export class AddComponent implements OnInit {
           lastName: this.profileData.lastName,
           gender: this.profileData.gender,
           dob: new Date(this.profileData.dob),
-          handphone: this.profileData.cellNumber,
+          handphone: this.profileData.phoneNumber,
           email: this.profileData.email,
           country: this.profileData.country,
           state: this.profileData.state,
-          zipcode: this.profileData.zipCode,
+          zipcode: this.profileData.zipcode,
           address: this.profileData.address,
           city: this.profileData.city,
           morbidity: this.profileData.morbidity,
@@ -217,7 +216,7 @@ export class AddComponent implements OnInit {
       dob: ['', Validators.required],
       mrn: [''],
       handphone: ['', Validators.required],
-      language: ['', Validators.required],
+      language: [''],
       email: ['', Validators.required],
       password: 'Temp1234',
       gender: 0,
@@ -310,7 +309,6 @@ export class AddComponent implements OnInit {
         imageURL: this.profilePictureEvent ? this.imageURL : '',
         lastName: this.profileForm.value.lastName,
         latitude: '0',
-        locationTime: this.profileData.locationTime ? this.profileData.locationTime : '',
         longitude: '0',
         oemID: this.clinic.oemID,
         passport: '',
