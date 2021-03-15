@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         const trigeredPatient = event.url.split('/')[4];
         if (!this.timerStatus && this.patientID !== trigeredPatient) {
           // Show loading indicator
-          confirm('Are you sure to view proceed?');
+          confirm('Are you sure you want to proceed?');
         } else {
 
         }
