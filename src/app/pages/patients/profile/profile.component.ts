@@ -107,8 +107,7 @@ export class ProfileComponent implements OnInit {
     this.startStop = false;
     this.intervalId = window.setInterval(() => {
       this.seconds += 1;
-      this.seconds === 60 ?
-        this.seconds = 0 : '';
+      this.seconds = this.seconds === 60 ? 0 : this.seconds;
       this.message = this.seconds;
       this.totalsec += 1;
       const countminute = this.totalsec / 60;

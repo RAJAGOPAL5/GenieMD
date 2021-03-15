@@ -11,8 +11,10 @@ import { LanguageService } from 'src/app/shared/service/language.service';
 export class UpsertAlertComponent implements OnInit {
   alertData: any;
   constructor(
-    private translate: TranslateService, private languageService: LanguageService,
-    private toastrService: NbToastrService) {
+    private translate: TranslateService,
+    private languageService: LanguageService,
+    private toastrService: NbToastrService,
+    protected dialogRef: NbDialogRef<any>) {
     translate.use('en');
     translate.setTranslation('en', this.languageService.state);
 
@@ -27,6 +29,6 @@ export class UpsertAlertComponent implements OnInit {
     this.toastrService.success('Note added successfully');
   }
   closeModal() {
-    console.log('test');
+    this.dialogRef.close();
   }
 }
