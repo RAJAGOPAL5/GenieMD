@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Event, ActivatedRoute, Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 import { NbIconLibraries, NbToastrService, NbTagComponent} from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
@@ -39,6 +39,14 @@ export class ProfileComponent implements OnInit {
   relationName = '';
   showEmergency = false;
   showPatient = false;
+  intervalId = 0;
+  buttonName = 'start';
+  total: number;
+  seconds = 0;
+  message: any ;
+  minutes: any;
+  totalsec = 0;
+  startStop = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
@@ -48,10 +56,18 @@ export class ProfileComponent implements OnInit {
     private toastrService: NbToastrService,
     private ls: LanguageService,
     private translate: TranslateService,
+    private router: Router
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
+
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationStart) {
+          // Show loading indicator
+          confirm('Are you sure to view other Patient details');
+      }
+  });
   }
 
   ngOnInit(): void {
@@ -64,6 +80,31 @@ export class ProfileComponent implements OnInit {
     this.relation = relation;
 // tslint:disable-next-line: max-line-length
     this.showEmergency = this.clinicService.config.extendedSettings && this.clinicService.config.extendedSettings.emergencyContact && this.clinicService.config.extendedSettings.emergencyContact === 'true' ? true : false;
+    const rpmTimer = this.clinicService.config.extendedSettings.rpmTimer * 10 || 10000;
+    setTimeout(() => {      this.start();  }, rpmTimer);
+  }
+
+  start() {
+    this.countDown();
+  }
+  stop(val) {
+    this.total = val;
+    this.startStop = true;
+    clearInterval(this.intervalId);
+  }
+
+  countDown() {
+    this.startStop = false;
+    this.intervalId = window.setInterval(() => {
+      this.seconds += 1;
+      if (this.seconds === 60) {
+        this.seconds = 0;
+      }
+      this.message = this.seconds;
+      this.totalsec += 1;
+      const countminute = this.totalsec / 60;
+      this.minutes = Math.floor(countminute);
+    }, 1000);
   }
 
   getData() {
@@ -189,4 +230,5 @@ export class ProfileComponent implements OnInit {
   trimContact(data) {
     return data && data.trim() !== '' ? data : ' ';
   }
+
 }
