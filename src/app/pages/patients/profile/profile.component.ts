@@ -86,8 +86,8 @@ export class ProfileComponent implements OnInit {
     this.relation = relation;
 // tslint:disable-next-line: max-line-length
     this.showEmergency = this.clinicService.config.extendedSettings && this.clinicService.config.extendedSettings.emergencyContact && this.clinicService.config.extendedSettings.emergencyContact === 'true' ? true : false;
-    const rpmTimer = this.clinicService.config.extendedSettings.rpmTimer * 10 || 10000;
-    setTimeout(() => {      this.start();  }, rpmTimer);
+    const rpmTimer = this.clinicService.config.extendedSettings?.rpmTimer * 10 || 10000;
+    setTimeout(() => { this.start(); }, rpmTimer);
   }
 
   start() {
