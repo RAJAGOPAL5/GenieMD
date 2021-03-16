@@ -96,33 +96,33 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line: max-line-length
     this.showEmergency = this.clinicService.config.extendedSettings && this.clinicService.config.extendedSettings.emergencyContact && this.clinicService.config.extendedSettings.emergencyContact === 'true' ? true : false;
     const rpmTimer = this.clinicService.config.extendedSettings?.rpmTimer * 10 || 10000;
-    setTimeout(() => { this.start(); }, rpmTimer);
+    // setTimeout(() => { this.start(); }, rpmTimer);
   }
 
-  start() {
-    this.countDown();
-    this.timerStatus = false;
-  }
-  stop(val) {
-    this.total = val;
-    this.startStop = true;
-    this.timerStatus = true;
-    clearInterval(this.intervalId);
-    this.seconds = 0;
-    this.totalsec = 0;
-  }
+  // start() {
+  //   this.countDown();
+  //   this.timerStatus = false;
+  // }
+  // stop(val) {
+  //   this.total = val;
+  //   this.startStop = true;
+  //   this.timerStatus = true;
+  //   clearInterval(this.intervalId);
+  //   this.seconds = 0;
+  //   this.totalsec = 0;
+  // }
 
-  countDown() {
-    this.startStop = false;
-    this.intervalId = window.setInterval(() => {
-      this.seconds += 1;
-      this.seconds = this.seconds === 60 ? 0 : this.seconds;
-      this.message = this.seconds;
-      this.totalsec += 1;
-      const countminute = this.totalsec / 60;
-      this.minutes = Math.floor(countminute);
-    }, 1000);
-  }
+  // countDown() {
+  //   this.startStop = false;
+  //   this.intervalId = window.setInterval(() => {
+  //     this.seconds += 1;
+  //     this.seconds = this.seconds === 60 ? 0 : this.seconds;
+  //     this.message = this.seconds;
+  //     this.totalsec += 1;
+  //     const countminute = this.totalsec / 60;
+  //     this.minutes = Math.floor(countminute);
+  //   }, 1000);
+  // }
 
   getData() {
     this.morbiditys = morbidity;
