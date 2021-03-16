@@ -63,17 +63,16 @@ export class ProfileComponent implements OnInit {
     translate.use('en');
     translate.setTranslation('en', this.ls.state);
 
-    this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationStart) {
-        const trigeredPatient = event.url.split('/')[4];
-        if (!this.timerStatus && this.patientID !== trigeredPatient) {
-          // Show loading indicator
-          confirm('Are you sure you want to proceed?');
-        } else {
+    // this.router.events.subscribe((event: Event) => {
+    //   if (event instanceof NavigationStart) {
+    //     const trigeredPatient = event.url.split('/')[4];
+    //     if (!this.timerStatus && this.patientID !== trigeredPatient) {
+    //       confirm('Are you sure you want to proceed?');
+    //     } else {
 
-        }
-      }
-    });
+    //     }
+    //   }
+    // });
   }
 
   ngOnInit(): void {
