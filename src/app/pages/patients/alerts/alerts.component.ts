@@ -17,7 +17,7 @@ export class AlertsComponent implements OnInit {
       alertType: 1,
       alertStatus: 1,
       alertTime: 1615629367000,
-      alertAttended: 1615629367000,
+      alertAttended: 0,
       alertResolved: 0,
       alertData: '{"note":"she is ok!"}',
       patientID: 'awtest',
@@ -28,8 +28,8 @@ export class AlertsComponent implements OnInit {
       alertType: 1,
       alertStatus: 1,
       alertTime: 1615629367000,
-      alertAttended: 1615629367000,
-      alertResolved: 1615629367000,
+      alertAttended: 0,
+      alertResolved: 0,
       alertData: '{"note":"she is ok!"}',
       patientID: 'awtest',
       clinicID: '1000089'
@@ -39,8 +39,8 @@ export class AlertsComponent implements OnInit {
       alertType: 1,
       alertStatus: 1,
       alertTime: 1615629367000,
-      alertAttended: 1615629367000,
-      alertResolved: 1615629367000,
+      alertAttended: 0,
+      alertResolved: 0,
       alertData: '{"note":"she is ok!"}',
       patientID: 'awtest',
       clinicID: '1000089'
@@ -50,7 +50,7 @@ export class AlertsComponent implements OnInit {
       alertType: 1,
       alertStatus: 1,
       alertTime: 1615629367000,
-      alertAttended: 1615629367000,
+      alertAttended: 0,
       alertResolved: 0,
       alertData: '{"note":"she is ok!"}',
       patientID: 'awtest',
@@ -61,7 +61,7 @@ export class AlertsComponent implements OnInit {
       alertType: 1,
       alertStatus: 1,
       alertTime: 1615629367000,
-      alertAttended: 1615629367000,
+      alertAttended: 0,
       alertResolved: 0,
       alertData: '{"note":"she is ok!"}',
       patientID: 'awtest',
@@ -91,9 +91,9 @@ export class AlertsComponent implements OnInit {
           item.alertResolved = item.alertResolved;
         }
       });
-      this.toastrService.success('Alert resolved successfully');
     }
     this.selectedAlert = null;
+    this.toastrService.success('Alert resolved successfully');
 
     this.resolveDialogRef.close();
   }

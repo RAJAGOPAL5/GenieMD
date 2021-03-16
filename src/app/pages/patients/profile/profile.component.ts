@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Event, ActivatedRoute, Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 import { NbIconLibraries, NbToastrService, NbTagComponent } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,9 +8,7 @@ import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { languages, states, morbidity, gender, diseaseState, relation } from 'src/app/shared/constant/constant';
-import { Subscription } from 'rxjs';
 
-export let browserRefresh = false;
 
 interface ViewModal {
   profile?: any;
@@ -20,7 +18,7 @@ interface ViewModal {
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit {
   model: ViewModal = {};
   tabs: any[];
   patientID: any;
@@ -50,8 +48,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   totalsec = 0;
   startStop = false;
   timerStatus = false;
-  subscription: Subscription;
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
@@ -77,11 +73,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
         }
       }
-      this.subscription = router.events.subscribe(data => {
-        if (data instanceof NavigationStart) {
-          browserRefresh = !router.navigated;
-        }
-      });
     });
   }
 
@@ -246,9 +237,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
   trimContact(data) {
     return data && data.trim() !== '' ? data : ' ';
-  }
-  ngOnDestroy(): void {
-    alert('hiii');
   }
 
 }
