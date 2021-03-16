@@ -78,10 +78,10 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
     this.authService.register(signUpPayload).subscribe((res: any) => {
       this.userID = res.userID;
       this.getProfile();
-      this.toastrService.success('Registered Successfully');
+      this.toastrService.success('Registered Successfully', 'Success');
     }, error => {
       this.isLoading = false;
-      this.toastrService.danger(error.error.errorMessage);
+      this.toastrService.danger(error.error.errorMessage, 'Error');
     });
   }
 
@@ -144,7 +144,7 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
     };
     this.profileService.update(registerPayload).subscribe((res: any) => {
       this.isLoading = false;
-      this.toastrService.success('Profile Updated Successfully');
+      this.toastrService.success('Profile Updated Successfully', 'Success');
       this.router.navigate([this.clinicService.id, 'auth']);
     }, error => {
       this.isLoading = false;
@@ -157,7 +157,7 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
       // this.updateProfile();
     }, error => {
       this.isLoading = false;
-      this.toastrService.danger(error.error.errorMessage);
+      this.toastrService.danger(error.error.errorMessage, 'Error');
     });
   }
 }

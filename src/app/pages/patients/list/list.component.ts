@@ -153,7 +153,7 @@ export class ListComponent implements OnInit {
         this.isLoading = false;
       }, error => {
         this.isLoading = false;
-        this.toastrService.danger(error);
+        this.toastrService.danger(error, 'Error');
       });
 
     } else {
@@ -192,7 +192,7 @@ export class ListComponent implements OnInit {
         return;
         }, error => {
         this.isLoading = false;
-        this.toastrService.danger(error);
+        this.toastrService.danger(error, 'Error');
       });
     }
   }

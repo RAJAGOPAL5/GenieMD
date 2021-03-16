@@ -1,6 +1,6 @@
 <nb-card size="medium" class="card-width" [nbSpinner]="isLoading">
     <nb-card-header>
-        Notes
+        Alert Notes
     </nb-card-header>
     <nb-card-body>
         <div class="row">
@@ -10,14 +10,14 @@
             </div>
             <div class="col-md-12" *ngIf="notesData.length">
                 <nb-list>
-                    <nb-list-item *ngFor="let note of notesData" class="d-block">
-                        <div class="d-block w-100">
+                    <nb-list-item *ngFor="let note of notesData | orderBy: order : true " class="d-block">
+                        <div class="d-block w-100"><span class="subtitle">Notes: </span>
                             {{ note.actionData?.notes || note.actionData}}
                         </div>
                         <div class="d-block w-100">
-                            {{note.username}}
+                            <span class="subtitle">Username:</span> {{note.username}}
                         </div>
-                        <small class="d-block w-100">{{note.actionTime | date : 'dd/MM/yy, h:mm a'}}</small>
+                        <small class="d-block w-100"><span class="subtitle">Created At:</span>  {{note.actionTime | date : 'dd/MM/yy, h:mm a'}}</small>
                     </nb-list-item>
 
                 </nb-list>
@@ -33,7 +33,7 @@
                     translate}}</button>
             </div>
             <div class="col-md-4">
-                <button nbButton status="success" class="w-100" size="medium" (click)="updateNotes()">{{'kSave' |
+                <button nbButton status="success" class="w-100" size="medium" (click)="updateNotes()" [disabled]="!alertNote">{{'kSave' |
                     translate}}</button>
             </div>
         </div>

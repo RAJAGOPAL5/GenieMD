@@ -71,7 +71,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
         this.isLoading = false;
       }, error => {
         this.isLoading = false;
-        this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Invalid username or password');
+        this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Invalid username or password', 'Error');
       });
   }
 

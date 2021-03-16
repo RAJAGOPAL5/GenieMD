@@ -44,6 +44,7 @@
     "ng2-charts": "^2.4.2",
     "ngx-avatar": "^4.0.0",
     "ngx-daterange": "^1.0.43",
+    "ngx-order-pipe": "^2.1.1",
     "rxjs": "~6.6.3",
     "tslib": "^1.10.0",
     "zone.js": "~0.11.4"

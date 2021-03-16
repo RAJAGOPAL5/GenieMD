@@ -57,7 +57,7 @@ export class DevicesComponent implements OnInit {
   getDevices() {
     this.profileService.getDevices().subscribe((res: any) => {
     }, error => {
-      this.toastrService.danger('Cannot get devices');
+      this.toastrService.danger('Cannot get devices', 'Error');
     });
   }
 
@@ -100,7 +100,7 @@ export class DevicesComponent implements OnInit {
       deviceType: this.deviceForm.value.deviceType.type
     };
     this.data.push(payload);
-    this.toastrService.success('Device added successfully');
+    this.toastrService.success('Device added successfully', 'Success');
     this.deviceDialogRef.close();
     this.deviceForm.reset();
     this.deviceData.emit(this.data);
@@ -109,7 +109,7 @@ export class DevicesComponent implements OnInit {
   delete() {
     const item = this.deviceList.splice(this.deviceIndex, 1);
     this.deviceData.emit(this.deviceList);
-    this.toastrService.success('Device deleted successfully');
+    this.toastrService.success('Device deleted successfully', 'Success');
     this.deleteDialogRef.close();
   }
 

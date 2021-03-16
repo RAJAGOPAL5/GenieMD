@@ -51,11 +51,11 @@ export class ForgotPasswordComponent extends NbRequestPasswordComponent implemen
     this.isLoading = true;
     this.authService.forget(this.user.email).subscribe(res => {
       this.isLoading = false;
-      this.toastrService.show('Success', 'Email Sent');
+      this.toastrService.success('Email Sent', 'Success');
       this.router.navigate([this.clinicService.id, 'auth']);
     }, error => {
       this.isLoading = false;
-      this.toastrService.show('Error', 'Something Went Worng');
+      this.toastrService.danger('Something Went Worng', 'Error');
     });
   }
 }

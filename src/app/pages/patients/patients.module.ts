@@ -37,6 +37,8 @@ import { CareCircleComponent } from './care-team/care-circle/care-circle.compone
 import { AvatarModule } from 'ngx-avatar';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UpsertAlertComponent } from './alerts/upsert-alert/upsert-alert.component';
+import { OrderModule } from 'ngx-order-pipe';
+
 // export function HttpLoaderFactory(http: HttpClient) {
 //   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json');
 // }
@@ -95,7 +97,8 @@ import { UpsertAlertComponent } from './alerts/upsert-alert/upsert-alert.compone
     AvatarModule,
     SharedModule,
     NbTreeGridModule,
-    NbTagModule
+    NbTagModule,
+    OrderModule
     ],
   entryComponents: [AddComponent, UpsertAlertComponent]
 })

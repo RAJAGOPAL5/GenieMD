@@ -228,10 +228,10 @@ export class ProfileComponent implements OnInit {
     };
     this.profileService.update(registerPayload).subscribe((res: any) => {
       this.isLoading = false;
-      this.toastrService.success('Patient updated Successfully');
+      this.toastrService.success('Patient updated Successfully', 'Success');
     }, error => {
       this.isLoading = false;
-      this.toastrService.danger(error.error.errorMessage);
+      this.toastrService.danger(error.error.errorMessage, 'Error');
     });
   }
   trimContact(data) {

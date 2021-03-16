@@ -35,6 +35,7 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
 import { CoreModule } from 'core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { getUserPreferedTheme } from './shared/utility';
+import { OrderModule } from 'ngx-order-pipe';
 
 const theme = getUserPreferedTheme();
 @NgModule({
@@ -77,6 +78,7 @@ const theme = getUserPreferedTheme();
     NbActionsModule,
     NbListModule,
     NbDateFnsDateModule.forRoot({ format: 'dd/MM/yyyy' }),
+    OrderModule,
     CoreModule.forRoot({
       baseURL: environment.base_url,
       production: environment.production

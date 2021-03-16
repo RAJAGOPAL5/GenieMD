@@ -59,7 +59,7 @@ export class AlertsComponent implements OnInit {
       });
     }
     this.selectedAlert = null;
-    this.toastrService.success('Alert resolved successfully');
+    this.toastrService.success('Alert resolved successfully', 'Success');
 
     this.resolveDialogRef.close();
   }

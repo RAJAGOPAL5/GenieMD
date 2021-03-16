@@ -71,7 +71,7 @@ export class VisitsComponent implements OnInit {
     this.clinicService.getPhysicianCategoryList(this.clinicID).subscribe((data: any) => {
       this.providerSpeciality = data.physicianCategoryList;
     }, error => {
-      this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Cannot get Physician list');
+      this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Cannot get Physician list', 'Error');
     });
     this.getAppointments(this.userID);
   }
@@ -109,7 +109,7 @@ export class VisitsComponent implements OnInit {
     this.clinicService.getProvidersList(payload).subscribe((data: any) => {
       this.isLoading = false;
       if (data.errorMessage) {
-        this.toastrService.danger(data.errorMessage ? data.errorMessage : 'Cannot get Provider list');
+        this.toastrService.danger(data.errorMessage ? data.errorMessage : 'Cannot get Provider list', 'Error');
         return;
       }
       this.listOfProvider = {
@@ -161,7 +161,7 @@ export class VisitsComponent implements OnInit {
       });
       this.providersList = this.totalProviderCollection;
     }, error => {
-      this.toastrService.danger('Cannot get provider list');
+      this.toastrService.danger('Cannot get provider list', 'Error');
     });
   }
 
@@ -180,7 +180,7 @@ export class VisitsComponent implements OnInit {
       this.getUserName(npiId);
     } else {
       this.isLoading = false;
-      this.toastrService.danger('NPI ID is not provided');
+      this.toastrService.danger('NPI ID is not provided', 'Error');
     }
   }
 
@@ -216,7 +216,7 @@ export class VisitsComponent implements OnInit {
       this.patient = data;
       this.getList();
     }, error => {
-      this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Cannot get Patient data');
+      this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Cannot get Patient data', 'Error');
     });
   }
 
@@ -280,7 +280,7 @@ export class VisitsComponent implements OnInit {
       this.isLoading = false;
     }, error => {
       this.isLoading = false;
-      this.toastrService.danger(error.error.errorMessage);
+      this.toastrService.danger(error.error.errorMessage, 'Error');
 
     });
   }

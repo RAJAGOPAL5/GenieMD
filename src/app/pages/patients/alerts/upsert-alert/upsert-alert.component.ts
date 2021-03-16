@@ -10,6 +10,7 @@ import { LanguageService } from 'src/app/shared/service/language.service';
   styleUrls: ['./upsert-alert.component.scss']
 })
 export class UpsertAlertComponent implements OnInit {
+  order = 'actionTime';
   alertData: any;
   isLoading = false;
   constructor(
@@ -27,9 +28,29 @@ export class UpsertAlertComponent implements OnInit {
     this.getRecords();
   }
   updateNotes() {
-    this.notesData.unshift(this.alertNote);
-    this.alertNote = '';
-    this.toastrService.success('Note added successfully');
+    this.isLoading = true;
+    const payload = {
+      alertID: this.alertData.id,
+      actionType: 1,
+      actionData: JSON.stringify({ notes: this.alertNote }),
+      patientID: this.alertData.patientID
+    };
+    this.alertService.addAlertAction(payload).subscribe(data => {
+      const addedNote = data;
+      try {
+        addedNote.actionData = JSON.parse(addedNote.actionData);
+      } catch (error) {
+        addedNote.actionData = addedNote.actionData;
+      }
+      this.isLoading = false;
+      this.notesData.unshift(addedNote);
+      this.alertNote = '';
+      this.toastrService.success('Note added successfully', 'Success');
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger('Could not add note', 'Error');
+      throw error;
+     });
   }
   closeModal() {
     this.dialogRef.close();

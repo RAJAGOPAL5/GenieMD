@@ -341,7 +341,7 @@ export class AddComponent implements OnInit {
         this.getProfile();
       }, error => {
         this.isLoading = false;
-        this.toastrService.danger(error.error.errorMessage);
+        this.toastrService.danger(error.error.errorMessage, 'Error');
       });
     }
   }
@@ -350,7 +350,7 @@ export class AddComponent implements OnInit {
     this.registerPayload.imageURL = this.profilePictureEvent ?  this.imageURL : '';
     this.profileService.update(this.registerPayload).subscribe((res: any) => {
       this.isLoading = false;
-      this.toastrService.success('Patient Updated Successfully');
+      this.toastrService.success('Patient Updated Successfully', 'Success');
       this.dialogRef.close(true);
     }, error => {
       this.isLoading = false;
@@ -362,7 +362,7 @@ export class AddComponent implements OnInit {
       this.updateProfile();
     }, error => {
       this.isLoading = false;
-      this.toastrService.danger(error.error.errorMessage);
+      this.toastrService.danger(error.error.errorMessage, 'Error');
     });
   }
 
@@ -455,11 +455,11 @@ export class AddComponent implements OnInit {
       };
       this.addPatient();
       this.isLoading = false;
-      this.toastrService.success('Patient added Successfully');
+      this.toastrService.success('Patient added Successfully', 'Success');
       // this.router.navigate(['patients']);
     }, error => {
       this.isLoading = false;
-      this.toastrService.danger(error.error.errorMessage);
+      this.toastrService.danger(error.error.errorMessage, 'Error');
     });
   }
 
@@ -476,7 +476,7 @@ export class AddComponent implements OnInit {
     this.profileService.add(payload).subscribe(res => {
       this.dialogRef.close(res);
     }, error => {
-      this.toastrService.danger(error.error.errorMessage);
+      this.toastrService.danger(error.error.errorMessage, 'Error');
     });
   }
   chooseDate() {
@@ -533,7 +533,7 @@ export class AddComponent implements OnInit {
       this.isLoading = false;
       this.frontImageURl = res.url;
     }, err => {
-      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage : 'Image upload failed');
+      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage : 'Image upload failed', 'Error');
     });
   }
 
@@ -552,7 +552,7 @@ export class AddComponent implements OnInit {
       this.isLoading = false;
       this.backImageURL = res.url;
     }, err => {
-      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage : 'Image upload failed');
+      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage : 'Image upload failed', 'Error');
     });
   }
 
@@ -572,7 +572,7 @@ export class AddComponent implements OnInit {
       this.imageURL = res.url;
       this.profileSave();
     }, err => {
-      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage : 'Image upload failed');
+      this.toastrService.danger(err.error.errorMessage ? err.error.errorMessage : 'Image upload failed', 'Error');
     });
   }
   readURL(event: any): void {

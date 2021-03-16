@@ -18,6 +18,9 @@ export class AlertService {
   getAlertActionsById(alertId): Observable<any> {
     return this.http.get(`Alerts/AlertActions/${alertId}`, { headers: this.getHeaders() });
   }
+  addAlertAction(payload): Observable<any> {
+    return this.http.post(`Alerts/AddAlertAction`, payload, { headers: this.getHeaders() });
+  }
   getHeaders(userId?) {
     console.log(this.route, 'userid');
     let httpHeaders = new HttpHeaders();
