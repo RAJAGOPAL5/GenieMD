@@ -4,9 +4,9 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col" class="subtitle">Status</th>
                     <th scope="col" class="subtitle">Created Date</th>
-                    <th scope="col" class="subtitle">Attended Date</th>
+                    <th scope="col" class="subtitle">Alert</th>
+                    <th scope="col" class="subtitle text-center">Status</th>
                     <th scope="col" class="subtitle">Resolved Date</th>
                     <th scope="col" class="subtitle">Notes</th>
                     <th class="text-center subtitle" scope="col">Actions</th>
@@ -14,15 +14,15 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of alerts;let i=index">
-                    <td class="align-middle">{{getStatus(item.alertStatus)}}</td>
-                    <td class="align-middle">{{item.alertTime}}</td>
-                    <td class="align-middle">{{item.alertAttended}}</td>
-                    <td class="align-middle">{{item.alertResolved}}</td>
+                    <td class="align-middle">{{item.alertTime | date : 'dd/MM/yy, h:mm a' || '-'}}</td>
+                    <td class="align-middle ">{{getType(item.alertType)}}</td>
+                    <td class="align-middle text-center">{{getStatus(item.alertStatus)}}</td>
+                    <td class="align-middle">{{item.alertResolved | date : 'dd/MM/yy, h:mm a' || '-'}}</td>
                     <td class="align-middle">
                         <a (click)="viewData(item)" class="cursor-pointer">View Notes</a>
                     </td>
                     <td class="text-center">
-                        <button nbButton status="warning" outline (click)="resolveConfirmation(confirmation,item.id)" [disabled]="!!item.alertResolved">Resolve</button>
+                        <button nbButton status="warning" outline (click)="resolveConfirmation(confirmation,item.id)" [disabled]="!!item.alertResolved" size="tiny">Resolve</button>
                     </td>
                 </tr>
                 <tr class="text-center" *ngIf="!alerts.length">
@@ -37,7 +37,7 @@
 <ng-template #confirmation>
     <nb-card class="dialog-card">
         <nb-card-header>
-            <p class="subtitle">Are you sure want to resolve?</p>
+            <p class="subtitle">Mark as resolved?</p>
         </nb-card-header>
         <nb-card-body>
             <div class="float-end">

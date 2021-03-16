@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
+import { AlertService } from 'src/app/shared/service/alert.service';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { UpsertAlertComponent } from './upsert-alert/upsert-alert.component';
 
 @Component({
@@ -11,71 +14,34 @@ export class AlertsComponent implements OnInit {
   isLoading = false;
   resolveDialogRef: NbDialogRef<any>;
   selectedAlert: any;
-  alerts = [
-    {
-      id: 1,
-      alertType: 1,
-      alertStatus: 1,
-      alertTime: 1615629367000,
-      alertAttended: 0,
-      alertResolved: 0,
-      alertData: '{"note":"she is ok!"}',
-      patientID: 'awtest',
-      clinicID: '1000089'
-    },
-    {
-      id: 2,
-      alertType: 1,
-      alertStatus: 1,
-      alertTime: 1615629367000,
-      alertAttended: 0,
-      alertResolved: 0,
-      alertData: '{"note":"she is ok!"}',
-      patientID: 'awtest',
-      clinicID: '1000089'
-    },
-    {
-      id: 3,
-      alertType: 1,
-      alertStatus: 1,
-      alertTime: 1615629367000,
-      alertAttended: 0,
-      alertResolved: 0,
-      alertData: '{"note":"she is ok!"}',
-      patientID: 'awtest',
-      clinicID: '1000089'
-    },
-    {
-      id: 4,
-      alertType: 1,
-      alertStatus: 1,
-      alertTime: 1615629367000,
-      alertAttended: 0,
-      alertResolved: 0,
-      alertData: '{"note":"she is ok!"}',
-      patientID: 'awtest',
-      clinicID: '1000089'
-    },
-    {
-      id: 5,
-      alertType: 1,
-      alertStatus: 1,
-      alertTime: 1615629367000,
-      alertAttended: 0,
-      alertResolved: 0,
-      alertData: '{"note":"she is ok!"}',
-      patientID: 'awtest',
-      clinicID: '1000089'
-    }
-  ];
-  constructor(private dialogService: NbDialogService, private toastrService: NbToastrService
-
+  alerts = [];
+  patientId: any;
+  constructor(
+    private dialogService: NbDialogService, private toastrService: NbToastrService, private alertService: AlertService,
+    private clinicService: ClinicService, private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.route.parent.params.subscribe(res => {
+      this.patientId = res.patientId;
+      this.getData();
+    });
+
   }
   getData() {
-    console.log('alerts', this.alerts);
+    this.isLoading = true;
+    const payload = {
+      clinicID: this.clinicService.id,
+      patientId: this.patientId
+    };
+    this.alertService.get(payload).subscribe(data => {
+      this.isLoading = false;
+
+      this.alerts = data.list;
+    }, error => {
+      this.isLoading = false;
+      throw error;
+    });
   }
   resolveConfirmation(template, id) {
     this.selectedAlert = id;
@@ -107,8 +73,18 @@ export class AlertsComponent implements OnInit {
     }
     return alertStatus;
   }
+  getType(type) {
+    let alertType;
+    switch (type) {
+      case 1: alertType = 'Vital out of range'; break;
+      case 2: alertType = 'Vital not measured'; break;
+      case 3: alertType = 'Patient fell'; break;
+      case 4: alertType = 'Patient SOS'; break;
+      default: alertType = '-';
+    }
+    return alertType;
+  }
   viewData(data) {
-    console.log('datadata', data);
     const dialog = this.dialogService.open(UpsertAlertComponent);
     dialog.componentRef.instance.alertData = data;
   }
