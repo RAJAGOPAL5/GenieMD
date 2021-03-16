@@ -92,31 +92,16 @@
               </ng-template>
         </div>
         <div class="row">
-            <div class="col-md-2 px-4">
-                <!-- <div class="d-flex justify-content-between">
-                    <span *ngIf=" message >= 0">{{minutes}} : {{message }}</span>
-                    <div>
-                        <button class="float-end timerButton" outline status="success" nbButton size="tiny" (click)="start()" *ngIf="startStop">Start</button>
-                        <button class="float-end timerButton" outline status="danger" nbButton size="tiny"(click)="stop(message)" *ngIf="!startStop && message >= 0">Stop</button>
-    
-                    </div>
-
-                </div> -->
-                <!-- <div class="row">
+            <!-- <div class="col-md-2">
+                <div class="row">
                     <div class="col-6">
-                    <div class="text-center p-2 fw-bold m-auto" *ngIf=" message >= 0">{{minutes}} : {{message }}</div>
                     <span *ngIf=" message >= 0">{{minutes}} : {{message }}</span>
                     <button class="float-end timerButton" outline status="primary" nbButton size="tiny" (click)="start()" *ngIf="startStop">Start</button>
                     <button class="float-end timerButton" outline status="primary" nbButton size="tiny"(click)="stop(message)" *ngIf="!startStop && message >= 0">Stop</button>
-
-                    </div>
-                    <div class="col-6">
-                            <button class="float-end timerButton" outline status="primary" nbButton size="tiny" (click)="start()" *ngIf="startStop">Start</button>
-                            <button class="float-end timerButton" outline status="primary" nbButton size="tiny"(click)="stop(message)" *ngIf="!startStop && message >= 0">Stop</button>
-                    </div>
-                </div> -->
-            </div>
-            <div class="col-md-10">
+                    </div>      
+                </div>
+            </div> -->
+            <div class="offset-md-2 col-md-10">
                 <div class="d-flex" *ngIf="!!diseaseList?.length">
                     <nb-icon icon="notes-medical" nbTooltip="Disease State" nbTooltipPlacement="left" pack="font-awesome">
                     </nb-icon>
