@@ -21,10 +21,10 @@ export class AlertService {
   addAlertAction(payload): Observable<any> {
     return this.http.post(`Alerts/AddAlertAction`, payload, { headers: this.getHeaders() });
   }
-  getHeaders(userId?) {
-    console.log(this.route, 'userid');
+  getHeaders() {
+    const userID = this.route.firstChild.firstChild.snapshot.params.userID;
     let httpHeaders = new HttpHeaders();
-    httpHeaders = httpHeaders.set('token', '3c660a0a1b08448997fa382666217225');
+    httpHeaders = httpHeaders.set('token', userID);
     return httpHeaders;
   }
 
