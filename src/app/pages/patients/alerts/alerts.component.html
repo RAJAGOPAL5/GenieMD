@@ -1,15 +1,15 @@
 <nb-card size="large" class="h-100" [nbSpinner]="isLoading" >
-<nb-card-header>Alerts</nb-card-header>
+<!-- <nb-card-header>Alerts</nb-card-header> -->
 <nb-card-body>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col" class="subtitle">Created Date</th>
-                    <th scope="col" class="subtitle">Alert</th>
-                    <th scope="col" class="subtitle text-center">Status</th>
-                    <th scope="col" class="subtitle">Resolved Date</th>
-                    <th scope="col" class="subtitle">Notes</th>
-                    <th class="text-center subtitle" scope="col">Actions</th>
+                    <th scope="col" class="subtitle">{{'kCreatedDate' | translate}}</th>
+                    <th scope="col" class="subtitle">{{'kAlert' | translate}}</th>
+                    <th scope="col" class="subtitle text-center">{{'kStatus' | translate}}</th>
+                    <th scope="col" class="subtitle">{{'kResolvedDate' |  translate}}</th>
+                    <th scope="col" class="subtitle">{{'kTextNotes' | translate}}</th>
+                    <th class="text-center subtitle" scope="col">{{'kActions' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,15 +19,15 @@
                     <td class="align-middle subtitle text-center" [ngClass]="{'text-success': item.alertStatus == 3 , 'text-danger': item.alertStatus == 1, 'text-warning': item.alertStatus == 2 }">{{getStatus(item.alertStatus)}}</td>
                     <td class="align-middle subtitle">{{item.alertResolved | date : 'dd/MM/yy, h:mm a' || '-'}}</td>
                     <td class="align-middle subtitle">
-                        <a (click)="viewData(item)" class="cursor-pointer">View Notes</a>
+                        <a (click)="viewData(item)" class="cursor-pointer">{{'kViewNotes' | translate}}</a>
                     </td>
                     <td class="text-center">
-                        <button nbButton status="warning" outline (click)="resolveConfirmation(confirmation,item.id)" [disabled]="!!item.alertResolved" size="tiny">Resolve</button>
+                        <button nbButton status="warning" outline (click)="resolveConfirmation(confirmation,item)" [disabled]="item.alertStatus == 3 " size="tiny">{{'kResolve' | translate}}</button>
                     </td>
                 </tr>
                 <tr class="text-center" *ngIf="!alerts.length">
                     <td colspan="6">
-                        <p>No Records Found</p>
+                        <p>{{'kNoRecordsFound'| translate}}</p>
                     </td>
                 </tr>
             </tbody>
@@ -37,12 +37,12 @@
 <ng-template #confirmation>
     <nb-card class="dialog-card">
         <nb-card-header>
-            <p class="subtitle">Mark as resolved?</p>
+            <p class="subtitle">{{'KMarkAsResolved' | translate}}</p>
         </nb-card-header>
         <nb-card-body>
             <div class="float-end">
-                <button nbButton status="success" size="small" (click)="close(true)">Yes</button>
-                <button nbButton status="danger" class="ms-2" size="small" (click)="close(false)">No</button>
+                <button nbButton status="success" size="small" (click)="close(true)">{{'kYes' | translate}}</button>
+                <button nbButton status="danger" class="ms-2" size="small" (click)="close(false)">{{'kNo' | translate}}</button>
             </div>
         </nb-card-body>
     </nb-card>

@@ -5,24 +5,24 @@
     <nb-card-body>
         <div class="row">
             <div class="col-md-12">
-                <textarea name="notes-area" id="" cols="40" rows="3" nbInput placeholder="Write notes" fullWidth
+                <textarea name="notes-area" id="" cols="40" rows="3" nbInput placeholder="{{'kWriteNotes' | translate}}" fullWidth
                     [(ngModel)]="alertNote"></textarea>
             </div>
             <div class="col-md-12" *ngIf="notesData.length">
                 <nb-list>
                     <nb-list-item *ngFor="let note of notesData | orderBy: order : true " class="d-block">
-                        <div class="d-block w-100"><span class="subtitle">Notes: </span>
+                        <div class="d-block w-100"><span class="subtitle text-primary ">{{'kTextNotes' | translate}}: </span>
                             {{ note.actionData?.notes || note.actionData}}
                         </div>
                         <div class="d-block w-100">
-                            <span class="subtitle">Username:</span> {{note.username}}
+                            <span class="subtitle text-primary">{{'kUserName' | translate}}:</span> {{note.username}}
                         </div>
-                        <small class="d-block w-100"><span class="subtitle">Created At:</span>  {{note.actionTime | date : 'dd/MM/yy, h:mm a'}}</small>
+                        <div class="d-block w-100"><span class="subtitle text-primary">{{'kCreatedAt' | translate}}:</span>  {{note.actionTime | date : 'dd/MM/yy, h:mm a'}}</div>
                     </nb-list-item>
 
                 </nb-list>
             </div>
-            <div class="col-md-12 py-3 text-center subtitle"  *ngIf="!notesData.length">No records found</div>
+            <div class="col-md-12 py-3 text-center subtitle"  *ngIf="!notesData.length">{{'kNoRecordsFound'| translate}}</div>
 
         </div>
     </nb-card-body>

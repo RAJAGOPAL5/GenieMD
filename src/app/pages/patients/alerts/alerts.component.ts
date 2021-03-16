@@ -49,24 +49,37 @@ export class AlertsComponent implements OnInit {
       throw error;
     });
   }
-  resolveConfirmation(template, id) {
-    this.selectedAlert = id;
+  resolveConfirmation(template, data) {
+    this.selectedAlert = data;
     this.resolveDialogRef = this.dialogService.open(template);
   }
   close(isClose: boolean) {
+
     if (isClose) {
-      this.alerts.map(item => {
-        // tslint:disable-next-line:triple-equals
-        if (item.id == this.selectedAlert) {
-          item.alertResolved = new Date().getTime();
-        } else {
-          item.alertResolved = item.alertResolved;
-        }
+      console.log('this.selectedAlert', this.selectedAlert);
+      this.selectedAlert.alertStatus = 3;
+      // this.selectedAlert.alertResolved =  new Date().getTime();
+      // this.selectedAlert.alertAttended =  new Date().getTime();
+
+      this.isLoading = true;
+      this.alertService.updateAlert(this.selectedAlert).subscribe(data => {
+        this.isLoading = false;
+        this.toastrService.success('Alert updated successfully', 'Success');
+        this.getData();
+      }, error => {
+        this.isLoading = false;
+        this.toastrService.danger('Failed to update alert', 'Failed');
       });
+      // this.alerts.map(item => {
+      //   // tslint:disable-next-line:triple-equals
+      //   if (item.id == this.selectedAlert) {
+      //     item.alertResolved = new Date().getTime();
+      //   } else {
+      //     item.alertResolved = item.alertResolved;
+      //   }
+      // });
     }
     this.selectedAlert = null;
-    this.toastrService.success('Alert resolved successfully', 'Success');
-
     this.resolveDialogRef.close();
   }
   getStatus(status) {
