@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
@@ -8,7 +10,9 @@ export class ProfileService {
   profile: any;
   extraData: any;
   id: string;
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute) {
   }
 
   setId(id: string) {
@@ -56,7 +60,15 @@ export class ProfileService {
     return this.http.post('Files/UploadFile/' + userId, payLoad);
   }
 
-  getDevices() {
-    return this.http.get(`Devices/SmartDevices/List`);
+  getDevices(): Observable<any> {
+    return this.http.get(`Devices/SmartDevices/List`, { headers: this.getHeaders() });
+  }
+
+  getHeaders() {
+    const userID = this.route.firstChild.firstChild.snapshot.params.userID;
+    console.log('router', this.route);
+    let httpHeaders = new HttpHeaders();
+    httpHeaders = httpHeaders.set('userID', userID);
+    return httpHeaders;
   }
 }
