@@ -21,6 +21,7 @@ export class DevicesComponent implements OnInit {
   @Output() deviceData: EventEmitter<any> = new EventEmitter();
   storeDevice: any;
   deviceIndex: any;
+  devices: any;
   @Input()
 
   get dataDevice() {
@@ -41,7 +42,7 @@ export class DevicesComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    // this.getDevices();
+    this.getDevices();
     this.deviceTypes = deviceTypes;
   }
 
@@ -56,6 +57,7 @@ export class DevicesComponent implements OnInit {
 
   getDevices() {
     this.profileService.getDevices().subscribe((res: any) => {
+      this.devices = res.list;
     }, error => {
       this.toastrService.danger('Cannot get devices', 'Error');
     });
