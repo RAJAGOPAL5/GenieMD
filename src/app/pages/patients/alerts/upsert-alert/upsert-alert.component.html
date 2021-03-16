@@ -5,13 +5,8 @@
     <nb-card-body>
         <div class="row">
         <div class="col-md-12">
-            <!-- <input type="text" nbInput fullWidth fieldSize="giant" placeholder="Write notes"> -->
-            <textarea name="notes-area" id="" cols="40" rows="5" nbInput placeholder="Write notes" fullWidth [(ngModel)]="alertNote"></textarea>
+            <textarea name="notes-area" id="" cols="40" rows="3" nbInput placeholder="Write notes" fullWidth [(ngModel)]="alertNote"></textarea>
         </div>
-        <!-- <div class="col-md-12 text-right">
-            <button nbButton  status="danger" [disabled]="!alertNote" (click)="updateNotes()">Done</button>
-
-        </div>  -->
             <div class="col-md-12">
                 <nb-list>
                     <nb-list-item *ngFor="let note of notes">
