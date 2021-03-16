@@ -27,7 +27,7 @@ export class ForgotPasswordComponent extends NbRequestPasswordComponent implemen
   constructor(
     private clinicService: ClinicService,
     private authService: AuthService,
-    private ls: LanguageService,
+    private languageService: LanguageService,
     private translate: TranslateService,
     @Inject(NB_AUTH_OPTIONS)
     protected service: NbAuthService,
@@ -38,7 +38,7 @@ export class ForgotPasswordComponent extends NbRequestPasswordComponent implemen
   ) {
     super(service, {}, cd, router);
     translate.use('en');
-    translate.setTranslation('en', this.ls.state);
+    translate.setTranslation('en', this.languageService.state);
   }
 
 

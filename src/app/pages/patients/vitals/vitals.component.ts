@@ -30,12 +30,12 @@ export class VitalsComponent implements OnInit {
   });
   constructor(
     private vitalsService: VitalsService, private profileService: ProfileService,
-    private ls: LanguageService, private patientService: PatientsService,
+    private languageService: LanguageService, private patientService: PatientsService,
     private translate: TranslateService, private route: ActivatedRoute,
     private clinicService: ClinicService, private formBuilder: FormBuilder,
     ) {
     translate.use('en');
-    translate.setTranslation('en', this.ls.state);
+    translate.setTranslation('en', this.languageService.state);
   }
   timeduration: any;
   duration!: any;

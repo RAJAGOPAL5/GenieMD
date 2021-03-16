@@ -26,11 +26,11 @@ export class FilterDialogComponent implements OnInit {
     private profileService: ProfileService,
     private clinicService: ClinicService,
     private toastr: NbToastrService,
-    private ls: LanguageService,
+    private languageService: LanguageService,
     private translate: TranslateService,
   ) {
     translate.use('en');
-    translate.setTranslation('en', this.ls.state);
+    translate.setTranslation('en', this.languageService.state);
    }
 
   ngOnInit(): void {

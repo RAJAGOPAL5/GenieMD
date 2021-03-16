@@ -55,13 +55,13 @@ export class ProfileComponent implements OnInit {
     private iconLibraries: NbIconLibraries,
     private profileService: ProfileService,
     private toastrService: NbToastrService,
-    private ls: LanguageService,
+    private languageService: LanguageService,
     private translate: TranslateService,
     private router: Router
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
     translate.use('en');
-    translate.setTranslation('en', this.ls.state);
+    translate.setTranslation('en', this.languageService.state);
 
     // this.router.events.subscribe((event: Event) => {
     //   if (event instanceof NavigationStart) {

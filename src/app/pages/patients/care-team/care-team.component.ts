@@ -32,9 +32,9 @@ export class CareTeamComponent implements OnInit {
     private route: ActivatedRoute, private dialogService: NbDialogService,
     private ns: NotificationService, private patientService: PatientsService,
     private profileService: ProfileService, private clinicService: ClinicService,
-    private ls: LanguageService, private translate: TranslateService) {
+    private languageService: LanguageService, private translate: TranslateService) {
     translate.use('en');
-    translate.setTranslation('en', this.ls.state);
+    translate.setTranslation('en', this.languageService.state);
   }
 
   ngOnInit(): void {

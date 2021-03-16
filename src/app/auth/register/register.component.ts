@@ -51,7 +51,7 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
     protected router: Router,
     private profileService: ProfileService,
     private fb: FormBuilder,
-    private ls: LanguageService,
+    private languageService: LanguageService,
     private translate: TranslateService,
   ) {
     super(service, {}, cd, router);
@@ -59,7 +59,7 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
     this.showMessages = this.getConfigValue('forms.register.showMessages');
     this.strategy = this.getConfigValue('forms.register.strategy');
     translate.use('en');
-    translate.setTranslation('en', this.ls.state);
+    translate.setTranslation('en', this.languageService.state);
   }
 
   ngOnInit(): void {

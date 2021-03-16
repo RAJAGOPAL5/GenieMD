@@ -29,12 +29,12 @@ export class IndexComponent implements OnInit {
     private themeService: NbThemeService,
     private dialogService: NbDialogService,
     private profileService: ProfileService,
-    private ls: LanguageService,
+    private languageService: LanguageService,
     private translate: TranslateService,
     private zone: NgZone
   ) {
     translate.use('en');
-    translate.setTranslation('en', this.ls.state);
+    translate.setTranslation('en', this.languageService.state);
   }
 
   ngOnInit(): void {

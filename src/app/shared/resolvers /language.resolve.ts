@@ -11,7 +11,7 @@ import { ClinicService } from '../service/clinic.service';
 })
 export class LanguageResolve implements Resolve<any> {
 
-    constructor(private ls: LanguageService, private clinicService: ClinicService) { }
+    constructor(private languageService: LanguageService, private clinicService: ClinicService) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
         const clinic = route.parent.data.clinicConfig;
@@ -25,11 +25,11 @@ export class LanguageResolve implements Resolve<any> {
             if (clinic.languageID == '0') {
                 englishPayload.languageID = '1';
             }
-            const englishLanguage$ = this.ls.getList(englishPayload);
+            const englishLanguage$ = this.languageService.getList(englishPayload);
             const combine$ = combineLatest(englishLanguage$,
                 (englishLanguage: any) => {
                     const object = Object.assign({}, ...englishLanguage);
-                    this.ls.state = object;
+                    this.languageService.state = object;
                     // tslint:disable-next-line:no-angle-bracket-type-assertion
                     return <any> {
                         englishLanguage
@@ -50,8 +50,8 @@ export class LanguageResolve implements Resolve<any> {
                 englishPayload.languageID = '1';
                 payload.languageID = '1';
             }
-            const userLanguage$ = this.ls.getList(payload);
-            const englishLanguage$ = this.ls.getList(englishPayload);
+            const userLanguage$ = this.languageService.getList(payload);
+            const englishLanguage$ = this.languageService.getList(englishPayload);
             const combine$ = combineLatest(userLanguage$, englishLanguage$,
                 (userLanguage: any, englishLanguage: any) => {
                     try {
@@ -60,7 +60,7 @@ export class LanguageResolve implements Resolve<any> {
                         englishLanguage = [];
                     }
                     const object = Object.assign({}, ...englishLanguage);
-                    this.ls.state = object;
+                    this.languageService.state = object;
                     // tslint:disable-next-line:no-angle-bracket-type-assertion
                     return <any> {
                         englishLanguage

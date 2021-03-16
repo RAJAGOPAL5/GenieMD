@@ -31,7 +31,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
     private clinicService: ClinicService,
     private authService: AuthService,
     private toastrService: NbToastrService,
-    private ls: LanguageService,
+    private languageService: LanguageService,
     private translate: TranslateService,
     @Inject(NB_AUTH_OPTIONS)
     protected service: NbAuthService,
@@ -40,20 +40,20 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
   ) {
     super(service, {}, cd, router);
     translate.use('en');
-    translate.setTranslation('en', this.ls.state);
+    translate.setTranslation('en', this.languageService.state);
   }
 
   ngOnInit(): void {
     this.logo = this.clinicService.config.logo;
     this.title = this.clinicService.config.name;
     if (this.clinicService.id) {
-      if (!this.ls.state) {
+      if (!this.languageService.state) {
         this.translatePage(this.clinicService.id);
       } else {
         this.showContent = true;
       }
     } else {
-      if (!this.ls.state) {
+      if (!this.languageService.state) {
         this.translatePage();
       } else {
         this.showContent = true;
@@ -102,7 +102,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
             oemID: 0,
             languageID: browserCode.id
           };
-          this.ls.getList(browserPayloadDefualt).subscribe((response: any) => {
+          this.languageService.getList(browserPayloadDefualt).subscribe((response: any) => {
             this.showContent = true;
             try {
               response = response;
@@ -110,9 +110,9 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
               response = {};
             }
             const object = Object.assign({}, response);
-            this.ls.state = object;
+            this.languageService.state = object;
             this.translate.use('en');
-            this.translate.setTranslation('en', this.ls.state);
+            this.translate.setTranslation('en', this.languageService.state);
           });
 
         } else {
@@ -131,8 +131,8 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
             oemID: 0,
             languageID: 1
           };
-          this.ls.getList(browserPayload).subscribe((browserResponse: any) => {
-            this.ls.getList(browserPayloadDefualt).subscribe((response: any) => {
+          this.languageService.getList(browserPayload).subscribe((browserResponse: any) => {
+            this.languageService.getList(browserPayloadDefualt).subscribe((response: any) => {
               this.showContent = true;
               try {
                 response = response;
@@ -140,9 +140,9 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
                 response = [];
               }
               const object = Object.assign({}, response);
-              this.ls.state = object;
+              this.languageService.state = object;
               this.translate.use('en');
-              this.translate.setTranslation('en', this.ls.state);
+              this.translate.setTranslation('en', this.languageService.state);
             });
           });
         }
@@ -157,12 +157,12 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
       oemID: 0,
       languageID: 1
     };
-    this.ls.getList(englishPayload).subscribe((englishResponse: any) => {
+    this.languageService.getList(englishPayload).subscribe((englishResponse: any) => {
       this.showContent = true;
       const object = Object.assign({}, ...englishResponse);
-      this.ls.state = object;
+      this.languageService.state = object;
       this.translate.use('en');
-      this.translate.setTranslation('en', this.ls.state);
+      this.translate.setTranslation('en', this.languageService.state);
     });
   }
 

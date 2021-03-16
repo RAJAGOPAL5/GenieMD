@@ -60,13 +60,13 @@ export class ListComponent implements OnInit {
     private clinicService: ClinicService,
     private dialogService: NbDialogService,
     private fb: FormBuilder,
-    private ls: LanguageService,
+    private languageService: LanguageService,
     private translate: TranslateService,
     private toastrService: NbToastrService,
 
   ) {
     translate.use('en');
-    translate.setTranslation('en', this.ls.state);
+    translate.setTranslation('en', this.languageService.state);
   }
 
   ngOnInit(): void {

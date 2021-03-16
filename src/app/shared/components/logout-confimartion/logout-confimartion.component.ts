@@ -13,10 +13,10 @@ export class LogoutConfimartionComponent implements OnInit {
   isLoading = false;
   constructor(
     private authService: AuthService, private ref: NbDialogRef<LogoutConfimartionComponent>,
-    private ls: LanguageService,
+    private languageService: LanguageService,
     private translate: TranslateService) {
     translate.use('en');
-    translate.setTranslation('en', this.ls.state);
+    translate.setTranslation('en', this.languageService.state);
   }
 
   ngOnInit(): void {

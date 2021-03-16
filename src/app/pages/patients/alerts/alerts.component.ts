@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { LanguageService } from 'src/app/shared/service/language.service';
 import { UpsertAlertComponent } from './upsert-alert/upsert-alert.component';
 
 @Component({
@@ -18,8 +20,12 @@ export class AlertsComponent implements OnInit {
   patientId: any;
   constructor(
     private dialogService: NbDialogService, private toastrService: NbToastrService, private alertService: AlertService,
-    private clinicService: ClinicService, private route: ActivatedRoute
-  ) { }
+    private clinicService: ClinicService, private route: ActivatedRoute, private languageService: LanguageService,
+    private translate: TranslateService) {
+    translate.use('en');
+    translate.setTranslation('en', this.languageService.state);
+  }
+
 
   ngOnInit(): void {
     this.route.parent.params.subscribe(res => {

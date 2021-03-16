@@ -71,11 +71,11 @@ export class AddComponent implements OnInit {
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
     private clinicService: ClinicService, private router: Router, private route: ActivatedRoute,
     private toastrService: NbToastrService, private patientsService: PatientsService, protected dialogRef: NbDialogRef<any>,
-    private ls: LanguageService, private translate: TranslateService, private dialogService: NbDialogService,
+    private languageService: LanguageService, private translate: TranslateService, private dialogService: NbDialogService,
     private themeService: NbThemeService,
   ) {
     translate.use('en');
-    translate.setTranslation('en', this.ls.state);
+    translate.setTranslation('en', this.languageService.state);
   }
 
   ngOnInit(): void {
