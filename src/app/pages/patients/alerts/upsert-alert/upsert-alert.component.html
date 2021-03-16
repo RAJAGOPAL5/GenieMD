@@ -1,31 +1,40 @@
-<nb-card size="medium" class="card-width">
+<nb-card size="medium" class="card-width" [nbSpinner]="isLoading">
     <nb-card-header>
         Notes
     </nb-card-header>
     <nb-card-body>
         <div class="row">
-        <div class="col-md-12">
-            <textarea name="notes-area" id="" cols="40" rows="3" nbInput placeholder="Write notes" fullWidth [(ngModel)]="alertNote"></textarea>
-        </div>
             <div class="col-md-12">
+                <textarea name="notes-area" id="" cols="40" rows="3" nbInput placeholder="Write notes" fullWidth
+                    [(ngModel)]="alertNote"></textarea>
+            </div>
+            <div class="col-md-12" *ngIf="notesData.length">
                 <nb-list>
-                    <nb-list-item *ngFor="let note of notes">
-                        {{ note }}
+                    <nb-list-item *ngFor="let note of notesData" class="d-block">
+                        <div class="d-block w-100">
+                            {{ note.actionData?.notes || note.actionData}}
+                        </div>
+                        <div class="d-block w-100">
+                            {{note.username}}
+                        </div>
+                        <small class="d-block w-100">{{note.actionTime | date : 'dd/MM/yy, h:mm a'}}</small>
                     </nb-list-item>
+
                 </nb-list>
             </div>
+            <div class="col-md-12 py-3 text-center subtitle"  *ngIf="!notesData.length">No records found</div>
+
         </div>
     </nb-card-body>
     <nb-card-footer>
         <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <button nbButton status="danger" size="medium" class="w-100"
-                    (click)="closeModal()">{{'kCancel' | translate}}</button>
+            <div class="col-md-4 offset-md-4">
+                <button nbButton status="danger" size="medium" class="w-100" (click)="closeModal()">{{'kCancel' |
+                    translate}}</button>
             </div>
             <div class="col-md-4">
-                <button nbButton status="success" class="w-100" size="medium"
-                    (click)="updateNotes()">{{'kSave' | translate}}</button>
+                <button nbButton status="success" class="w-100" size="medium" (click)="updateNotes()">{{'kSave' |
+                    translate}}</button>
             </div>
         </div>
     </nb-card-footer>
