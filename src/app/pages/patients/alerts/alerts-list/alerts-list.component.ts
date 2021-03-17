@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { vitals } from 'src/app/shared/constant/constant';
 import { AlertService } from 'src/app/shared/service/alert.service';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
 
 
 
@@ -34,13 +35,24 @@ export class AlertsListComponent implements OnInit {
     private dialogService: NbDialogService,
     private toastrService: NbToastrService,
     private formBuilder: FormBuilder,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private clinicService: ClinicService
   ) {
     translate.use('en');
     translate.setTranslation('en', this.languageService.state);
   }
 
   ngOnInit(): void {
+    const extendedSettings = this.clinicService.config.extendedSettings?.vitals;
+    let vitalList = [];
+    if (!!extendedSettings) {
+      try {
+        vitalList = JSON.parse(extendedSettings);
+      } catch (error) {
+        vitalList = [];
+      }
+    }
+    this.vitalsList = vitalList;
     this.createForm();
     this.getList();
   }
