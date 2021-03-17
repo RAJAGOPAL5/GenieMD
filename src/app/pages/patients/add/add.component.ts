@@ -128,8 +128,7 @@ export class AddComponent implements OnInit {
         } catch (e) {
           variousDisease = this.profileExtraData.diseaseState || [];
         }
-        this.imageURL = this.profileData.imageURL ? this.profileData.imageURL : this.defaultImageURL;
-
+        this.imageURL = this.profileData.imageURL || this.profileData.imageUrl ||   this.defaultImageURL;
         this.profileForm.patchValue({
           firstName: this.profileData.firstName,
           lastName: this.profileData.lastName,
@@ -306,7 +305,7 @@ export class AddComponent implements OnInit {
         MRN: this.profileForm.value.mrn ? this.profileForm.value.mrn : '',
         firstName: this.profileForm.value.firstName,
         gender: `${this.profileForm.value.gender}`,
-        imageURL: this.profilePictureEvent ? this.imageURL : '',
+        imageURL: this.profilePictureEvent ? this.imageURL : this.profileData.imageUrl || this.profileData.imageURL,
         lastName: this.profileForm.value.lastName,
         latitude: '0',
         longitude: '0',
@@ -347,7 +346,7 @@ export class AddComponent implements OnInit {
   }
 
   profileSave() {
-    this.registerPayload.imageURL = this.profilePictureEvent ?  this.imageURL : '';
+    this.registerPayload.imageURL = this.profilePictureEvent ? this.imageURL : this.profileData.imageUrl || this.profileData.imageURL || '';
     this.profileService.update(this.registerPayload).subscribe((res: any) => {
       this.isLoading = false;
       this.toastrService.success('Patient Updated Successfully', 'Success');
