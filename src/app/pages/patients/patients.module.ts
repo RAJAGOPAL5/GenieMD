@@ -38,6 +38,7 @@ import { AvatarModule } from 'ngx-avatar';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UpsertAlertComponent } from './alerts/upsert-alert/upsert-alert.component';
 import { OrderModule } from 'ngx-order-pipe';
+import { AlertsListComponent } from './alerts/alerts-list/alerts-list.component';
 
 // export function HttpLoaderFactory(http: HttpClient) {
 //   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json');
@@ -60,6 +61,7 @@ import { OrderModule } from 'ngx-order-pipe';
     Spo2Component,
     CareCircleComponent,
     UpsertAlertComponent,
+    AlertsListComponent,
   ],
   imports: [
     CommonModule,

@@ -374,6 +374,11 @@
                         <app-devices (deviceData)= "getRecord($event)" [dataDevice]="devices"></app-devices>
                     </nb-card-body>     
                       </nb-tab>
+                      <nb-tab tabTitle="{{'kAlerts' | translate}}" *ngIf="!!patientID">
+                        <nb-card-body>
+                            <app-alerts-list [patientID]="patientID"></app-alerts-list>
+                        </nb-card-body>     
+                          </nb-tab>
                </nb-tabset>
             </form>
         </nb-card-body>

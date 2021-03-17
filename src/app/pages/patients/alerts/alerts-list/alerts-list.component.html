@@ -1,0 +1,104 @@
+<div class="container-fluid h-100" [nbSpinner]="isLoading">
+    <div class="row justify-content-end">
+        <div class="col-1 ps-1 text-right">
+            <nb-actions size="medium">
+                <nb-action nbTooltip="Add" nbTooltipPlacement="top" icon="plus-circle-outline"
+                    (click)="open(addVitals)">
+                </nb-action>
+            </nb-actions>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="subtitle">Vital</th>
+                        <th scope="col" class="subtitle">Rule</th>
+                        <th class="text-center subtitle" scope="col">Actions</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of limitList;let i=index">
+                        <td class="align-middle subtitle">{{item.vital?.name}}</td>
+                        <td class="align-middle subtitle">{{item?.limit?.rule}}</td>
+                        <td class="text-center">
+                            <nb-icon icon="trash" nbTooltip="Delete" class="icon-font"
+                                (click)="openDialog(deleteDialog,item)" nbTooltipStatus="control" status="danger"
+                                pack="font-awesome" nbTooltipStatus="black"></nb-icon>
+                        </td>
+                    </tr>
+                    <tr class="text-center" *ngIf="!limitList.length">
+                        <td colspan="6">
+                            <p>{{'kNoRecordsFound'| translate}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <ng-template #addVitals>
+        <nb-card class="dialog-card" [nbSpinner]="isLoading">
+            <nb-card-header>
+                <h6 class="text-center">Add</h6>
+            </nb-card-header>
+            <nb-card-body>
+                <form [formGroup]="limitForm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mb-1">
+                                <label for="vitalsType" class="label">
+                                    Vitals</label>
+                                <nb-select id="vitalsType" size="medium" fullWidth formControlName="vital"
+                                    placeholder="Select Vital">
+                                    <nb-option *ngFor="let item of vitalsList" [value]="item">
+                                        {{item.name}}</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mb-1">
+                                <label for="rules" class="label">
+                                    Rule</label>
+                                <input type="text" fieldSize="medium" nbInput fullWidth formControlName="rule"
+                                    id="rules" placeholder="Rule">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+            <nb-card-footer>
+                <div class="row justify-content-end">
+                    <div class="col-5 pe-2">
+                        <button nbButton status="danger" class="w-100" size="medium" (click)="close()">{{'kCancel' |
+                            translate}}</button>
+                    </div>
+                    <div class="col-5 ps-2">
+                        <button nbButton status="success" class="w-100" size="medium" (click)="save()">{{'kSave' |
+                            translate}}</button>
+                    </div>
+                </div>
+            </nb-card-footer>
+
+        </nb-card>
+    </ng-template>
+
+    <ng-template #deleteDialog>
+        <nb-card class="dialog-card" [nbSpinner]="isLoading">
+            <nb-card-header>
+                <p class="subtitle">Are you sure want to delete?</p>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="float-end">
+                    <button nbButton status="success" size="small" (click)="delete()">Yes</button>
+                    <button nbButton status="danger" class="ms-2" size="small" (click)="cancel()">No</button>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </ng-template>
+</div>

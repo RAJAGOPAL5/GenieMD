@@ -24,6 +24,15 @@ export class AlertService {
   updateAlert(payload): Observable<any> {
     return this.http.post(`Alerts/UpdateAlert`, payload, { headers: this.getHeaders() });
   }
+  getLimits(username): Observable<any> {
+    return this.http.get(`Triggers/LimitsForUser/${username}`, { headers: this.getHeaders() });
+  }
+  addLimits(payload): Observable<any> {
+    return this.http.post(`Triggers/AddLimit`, payload, { headers: this.getHeaders() });
+  }
+  deleteLimit(payload): Observable<any> {
+    return this.http.post(`Triggers/DeleteLimit`, payload, { headers: this.getHeaders() });
+  }
   getHeaders() {
     const userID = this.route.firstChild.firstChild.snapshot.params.userID;
     let httpHeaders = new HttpHeaders();
