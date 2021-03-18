@@ -12,15 +12,21 @@ const routes: Routes = [
     children: [
       {
         path: 'patients',
-        component: PatientsComponent
+        component: PatientsComponent,
+        data: { title: 'Patients' }
+
       },
       {
         path: 'adherence',
-        component: AdherenceComponent
+        component: AdherenceComponent,
+        data: { title: 'Adherence' }
+
       },
       {
         path: 'measurements',
-        component: MeasurementsComponent
+        component: MeasurementsComponent,
+        data: { title: 'Measurements' }
+
       }
 
     ]

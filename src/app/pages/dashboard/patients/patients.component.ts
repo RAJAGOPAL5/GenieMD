@@ -20,7 +20,7 @@ export class PatientsComponent implements OnInit {
         title: 'Name',
         filter: false
       },
-      username: {
+      dob: {
         title: 'DOB',
         filter: false
       },
@@ -52,7 +52,7 @@ export class PatientsComponent implements OnInit {
     {
       id: 1,
       name: 'Leanne Graham',
-      username: 'Bret',
+      dob: '02-12-1989',
       email: 'Sincere@april.biz',
       careManager: 'Minetta Costa',
       contact: '<nb-icon icon="close-outline"></nb-icon>'
@@ -60,7 +60,7 @@ export class PatientsComponent implements OnInit {
     {
       id: 2,
       name: 'Ervin Howell',
-      username: 'Antonette',
+      dob: '02-12-1989',
       email: 'Shanna@melissa.tv',
       careManager: 'Minetta Costa',
       contact: '<nb-icon icon="close-outline"></nb-icon>'
@@ -68,7 +68,7 @@ export class PatientsComponent implements OnInit {
     {
       id: 11,
       name: 'Nicholas DuBuque',
-      username: 'Nicholas.Stanton',
+      dob: '02-12-1989',
       email: 'Rey.Padberg@rosamond.biz',
       careManager: 'Minetta Costa',
       contact: '<nb-icon icon="close-outline"></nb-icon>'
@@ -76,7 +76,7 @@ export class PatientsComponent implements OnInit {
     {
       id: 12,
       name: 'Nicholas DuBuque',
-      username: 'Nicholas.Stanton',
+      dob: '02-12-1989',
       email: 'Rey.Padberg@rosamond.biz',
       careManager: 'Minetta Costa',
       contact: '<nb-icon icon="close-outline"></nb-icon>'
