@@ -49,9 +49,7 @@ export class AssessmentComponent implements OnInit {
     this.location = (this.platformLocation as any).location;
 
     window.onmessage = (e) => {
-      console.log('e data', e.data);
-      if (e.data.goToHomeConsent) {
-        console.log('home', e.data.goToHomeConsent);
+      if (e.data.showHome) {
         this.homeData.emit(true);
       }
     };
@@ -91,8 +89,7 @@ export class AssessmentComponent implements OnInit {
         state: this.state
       };
     }
-
-
+    this.protocolData.showDoneButton = true;
     let genieMD;
     if (this.location.hostname === 'localhost') {
       genieMD = new GenieMD('//dev.geniemd.net');
