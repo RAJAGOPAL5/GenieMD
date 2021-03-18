@@ -6,10 +6,11 @@ import { PatientsComponent } from './patients/patients.component';
 import { MeasurementsComponent } from './measurements/measurements.component';
 import { AdherenceComponent } from './adherence/adherence.component';
 import { IndexComponent } from './index/index.component';
-import { NbButtonModule, NbCardModule, NbInputModule, NbRouteTabsetModule, NbSelectModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbInputModule, NbRouteTabsetModule, NbSelectModule, NbSpinnerModule } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [PatientsComponent, MeasurementsComponent, AdherenceComponent, IndexComponent],
   imports: [
@@ -22,7 +23,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NbButtonModule,
     NbSelectModule,
     NbEvaIconsModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    FormsModule,
+    NbSpinnerModule
   ]
 })
 export class DashboardModule { }

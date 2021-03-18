@@ -54,6 +54,7 @@ export class PatientsComponent implements OnInit {
   };
   isLoading = false;
   data = [];
+  searchText = '';
 
   constructor(
     private clinicService: ClinicService,
@@ -74,17 +75,18 @@ export class PatientsComponent implements OnInit {
   }
 
   getList() {
+    this.isLoading = true;
     const payload = {
       userID: this.profileService.id,
       clinicID: this.clinicService.id,
-      name: '',
+      name: this.searchText,
       providerID: '',
       pageNumber: 1,
       count: 100
     };
     this.patientService.find(payload).subscribe((data: any) => {
       console.log('list', data);
-      this.isLoading = true;
+      this.isLoading = false;
       this.data = data.clinicPatientList.map(item => {
         item.name = `${item.firstName} ${item.lastName}`.trim();
         return item;

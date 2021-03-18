@@ -1,10 +1,11 @@
 <div class="row mt-4">
     <div class="d-flex mb-4">
-        <input type="search" fieldSize="medium" nbInput placeholder="Search With Name" class="mr-20">
+        <input type="search" fieldSize="medium" nbInput placeholder="Search With Name" class="mr-20" name="search"
+        [(ngModel)]="searchText" (ngModelChange)="getList()">
         <button nbButton outline status="primary">Patients With No Readings</button>
 
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" [nbSpinner]="isLoading">
         <ng2-smart-table [settings]="settings" [source]="data" ></ng2-smart-table>
     </div>
 </div>
