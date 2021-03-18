@@ -38,10 +38,10 @@ export class PatientsComponent implements OnInit {
         }
 
       },
-      // careManager: {
-      //   title: 'Assigned Care Manager',
-      //   filter: false
-      // },
+      careManager: {
+        title: 'Assigned Care Manager',
+        filter: false
+      },
       patientID: {
         title: 'Contact',
         filter: false,
@@ -95,6 +95,7 @@ export class PatientsComponent implements OnInit {
       this.isLoading = false;
       this.data = data.clinicPatientList.map(item => {
         item.name = `${item.firstName} ${item.lastName}`.trim();
+        item.careManager = 'James';
         return item;
       });
     }, error => {
