@@ -27,7 +27,7 @@
             </nb-form-field>
         </nb-list-item>
     </nb-card-header>
-    <nb-list class="own-scroll" nbInfiniteList [threshold]="15" (bottomThreshold)="loadNext()" >
+    <nb-list class="own-scroll">
         <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of users"
             [routerLink]="[user?.patientID, 'vitals']">
             <nb-user class="cursor-pointer warning"

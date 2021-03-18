@@ -29,7 +29,7 @@ interface ViewModel {
 export class ListComponent implements OnInit {
   @ViewChild('SearchInput', { static: true }) patientSearchInput: ElementRef;
   model: ViewModel = {
-    monitored: 1
+    monitored: -1
   };
   users: any = [];
   isLoading = false;
@@ -40,13 +40,13 @@ export class ListComponent implements OnInit {
   registrationForm: FormGroup;
   dialogRef: any;
   isSearching: boolean;
-  searchValue = { firstName: '', lastName: '', dob: '', gender: 0, monitored: 1 };
+  searchValue = { firstName: '', lastName: '', dob: '', gender: 0, monitored: -1 };
   payloadScroll = {
     clinicID: this.clinicService.id,
     name: this.searchText,
     providerID: '',
     userID: this.profileService.id,
-    count: 25,
+    count: 100,
     pageNumber: 1,
     monitored: this.model.monitored,
   };
@@ -71,6 +71,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
+    this.loadNext(undefined, this.model.monitored);
     this.showBadge();
     fromEvent(this.patientSearchInput.nativeElement, 'keydown').pipe(
       map((event: any) => {
@@ -82,7 +83,7 @@ export class ListComponent implements OnInit {
     ).subscribe((text: string) => {
       this.isSearching = true;
       this.payloadScroll.pageNumber = 1;
-      this.loadNext('search');
+      this.loadNext('search', this.model.monitored);
     });
   }
 
@@ -97,7 +98,7 @@ export class ListComponent implements OnInit {
     modal.onClose.subscribe(data => {
       if (!!data) {
         this.payloadScroll.pageNumber = 1;
-        this.loadNext('add');
+        this.loadNext('add', this.model.monitored);
       }
     });
   }
@@ -131,16 +132,16 @@ export class ListComponent implements OnInit {
     console.log('monitored', monitored);
     this.isLoading = true;
     /* Filter infinite scroll */
-    if (this.filterStatus && !this.isSearching && !monitored) {
+    if (this.filterStatus && !this.isSearching) {
       /* Eliminate multiple serveice call */
-      if (this.serviceHandle) {
-        return;
-      }
-      this.serviceHandle = true;
+      // if (this.serviceHandle) {
+      //   return;
+      // }
+      // this.serviceHandle = true;
       /* end */
 
       this.clinicService.searchPatients(this.payloadFilter).subscribe((data: any) => {
-        this.serviceHandle = false;
+        // this.serviceHandle = false;
         if (this.users.length < data.total) {
           data.clinicPatientList.map(item => {
             item.name = `${item.firstName} ${item.lastName}`.trim();
@@ -161,10 +162,10 @@ export class ListComponent implements OnInit {
       /* Default and search infinite scroll */
 
       /* Eliminate multiple serveice call */
-      if (this.serviceHandle) {
-        return;
-      }
-      this.serviceHandle = true;
+      // if (this.serviceHandle) {
+      //   return;
+      // }
+      // this.serviceHandle = true;
       /* End */
 
       if (search !== undefined) { this.users = []; }
@@ -178,7 +179,7 @@ export class ListComponent implements OnInit {
       // tslint:disable-next-line:no-unused-expression
       this.searchText.length >= 0 && monitored === undefined ? this.payloadScroll.name = this.searchText : '';
       this.patientData = this.patientService.find(this.payloadScroll).subscribe((data: any) => {
-        this.serviceHandle = false;
+        // this.serviceHandle = false;
         this.filterStatus = false;
         if (this.users !== undefined && this.users.length < data.total) {
           data.clinicPatientList = data.clinicPatientList.map(item => {
