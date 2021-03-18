@@ -71,4 +71,16 @@ export class ProfileService {
     httpHeaders = httpHeaders.set('userID', userID);
     return httpHeaders;
   }
+
+  getProtocol(data) {
+    if (data.npiId === '0') {
+      return this.http.get(`Protocol/Get/${data.userId}/${data.clinicId}`);
+    } else {
+      return this.http.get(`Protocol/GetProviderProtocols2/${data.userId}/${data.npiId}`);
+    }
+  }
+
+  // getProtocol(data) {
+  //     return this.http.get(`Protocol/Get/${data.userId}/${data.clinicId}`);
+  // }
 }

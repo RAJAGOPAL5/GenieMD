@@ -8,6 +8,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { VisitsComponent } from './visits/visits.component';
 import { VitalsComponent } from './vitals/vitals.component';
 import { AddComponent } from './add/add.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,11 @@ const routes: Routes = [
             data: { title: 'Vitals' }
           },
           {
+            path: 'schedule',
+            component: ScheduleComponent,
+            data: { title: 'Schedules' }
+          },
+          {
             path: 'care-team',
             component: CareTeamComponent,
             data: { title: 'Care-Team' }
@@ -50,11 +56,6 @@ const routes: Routes = [
             component: AlertsComponent,
             data: { title: 'Alerts' }
           },
-          {
-            path: 'schedule',
-            component: VisitsComponent,
-            data: { title: 'Schedules' }
-          }
         ]
       }
     ]
