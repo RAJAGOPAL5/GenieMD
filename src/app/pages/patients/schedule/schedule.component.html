@@ -1,0 +1,36 @@
+<nb-card size="large" class="h-100" style="overflow: auto" [nbSpinner]="isLoading">
+    <div class="container" *ngIf="showList">
+        <div class="row px-3">
+            <div class="col-md-6 offset-md-3">
+                <div class="row p-3">
+                    <div class="align-self-center col-12 pt-1 text-center">
+                        <h6 *ngIf="clinicData?.oemID !== 155">{{'kPleaseSelectCondition' | translate }}</h6>
+                        <h6 *ngIf="clinicData?.oemID === 155">Please select a Consultation Type</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <input type="search" nbInput fullWidth status="basic" name="searchText" id="searchText"
+                            [(ngModel)]="searchText" (keyup)="filterProtocolList(searchText)"
+                            placeholder="{{'kSearchForAssessment' | translate}}">
+                    </div>
+                </div>
+                <nb-list class="own-scroll" nbInfiniteList [threshold]="15">
+                    <nb-list-item class="list-group-item cursor-pointer px-4" *ngFor="let protocol of protocolList">
+                        <div (click)="runProtocol(protocol)" class="col-11 col-md-11 col-sm-11 col-lg-11">
+                            <p class="subtitle" *ngIf="protocol?.varName">{{protocol.varName | translate}} </p>
+                            <p class="subtitle" *ngIf="!protocol?.varName">{{protocol.name}} </p>
+                            <small>{{protocol?.description}}</small>
+                        </div>
+
+                    </nb-list-item>
+                </nb-list>
+            </div>
+            <div class="col-md-12 text-center mb-2" *ngIf="protocolList?.length === 0">{{'kNoRecordsFound' | translate }}
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="showAssessment">
+        <app-assessment [protocolData]="protocolObj" (homeData)= "getRecord($event)"></app-assessment>
+    </ng-container>
+</nb-card>

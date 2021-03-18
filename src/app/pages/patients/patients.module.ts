@@ -39,6 +39,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { UpsertAlertComponent } from './alerts/upsert-alert/upsert-alert.component';
 import { OrderModule } from 'ngx-order-pipe';
 import { AlertsListComponent } from './alerts/alerts-list/alerts-list.component';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { AssessmentComponent } from './assessment/assessment.component';
 
 // export function HttpLoaderFactory(http: HttpClient) {
 //   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json');
@@ -62,6 +64,8 @@ import { AlertsListComponent } from './alerts/alerts-list/alerts-list.component'
     CareCircleComponent,
     UpsertAlertComponent,
     AlertsListComponent,
+    ScheduleComponent,
+    AssessmentComponent,
   ],
   imports: [
     CommonModule,
