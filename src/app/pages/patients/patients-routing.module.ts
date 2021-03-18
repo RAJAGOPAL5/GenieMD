@@ -11,10 +11,6 @@ import { AddComponent } from './add/add.component';
 
 const routes: Routes = [
   {
-    path: '',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
-  },
-  {
     path: ':patientID/edit',
     component: AddComponent,
     data: { title: 'Edit' }

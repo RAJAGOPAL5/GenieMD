@@ -67,7 +67,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
     const password = this.model.password;
     const result$ = this.authService.logIn(username, password)
       .subscribe(result => {
-        this.router.navigate([this.clinicService.id, result.userID, 'patients']);
+        this.router.navigate([this.clinicService.id, result.userID, 'dashboard', 'patients']);
         this.isLoading = false;
       }, error => {
         this.isLoading = false;

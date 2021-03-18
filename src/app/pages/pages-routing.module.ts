@@ -13,7 +13,14 @@ const routes: Routes = [
     },
     data: { title: 'Patients'},
     loadChildren: () => import('./patients/patients.module').then(m => PatientsModule)
-  }
+  },
+  {
+    path: 'dashboard',
+    component: IndexComponent,
+    data: { title: 'Dashboard'},
+
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+  },
 ];
 
 @NgModule({

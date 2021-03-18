@@ -1,0 +1,10 @@
+<div class="row mt-4">
+    <div class="d-flex mb-4">
+        <input type="search" fieldSize="medium" nbInput placeholder="Search With Name" class="mr-20">
+        <button nbButton outline status="primary">Patients With No Readings</button>
+
+    </div>
+    <div class="col-md-12">
+        <ng2-smart-table [settings]="settings" [source]="data" ></ng2-smart-table>
+    </div>
+</div>

@@ -1,22 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdherenceComponent } from './adherence/adherence.component';
+import { IndexComponent } from './index/index.component';
 import { MeasurementsComponent } from './measurements/measurements.component';
 import { PatientsComponent } from './patients/patients.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: PatientsComponent
+    component: IndexComponent,
+    children: [
+      {
+        path: 'patients',
+        component: PatientsComponent
+      },
+      {
+        path: 'adherence',
+        component: AdherenceComponent
+      },
+      {
+        path: 'measurements',
+        component: MeasurementsComponent
+      }
+
+    ]
   },
-  {
-    path: 'adherence',
-    component: AdherenceComponent
-  },
-  {
-    path: 'measurements',
-    component: MeasurementsComponent
-  }
 ];
 
 @NgModule({
