@@ -11,24 +11,28 @@ import { AddComponent } from './add/add.component';
 
 const routes: Routes = [
   {
+    path: '',
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+  },
+  {
     path: ':patientID/edit',
     component: AddComponent,
-    data: {title: 'Edit'}
+    data: { title: 'Edit' }
   },
   {
     path: 'create',
     component: AddComponent,
-    data: {title: 'Add'}
+    data: { title: 'Add' }
   },
   {
     path: '',
     component: IndexComponent,
-    data: { title:  'Patients'},
+    data: { title: 'Patients' },
     children: [
       {
         path: ':patientId',
         component: ProfileComponent,
-        data: { title:  'Patients'},
+        data: { title: 'Patients' },
         children: [
           {
             path: 'vitals',
@@ -48,17 +52,18 @@ const routes: Routes = [
           {
             path: 'alerts',
             component: AlertsComponent,
-            data: { title: 'Alerts'}
+            data: { title: 'Alerts' }
           },
           {
             path: 'schedule',
             component: VisitsComponent,
-            data: {title: 'Schedules'}
+            data: { title: 'Schedules' }
           }
         ]
       }
     ]
   },
+
 ];
 
 @NgModule({
