@@ -34,7 +34,7 @@ export class PatientsComponent implements OnInit {
         filter: false,
         type: 'html',
         valuePrepareFunction: (value) => {
-          return '<a class="text-primary cursor-pointer">View Notes</a>';
+          return '<a class="text-primary cursor-pointer">View Vitals</a>';
         }
 
       },
