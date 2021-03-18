@@ -128,6 +128,7 @@ export class ListComponent implements OnInit {
   }
 
   loadNext(search?: string, monitored?: number) {
+    console.log('monitored', monitored);
     this.isLoading = true;
     /* Filter infinite scroll */
     if (this.filterStatus && !this.isSearching && !monitored) {

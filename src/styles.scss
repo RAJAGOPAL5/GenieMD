@@ -1,5 +1,5 @@
 @import 'themes';
-
+@import "~bootstrap/scss/bootstrap";
 @import '~@nebular/theme/styles/globals';
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
@@ -12,6 +12,12 @@
 @import "~bootstrap/scss/buttons";
 @import "~bootstrap/scss/containers";
 @import "~bootstrap/scss/tables";
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/themes/dark.scss';
+
 @include nb-install() {
   @include nb-theme-global();
 };
@@ -114,4 +120,10 @@ nb-list-item {
 }
 .cursor-pointer{
     cursor: pointer;
+}
+nb-route-tabset#patients .route-tabset {
+    border-bottom: none !important;
+}
+.mr-20 {
+    margin-right: 20px;
 }

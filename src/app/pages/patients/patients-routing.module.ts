@@ -14,22 +14,22 @@ const routes: Routes = [
   {
     path: ':patientID/edit',
     component: AddComponent,
-    data: {title: 'Edit'}
+    data: { title: 'Edit' }
   },
   {
     path: 'create',
     component: AddComponent,
-    data: {title: 'Add'}
+    data: { title: 'Add' }
   },
   {
     path: '',
     component: IndexComponent,
-    data: { title:  'Patients'},
+    data: { title: 'Patients' },
     children: [
       {
         path: ':patientId',
         component: ProfileComponent,
-        data: { title:  'Patients'},
+        data: { title: 'Patients' },
         children: [
           {
             path: 'vitals',
@@ -54,12 +54,13 @@ const routes: Routes = [
           {
             path: 'alerts',
             component: AlertsComponent,
-            data: { title: 'Alerts'}
+            data: { title: 'Alerts' }
           },
         ]
       }
     ]
   },
+
 ];
 
 @NgModule({
