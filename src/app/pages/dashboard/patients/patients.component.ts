@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NbToastrService } from '@nebular/theme';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { PatientsService } from 'src/app/shared/service/patients.service';
+import { ProfileService } from 'src/app/shared/service/profile.service';
 
 @Component({
   selector: 'app-patients',
@@ -33,11 +37,11 @@ export class PatientsComponent implements OnInit {
         }
 
       },
-      careManager: {
-        title: 'Assigned Care Manager',
-        filter: false
-      },
-      id: {
+      // careManager: {
+      //   title: 'Assigned Care Manager',
+      //   filter: false
+      // },
+      patientID: {
         title: 'Contact',
         filter: false,
         type: 'html',
@@ -48,48 +52,46 @@ export class PatientsComponent implements OnInit {
       }
     }
   };
-  data = [
-    {
-      id: 1,
-      name: 'Leanne Graham',
-      dob: '02-12-1989',
-      email: 'Sincere@april.biz',
-      careManager: 'Minetta Costa',
-      contact: '<nb-icon icon="close-outline"></nb-icon>'
-    },
-    {
-      id: 2,
-      name: 'Ervin Howell',
-      dob: '02-12-1989',
-      email: 'Shanna@melissa.tv',
-      careManager: 'Minetta Costa',
-      contact: '<nb-icon icon="close-outline"></nb-icon>'
-    },
-    {
-      id: 11,
-      name: 'Nicholas DuBuque',
-      dob: '02-12-1989',
-      email: 'Rey.Padberg@rosamond.biz',
-      careManager: 'Minetta Costa',
-      contact: '<nb-icon icon="close-outline"></nb-icon>'
-    },
-    {
-      id: 12,
-      name: 'Nicholas DuBuque',
-      dob: '02-12-1989',
-      email: 'Rey.Padberg@rosamond.biz',
-      careManager: 'Minetta Costa',
-      contact: '<nb-icon icon="close-outline"></nb-icon>'
-    }
-  ];
-  constructor() { }
+  isLoading = false;
+  data = [];
+
+  constructor(
+    private clinicService: ClinicService,
+    private profileService: ProfileService,
+    private patientService: PatientsService,
+    private toastrService: NbToastrService
+  ) { }
 
   ngOnInit(): void {
+    this.getList();
+
   }
   open(id) {
     console.log('idd', id);
   }
   onCustomAction(event) {
     console.log('event', event);
+  }
+
+  getList() {
+    const payload = {
+      userID: this.profileService.id,
+      clinicID: this.clinicService.id,
+      name: '',
+      providerID: '',
+      pageNumber: 1,
+      count: 100
+    };
+    this.patientService.find(payload).subscribe((data: any) => {
+      console.log('list', data);
+      this.isLoading = true;
+      this.data = data.clinicPatientList.map(item => {
+        item.name = `${item.firstName} ${item.lastName}`.trim();
+        return item;
+      });
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger(error, 'Error');
+    });
   }
 }
