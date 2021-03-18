@@ -11,6 +11,7 @@ import { AddComponent } from '../add/add.component';
 import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
 import { debounceTime, map, filter, distinctUntilChanged } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface ViewModel {
   search?: string;
@@ -54,6 +55,7 @@ export class ListComponent implements OnInit {
   serviceHandle: boolean;
   filterStatus: boolean;
   patientData: any;
+  userId: any;
   constructor(
     private patientService: PatientsService,
     private profileService: ProfileService,
@@ -63,6 +65,8 @@ export class ListComponent implements OnInit {
     private languageService: LanguageService,
     private translate: TranslateService,
     private toastrService: NbToastrService,
+    private route: ActivatedRoute,
+    private router: Router
 
   ) {
     translate.use('en');
@@ -71,6 +75,8 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.clinic = this.clinicService.clinic;
+    this.userId = this.route.parent.snapshot.params.userID;
+
     this.loadNext(undefined, this.model.monitored);
     this.showBadge();
     fromEvent(this.patientSearchInput.nativeElement, 'keydown').pipe(
@@ -120,7 +126,7 @@ export class ListComponent implements OnInit {
         this.filterPayload = { firstName: '', lastName: '', dob: '', gender: '' };
       }
       this.showBadge();
-      return ;
+      return;
     });
   }
 
@@ -192,10 +198,13 @@ export class ListComponent implements OnInit {
         }
         this.isLoading = false;
         return;
-        }, error => {
+      }, error => {
         this.isLoading = false;
         this.toastrService.danger(error, 'Error');
       });
     }
+  }
+  getCompactView() {
+    this.router.navigate([this.clinicService.id, this.userId, 'dashboard', 'patients']);
   }
 }

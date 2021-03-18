@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
@@ -33,7 +34,7 @@ export class PatientsComponent implements OnInit {
         filter: false,
         type: 'html',
         valuePrepareFunction: (value) => {
-          return '<a href="">View Notes</a>';
+          return '<a class="text-primary cursor-pointer">View Notes</a>';
         }
 
       },
@@ -54,16 +55,21 @@ export class PatientsComponent implements OnInit {
   };
   isLoading = false;
   data = [];
+  userId: any;
 
   constructor(
     private clinicService: ClinicService,
     private profileService: ProfileService,
     private patientService: PatientsService,
-    private toastrService: NbToastrService
+    private toastrService: NbToastrService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.getList();
+    console.log('route', this.route.parent.snapshot.params.userID);
+    this.userId = this.route.parent.snapshot.params.userID;
 
   }
   open(id) {
@@ -93,5 +99,10 @@ export class PatientsComponent implements OnInit {
       this.isLoading = false;
       this.toastrService.danger(error, 'Error');
     });
+
+  }
+  getRow(event) {
+    this.router.navigate([this.clinicService.id, this.userId, 'patients', event.data.patientID, 'vitals']);
+
   }
 }
