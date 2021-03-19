@@ -51,6 +51,7 @@ export class ScheduleComponent implements OnInit {
   rescheduleDialogRef: any;
   deleteDialogRef: any;
   deleteObj: any;
+  provider: any;
 
   constructor(
     private clinicService: ClinicService,
@@ -224,9 +225,9 @@ export class ScheduleComponent implements OnInit {
   }
 
   getRecord(event) {
+    this.getAppointments(this.userID);
     this.showAppointments = true;
     this.showAssessment = false;
-    this.getAppointments(this.userID);
   }
 
   getAppointments(userId) {
@@ -312,9 +313,17 @@ export class ScheduleComponent implements OnInit {
     return this.appointmentlistResult;
   }
 
-  rescheduleModal(reschdeuleDialog: TemplateRef<any>) {
+  rescheduleModal(reschdeuleDialog: TemplateRef<any>, provider) {
+    this.provider = provider;
     this.rescheduleDialogRef = this.dialogService.open(reschdeuleDialog, { closeOnBackdropClick: false });
   }
+
+  rescheduleAppointment() {
+    this.rescheduleDialogRef.close();
+    this.showAppointments = false;
+    this.showList = true;
+  }
+
 
   closeReschedule() {
     this.rescheduleDialogRef.close();
