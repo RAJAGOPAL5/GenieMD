@@ -8,7 +8,7 @@ import { NbDialogRef } from '@nebular/theme';
   styleUrls: ['./clinic-prompt.component.scss']
 })
 export class ClinicPromptComponent implements OnInit {
-  clinicID: '';
+  clinicID = '';
   constructor(private router: Router,
               private ref: NbDialogRef<ClinicPromptComponent>) { }
 

@@ -11,7 +11,7 @@ import {
 } from '@nebular/theme';
 import { TranslateModule } from '@ngx-translate/core';
 import { DevicesComponent } from './components/devices/devices.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TimeSlotsComponent } from './components/time-slots/time-slots.component';
 import { AddComponent } from './components/add/add.component';
 import { FilterDialogComponent } from './components/filter-dialog/filter-dialog.component';
@@ -54,6 +54,7 @@ import { AlertsListComponent } from './components/alerts-list/alerts-list.compon
     NbSpinnerModule,
     NbUserModule,
     TranslateModule.forRoot(),
+    FormsModule
 
   ],
   exports: [NbLayoutModule,
