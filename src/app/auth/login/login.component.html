@@ -4,7 +4,7 @@
   </span>
 </div>
 <h1 id="title" class="title">{{'kLogin' | translate}}</h1>
-<form (ngSubmit)="login()" #form="ngForm" aria-labelledby="title" [nbSpinner]="isLoading">
+<form (ngSubmit)="login()" #form="ngForm" aria-labelledby="title" [nbSpinner]="isLoading" nbSpinnerMessage="Please wait.. ">
   <div class="form-control-group m-0">
     <label class="label m-0" for="input-email">{{'kEmailOrUsername' | translate}}:</label>
     <input nbInput

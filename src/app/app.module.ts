@@ -4,38 +4,25 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
-  NbButtonModule, NbCardModule, NbDialogModule, NbIconModule, NbInputModule, NbLayoutModule,
-  NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbSpinnerModule, NbThemeModule, NbToastrModule,
-  NbTooltipModule, NbUserModule, NbDatepickerModule, NbButtonGroupModule, NbCheckboxModule, NbActionsModule,
-  NbListModule
+  NbCardModule, NbDialogModule, NbLayoutModule,
+  NbMenuModule, NbSidebarModule, NbSpinnerModule, NbThemeModule, NbToastrModule,
+  NbTooltipModule, NbDatepickerModule, NbIconModule,
 } from '@nebular/theme';
-import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { MyHttpInterceptor } from './shared/interceptors/interceptor';
-import { VitalsComponent } from './pages/patients/vitals/vitals.component';
-import { CareTeamComponent } from './pages/patients/care-team/care-team.component';
-import { HistoryComponent } from './pages/patients/history/history.component';
-import { ProfileComponent } from './pages/patients/profile/profile.component';
-import { AlertsComponent } from './pages/patients/alerts/alerts.component';
-import { VisitsComponent } from './pages/patients/visits/visits.component';
 import { ClinicPromptComponent } from './shared/components/clinic-prompt/clinic-prompt.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LogoutConfimartionComponent } from './shared/components/logout-confimartion/logout-confimartion.component';
-import { ChartsModule } from 'ng2-charts';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
-import { format, compareAsc } from 'date-fns';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { CoreModule } from 'core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { getUserPreferedTheme } from './shared/utility';
-import { OrderModule } from 'ngx-order-pipe';
 
 const theme = getUserPreferedTheme();
 @NgModule({
@@ -51,34 +38,20 @@ const theme = getUserPreferedTheme();
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),
     NbCardModule,
-    NbInputModule,
     NbDialogModule.forRoot(),
     NbLayoutModule,
-    SharedModule,
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: theme }),
-    NbEvaIconsModule,
-    NbRouteTabsetModule,
     HttpClientModule,
     NgHttpLoaderModule.forRoot(),
     environment.production ? [] : AkitaNgDevtools.forRoot(),
-    FormsModule,
-    ReactiveFormsModule,
     NbToastrModule.forRoot(),
     NbDatepickerModule.forRoot(),
     NbSpinnerModule,
-    ChartsModule,
-    NbIconModule,
-    NbButtonModule,
     NbTooltipModule,
-    NbUserModule,
+    NbIconModule,
     TranslateModule.forRoot(),
-    NbButtonGroupModule,
-    NbCheckboxModule,
-    NbActionsModule,
-    NbListModule,
     NbDateFnsDateModule.forRoot({ format: 'dd/MM/yyyy' }),
-    OrderModule,
     CoreModule.forRoot({
       baseURL: environment.base_url,
       production: environment.production

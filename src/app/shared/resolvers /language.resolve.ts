@@ -1,8 +1,8 @@
 
 
-import { of as observableOf, Observable, forkJoin, combineLatest } from 'rxjs';
+import { of as observableOf, Observable, combineLatest } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, RouterOutlet, Router } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { LanguageService } from '../service/language.service';
 import { ClinicService } from '../service/clinic.service';
 
