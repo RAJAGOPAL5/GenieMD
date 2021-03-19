@@ -17,6 +17,7 @@ import { AddComponent } from './components/add/add.component';
 import { FilterDialogComponent } from './components/filter-dialog/filter-dialog.component';
 import { AvatarModule } from 'ngx-avatar';
 import { AlertsListComponent } from './components/alerts-list/alerts-list.component';
+import { ClinicPromptComponent } from './components/clinic-prompt/clinic-prompt.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { AlertsListComponent } from './components/alerts-list/alerts-list.compon
     TimeSlotsComponent,
     AddComponent,
     FilterDialogComponent,
-    AlertsListComponent],
+    AlertsListComponent,
+    ClinicPromptComponent],
   imports: [
     CommonModule,
     NbLayoutModule,
