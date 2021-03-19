@@ -7,11 +7,11 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
-import { AddComponent } from '../add/add.component';
-import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
 import { debounceTime, map, filter, distinctUntilChanged } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FilterDialogComponent } from 'src/app/shared/components/filter-dialog/filter-dialog.component';
+import { AddComponent } from 'src/app/shared/components/add/add.component';
 
 interface ViewModel {
   search?: string;

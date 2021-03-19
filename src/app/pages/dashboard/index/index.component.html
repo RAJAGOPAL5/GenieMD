@@ -7,7 +7,7 @@
                     <div class="p-2 w-100 patient-content">
                         <nb-route-tabset [tabs]="tabs" id="patients"></nb-route-tabset>
                     </div>
-                    <div class="p-2 flex-shrink-0 cursor-pointer text-primary"><i class="fas fa-plus" style="padding-right: 10px;"></i>Add Patient</div>
+                    <div class="p-2 flex-shrink-0 cursor-pointer text-primary"><i class="fas fa-plus" style="padding-right: 10px;" (click)="addPatient()"></i>Add Patient</div>
                 </div>
             </nb-card-body>
         </nb-card>

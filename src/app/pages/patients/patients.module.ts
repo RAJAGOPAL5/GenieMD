@@ -14,8 +14,6 @@ import {
   NbBadgeModule, NbTooltipModule, NbPopoverModule, NbCalendarRangeModule, NbCalendarModule, NbTreeGridModule, NbTagModule
 } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AddComponent } from './add/add.component';
-import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -49,7 +47,7 @@ import { AssessmentComponent } from './assessment/assessment.component';
 
 @NgModule({
   declarations: [
-    ListComponent, UpsertComponent, IndexComponent, AddComponent, FilterDialogComponent, ChartComponent,
+    ListComponent, UpsertComponent, IndexComponent, ChartComponent,
     VitalsComponent,
     CareTeamComponent,
     HistoryComponent,
@@ -92,8 +90,8 @@ import { AssessmentComponent } from './assessment/assessment.component';
     NbListModule,
     NbActionsModule,
     NbCheckboxModule,
-    TranslateModule.forRoot(),
     NbBadgeModule,
+    TranslateModule.forRoot(),
     NbTooltipModule,
     ChartsModule,
     NgxDateRangeModule,
@@ -106,6 +104,6 @@ import { AssessmentComponent } from './assessment/assessment.component';
     NbTagModule,
     OrderModule
     ],
-  entryComponents: [AddComponent, UpsertAlertComponent]
+  entryComponents: [UpsertAlertComponent]
 })
 export class PatientsModule { }

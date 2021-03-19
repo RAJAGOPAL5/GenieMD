@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NbToastrService } from '@nebular/theme';
+import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
+import { FilterDialogComponent } from 'src/app/shared/components/filter-dialog/filter-dialog.component';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { DataService } from 'src/app/shared/service/data.service';
+import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 
@@ -57,6 +61,11 @@ export class PatientsComponent implements OnInit {
   data = [];
   userId: any;
   searchText = '';
+  filterPayload = { firstName: '', lastName: '', dob: '', gender: '' };
+  users: any = [];
+  payloadFilter = { pageNumber: 1 };
+  isFilter = false;
+
 
   constructor(
     private clinicService: ClinicService,
@@ -64,8 +73,21 @@ export class PatientsComponent implements OnInit {
     private patientService: PatientsService,
     private toastrService: NbToastrService,
     private route: ActivatedRoute,
-    private router: Router
-  ) { }
+    private router: Router,
+    private dialogService: NbDialogService,
+    private languageService: LanguageService,
+    private translate: TranslateService,
+    private dataService: DataService
+  ) {
+    translate.use('en');
+    translate.setTranslation('en', this.languageService.state);
+    this.dataService.patientData.subscribe(data => {
+      // tslint:disable-next-line:triple-equals
+      if (data == true) {
+        this.getList();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.getList();
@@ -106,6 +128,29 @@ export class PatientsComponent implements OnInit {
   }
   getRow(event) {
     this.router.navigate([this.clinicService.id, this.userId, 'patients', event.data.patientID, 'vitals']);
+  }
 
+  filterPatient() {
+    const modal = this.dialogService.open(FilterDialogComponent, {});
+    modal.componentRef.instance.data = this.filterPayload;
+    modal.onClose.subscribe(data => {
+      if (!!data && data.type === 'filter') {
+        this.searchText = '';
+        this.data = data.data;
+        this.filterPayload = data.payload;
+        this.payloadFilter = data.payloadService;
+        this.payloadFilter.pageNumber++;
+      } else if (!!data && data.type === 'clear') {
+        this.filterPayload = { firstName: '', lastName: '', dob: '', gender: '' };
+      }
+      this.showBadge();
+      return;
+    });
+  }
+
+  showBadge() {
+    this.isFilter = Object.keys(this.filterPayload).some(k => {
+      return !!this.filterPayload[k];
+    });
   }
 }

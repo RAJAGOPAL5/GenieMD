@@ -22,6 +22,9 @@ export class DataService {
   private requestClinic = new BehaviorSubject({});
   requestData = this.requestClinic.asObservable();
 
+  private patientAdded = new BehaviorSubject(false);
+  patientData = this.patientAdded.asObservable();
+
   phrevent: EventEmitter<any> = new EventEmitter(false);
 
 
@@ -36,7 +39,7 @@ export class DataService {
   }
 
   addClinic(data: any) {
-  this.clinicData.next(data);
+    this.clinicData.next(data);
   }
 
   titleChange(name: any) {
@@ -51,5 +54,8 @@ export class DataService {
   }
   getNavChangeEmitter() {
     return this.phrevent;
+  }
+  updatePatientList(data: any) {
+    this.patientAdded.next(data);
   }
 }

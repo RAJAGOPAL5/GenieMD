@@ -7,20 +7,10 @@ import { IndexComponent } from './index/index.component';
 import { ProfileComponent } from './profile/profile.component';
 import { VisitsComponent } from './visits/visits.component';
 import { VitalsComponent } from './vitals/vitals.component';
-import { AddComponent } from './add/add.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 
 const routes: Routes = [
-  {
-    path: ':patientID/edit',
-    component: AddComponent,
-    data: { title: 'Edit' }
-  },
-  {
-    path: 'create',
-    component: AddComponent,
-    data: { title: 'Add' }
-  },
+
   {
     path: '',
     component: IndexComponent,

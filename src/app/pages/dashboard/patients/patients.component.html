@@ -1,9 +1,11 @@
 <div class="row mt-4">
-    <div class="d-flex mb-4">
+    <div class="d-flex mb-4 position-relative">
         <input type="search" fieldSize="medium" nbInput placeholder="Search With Name" class="mr-20" name="search"
         [(ngModel)]="searchText" (ngModelChange)="getList()">
         <button nbButton outline status="primary">Patients With No Readings</button>
-
+        <nb-action class="ps-4 pe-0" nbTooltip="Filter" nbTooltipPlacement="top" icon="funnel-outline" (click)="filterPatient()">
+        </nb-action>
+        <div class="badge-position cursor-pointer" *ngIf = "isFilter"><nb-badge text="99+" status="danger" dotMode = true (click)="filterPatient()"></nb-badge></div>
     </div>
     <div class="col-md-12" [nbSpinner]="isLoading">
         <ng2-smart-table [settings]="settings" [source]="data" (userRowSelect)="getRow($event)"></ng2-smart-table>
