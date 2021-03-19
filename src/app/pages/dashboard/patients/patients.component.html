@@ -26,24 +26,19 @@
                 </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Monitors">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <a class="text-primary">View Vitals</a>
-                    <!-- <button nbButton nbPopover="Hi, I'm popover!" nbPopoverPlacement="left">Open Popover</button> -->
-                    <!-- <button [nbPopover]="templateRef"></button>
-                    <ng-template #templateRef>
-                        <span>Hello, Popover!</span>
-                    </ng-template> -->
+                <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
+                    <span>{{row.vitals}}</span>
                 </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Assigned Care Manager">
                 <ng-template let-value="value" ngx-datatable-cell-template>
-                    <span>James</span>
+                    <span>{{profile?.screenName}}</span>
                 </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Contact">
                 <ng-template let-value="value" ngx-datatable-cell-template>
-                    <i class="fas fa-phone text-primary"></i> <i class="far fa-comment-dots text-primary"></i> <i
-                        class="fas fa-video text-primary"></i>
+                    <i class="fas fa-phone text-primary " nbTooltip="Call" nbTooltipStatus="basic" ></i> <i class="far fa-comment-dots text-primary d-inline-block mx-2" nbTooltip="Chat" nbTooltipStatus="basic"></i> <i
+                        class="fas fa-video text-primary" nbTooltip="Video" nbTooltipStatus="basic"></i>
                 </ng-template>
             </ngx-datatable-column>
         </ngx-datatable>

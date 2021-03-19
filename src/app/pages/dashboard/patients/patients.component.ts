@@ -25,15 +25,14 @@ export class PatientsComponent implements OnInit {
   users: any = [];
   payloadFilter = { pageNumber: 1 };
   isFilter = false;
-  @ViewChild('monitorTmpl', { static: true }) monitorTmpl: any;
-  @ViewChild('contactTmpl', { static: true }) contactTmpl: any;
-
   ColumnMode = ColumnMode;
   columns = [];
   pageNumber = 1;
+  profile: any;
   readonly headerHeight = 50;
   readonly rowHeight = 50;
   readonly pageLimit = 10;
+  clinicVitals = [];
 
   constructor(
     private clinicService: ClinicService,
@@ -46,7 +45,7 @@ export class PatientsComponent implements OnInit {
     private languageService: LanguageService,
     private translate: TranslateService,
     private dataService: DataService,
-    private el: ElementRef
+    private el: ElementRef,
   ) {
     translate.use('en');
     translate.setTranslation('en', this.languageService.state);
@@ -59,18 +58,16 @@ export class PatientsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.profile = this.profileService.profile;
     this.columns = [
       { name: 'No.' },
       { prop: 'name', name: 'Name' }, { prop: 'dob', name: 'DOB', width: 10 },
       { name: 'Monitors', width: 10 },
       { prop: 'careManager', name: 'Assigned Care Manager' },
-       { prop: 'patientID', name: 'Contact', width: 10}];
+      { prop: 'patientID', name: 'Contact', width: 10 }];
     this.getList();
-    console.log('route', this.route.parent.snapshot.params.userID);
     this.userId = this.route.parent.snapshot.params.userID;
-    const vitals = this.clinicService.getVitals();
-    console.log('vitals', vitals);
-
+    this.clinicVitals = this.clinicService.getVitals();
   }
   open(id) {
     console.log('idd', id);
@@ -91,12 +88,17 @@ export class PatientsComponent implements OnInit {
     this.patientService.find(payload)
       .subscribe((data: any) => {
         const clinicPatientList = data.clinicPatientList.map(item => {
+          try {
+            item.extraData = JSON.parse(item.extraData);
+          } catch (error) {
+            item.extraData = {};
+          }
+          item.vitals = this.getPatientVitals(item.extraData);
           item.name = `${item.firstName} ${item.lastName}`.trim();
           item.careManager = 'James';
           return item;
         });
         this.data = [...this.data, ...clinicPatientList];
-        console.log('this.data', this.data);
         this.isLoading = false;
       }, error => {
         this.isLoading = false;
@@ -163,5 +165,18 @@ export class PatientsComponent implements OnInit {
       this.pageNumber = limit;
       this.getList();
     }
+  }
+  getPatientVitals(extraData) {
+    const vitals = extraData?.vitals || [];
+    const patientVitals = [];
+    vitals.map(item => {
+      this.clinicVitals.map(k => {
+        // tslint:disable-next-line:triple-equals
+        if (k.id == item) {
+          patientVitals.push(k.name);
+        }
+      });
+    });
+    return patientVitals.length ? patientVitals.toString() : 'No vitals found';
   }
 }
