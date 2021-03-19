@@ -2,8 +2,10 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { DataService } from 'src/app/shared/service/data.service';
+import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { ScheduleService } from 'src/app/shared/service/schedule.service';
@@ -48,6 +50,7 @@ export class ScheduleComponent implements OnInit {
   clinic: any;
   rescheduleDialogRef: any;
   deleteDialogRef: any;
+  deleteObj: any;
 
   constructor(
     private clinicService: ClinicService,
@@ -59,9 +62,13 @@ export class ScheduleComponent implements OnInit {
     private router: Router,
     private scheduleService: ScheduleService,
     private datePipe: DatePipe,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private translate: TranslateService,
+    private ls: LanguageService,
 
   ) {
+    translate.use('en');
+    translate.setTranslation('en', this.ls.state);
     this.dataService.data.subscribe(data => {
       this.assessmentData = data;
     });
@@ -314,14 +321,88 @@ export class ScheduleComponent implements OnInit {
   }
 
   deleteAppointment() {
-    console.log('Delete appointment');
+    this.scheduleService.deleteAppointment(this.deleteObj).subscribe((data: any) => {
+      this.toastrService.success(this.translate.instant('kAppointmentSuccessfully'));
+      this.getAppointments(this.userID);
+      this.updateService();
+      this.deleteDialogRef.close();
+    }, error => {
+      this.toastrService.danger(error.error.errorMessage);
+
+    });
   }
 
-  cancelAppointment(deleteDialog: TemplateRef<any>) {
+  cancelAppointment(deleteDialog: TemplateRef<any>, id, content) {
+    this.deleteObj = {
+      userID: this.userID,
+      flag: 0,
+      isOrganizer: false,
+      meetingID: id
+    };
     this.deleteDialogRef = this.dialogService.open(deleteDialog, { closeOnBackdropClick: false });
   }
 
   close() {
     this.deleteDialogRef.close();
+  }
+
+  updateService() {
+    const appointmentList = this.appointmentlistResult.find(d => d.meeting.meetingId === this.deleteObj.meetingID);
+    const meeting = {
+      assessment: '',
+      assessmentID: '0',
+      assessmentName: appointmentList.assessmentName,
+      attendingProviderID: appointmentList.clinicID,
+      clinicID: appointmentList.created,
+      created: appointmentList.created,
+      diagnosis: '',
+      encounterID: appointmentList.encounterID,
+      endPoint: appointmentList.endPoint,
+      extraData: '',
+      interview: '',
+      meetingID: '-1',
+      patientID: appointmentList.patientID,
+      pharmacyID: '',
+      processed: appointmentList.processed,
+      protocolID: 0,
+      providerID: appointmentList.providerID,
+      status: 5,
+      submitterID: appointmentList.submitterID,
+      symptoms: '',
+      treatment: '',
+      type: 1,
+      userID: this.userID
+    };
+    this.scheduleService.updateProvider(meeting).subscribe((data: any) => {
+      this.notifyUser(appointmentList);
+    }, error => {
+      this.toastrService.danger(this.translate.instant('kClinic') + ' ' + this.translate.instant('kNotFound'));
+
+    });
+  }
+
+  notifyUser(appointmentList) {
+    const patientName = JSON.parse(appointmentList.extraData);
+    const date = this.clinicTimeFormat ? this.datePipe.transform(appointmentList.meeting.startTime, this.clinicTimeFormat) :
+      moment(appointmentList.meeting.startTime).format('ddd YYYY-MM-DD h:mm A');
+    const notification = {
+      clinicID: appointmentList.clinicID,
+      command: '',
+      message: 'Patient has cancelled appointment.',
+      messageContent: patientName.firstName + ' ' +
+        patientName.lastName + ' has cancelled appointment scheduled for ' + date,
+      messageType: 35,
+      subject: 'Message from ' + appointmentList.meeting.firstName + ' ' + appointmentList.meeting.lastName,
+      url: patientName.profileImageUrl,
+      userID: this.userID,
+      users: [
+        appointmentList.providerID
+      ]
+    };
+    this.scheduleService.notificationUser(notification).subscribe((data: any) => {
+    }, error => {
+      this.toastrService.danger(error.error.errorMessage);
+
+    });
   }
 }
