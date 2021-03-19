@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
+import { ColumnMode } from '@swimlane/ngx-datatable';
+import { debounceTime } from 'rxjs/operators';
 import { FilterDialogComponent } from 'src/app/shared/components/filter-dialog/filter-dialog.component';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { DataService } from 'src/app/shared/service/data.service';
@@ -15,48 +17,6 @@ import { ProfileService } from 'src/app/shared/service/profile.service';
   styleUrls: ['./patients.component.scss']
 })
 export class PatientsComponent implements OnInit {
-  settings = {
-    actions: false,
-    search: false,
-    edit: {
-      editButtonContent: '<i class="nb-compose"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-      confirmSave: true
-    },
-    columns: {
-      name: {
-        title: 'Name',
-        filter: false
-      },
-      dob: {
-        title: 'DOB',
-        filter: false
-      },
-      email: {
-        title: 'Monitors',
-        filter: false,
-        type: 'html',
-        valuePrepareFunction: (value) => {
-          return '<a class="text-primary cursor-pointer">View Vitals</a>';
-        }
-
-      },
-      careManager: {
-        title: 'Assigned Care Manager',
-        filter: false
-      },
-      patientID: {
-        title: 'Contact',
-        filter: false,
-        type: 'html',
-        valuePrepareFunction: (value) => {
-          // tslint:disable-next-line:max-line-length
-          return '<i class="fas fa-phone text-primary"></i> <i class="far fa-comment-dots text-primary"></i> <i class="fas fa-video text-primary"></i>';
-        }
-      }
-    }
-  };
   isLoading = false;
   data = [];
   userId: any;
@@ -65,7 +25,15 @@ export class PatientsComponent implements OnInit {
   users: any = [];
   payloadFilter = { pageNumber: 1 };
   isFilter = false;
+  @ViewChild('monitorTmpl', { static: true }) monitorTmpl: any;
+  @ViewChild('contactTmpl', { static: true }) contactTmpl: any;
 
+  ColumnMode = ColumnMode;
+  columns = [];
+  pageNumber = 1;
+  readonly headerHeight = 50;
+  readonly rowHeight = 50;
+  readonly pageLimit = 10;
 
   constructor(
     private clinicService: ClinicService,
@@ -77,7 +45,8 @@ export class PatientsComponent implements OnInit {
     private dialogService: NbDialogService,
     private languageService: LanguageService,
     private translate: TranslateService,
-    private dataService: DataService
+    private dataService: DataService,
+    private el: ElementRef
   ) {
     translate.use('en');
     translate.setTranslation('en', this.languageService.state);
@@ -90,9 +59,17 @@ export class PatientsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.columns = [
+      { name: 'No.' },
+      { prop: 'name', name: 'Name' }, { prop: 'dob', name: 'DOB', width: 10 },
+      { name: 'Monitors', width: 10 },
+      { prop: 'careManager', name: 'Assigned Care Manager' },
+       { prop: 'patientID', name: 'Contact', width: 10}];
     this.getList();
     console.log('route', this.route.parent.snapshot.params.userID);
     this.userId = this.route.parent.snapshot.params.userID;
+    const vitals = this.clinicService.getVitals();
+    console.log('vitals', vitals);
 
   }
   open(id) {
@@ -109,21 +86,22 @@ export class PatientsComponent implements OnInit {
       clinicID: this.clinicService.id,
       name: this.searchText,
       providerID: '',
-      pageNumber: 1,
-      count: 100
+      pageNumber: this.pageNumber,
     };
-    this.patientService.find(payload).subscribe((data: any) => {
-      console.log('list', data);
-      this.isLoading = false;
-      this.data = data.clinicPatientList.map(item => {
-        item.name = `${item.firstName} ${item.lastName}`.trim();
-        item.careManager = 'James';
-        return item;
+    this.patientService.find(payload)
+      .subscribe((data: any) => {
+        const clinicPatientList = data.clinicPatientList.map(item => {
+          item.name = `${item.firstName} ${item.lastName}`.trim();
+          item.careManager = 'James';
+          return item;
+        });
+        this.data = [...this.data, ...clinicPatientList];
+        console.log('this.data', this.data);
+        this.isLoading = false;
+      }, error => {
+        this.isLoading = false;
+        this.toastrService.danger(error, 'Error');
       });
-    }, error => {
-      this.isLoading = false;
-      this.toastrService.danger(error, 'Error');
-    });
 
   }
   getRow(event) {
@@ -152,5 +130,38 @@ export class PatientsComponent implements OnInit {
     this.isFilter = Object.keys(this.filterPayload).some(k => {
       return !!this.filterPayload[k];
     });
+  }
+  getRowHeight(row) {
+    return row.height;
+  }
+  onPage(event) {
+    this.pageNumber = event.offset + 1;
+    if (!this.isLoading) {
+      this.getList();
+    }
+  }
+
+  onScroll(offsetY: number) {
+    // total height of all rows in the viewport
+    const viewHeight = this.el.nativeElement.getBoundingClientRect().height - this.headerHeight;
+
+    // check if we scrolled to the end of the viewport
+    if (!this.isLoading && offsetY + viewHeight >= this.data.length * this.rowHeight) {
+      // total number of results to load
+      let limit = this.pageLimit;
+
+      // check if we haven't fetched any results yet
+      if (this.data.length === 0) {
+        // calculate the number of rows that fit within viewport
+        const pageSize = Math.ceil(viewHeight / this.rowHeight);
+
+        // change the limit to pageSize such that we fill the first page entirely
+        // (otherwise, we won't be able to scroll past it)
+        limit = Math.max(pageSize, this.pageLimit);
+      }
+      console.log('limit', limit);
+      this.pageNumber = limit;
+      this.getList();
+    }
   }
 }

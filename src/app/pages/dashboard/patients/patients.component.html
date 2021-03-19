@@ -1,13 +1,51 @@
 <div class="row mt-4">
-    <div class="d-flex mb-4 position-relative">
+    <div class="d-flex mb-4 ms-4 position-relative">
         <input type="search" fieldSize="medium" nbInput placeholder="Search With Name" class="mr-20" name="search"
-        [(ngModel)]="searchText" (ngModelChange)="getList()">
+            [(ngModel)]="searchText" (ngModelChange)="getList()">
         <button nbButton outline status="primary">Patients With No Readings</button>
-        <nb-action class="ps-4 pe-0" nbTooltip="Filter" nbTooltipPlacement="top" icon="funnel-outline" (click)="filterPatient()">
+        <nb-action class="ps-4 pe-0" nbTooltip="Filter" nbTooltipPlacement="top" icon="funnel-outline"
+            (click)="filterPatient()">
         </nb-action>
-        <div class="badge-position cursor-pointer" *ngIf = "isFilter"><nb-badge text="99+" status="danger" dotMode = true (click)="filterPatient()"></nb-badge></div>
+        <div class="badge-position cursor-pointer" *ngIf="isFilter">
+            <nb-badge text="99+" status="danger" dotMode=true (click)="filterPatient()"></nb-badge>
+        </div>
     </div>
-    <div class="col-md-12" [nbSpinner]="isLoading" nbSpinnerMessage="Please wait. We are fetching the patient list">
-        <ng2-smart-table [settings]="settings" [source]="data" (userRowSelect)="getRow($event)"></ng2-smart-table>
+    <div class="col-md-12" [nbSpinner]="isLoading">
+        <ngx-datatable class="bootstrap " [rows]="data" [columnMode]="ColumnMode.force" [scrollbarV]="true"
+            [headerHeight]="headerHeight" [rowHeight]="rowHeight" [loadingIndicator]="isLoading" [scrollbarV]="true"
+            (scroll)="onScroll($event.offsetY)" style="height: 600px;">
+            <ngx-datatable-column name="Name">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>{{value}}</span>
+
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="DOB">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>{{value}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Monitors">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <a class="text-primary">View Vitals</a>
+                    <!-- <button nbButton nbPopover="Hi, I'm popover!" nbPopoverPlacement="left">Open Popover</button> -->
+                    <!-- <button [nbPopover]="templateRef"></button>
+                    <ng-template #templateRef>
+                        <span>Hello, Popover!</span>
+                    </ng-template> -->
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Assigned Care Manager">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>James</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Contact">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <i class="fas fa-phone text-primary"></i> <i class="far fa-comment-dots text-primary"></i> <i
+                        class="fas fa-video text-primary"></i>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
     </div>
 </div>

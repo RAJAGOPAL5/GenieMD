@@ -49,7 +49,7 @@
     "ngx-daterange": "^1.0.43",
     "ngx-order-pipe": "^2.1.1",
     "rxjs": "~6.6.3",
-    "tslib": "^1.10.0",
+    "tslib": "^1.14.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

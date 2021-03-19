@@ -16,6 +16,18 @@ export class ClinicService {
   get config(): any {
     return this.cliniConfig;
   }
+  getVitals() {
+    const extendedSettings = this.config.extendedSettings?.vitals;
+    let vitalList = [];
+    if (!!extendedSettings) {
+      try {
+        vitalList = JSON.parse(extendedSettings);
+      } catch (error) {
+        vitalList = [];
+      }
+    }
+    return vitalList;
+  }
 
   getLanguageList() {
     return this.http.get(`system/LanguageCodes`);
