@@ -16,10 +16,18 @@ import { TimeSlotsComponent } from './components/time-slots/time-slots.component
 import { AddComponent } from './components/add/add.component';
 import { FilterDialogComponent } from './components/filter-dialog/filter-dialog.component';
 import { AvatarModule } from 'ngx-avatar';
+import { AlertsListComponent } from './components/alerts-list/alerts-list.component';
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, DevicesComponent, TimeSlotsComponent, AddComponent, FilterDialogComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    DevicesComponent,
+    TimeSlotsComponent,
+    AddComponent,
+    FilterDialogComponent,
+    AlertsListComponent],
   imports: [
     CommonModule,
     NbLayoutModule,
@@ -49,9 +57,9 @@ import { AvatarModule } from 'ngx-avatar';
 
   ],
   exports: [NbLayoutModule,
-    TranslateModule,
     DevicesComponent,
-    TimeSlotsComponent
+    TimeSlotsComponent,
+    AlertsListComponent
   ]
 })
 export class SharedModule { }
