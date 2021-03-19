@@ -36,7 +36,6 @@ import { AvatarModule } from 'ngx-avatar';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UpsertAlertComponent } from './alerts/upsert-alert/upsert-alert.component';
 import { OrderModule } from 'ngx-order-pipe';
-import { AlertsListComponent } from './alerts/alerts-list/alerts-list.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { AssessmentComponent } from './assessment/assessment.component';
 
@@ -61,7 +60,6 @@ import { AssessmentComponent } from './assessment/assessment.component';
     Spo2Component,
     CareCircleComponent,
     UpsertAlertComponent,
-    AlertsListComponent,
     ScheduleComponent,
     AssessmentComponent,
   ],

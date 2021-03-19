@@ -14,6 +14,7 @@ export class HistoryComponent implements OnInit {
   historyDialogRef: any;
   data = [];
   profile: any;
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,

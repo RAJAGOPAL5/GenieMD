@@ -341,7 +341,7 @@ export class ScheduleComponent implements OnInit {
     });
   }
 
-  cancelAppointment(deleteDialog: TemplateRef<any>, id, content) {
+  cancelAppointment(deleteDialog: TemplateRef<any>, id) {
     this.deleteObj = {
       userID: this.userID,
       flag: 0,

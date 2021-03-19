@@ -183,6 +183,7 @@ export class PatientsComponent implements OnInit {
   onActivate(event) {
     // tslint:disable-next-line:triple-equals
     if (event.type == 'click') {
+      this.isLoading = true;
       this.router.navigate([this.clinicService.id, this.userId, 'patients', event.row.patientID, 'vitals']);
     }
   }
