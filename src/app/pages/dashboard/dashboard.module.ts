@@ -38,8 +38,7 @@ import { TranslateModule } from '@ngx-translate/core';
     NbTooltipModule,
     NbDatepickerModule,
     NbButtonGroupModule,
-    TranslateModule.forRoot(),
-
+    TranslateModule.forChild(),
   ]
 })
 export class DashboardModule { }

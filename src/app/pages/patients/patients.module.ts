@@ -91,7 +91,7 @@ import { AssessmentComponent } from './assessment/assessment.component';
     NbActionsModule,
     NbCheckboxModule,
     NbBadgeModule,
-    TranslateModule.forRoot(),
+    TranslateModule.forChild(),
     NbTooltipModule,
     ChartsModule,
     NgxDateRangeModule,

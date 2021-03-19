@@ -45,8 +45,6 @@ import { AvatarModule } from 'ngx-avatar';
     AvatarModule,
     NbSpinnerModule,
     NbUserModule,
-    TranslateModule.forRoot(),
-
   ],
   exports: [NbLayoutModule,
     TranslateModule,
