@@ -10,7 +10,6 @@ import {
 } from '@nebular/theme';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyHttpInterceptor } from './shared/interceptors/interceptor';
-import { ClinicPromptComponent } from './shared/components/clinic-prompt/clinic-prompt.component';
 import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
@@ -29,7 +28,6 @@ const theme = getUserPreferedTheme();
 @NgModule({
   declarations: [
     AppComponent,
-    ClinicPromptComponent,
     LogoutConfimartionComponent
   ],
   imports: [

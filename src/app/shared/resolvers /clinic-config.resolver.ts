@@ -7,7 +7,6 @@ import {
 import { NbDialogService } from '@nebular/theme';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ClinicPromptComponent } from '../components/clinic-prompt/clinic-prompt.component';
 import { ClinicService } from '../service/clinic.service';
 
 @Injectable({
