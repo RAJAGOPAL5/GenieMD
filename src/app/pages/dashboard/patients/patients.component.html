@@ -6,9 +6,9 @@
         <nb-action class="ps-4 pe-2" nbTooltip="Filter" nbTooltipPlacement="top" icon="funnel-outline"
             (click)="filterPatient()">
         </nb-action>
-        <div class="badge-position cursor-pointer" *ngIf="isFilter">
+        <!-- <div class="badge-position cursor-pointer" *ngIf="isFilter">
             <nb-badge text="99+" status="danger" dotMode=true (click)="filterPatient()"></nb-badge>
-        </div>
+        </div> -->
         <nb-action class="ps-2" nbTooltip="Add Patient" nbTooltipPlacement="top" icon="plus-circle-outline" (click)="addPatient()"></nb-action>
 
         <!-- <div class="p-2 flex-shrink-1 cursor-pointer text-primary" (click)="addPatient()"><i class="fas fa-plus" style="padding-right: 10px;" (click)="addPatient()"></i>Add Patient</div> -->
@@ -20,6 +20,11 @@
             [headerHeight]="headerHeight" [rowHeight]="rowHeight" [loadingIndicator]="isLoading" [scrollbarV]="true"
             (scroll)="onScroll($event.offsetY)" style="height: 600px;" (activate)="onActivate($event)">
             <ngx-datatable-column name="Name" headerClass="ps-4" cellClass="ps-4">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>{{value || '-'}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="EMAIL" [maxWidth]="250">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <span>{{value || '-'}}</span>
                 </ng-template>
