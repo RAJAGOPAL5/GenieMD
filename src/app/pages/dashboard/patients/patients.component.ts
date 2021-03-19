@@ -179,4 +179,10 @@ export class PatientsComponent implements OnInit {
     });
     return patientVitals.length ? patientVitals.toString() : 'No vitals found';
   }
+  onActivate(event) {
+    // tslint:disable-next-line:triple-equals
+    if (event.type == 'click') {
+      this.router.navigate([this.clinicService.id, this.userId, 'patients', event.row.patientID, 'vitals']);
+    }
+  }
 }

@@ -1,4 +1,4 @@
-<div class="row mt-4">
+<div class="mt-4" [nbSpinner]="isLoading">
     <div class="d-flex mb-4 ms-4 position-relative">
         <input type="search" fieldSize="medium" nbInput placeholder="Search With Name" class="mr-20" name="search"
             [(ngModel)]="searchText" (ngModelChange)="getList()">
@@ -10,35 +10,39 @@
             <nb-badge text="99+" status="danger" dotMode=true (click)="filterPatient()"></nb-badge>
         </div>
     </div>
-    <div class="col-md-12" [nbSpinner]="isLoading">
-        <ngx-datatable class="bootstrap " [rows]="data" [columnMode]="ColumnMode.force" [scrollbarV]="true"
+    <div>
+        <ngx-datatable class="bootstrap" [rows]="data" [columnMode]="ColumnMode.force" [scrollbarV]="true"
             [headerHeight]="headerHeight" [rowHeight]="rowHeight" [loadingIndicator]="isLoading" [scrollbarV]="true"
-            (scroll)="onScroll($event.offsetY)" style="height: 600px;">
-            <ngx-datatable-column name="Name">
+            (scroll)="onScroll($event.offsetY)" style="height: 600px;" (activate)="onActivate($event)">
+            <ngx-datatable-column name="Name" headerClass="ps-4" cellClass="ps-4">
                 <ng-template let-value="value" ngx-datatable-cell-template>
-                    <span>{{value}}</span>
-
+                    <span>{{value || '-'}}</span>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="DOB">
+            <ngx-datatable-column name="DOB" [maxWidth]="250" headerClass="text-center" cellClass="text-center">
                 <ng-template let-value="value" ngx-datatable-cell-template>
-                    <span>{{value}}</span>
+                    <span>{{value || '-'}}</span>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Monitors">
+            <ngx-datatable-column name="Monitors"  [maxWidth]="200" headerClass="text-center" cellClass="text-center">
                 <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
                     <span>{{row.vitals}}</span>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Assigned Care Manager">
+            <ngx-datatable-column name="Assigned Care Manager" headerClass="text-center" cellClass="text-center">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <span>{{profile?.screenName}}</span>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Contact">
+            <ngx-datatable-column name="Contact" [maxWidth]="200" headerClass="text-center" cellClass="text-center">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <i class="fas fa-phone text-primary " nbTooltip="Call" nbTooltipStatus="basic" ></i> <i class="far fa-comment-dots text-primary d-inline-block mx-2" nbTooltip="Chat" nbTooltipStatus="basic"></i> <i
                         class="fas fa-video text-primary" nbTooltip="Video" nbTooltipStatus="basic"></i>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Action" [maxWidth]="200" headerClass="text-center" cellClass="text-center">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <button nbButton outline status="danger" size="tiny">Unenroll</button>
                 </ng-template>
             </ngx-datatable-column>
         </ngx-datatable>

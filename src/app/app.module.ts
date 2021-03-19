@@ -23,6 +23,7 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
 import { CoreModule } from 'core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { getUserPreferedTheme } from './shared/utility';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 const theme = getUserPreferedTheme();
 @NgModule({
@@ -50,6 +51,7 @@ const theme = getUserPreferedTheme();
     NbSpinnerModule,
     NbTooltipModule,
     NbIconModule,
+    NbEvaIconsModule,
     TranslateModule.forRoot(),
     NbDateFnsDateModule.forRoot({ format: 'dd/MM/yyyy' }),
     CoreModule.forRoot({
