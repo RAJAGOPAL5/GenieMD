@@ -10,7 +10,7 @@
 <ng-template #devicedialog>
     <nb-card class="dialog-card">
         <nb-card-header>
-            <h6 class="text-center">Add Device</h6>
+            <h6 class="text-center">{{'kAddDevice' | translate}}</h6>
         </nb-card-header>
         <nb-card-body>
             <form [formGroup]="deviceForm">
@@ -18,7 +18,7 @@
                     <div class="col-md-12">
                         <div class="form-group mb-1">
                                 <label for="deviceTypes" class="label"> <span class="text-danger">*</span>
-                                   Device Type</label>
+                                    {{'kDeviceType' | translate}}</label>
                                     <nb-select id="deviceTypes" size="medium" fullWidth formControlName="deviceType"
                                          placeholder="Select Device type" (selectedChange)="onchange($event)">
                                         <nb-option *ngFor="let item of devices" [value]="item">
@@ -31,9 +31,9 @@
                     <div class="col-md-12">
                          <div class="form-group mb-1">
                             <label for="manufacturer" class="label"> <span class="text-danger">*</span>
-                                Manufacturer</label>
+                                {{'kManufacturer' | translate}}</label>
                             <input type="text" fieldSize="medium" formControlName="manufacturer" nbInput fullWidth
-                                id="manufacturer" placeholder="Manufacturer">
+                                id="manufacturer" placeholder="{{'kManufacturer' | translate}}">
                         </div>
                     </div>
                 </div>
@@ -41,9 +41,9 @@
                     <div class="col-md-12">
                          <div class="form-group mb-1">
                             <label for="deviceName" class="label"> <span class="text-danger">*</span>
-                                Device Name</label>
+                                {{'kDeviceName' | translate}}</label>
                             <input type="text" fieldSize="medium" formControlName="deviceName" nbInput fullWidth
-                                id="deviceName" placeholder="Device Name">
+                                id="deviceName" placeholder="{{'kDeviceName' | translate}}">
                         </div>
                     </div>
                 </div>
@@ -51,9 +51,9 @@
                     <div class="col-md-12">
                         <div class="form-group mb-1">
                             <label for="serialNumber" class="label">
-                                Serial Number</label>
+                                {{'kSerialNumber' | translate}}</label>
                             <input type="text" fieldSize="medium" formControlName="serialNumber" nbInput fullWidth
-                                id="serialNumber" placeholder="Serial Number">
+                                id="serialNumber" placeholder="{{'kSerialNumber' | translate}}">
                         </div>
                     </div>
                 </div>
@@ -76,11 +76,11 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col" class="subtitle">Manufacturer</th>
-            <th scope="col" class="subtitle">Device Type</th>
-            <th scope="col" class="subtitle">Device Name</th>
-            <th scope="col" class="subtitle">Serial Number</th>
-            <th class="text-center subtitle" scope="col">Actions</th>
+            <th scope="col" class="subtitle">{{'kManufacturer' | translate}}</th>
+            <th scope="col" class="subtitle">{{'kDeviceType' | translate}}</th>
+            <th scope="col" class="subtitle">{{'kDeviceName' | translate}}</th>
+            <th scope="col" class="subtitle">{{'kSerialNumber' | translate}}</th>
+            <th class="text-center subtitle" scope="col">{{'kActions' | translate}}</th>
         </tr>
     </thead>
     <tbody>
@@ -96,7 +96,7 @@
         </tr>
         <tr *ngIf="deviceList.length==0" class="text-center">
             <td colspan="5">
-                <p>No Records Found</p>
+                <p>{{'kNoRecordsFound' | translate}}</p>
             </td>
         </tr>
     </tbody>
@@ -104,12 +104,12 @@
 <ng-template #deleteDialog>
     <nb-card class="dialog-card">
         <nb-card-header>
-            <p class="subtitle">Are you sure want to delete?</p>
+            <p class="subtitle">{{'kAreYouSureWantToDelete' | translate}}?</p>
         </nb-card-header>
         <nb-card-body>
             <div class="float-end">
-                <button nbButton status="success" size="small" (click)="delete()">Yes</button>
-                <button nbButton status="danger" class="ms-2" size="small" (click)="close()">No</button>
+                <button nbButton status="success" size="small" (click)="delete()">{{'kYes' | translate}}</button>
+                <button nbButton status="danger" class="ms-2" size="small" (click)="close()">{{'kNo' | translate}}</button>
             </div>
         </nb-card-body>
     </nb-card>

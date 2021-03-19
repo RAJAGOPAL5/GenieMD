@@ -56,6 +56,11 @@
                             <td class="subtitle">{{item.note}}</td>
                             <td class="subtitle">{{item.date}}</td>
                         </tr>
+                        <tr *ngIf="data.length==0" class="text-center">
+                            <td colspan="3">
+                                <p>{{'kNoRecordsFound' | translate}}</p>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
