@@ -217,12 +217,12 @@ export class ScheduleComponent implements OnInit {
   }
 
   getRecord(event) {
-    this.showList = true;
+    this.showAppointments = true;
     this.showAssessment = false;
+    this.getAppointments(this.userID);
   }
 
   getAppointments(userId) {
-    this.isLoading = true;
     this.scheduleService.getAppointmentList(userId).subscribe((data: any) => {
       this.appointmentlistResult = data.encounterList.filter(item => {
         // tslint:disable-next-line:triple-equals
@@ -287,9 +287,7 @@ export class ScheduleComponent implements OnInit {
           return item;
         });
       }
-      this.isLoading = false;
     }, error => {
-      this.isLoading = false;
       this.toastrService.danger(error.error.errorMessage);
 
     });
