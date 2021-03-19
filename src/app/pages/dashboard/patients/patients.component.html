@@ -7,7 +7,7 @@
         </nb-action>
         <div class="badge-position cursor-pointer" *ngIf = "isFilter"><nb-badge text="99+" status="danger" dotMode = true (click)="filterPatient()"></nb-badge></div>
     </div>
-    <div class="col-md-12" [nbSpinner]="isLoading">
+    <div class="col-md-12" [nbSpinner]="isLoading" nbSpinnerMessage="Please wait. We are fetching the patient list">
         <ng2-smart-table [settings]="settings" [source]="data" (userRowSelect)="getRow($event)"></ng2-smart-table>
     </div>
 </div>

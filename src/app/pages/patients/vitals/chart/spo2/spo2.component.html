@@ -1,5 +1,5 @@
 <p class="subtitle">{{'KPulseOximeterType' | translate}}</p>
-<div class="d-block" [nbSpinner]="isLoading">
+<div class="d-block" [nbSpinner]="isLoading" nbSpinnerMessage="Please wait. We are fetching the graph">
     <canvas baseChart width="400" height="150" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
         [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
     </canvas>
