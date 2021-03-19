@@ -10,6 +10,7 @@ import { DataService } from 'src/app/shared/service/data.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
+import { AddComponent } from 'src/app/shared/components/add/add.component';
 
 @Component({
   selector: 'app-patients',
@@ -184,5 +185,14 @@ export class PatientsComponent implements OnInit {
     if (event.type == 'click') {
       this.router.navigate([this.clinicService.id, this.userId, 'patients', event.row.patientID, 'vitals']);
     }
+  }
+  addPatient(patientID?: number) {
+    const modal = this.dialogService.open(AddComponent, { closeOnBackdropClick: false });
+    modal.componentRef.instance.patientID = patientID;
+    modal.onClose.subscribe(data => {
+      if (!!data) {
+        this.getList();
+      }
+    });
   }
 }

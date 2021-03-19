@@ -9,6 +9,11 @@
         <div class="badge-position cursor-pointer" *ngIf="isFilter">
             <nb-badge text="99+" status="danger" dotMode=true (click)="filterPatient()"></nb-badge>
         </div>
+        <nb-action nbTooltip="Add Patient" nbTooltipPlacement="top" class="pe-0" icon="plus-circle-outline" (click)="addPatient()"></nb-action>
+
+        <!-- <div class="p-2 flex-shrink-1 cursor-pointer text-primary" (click)="addPatient()"><i class="fas fa-plus" style="padding-right: 10px;" (click)="addPatient()"></i>Add Patient</div> -->
+
+
     </div>
     <div>
         <ngx-datatable class="bootstrap" [rows]="data" [columnMode]="ColumnMode.force" [scrollbarV]="true"
