@@ -1,1 +1,64 @@
-<p>history works!</p>
+<nb-card size="large" class="h-100" style="overflow: auto" [nbSpinner]="isLoading">
+    <nb-card-body>
+        <div class="row justify-content-end">
+            <div class="col-1 ps-1">
+                <nb-actions size="medium">
+                    <nb-action nbTooltip="Add" nbTooltipPlacement="top" icon="plus-circle-outline"
+                        (click)="open(historyDialog)"></nb-action>
+                </nb-actions>
+            </div>
+        </div>
+
+        <ng-template #historyDialog>
+            <nb-card class="dialog-card w-100">
+                <nb-card-header>
+                    <h6 class="text-center">Add History</h6>
+                </nb-card-header>
+                <nb-card-body>
+                    <form [formGroup]="historyForm">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-1">
+                                    <label for="note" class="label"> <span class="text-danger">*</span>
+                                        Note</label>                                
+                                        <textarea nbInput fullWidth placeholder="Note"  formControlName="note" id="note"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </nb-card-body>
+                <nb-card-footer>
+                    <div class="row justify-content-end">
+                        <div class="col-5 pe-2">
+                            <button nbButton status="danger" class="w-100" size="medium" (click)="refclose()">{{'kCancel' | translate}}</button>
+                        </div>
+                        <div class="col-5 ps-2">
+                            <button nbButton status="success" class="w-100" size="medium" [disabled]="!historyForm.valid"
+                            (click)="save()">{{'kSave' | translate}}</button>
+                        </div>
+                    </div>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="subtitle">Name</th>
+                            <th scope="col" class="subtitle">Note</th>
+                            <th scope="col" class="subtitle">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of data; let i=index">
+                            <td class="subtitle">{{item.name}}</td>
+                            <td class="subtitle">{{item.note}}</td>
+                            <td class="subtitle">{{item.date}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
