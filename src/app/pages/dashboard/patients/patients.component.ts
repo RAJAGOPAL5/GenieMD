@@ -177,7 +177,7 @@ export class PatientsComponent implements OnInit {
         }
       });
     });
-    return patientVitals.length ? patientVitals.toString() : 'No vitals found';
+    return patientVitals.length ? patientVitals.toString() : 'No vitals enabled';
   }
   onActivate(event) {
     // tslint:disable-next-line:triple-equals
