@@ -771,7 +771,7 @@ export class ProviderDetailComponent implements OnInit {
       this.isNext = true;
       this.getAvailable();
     } else {
-      this.toastrService.danger(this.translate.instant('kExceedsAdvanceScheduleDate'));
+      this.toastrService.danger('Exceeds Advance Schedule Date');
     }
   }
 
