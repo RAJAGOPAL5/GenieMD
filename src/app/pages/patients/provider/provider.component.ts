@@ -45,10 +45,16 @@ export class ProviderComponent implements OnInit {
     this.cliniConfig = this.clinicService.config;
     this.userID = this.profileService.id;
     this.npiId = '0';
-    this.activatedRoute.parent.paramMap.subscribe(params => {
+    this.activatedRoute.parent.parent.paramMap.subscribe(params => {
       this.patientID = params.get('patientId');
+      console.log('patient id', this.patientID);
     });
     this.getProvidersList();
+  }
+
+  getProviderDetails(npiId: any) {
+    this.profileService.providerNPiID = npiId;
+    this.router.navigate([this.clinicID, this.userID, 'patients', this.patientID, 'schedule', 'provider-detail']);
   }
 
   getList() {
