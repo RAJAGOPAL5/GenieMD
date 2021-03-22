@@ -17,7 +17,7 @@
               </div>
             </div>
             <ng-container *ngIf="providersList.length !== 0 ;else noRecrd">      
-            <nb-list class="own-scroll" nbInfiniteList [threshold]="15" *ngFor="let provider of providersList" (click)="getProviderDetails(provider.npi)">
+            <nb-list class="own-scroll cursor-pointer" nbInfiniteList [threshold]="15" *ngFor="let provider of providersList" (click)="getProviderDetails(provider.npi)">
             <nb-list-item>
               <div class="col-md-3 col-lg-3 col-sm-3 col-3 col-xl-3 mr-2">
                 <ngx-avatar name="{{provider.practiceName}}" src="{{provider?.imageUrl}}" cornerRadius="10" [round]="true"
@@ -25,13 +25,13 @@
                 </ngx-avatar>
               </div>
               <div class="col-md-8 col-lg-8 col-sm-8 col-8 col-xl-8 pt-2 text-left">
-                <p class="text-style3 font-weight-bold">{{provider?.practiceName}}</p>
-                <span class="text-style3 d-block">{{provider?.specialties}}</span>
-                <span class="text-style3 d-block font-weight-bold" style="color:000000;" *ngIf="provider.status == 'Offline'"> {{provider.status}}</span>
-                <span class="text-style3 d-block font-weight-bold" style="color:green;" *ngIf="provider.status == 'Available Now'"> {{provider.status}}</span>
-                <span class="text-style3 d-block font-weight-bold" style="color:red;" *ngIf="provider.status == 'Accepts Scheduled Visits'"> {{provider.status}}</span>
-                <span class="text-style3 d-block font-weight-bold" style="color:#3498db;" *ngIf="provider.status == 'Report Symptoms, Get CallBack'"> {{provider.status}}</span>
-                <span class="text-style3 d-block font-weight-bold" style="color:orange;" *ngIf="provider.status == 'Report Symptoms, Get Treatment'"> {{provider.status}}</span>
+                <p class="font-weight-bold">{{provider?.practiceName}}</p>
+                <span class="d-block">{{provider?.specialties}}</span>
+                <span class="d-block font-weight-bold" style="color:000000;" *ngIf="provider.status == 'Offline'"> {{provider.status}}</span>
+                <span class="d-block font-weight-bold" style="color:green;" *ngIf="provider.status == 'Available Now'"> {{provider.status}}</span>
+                <span class="d-block font-weight-bold" style="color:red;" *ngIf="provider.status == 'Accepts Scheduled Visits'"> {{provider.status}}</span>
+                <span class="d-block font-weight-bold" style="color:#3498db;" *ngIf="provider.status == 'Report Symptoms, Get CallBack'"> {{provider.status}}</span>
+                <span class="d-block font-weight-bold" style="color:orange;" *ngIf="provider.status == 'Report Symptoms, Get Treatment'"> {{provider.status}}</span>
               </div>
             </nb-list-item>
      </nb-list>
