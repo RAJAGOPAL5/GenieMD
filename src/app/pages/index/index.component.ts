@@ -73,6 +73,12 @@ export class IndexComponent implements OnInit {
         link: `/${this.clinicService.id}/${this.profileService.id}/chat`,
       },
       {
+        title: 'Todo',
+        icon: 'book-outline',
+        link: `/${this.clinicService.id}/${this.profileService.id}/todo`,
+
+      },
+      {
         title: 'Help',
         icon: 'question-mark-circle-outline',
       },
