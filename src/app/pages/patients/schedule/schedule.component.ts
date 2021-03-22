@@ -46,7 +46,7 @@ export class ScheduleComponent implements OnInit {
   clinicTimeFormat: any;
   patientName: any;
   pageSize = 25;
-  showAppointments = false;
+  showAppointments = true;
   clinic: any;
   rescheduleDialogRef: any;
   deleteDialogRef: any;
@@ -83,6 +83,7 @@ export class ScheduleComponent implements OnInit {
     this.npiId = '0';
     this.activatedRoute.parent.paramMap.subscribe(params => {
       this.patientID = params.get('patientId');
+      console.log('p id', this.patientID);
     });
     this.getPatientData();
     this.getProtocolList();
