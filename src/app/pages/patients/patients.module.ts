@@ -38,6 +38,7 @@ import { UpsertAlertComponent } from './alerts/upsert-alert/upsert-alert.compone
 import { OrderModule } from 'ngx-order-pipe';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { AssessmentComponent } from './assessment/assessment.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 // export function HttpLoaderFactory(http: HttpClient) {
 //   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json');
@@ -100,7 +101,8 @@ import { AssessmentComponent } from './assessment/assessment.component';
     SharedModule,
     NbTreeGridModule,
     NbTagModule,
-    OrderModule
+    OrderModule,
+    NgxDatatableModule
     ],
   entryComponents: [UpsertAlertComponent]
 })

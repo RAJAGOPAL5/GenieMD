@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
+import { ColumnMode } from '@swimlane/ngx-datatable';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
@@ -17,6 +18,8 @@ export class AlertsComponent implements OnInit {
   resolveDialogRef: NbDialogRef<any>;
   selectedAlert: any;
   alerts = [];
+  columns = [];
+  ColumnMode = ColumnMode;
   patientId: any;
   constructor(
     private dialogService: NbDialogService, private toastrService: NbToastrService, private alertService: AlertService,
@@ -30,9 +33,8 @@ export class AlertsComponent implements OnInit {
   ngOnInit(): void {
     this.route.parent.params.subscribe(res => {
       this.patientId = res.patientId;
-      this.getData();
     });
-
+    this.getData();
   }
   getData() {
     this.isLoading = true;

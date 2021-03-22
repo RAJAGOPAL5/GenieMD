@@ -57,7 +57,7 @@ export class UpsertAlertComponent implements OnInit {
   }
   getRecords() {
     this.isLoading = true;
-    this.alertService.getAlertActionsById(this.alertData.id).subscribe(data => {
+    this.alertService.getAlertActionsById(this.alertData?.id).subscribe(data => {
       this.notesData = (data.list || []).map(item => {
         try {
           item.actionData = JSON.parse(item.actionData);

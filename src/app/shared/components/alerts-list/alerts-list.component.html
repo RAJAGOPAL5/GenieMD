@@ -11,7 +11,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-striped">
+            <!-- <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col" class="subtitle">Vital</th>
@@ -36,7 +36,30 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table> -->
+            <ngx-datatable class="bootstrap" [rows]="limitList" [columnMode]="ColumnMode.force" [scrollbarV]="true"
+            [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true"
+            style="height: 600px;">
+            <ngx-datatable-column name="Vital" prop="vital.name" headerClass="ps-4" cellClass="ps-4">
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                    <span>{{value || '-'}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Rule" prop="limit.rule" [maxWidth]="250">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>{{value || '-'}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Actions" [maxWidth]="250" headerClass="text-center" cellClass="text-center">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>
+                        <nb-icon icon="trash" nbTooltip="Delete" class="icon-font"
+                        (click)="openDialog(deleteDialog,item)" nbTooltipStatus="control" status="danger"
+                        pack="font-awesome" nbTooltipStatus="black"></nb-icon>
+                    </span>
+                </ng-template>
+            </ngx-datatable-column>
+            </ngx-datatable>
         </div>
     </div>
 
