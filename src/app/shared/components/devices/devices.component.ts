@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { ColumnMode } from '@swimlane/ngx-datatable';
+import { findIndex } from 'rxjs/operators';
 import { deviceTypes } from 'src/app/shared/constant/constant';
 import { ProfileService } from '../../service/profile.service';
 @Component({
@@ -111,7 +112,9 @@ export class DevicesComponent implements OnInit {
   }
 
   delete() {
-    const item = this.deviceList.splice(this.deviceIndex, 1);
+    const index = this.deviceList.findIndex(k => this.deviceIndex.id === k);
+    console.log('index::', index);
+    const item = this.deviceList.splice(index, 1);
     this.deviceData.emit(this.deviceList);
     this.toastrService.success('Device deleted successfully', 'Success');
     this.deleteDialogRef.close();

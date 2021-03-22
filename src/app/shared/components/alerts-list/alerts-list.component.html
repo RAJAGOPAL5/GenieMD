@@ -51,10 +51,10 @@
                 </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Actions" [maxWidth]="250" headerClass="text-center" cellClass="text-center">
-                <ng-template let-value="value" ngx-datatable-cell-template>
+                <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
                     <span>
                         <nb-icon icon="trash" nbTooltip="Delete" class="icon-font"
-                        (click)="openDialog(deleteDialog,item)" nbTooltipStatus="control" status="danger"
+                        (click)="openDialog(deleteDialog,row)" nbTooltipStatus="control" status="danger"
                         pack="font-awesome" nbTooltipStatus="black"></nb-icon>
                     </span>
                 </ng-template>

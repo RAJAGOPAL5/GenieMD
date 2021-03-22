@@ -13,6 +13,7 @@ export class ChatRoomComponent implements OnInit {
   profile: any;
   conversationId: any;
   isLoading = false;
+  text: any;
   constructor(private profileService: ProfileService, private route: ActivatedRoute, private chatService: ChatService) { }
 
   ngOnInit(): void {

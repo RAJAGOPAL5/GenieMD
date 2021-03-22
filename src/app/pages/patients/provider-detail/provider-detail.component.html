@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6 offset-md-3">
-      <div class="col-md-12 avatar-content mt-1">
+      <!-- <div class="col-md-12 avatar-content mt-1">
         <div class="avatar-layout">
           <div class="avatar-circle"
             [ngStyle]="{'background-image': providerDetails?.imageUrl ? 'url(' + providerDetails?.imageUrl + ')' : 'url(' + noImageURL + ')'}">
@@ -14,8 +14,8 @@
             {{providerDetails?.degrees}}</h5>
           <p class="text-center">{{providerDetails?.specialties}} </p>
         </div>
-      </div>
-      <div class="row mt-1 mb-3">
+      </div> -->
+      <!-- <div class="row mt-1 mb-3">
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center provider-status">
           <ng-container *ngIf="OffLine;else btnForEnter">
             <button type="button" class="btn btn-secondary btn-lg btn-block text-style3 text-white">{{'kLableProviderOffline' | translate }}
@@ -23,8 +23,8 @@
           </ng-container>
           <ng-template #btnForEnter>
             <ng-container *ngIf="waitingRoom">
-              <button *ngIf="w_type && w_count!==0;else enterWaitingBtn" type="button"
-                class="btn btn-color-count btn-lg btn-block text-style3" (click)="selection(6)">{{w_count}}
+              <button *ngIf="wType && wCount!==0;else enterWaitingBtn" type="button"
+                class="btn btn-color-count btn-lg btn-block text-style3" (click)="selection(6)">{{wCount}}
                 {{'kLabelPaitentsWaiting' | translate }}</button>
               <ng-template #enterWaitingBtn>
                 <button type="button" class="btn btn-green btn-lg btn-block text-style3" (click)="selection(6)">
@@ -41,7 +41,7 @@
             </button>
           </ng-template>
         </div>
-      </div>
+      </div> -->
       <ng-container>
 
         <div class="row p-3">
