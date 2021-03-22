@@ -38,6 +38,8 @@ import { UpsertAlertComponent } from './alerts/upsert-alert/upsert-alert.compone
 import { OrderModule } from 'ngx-order-pipe';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { AssessmentComponent } from './assessment/assessment.component';
+import { ProviderComponent } from './provider/provider.component';
+import { ProviderDetailComponent } from './provider-detail/provider-detail.component';
 
 // export function HttpLoaderFactory(http: HttpClient) {
 //   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json');
@@ -62,6 +64,8 @@ import { AssessmentComponent } from './assessment/assessment.component';
     UpsertAlertComponent,
     ScheduleComponent,
     AssessmentComponent,
+    ProviderComponent,
+    ProviderDetailComponent,
   ],
   imports: [
     CommonModule,

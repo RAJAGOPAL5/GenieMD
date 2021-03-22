@@ -46,7 +46,7 @@ export class ScheduleComponent implements OnInit {
   clinicTimeFormat: any;
   patientName: any;
   pageSize = 25;
-  showAppointments = true;
+  showAppointments = false;
   clinic: any;
   rescheduleDialogRef: any;
   deleteDialogRef: any;
@@ -321,7 +321,8 @@ export class ScheduleComponent implements OnInit {
   rescheduleAppointment() {
     this.rescheduleDialogRef.close();
     this.showAppointments = false;
-    this.showList = true;
+    this.router.navigate([this.clinicID, this.userID, 'patients', this.patientID, 'schedule', 'provider']);
+    // this.showList = true;
   }
 
 
