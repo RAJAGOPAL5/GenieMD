@@ -73,7 +73,7 @@
 
     </nb-card>
 </ng-template>
-<table class="table table-striped">
+<!-- <table class="table table-striped">
     <thead>
         <tr>
             <th scope="col" class="subtitle">{{'kManufacturer' | translate}}</th>
@@ -100,7 +100,41 @@
             </td>
         </tr>
     </tbody>
-</table>
+</table> -->
+
+
+<ngx-datatable class="bootstrap" [rows]="deviceList" [columnMode]="ColumnMode.force" [scrollbarV]="true"
+[headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true"
+style="height: 600px;">
+<ngx-datatable-column name="Manufacturer" prop="manufacturer" headerClass="ps-4" cellClass="ps-4">
+    <ng-template let-value="value" ngx-datatable-cell-template>
+        <span>{{value || '-'}}</span>
+    </ng-template>
+</ngx-datatable-column>
+<ngx-datatable-column name="Device Type" prop="deviceType" [maxWidth]="250">
+    <ng-template let-value="value" ngx-datatable-cell-template>
+        <span>{{value || '-'}}</span>
+    </ng-template>
+</ngx-datatable-column>
+<ngx-datatable-column name="Device Name" prop="deviceName" [maxWidth]="250" headerClass="text-center" cellClass="text-center">
+    <ng-template let-value="value" ngx-datatable-cell-template>
+        <span>{{value || '-'}}</span>
+    </ng-template>
+</ngx-datatable-column>
+<ngx-datatable-column name="Serial Number" prop="serialNumber"  [maxWidth]="200" headerClass="text-center" cellClass="text-center">
+    <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
+        <span>{{value || '-'}}</span>
+    </ng-template>
+</ngx-datatable-column>
+<ngx-datatable-column name="Actions"  headerClass="text-center" cellClass="text-center">
+    <ng-template let-value="value" ngx-datatable-cell-template>
+        <span>
+            <nb-icon icon="trash" nbTooltip="Delete" class="icon-font" (click)="openDialog(deleteDialog, i)" nbTooltipStatus="control"
+            status="danger" pack="font-awesome" nbTooltipStatus="black"></nb-icon>
+        </span>
+    </ng-template>
+</ngx-datatable-column>
+</ngx-datatable>
 <ng-template #deleteDialog>
     <nb-card class="dialog-card">
         <nb-card-header>

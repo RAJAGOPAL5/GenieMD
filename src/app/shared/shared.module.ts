@@ -16,6 +16,8 @@ import { AddComponent } from './components/add/add.component';
 import { FilterDialogComponent } from './components/filter-dialog/filter-dialog.component';
 import { AvatarModule } from 'ngx-avatar';
 import { AlertsListComponent } from './components/alerts-list/alerts-list.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 @NgModule({
@@ -52,7 +54,9 @@ import { AlertsListComponent } from './components/alerts-list/alerts-list.compon
     AvatarModule,
     NbSpinnerModule,
     NbUserModule,
-    FormsModule
+    FormsModule,
+    TranslateModule.forRoot(),
+    NgxDatatableModule
   ],
   exports: [NbLayoutModule,
     DevicesComponent,

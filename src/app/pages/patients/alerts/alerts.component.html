@@ -1,7 +1,7 @@
 <nb-card size="large" class="h-100" [nbSpinner]="isLoading" nbSpinnerMessage="Please wait. We are fetching the alerts list" >
 <!-- <nb-card-header>Alerts</nb-card-header> -->
 <nb-card-body>
-        <table class="table table-striped">
+        <!-- <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col" class="subtitle">{{'kCreatedDate' | translate}}</th>
@@ -31,8 +31,40 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
-        
+        </table> -->
+        <ngx-datatable class="bootstrap" [rows]="alerts" [columnMode]="ColumnMode.force" [scrollbarV]="true"
+        [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" style="height: 600px;" >
+        <ngx-datatable-column name="Created Date" prop="alertTime" headerClass="ps-4" cellClass="ps-4">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{value | date : 'dd/MM/yy, h:mm a'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Alert" prop="alertType" [maxWidth]="250">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{getType(value) || '-'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Status" prop="alertStatus" [maxWidth]="250" headerClass="text-center" cellClass="text-center">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span [ngClass]="{'text-success': value == 3 , 'text-danger': value == 1, 'text-warning': value == 2 }" >{{getStatus(value)  || '-'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Resolved Date" prop="alertResolved" [maxWidth]="200" headerClass="text-center" cellClass="text-center">
+            <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
+                <span>{{value | date : 'dd/MM/yy, h:mm a' || '-'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Notes" prop="alertData" headerClass="text-center" cellClass="text-center">
+            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                <a (click)="viewData(row)" class="cursor-pointer">{{'kViewNotes' | translate}}</a>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Actions" [maxWidth]="200" headerClass="text-center" cellClass="text-center">
+            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                <button nbButton status="warning" outline (click)="resolveConfirmation(confirmation,row)" [disabled]="row.alertStatus == 3 " size="tiny">{{'kResolve' | translate}}</button>
+            </ng-template>
+        </ngx-datatable-column>
+        </ngx-datatable>
     </nb-card-body>
 </nb-card>
 <ng-template #confirmation>

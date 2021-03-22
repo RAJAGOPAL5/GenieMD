@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
+import { ColumnMode } from '@swimlane/ngx-datatable';
 import { deviceTypes } from 'src/app/shared/constant/constant';
 import { ProfileService } from '../../service/profile.service';
 @Component({
@@ -17,6 +18,7 @@ export class DevicesComponent implements OnInit {
   deviceTypes: any;
   deleteDialogRef: NbDialogRef<any>;
   deviceList: any;
+  ColumnMode = ColumnMode;
 
   @Output() deviceData: EventEmitter<any> = new EventEmitter();
   storeDevice: any;

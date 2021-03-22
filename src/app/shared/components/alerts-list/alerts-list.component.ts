@@ -6,6 +6,7 @@ import { LanguageService } from 'src/app/shared/service/language.service';
 import { vitals } from 'src/app/shared/constant/constant';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { ColumnMode } from '@swimlane/ngx-datatable';
 
 
 
@@ -27,6 +28,7 @@ export class AlertsListComponent implements OnInit {
   alertDialog: NbDialogRef<any>;
   deleteDialog: NbDialogRef<any>;
   selectedData: any;
+  ColumnMode = ColumnMode;
 
   @Input() patientID;
   constructor(
