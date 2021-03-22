@@ -70,6 +70,7 @@ export class IndexComponent implements OnInit {
       {
         title: 'Chat',
         icon: 'message-circle-outline',
+        link: `/${this.clinicService.id}/${this.profileService.id}/chat`,
       },
       {
         title: 'Help',

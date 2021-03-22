@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
-import { ColumnMode } from '@swimlane/ngx-datatable';
 import { debounceTime } from 'rxjs/operators';
 import { FilterDialogComponent } from 'src/app/shared/components/filter-dialog/filter-dialog.component';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
@@ -11,6 +10,7 @@ import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { AddComponent } from 'src/app/shared/components/add/add.component';
+import { ColumnMode } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-patients',
