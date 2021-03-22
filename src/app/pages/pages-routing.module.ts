@@ -26,7 +26,13 @@ const routes: Routes = [
     component: IndexComponent,
     data: { title: 'Chat'},
     loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
-  }
+  },
+  {
+    path: 'todo',
+    component: IndexComponent,
+    data: { title: 'todo'},
+    loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule)
+  },
 ];
 
 @NgModule({
