@@ -42,7 +42,7 @@ export class ChatRoomComponent implements OnInit {
       const receiver = messages.find(k => {
        return  k.email !== this.profile.email;
       });
-      this.getReceiverInfo(receiver)
+      this.getReceiverInfo(receiver);
       messages.map(item => {
         // tslint:disable-next-line:triple-equals
         if (item.email == this.profile.email) {
