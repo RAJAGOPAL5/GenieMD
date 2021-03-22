@@ -40,7 +40,7 @@
                 </nb-card-footer>
             </nb-card>
         </ng-template>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-8 offset-md-2">
                 <table class="table table-striped">
                     <thead>
@@ -64,6 +64,25 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> -->
+        <ngx-datatable class="bootstrap" [rows]="historyData" [columnMode]="ColumnMode.force" [scrollbarV]="true"
+            [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 600px;">
+            <ngx-datatable-column name="Name" prop="name" headerClass="ps-4" cellClass="ps-4">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>{{value || '-'}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="note" prop="description" [maxWidth]="250">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>{{value || '-'}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="date" prop="audittime" [maxWidth]="250" headerClass="text-center"
+                cellClass="text-center">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>{{value | date : 'dd/MM/yy, h:mm a' || '-'}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
     </nb-card-body>
 </nb-card>
