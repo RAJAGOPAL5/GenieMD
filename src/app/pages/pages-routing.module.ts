@@ -21,6 +21,12 @@ const routes: Routes = [
 
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   },
+  {
+    path: 'chat',
+    component: IndexComponent,
+    data: { title: 'Chat'},
+    loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
+  }
 ];
 
 @NgModule({

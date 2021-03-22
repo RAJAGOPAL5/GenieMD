@@ -83,6 +83,7 @@ export class ScheduleComponent implements OnInit {
     this.npiId = '0';
     this.activatedRoute.parent.paramMap.subscribe(params => {
       this.patientID = params.get('patientId');
+      console.log('p id', this.patientID);
     });
     this.getPatientData();
     this.getProtocolList();
@@ -321,7 +322,8 @@ export class ScheduleComponent implements OnInit {
   rescheduleAppointment() {
     this.rescheduleDialogRef.close();
     this.showAppointments = false;
-    this.showList = true;
+    this.router.navigate([this.clinicID, this.userID, 'patients', this.patientID, 'schedule', 'provider']);
+    // this.showList = true;
   }
 
 

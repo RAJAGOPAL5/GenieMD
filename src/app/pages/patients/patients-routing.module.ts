@@ -8,6 +8,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { VisitsComponent } from './visits/visits.component';
 import { VitalsComponent } from './vitals/vitals.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { ProviderComponent } from './provider/provider.component';
+import { ProviderDetailComponent } from './provider-detail/provider-detail.component';
 
 const routes: Routes = [
 
@@ -29,7 +31,19 @@ const routes: Routes = [
           {
             path: 'schedule',
             component: ScheduleComponent,
-            data: { title: 'Schedules' }
+            data: { title: 'Schedules' },
+            children: [
+              {
+                path: 'provider',
+                component: ProviderComponent,
+                data: { title: 'Provider' }
+              },
+              {
+                path: 'provider-detail',
+                component: ProviderDetailComponent,
+                data: { title: 'Provider-detail' }
+              },
+            ],
           },
           {
             path: 'care-team',

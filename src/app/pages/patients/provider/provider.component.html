@@ -1,0 +1,47 @@
+<div class="container"> 
+    <div class="row ">
+    <div class="col-md-6 offset-md-3">
+      <div class="row py-3 mx-1">
+                  <input type="search" nbInput fullWidth status="basic" name="searchText" id="searchText"
+                  class="form-control" placeholder="{{'kSearchDoctors' | translate}}"
+                  [(ngModel)]="searchText" (keyup)="searchProvider()">
+               <div class="pt-2 p-0">             
+                 <nb-select  name="providerSpecialities" id="providerSpecialities"
+                  (change)="getProvidersList()" [(ngModel)]="providerSpeciality" fullWidth>
+                  <nb-option value="">{{'kAll' | translate }}</nb-option>
+                 <nb-option value="Speciality">{{'kSpeciality' | translate }}</nb-option>
+                 <nb-option value="Allergy & Immunology">{{'kAllergyImmunology' | translate }}</nb-option>
+                  <nb-option value="Dentist Oral and Maxillofacial Radiology">{{'kDentistOralAndMaxillofacialRadiology' | translate }}</nb-option>
+                    <nb-option value="Family Medicine">{{'kFamilyMedicine' | translate }}</nb-option>
+                  </nb-select>
+              </div>
+            </div>
+            <ng-container *ngIf="providersList.length !== 0 ;else noRecrd">      
+            <nb-list class="own-scroll cursor-pointer" nbInfiniteList [threshold]="15" *ngFor="let provider of providersList" (click)="getProviderDetails(provider.npi)">
+            <nb-list-item>
+              <div class="col-md-3 col-lg-3 col-sm-3 col-3 col-xl-3 mr-2">
+                <ngx-avatar name="{{provider.practiceName}}" src="{{provider?.imageUrl}}" cornerRadius="10" [round]="true"
+                  class="image-size">
+                </ngx-avatar>
+              </div>
+              <div class="col-md-8 col-lg-8 col-sm-8 col-8 col-xl-8 pt-2 text-left">
+                <p class="font-weight-bold">{{provider?.practiceName}}</p>
+                <span class="d-block">{{provider?.specialties}}</span>
+                <span class="d-block font-weight-bold" style="color:000000;" *ngIf="provider.status == 'Offline'"> {{provider.status}}</span>
+                <span class="d-block font-weight-bold" style="color:green;" *ngIf="provider.status == 'Available Now'"> {{provider.status}}</span>
+                <span class="d-block font-weight-bold" style="color:red;" *ngIf="provider.status == 'Accepts Scheduled Visits'"> {{provider.status}}</span>
+                <span class="d-block font-weight-bold" style="color:#3498db;" *ngIf="provider.status == 'Report Symptoms, Get CallBack'"> {{provider.status}}</span>
+                <span class="d-block font-weight-bold" style="color:orange;" *ngIf="provider.status == 'Report Symptoms, Get Treatment'"> {{provider.status}}</span>
+              </div>
+            </nb-list-item>
+     </nb-list>
+      </ng-container>
+    
+      <ng-template #noRecrd>
+          <div class="text-center">
+              <span>{{'kNoRecordsFound' | translate }}</span>
+            </div>
+      </ng-template>
+      </div>   
+    </div>
+    </div>

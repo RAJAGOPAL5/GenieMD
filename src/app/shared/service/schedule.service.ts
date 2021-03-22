@@ -26,4 +26,14 @@ export class ScheduleService {
   getAvailableSlots(payload) {
     return this.http.post(`Appointments/RecurringCollection`, payload);
   }
+
+  checkTimeSlot(payload) {
+    return this.http.post(`Meetings/CheckSlot`, payload);
+  }
+
+  getEncounter(data) {
+    return this.http.get(`Encounters/Encounter/${data.userID}/${data.encounterID}`);
+  }
+
+
 }

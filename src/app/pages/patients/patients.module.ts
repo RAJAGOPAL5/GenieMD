@@ -38,6 +38,8 @@ import { UpsertAlertComponent } from './alerts/upsert-alert/upsert-alert.compone
 import { OrderModule } from 'ngx-order-pipe';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { AssessmentComponent } from './assessment/assessment.component';
+import { ProviderComponent } from './provider/provider.component';
+import { ProviderDetailComponent } from './provider-detail/provider-detail.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 // export function HttpLoaderFactory(http: HttpClient) {
@@ -63,6 +65,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     UpsertAlertComponent,
     ScheduleComponent,
     AssessmentComponent,
+    ProviderComponent,
+    ProviderDetailComponent,
   ],
   imports: [
     CommonModule,

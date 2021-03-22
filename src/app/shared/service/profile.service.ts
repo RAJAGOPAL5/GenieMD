@@ -80,6 +80,10 @@ export class ProfileService {
     }
   }
 
+  getAudits(data) {
+    return this.http.get(`Audits/GetAudits/${data.userId}/${data.patientId}`);
+  }
+
   // getProtocol(data) {
   //     return this.http.get(`Protocol/Get/${data.userId}/${data.clinicId}`);
   // }

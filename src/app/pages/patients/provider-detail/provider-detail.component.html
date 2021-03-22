@@ -1,0 +1,143 @@
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="col-md-12 avatar-content mt-1">
+        <div class="avatar-layout">
+          <div class="avatar-circle"
+            [ngStyle]="{'background-image': providerDetails?.imageUrl ? 'url(' + providerDetails?.imageUrl + ')' : 'url(' + noImageURL + ')'}">
+
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-2">
+        <div class="">
+          <h5 class="font-weight-bold text-center"> {{providerDetails?.name}}
+            {{providerDetails?.degrees}}</h5>
+          <p class="text-center">{{providerDetails?.specialties}} </p>
+        </div>
+      </div>
+      <div class="row mt-1 mb-3">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center provider-status">
+          <ng-container *ngIf="OffLine;else btnForEnter">
+            <button type="button" class="btn btn-secondary btn-lg btn-block text-style3 text-white">{{'kLableProviderOffline' | translate }}
+              </button>
+          </ng-container>
+          <ng-template #btnForEnter>
+            <ng-container *ngIf="waitingRoom">
+              <button *ngIf="w_type && w_count!==0;else enterWaitingBtn" type="button"
+                class="btn btn-color-count btn-lg btn-block text-style3" (click)="selection(6)">{{w_count}}
+                {{'kLabelPaitentsWaiting' | translate }}</button>
+              <ng-template #enterWaitingBtn>
+                <button type="button" class="btn btn-green btn-lg btn-block text-style3" (click)="selection(6)">
+                  {{'kLabelEnterWaitingRoom' | translate }}</button>
+              </ng-template>
+            </ng-container>
+            <ng-container *ngIf="scheduleVisit">
+              <button *ngIf="callBack" type="button" class="btn btn-report-color btn-lg btn-block text-style3"
+                (click)="selection(3)">{{'kReportSymptomsProviderWillCallBack' | translate }}
+                </button>
+            </ng-container>
+            <button *ngIf="asyncVisit" type="button" class="btn btn-yellow-color btn-lg btn-block text-style3"
+              (click)="selection(0)">{{'kLabelProviderAsync' | translate }}
+            </button>
+          </ng-template>
+        </div>
+      </div>
+      <ng-container>
+
+        <div class="row p-3">
+          <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-2 text-center cursor-pointer">
+            <img src="assets/icon/prev-date.svg" class="img-ht" (click)="prevDate()">
+          </div>
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center">
+            <input nbInput  [nbDatepicker]="ngmodel" [(ngModel)]="date" (click)="dataChange(date ,$event)"> 
+            <nb-datepicker #ngmodel></nb-datepicker>
+          </div>
+          <!-- <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center">
+            <p (click)="dateSelect()" class="text-style4">{{date | date:'EE d MMM y'}}</p>
+          </div> -->
+          <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-2 text-center cursor-pointer">
+            <img src="assets/icon/next-date.svg" class="img-ht" (click)="nextDate()">
+          </div>
+        </div>
+
+        <ng-container *ngIf="timeSlots.length != 0">
+          <div class="row p-3">
+            <div class="col-4 col-md-4 col-sm-4 col-lg-4 col-xl-4 mb-3 text-center padding-slot"
+              *ngFor="let item of timeSlots">
+              <button (click)="selectedTime(item)" class="form-control form-group p-b-2 padding-button"
+                type="button">{{item.hh| uppercase}}</button>
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center pt-2 text-center"
+          *ngIf="timeSlots.length == 0">
+          <p class="subtitle">{{'kNoSlotsAvailable' | translate }}</p>
+          <p class="subtitle">{{'kPleaseSelectAnotherDate' | translate }}</p>
+
+        </div>
+
+      </ng-container>
+
+
+      <div class="row p-3">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-style2 white-space">
+          {{providerDetails?.statement}}
+        </div>
+
+        <div class="card col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="clearfix main-box pt-2">
+            <header class="main-box-header clearfix text-style2">
+              <h6 class="pull-left">{{'KLanguages' | translate }}</h6>
+            </header>
+            <div class="main-box-body clearfix">
+              <p>{{getDate(providerDetails?.languagesSpoken)}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="card col-lg-12 mt-3">
+          <div class="clearfix main-box pt-2">
+            <header class="main-box-header clearfix text-style2">
+              <h6 class="pull-left">{{'KEducation' | translate }}</h6>
+            </header>
+            <div class="main-box-body clearfix">
+              <p> {{getDate(providerDetails?.education)}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="card col-lg-12 mt-3">
+          <div class="clearfix main-box pt-2">
+            <header class="main-box-header clearfix text-style2">
+              <h6 class="pull-left">{{'KBoardCertifications' | translate }}</h6>
+            </header>
+            <div class="main-box-body clearfix">
+              <p> {{getDate(providerDetails?.boardCertifications)}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="card col-lg-12 mt-3">
+          <div class="clearfix main-box pt-2">
+            <header class="main-box-header clearfix text-style2">
+              <h6>{{'KHospitalAffiliations' | translate }}
+              </h6>
+            </header>
+            <div class="main-box-body clearfix">
+              <p>{{getDate(providerDetails?.hospitalAffiliations)}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="card col-lg-12 mt-3">
+          <div class="clearfix main-box pt-2">
+            <header class="main-box-header clearfix text-style2">
+              <h6 class="pull-left">{{'kAwards' | translate }}
+              </h6>
+            </header>
+            <div class="main-box-body clearfix">
+              <p> {{getDate(providerDetails?.awards)}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
