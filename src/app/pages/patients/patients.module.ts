@@ -11,7 +11,7 @@ import {
   NbTabsetModule, NbUserModule, NbIconModule, NbSpinnerModule,
   NbButtonModule, NbRadioModule, NbSelectModule, NbToggleModule,
   NbDatepickerModule, NbActionsModule, NbButtonGroupModule, NbCheckboxModule,
-  NbBadgeModule, NbTooltipModule, NbPopoverModule, NbCalendarRangeModule, NbCalendarModule, NbTreeGridModule, NbTagModule
+  NbBadgeModule, NbTooltipModule, NbPopoverModule, NbCalendarRangeModule, NbCalendarModule, NbTreeGridModule, NbTagModule, NbWindowModule
 } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -107,7 +107,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NbTagModule,
     OrderModule,
     NgxDatatableModule
-    ],
+  ],
   entryComponents: [UpsertAlertComponent]
 })
 export class PatientsModule { }

@@ -24,6 +24,7 @@ import { OrderModule } from 'ngx-order-pipe';
     NbUserModule,
     NbSpinnerModule,
     OrderModule
-  ]
+  ],
+  exports: [ChatRoomComponent]
 })
 export class ChatModule { }

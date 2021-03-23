@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChatService } from 'src/app/shared/service/chat.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
@@ -11,6 +11,7 @@ import { ProfileService } from 'src/app/shared/service/profile.service';
 export class ChatRoomComponent implements OnInit {
   messages = [];
   profile: any;
+  @Input() chatInfo: any;
   conversationId: any;
   isLoading = false;
   text: any;
@@ -18,8 +19,7 @@ export class ChatRoomComponent implements OnInit {
 
   ngOnInit(): void {
     this.profile = this.profileService.profile;
-    this.conversationId = this.route.snapshot.params.id;
-    console.log('this.conversationId', this.conversationId);
+    this.conversationId = !!this.chatInfo ? this.chatInfo.conversationId : this.route.snapshot.params.id;
     this.getConversationsHistory();
   }
   sendMessage(event) {
@@ -27,7 +27,7 @@ export class ChatRoomComponent implements OnInit {
       message: event.message,
       messageTime: new Date().getTime(),
       reply: true,
-      screenName:  this.profile.screenName
+      screenName: this.profile.screenName
     });
   }
   getConversationsHistory() {
@@ -41,7 +41,7 @@ export class ChatRoomComponent implements OnInit {
     this.chatService.getConversations(payload).subscribe((data: any) => {
       const messages = data.textMessageList;
       const receiver = messages.find(k => {
-       return  k.email !== this.profile.email;
+        return k.email !== this.profile.email;
       });
       this.getReceiverInfo(receiver);
       messages.map(item => {
