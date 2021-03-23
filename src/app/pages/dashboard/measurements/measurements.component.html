@@ -5,6 +5,62 @@
 
     </div>
     <div class="col-md-12">
-        <ng2-smart-table [settings]="settings" [source]="data" ></ng2-smart-table>
+        <!-- <ng2-smart-table [settings]="settings" [source]="data" ></ng2-smart-table> -->
+        <ngx-datatable class="bootstrap" [rows]="data" [columnMode]="ColumnMode.force" [scrollbarV]="true" [columns]="columns"
+        [headerHeight]="headerHeight" [rowHeight]="rowHeight" [loadingIndicator]="isLoading" [scrollbarV]="true"
+        (scroll)="onScroll($event.offsetY)" style="height: 600px;" (activate)="onActivate($event)">
+        <ngx-datatable-column name="Name" headerClass="ps-4" prop="name" cellClass="ps-4">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{value || '-'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Conditions" prop="conditions" [maxWidth]="250">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{value || '-'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Blood Pressure" prop="blood" [maxWidth]="250">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{value || '-'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Weight" prop="weight" [maxWidth]="250">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{value || '-'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Blood Glucose" prop="glucose" [maxWidth]="250">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{value || '-'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Pulse Oximetry" prop="oximetry" [maxWidth]="250">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{value || '-'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Last Checked" prop="lastChecked" [maxWidth]="250">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{value || '-'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Minutes This Month" prop="minutesMonth" [maxWidth]="250">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{value || '-'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Assigned Care Manager" prop="careManager" [maxWidth]="250">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{value || '-'}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Contact" [maxWidth]="200" headerClass="text-center" cellClass="text-center">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <i class="fas fa-phone text-primary " nbTooltip="Call" nbTooltipStatus="basic" ></i> <i class="far fa-comment-dots text-primary d-inline-block mx-2" nbTooltip="Chat" nbTooltipStatus="basic"></i> <i
+                    class="fas fa-video text-primary" nbTooltip="Video" nbTooltipStatus="basic"></i>
+            </ng-template>
+        </ngx-datatable-column>
+        
+    </ngx-datatable>
     </div>
 </div>

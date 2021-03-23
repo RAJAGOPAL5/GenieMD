@@ -121,7 +121,7 @@ export class AdherenceComponent implements OnInit {
       blood: '21 hours ago',
       careManager: 'Minetta Costa',
       contact: '<nb-icon icon="close-outline"></nb-icon>',
-      oximetry: '5 days ago',
+      oximetry: '--',
       lastChecked: '10 days ago',
       minutesMonth: '00.00',
       weight: '4 hours ago',
