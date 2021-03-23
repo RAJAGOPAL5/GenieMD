@@ -34,6 +34,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     OrderModule
-  ]
+  ],
+  exports: [ChatRoomComponent]
 })
 export class ChatModule { }

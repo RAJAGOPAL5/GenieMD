@@ -77,7 +77,7 @@
                 <button nbButton ghost  size="small" status="info" class="mb-2">Devices</button> -->
             </div>
             <div class="mt-3" [ngClass] = "{'col-md-2': showEmergency, 'col-md-3': !showEmergency}">
-                <button nbButton status="primary" class="mb-2 w-100 justify-content-start" size="small">
+                <button nbButton status="primary" class="mb-2 w-100 justify-content-start" size="small" (click)="openWindow()">
                     <nb-icon icon="message-circle-outline"></nb-icon>{{'kChat' | translate}}</button>
                 <button nbButton  [nbPopover]="templateRef" nbPopoverPlacement="right" status="success" class="mb-2 w-100 justify-content-start" size="small">
                     <nb-icon icon="phone-call-outline"></nb-icon>{{'kCall' | translate}}</button>

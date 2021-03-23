@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import {
   NbCardModule, NbDialogModule, NbLayoutModule,
   NbMenuModule, NbSidebarModule, NbSpinnerModule, NbThemeModule, NbToastrModule,
-  NbTooltipModule, NbDatepickerModule, NbIconModule,
+  NbTooltipModule, NbDatepickerModule, NbIconModule, NbWindowModule,
 } from '@nebular/theme';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyHttpInterceptor } from './shared/interceptors/interceptor';
@@ -23,6 +23,7 @@ import { CoreModule } from 'core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { getUserPreferedTheme } from './shared/utility';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 const theme = getUserPreferedTheme();
 @NgModule({
@@ -50,8 +51,10 @@ const theme = getUserPreferedTheme();
     NbTooltipModule,
     NbIconModule,
     NbEvaIconsModule,
+    DragDropModule,
     TranslateModule.forRoot(),
     NbDateFnsDateModule.forRoot({ format: 'dd/MM/yyyy' }),
+    NbWindowModule.forRoot(),
     CoreModule.forRoot({
       baseURL: environment.base_url,
       production: environment.production

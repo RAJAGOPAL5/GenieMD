@@ -74,7 +74,7 @@ export class MeasurementsComponent implements OnInit {
       contact: '<nb-icon icon="close-outline"></nb-icon>',
       oximetry: '--',
       lastChecked: '21 days ago',
-      minutesMonth: '00.00',
+      minutesMonth: '00:00',
       weight: '190.6 lbs',
       glucose: '102 mgdl(A)'
     },
@@ -87,7 +87,7 @@ export class MeasurementsComponent implements OnInit {
       contact: '<nb-icon icon="close-outline"></nb-icon>',
       oximetry: '--',
       lastChecked: '13 days ago',
-      minutesMonth: '00.00',
+      minutesMonth: '00:00',
       weight: '140.9 lbs',
       glucose: '--'
     },
@@ -100,7 +100,7 @@ export class MeasurementsComponent implements OnInit {
       contact: '<nb-icon icon="close-outline"></nb-icon>',
       oximetry: '--',
       lastChecked: '21 days ago',
-      minutesMonth: '00.00',
+      minutesMonth: '00:00',
       weight: '180.8 lbs',
       glucose: '81 mgdl(A)'
     },
@@ -113,7 +113,7 @@ export class MeasurementsComponent implements OnInit {
       contact: '<nb-icon icon="close-outline"></nb-icon>',
       oximetry: '--',
       lastChecked: '10 days ago',
-      minutesMonth: '00.00',
+      minutesMonth: '00:00',
       weight: '159.8 lbs',
       glucose: '--'
     }
