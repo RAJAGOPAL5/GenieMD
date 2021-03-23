@@ -41,6 +41,8 @@ import { AssessmentComponent } from './assessment/assessment.component';
 import { ProviderComponent } from './provider/provider.component';
 import { ProviderDetailComponent } from './provider-detail/provider-detail.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxTimerModule } from 'ngx-timer';
+
 
 // export function HttpLoaderFactory(http: HttpClient) {
 //   return new TranslateHttpLoader(http, '../../assets/i18n/', '.json');
@@ -106,7 +108,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NbTreeGridModule,
     NbTagModule,
     OrderModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    NgxTimerModule
     ],
   entryComponents: [UpsertAlertComponent]
 })

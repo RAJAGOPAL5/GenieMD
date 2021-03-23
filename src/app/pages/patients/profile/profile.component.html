@@ -7,8 +7,7 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="py-2">
-                    <nb-user class="pb-2 ps-2" size="giant" [name]="patientName"
-                        [picture]="patient?.imageUrl" onlyPicture='true'>
+                    <nb-user class="pb-2 ps-2" size="giant" [name]="patientName" [picture]="patient?.imageUrl" onlyPicture='true'>
                     </nb-user>
                     <div class="subtitle ps-2">{{patientName}}</div>
                     <div class="caption ps-2">{{patient?.dob}}</div>
@@ -38,7 +37,7 @@
                     </p>
                 </div>
             </div>
-            <div class="mt-3" [ngClass] = "{'col-md-3': showEmergency, 'col-md-4': !showEmergency}">
+            <div class="mt-3" [ngClass]="{'col-md-3': showEmergency, 'col-md-4': !showEmergency}">
                 <div>
                     <div class="d-flex pb-2">
                         <nb-icon icon="map-marker-alt" nbTooltip="Address" nbTooltipPlacement="left" pack="font-awesome">
@@ -55,41 +54,50 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 mt-3" *ngIf = "showEmergency">
-                    <div>
-                        <div class="d-flex pb-2">
-                            <nb-icon icon="address-book" nbTooltip="Emergency Contact" nbTooltipPlacement="left" pack="font-awesome">
-                            </nb-icon>
-                            <div class="ps-2">
-                                <div *ngIf = "patientExtraData?.emergencyContact">
-                                    <div>{{trimContact(patientExtraData?.emergencyContact.name)}}</div>
-                                    <div>{{trimContact(patientExtraData?.emergencyContact.number)}} </div>
-                                    <div *ngIf="patientExtraData?.emergencyContact.relation">{{relationName}}</div>
-                                </div>
-                                <div *ngIf = "!patientExtraData?.emergencyContact">
-                                    No Emergency Contact Found
-                                </div>
+            <div class="col-md-2 mt-3" *ngIf="showEmergency">
+                <div>
+                    <div class="d-flex pb-2">
+                        <nb-icon icon="address-book" nbTooltip="Emergency Contact" nbTooltipPlacement="left" pack="font-awesome">
+                        </nb-icon>
+                        <div class="ps-2">
+                            <div *ngIf="patientExtraData?.emergencyContact">
+                                <div>{{trimContact(patientExtraData?.emergencyContact.name)}}</div>
+                                <div>{{trimContact(patientExtraData?.emergencyContact.number)}} </div>
+                                <div *ngIf="patientExtraData?.emergencyContact.relation">{{relationName}}</div>
+                            </div>
+                            <div *ngIf="!patientExtraData?.emergencyContact">
+                                No Emergency Contact Found
                             </div>
                         </div>
                     </div>
+                </div>
                 <!-- <button nbButton ghost size="small" status="info" class="mb-2">Insurance</button>
                 <button nbButton ghost  size="small" status="info" class="mb-2">Emergency Contact</button>
                 <button nbButton ghost  size="small" status="info" class="mb-2">Devices</button> -->
             </div>
-            <div class="mt-3" [ngClass] = "{'col-md-2': showEmergency, 'col-md-3': !showEmergency}">
+            <div class="mt-3" [ngClass]="{'col-md-2': showEmergency, 'col-md-3': !showEmergency}">
                 <button nbButton status="primary" class="mb-2 w-100 justify-content-start" size="small">
                     <nb-icon icon="message-circle-outline"></nb-icon>{{'kChat' | translate}}</button>
-                <button nbButton  [nbPopover]="templateRef" nbPopoverPlacement="right" status="success" class="mb-2 w-100 justify-content-start" size="small">
+                <button nbButton [nbPopover]="templateRef" nbPopoverPlacement="right" status="success" class="mb-2 w-100 justify-content-start" size="small">
                     <nb-icon icon="phone-call-outline"></nb-icon>{{'kCall' | translate}}</button>
                 <!-- <button nbButton status="warning" class="mb-2 w-100 justify-content-start" size="small"><nb-icon icon="clock-outline"></nb-icon>{{'kSchedule' | translate}}</button> -->
-            </div> 
+            </div>
             <ng-template #templateRef>
                 <div class="p-3">
-                <button nbButton status="success" class="m-1" size="small"><nb-icon icon="headphones-outline"></nb-icon>{{'kAudio' | translate}}</button>
-                <button nbButton status="success" class="m-1" size="small"><nb-icon icon="video-outline"></nb-icon>{{'kVideo' | translate}}</button>
-                <button nbButton status="success" class="m-1" size="small"><nb-icon icon="phone-call-outline"></nb-icon>{{'kCAllBridge' | translate}}</button>
+                    <button nbButton status="success" class="m-1" size="small"><nb-icon icon="headphones-outline"></nb-icon>{{'kAudio' | translate}}</button>
+                    <button nbButton status="success" class="m-1" size="small"><nb-icon icon="video-outline"></nb-icon>{{'kVideo' | translate}}</button>
+                    <button nbButton status="success" class="m-1" size="small"><nb-icon icon="phone-call-outline"></nb-icon>{{'kCAllBridge' | translate}}</button>
                 </div>
-              </ng-template>
+            </ng-template>
+        </div>
+        <div class="row">
+            <div class="col-md-1 mt-1">
+                <countup-timer [countUpTimerConfig]="testConfig"></countup-timer>
+            </div>
+            <div class="col-md-1">
+                <button *ngIf="showStart" nbButton status="success" class="m-1" size="tiny" (click)="startTime()">start</button>
+                <button *ngIf="showStop" nbButton status="danger" class="m-1" size="tiny" (click)="stopTime()">stop</button>
+            </div>
         </div>
         <div class="row">
             <!-- <div class="col-md-2">

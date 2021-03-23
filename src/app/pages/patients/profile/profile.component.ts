@@ -8,6 +8,7 @@ import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { languages, states, morbidity, gender, diseaseState, relation } from 'src/app/shared/constant/constant';
+import { countUpTimerConfigModel, CountupTimerService, timerTexts } from 'ngx-timer'
 
 
 interface ViewModal {
@@ -48,6 +49,10 @@ export class ProfileComponent implements OnInit {
   totalsec = 0;
   startStop = false;
   timerStatus = false;
+  testConfig: any;
+  showStart = false;
+  showStop = true;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
@@ -57,7 +62,8 @@ export class ProfileComponent implements OnInit {
     private toastrService: NbToastrService,
     private languageService: LanguageService,
     private translate: TranslateService,
-    private router: Router
+    private router: Router,
+    private CountupTimerService: CountupTimerService
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
     translate.use('en');
@@ -80,6 +86,14 @@ export class ProfileComponent implements OnInit {
       this.patientID = params.get('patientId');
       this.prepareTabs();
       this.getData();
+      this.testConfig = new countUpTimerConfigModel();
+      this.testConfig.timerClass = 'test_Timer_class';
+      this.testConfig.timerTexts = new timerTexts();
+      this.testConfig.timerTexts.hourText = ":";
+      this.testConfig.timerTexts.minuteText = ":";
+      this.testConfig.timerTexts.secondsText = "s";
+      this.startTime();
+
     });
     this.languages = languages;
     this.relation = relation;
@@ -236,6 +250,20 @@ export class ProfileComponent implements OnInit {
   }
   trimContact(data) {
     return data && data.trim() !== '' ? data : ' ';
+  }
+  startTime() {
+    let cdate = new Date();
+    cdate.setHours(cdate.getHours());
+    this.CountupTimerService.startTimer(cdate);
+    this.showStart = false;
+    this.showStop = true;
+
+  }
+  stopTime() {
+    this.CountupTimerService.stopTimer();
+    this.showStart = true;
+    this.showStop = false;
+
   }
 
 }
