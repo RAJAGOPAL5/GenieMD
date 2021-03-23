@@ -116,7 +116,7 @@ export class AddComponent implements OnInit {
     };
     this.patientsService.findById(patientPayload).subscribe((items: any) => {
       this.profileData = items;
-      this.profileService.get(this.profileData.userID).subscribe((res: any) => {
+      this.profileService.getPatientProfile(this.profileData.userID).subscribe((res: any) => {
         try {
           this.profileExtraData = JSON.parse(this.profileData.extraData);
         } catch (error) {
@@ -356,7 +356,7 @@ export class AddComponent implements OnInit {
     });
   }
   getProfile() {
-    this.profileService.get(this.userID).subscribe((res: any) => {
+    this.profileService.getPatientProfile(this.userID).subscribe((res: any) => {
       this.profile = res;
       this.updateProfile();
     }, error => {
