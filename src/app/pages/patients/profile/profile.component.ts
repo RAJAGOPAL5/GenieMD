@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Event, ActivatedRoute, Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
-import { NbIconLibraries, NbToastrService, NbTagComponent } from '@nebular/theme';
+import { NbIconLibraries, NbToastrService, NbTagComponent, NbWindowService, NbWindowState } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
@@ -9,6 +9,8 @@ import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { languages, states, morbidity, gender, diseaseState, relation } from 'src/app/shared/constant/constant';
 import { countUpTimerConfigModel, CountupTimerService, timerTexts } from 'ngx-timer';
+import { ChatWindowComponent } from 'src/app/shared/components/chat-window/chat-window.component';
+import { ChatService } from 'src/app/shared/service/chat.service';
 
 
 interface ViewModal {
@@ -53,6 +55,8 @@ export class ProfileComponent implements OnInit {
   showStart = false;
   showStop = true;
 
+  conversations = [];
+  exisitingChat: any;
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
@@ -63,7 +67,9 @@ export class ProfileComponent implements OnInit {
     private languageService: LanguageService,
     private translate: TranslateService,
     private router: Router,
-    private countupTimerService: CountupTimerService
+    private countupTimerService: CountupTimerService,
+    private windowService: NbWindowService,
+    private chatService: ChatService
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
     translate.use('en');
@@ -82,6 +88,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getChatList();
     this.activatedRoute.paramMap.subscribe(params => {
       this.patientID = params.get('patientId');
       this.prepareTabs();
@@ -94,6 +101,7 @@ export class ProfileComponent implements OnInit {
       this.testConfig.timerTexts.secondsText = 's';
       this.startTime();
 
+      this.getChatInfo();
     });
     this.languages = languages;
     this.relation = relation;
@@ -266,4 +274,56 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  openWindow() {
+    if (!!this.exisitingChat) {
+      console.log('this.exisitingChat', this.exisitingChat);
+      this.open(this.exisitingChat.conversationID);
+    } else {
+      this.createChat();
+    }
+  }
+  getChatList() {
+    this.chatService.getChatList(this.profileService.id).subscribe((data: any) => {
+      this.conversations = data.conversationList;
+      console.log('this.conversations', this.conversations);
+      this.getChatInfo();
+    }, error => {
+      throw error;
+    });
+  }
+  getChatInfo() {
+    if (!!this.patientID && this.conversations.length) {
+      this.exisitingChat = this.conversations.find(item => {
+        const existingUser = item.users.find(k => {
+          // tslint:disable-next-line:triple-equals
+          if (k.email == this.patientID) {
+            return k;
+          }
+        });
+        return existingUser;
+      });
+    }
+  }
+  createChat() {
+    this.isLoading = true;
+    const payload = {
+      userID: this.profileService.id,
+      users: [this.patientID]
+    };
+    this.chatService.createConversation(payload).subscribe((data: any) => {
+      this.isLoading = false;
+      this.open(data.conversationID);
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger('Could not initialize chat.', 'Error');
+      throw error;
+    });
+  }
+  open(conversationID) {
+    this.windowService.open(ChatWindowComponent, {
+      title: `${this.patientName}`, initialState: NbWindowState.MAXIMIZED,
+      hasBackdrop: false, windowClass: 'custom-chat-window',
+      context: { conversationID }
+    });
+  }
 }

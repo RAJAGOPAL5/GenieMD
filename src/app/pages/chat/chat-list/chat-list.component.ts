@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { ChatService } from 'src/app/shared/service/chat.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import * as moment from 'moment';
+import { NewChatComponent } from '../new-chat/new-chat.component';
 
 
 @Component({
@@ -18,7 +20,8 @@ export class ChatListComponent implements OnInit {
   order = 'lastMessageTime';
   constructor(
     private router: Router, private clinicService: ClinicService,
-    private profileService: ProfileService, private chatService: ChatService) { }
+    private dialogService: NbDialogService,
+    private profileService: ProfileService, private chatService: ChatService, private toastrService: NbToastrService) { }
 
   ngOnInit(): void {
     this.getList();
@@ -45,6 +48,10 @@ export class ChatListComponent implements OnInit {
       this.isLoading = false;
       throw error;
     });
+  }
+
+  openChatBox() {
+    this.dialogService.open(NewChatComponent);
   }
 
 }

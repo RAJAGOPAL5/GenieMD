@@ -1,11 +1,11 @@
-<nb-chat title="GMD User" size="giant" [nbSpinner]="isLoading">
+<nb-chat title="GMD User" [size]="!!chatInfo ? 'medium' : 'giant'" [nbSpinner]="isLoading" [ngClass]="{'chat-window': !!chatInfo}">
     <nb-chat-message *ngFor="let message of messages"
                      [type]="text"
                      [message]="message.message"
                      [reply]="message.reply"
-                     [sender]="message.screenName"
                      [date]="message.messageTime"
                      ></nb-chat-message>
     <nb-chat-form (send)="sendMessage($event)" [showButton]="false" [dropFiles]="true">
     </nb-chat-form>
+    <button nbButton status="primary"  size="small" ></button>
   </nb-chat>

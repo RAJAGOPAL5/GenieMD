@@ -78,7 +78,7 @@ export class AdherenceComponent implements OnInit {
       contact: '<nb-icon icon="close-outline"></nb-icon>',
       oximetry: '--',
       lastChecked: '21 days ago',
-      minutesMonth: '00.00',
+      minutesMonth: '00:00',
       weight: '60 days ago',
       measurements: 2,
       glucose: '3 days ago'
@@ -93,7 +93,7 @@ export class AdherenceComponent implements OnInit {
       contact: '<nb-icon icon="close-outline"></nb-icon>',
       oximetry: '--',
       lastChecked: '13 days ago',
-      minutesMonth: '00.00',
+      minutesMonth: '00:00',
       weight: '20 days ago',
       measurements: 8,
       glucose: '5 hours ago'
@@ -108,7 +108,7 @@ export class AdherenceComponent implements OnInit {
       contact: '<nb-icon icon="close-outline"></nb-icon>',
       oximetry: '--',
       lastChecked: '21 days ago',
-      minutesMonth: '00.00',
+      minutesMonth: '00:00',
       weight: '23 days ago',
       measurements: 6,
       glucose: '10 days ago'
@@ -123,7 +123,7 @@ export class AdherenceComponent implements OnInit {
       contact: '<nb-icon icon="close-outline"></nb-icon>',
       oximetry: '--',
       lastChecked: '10 days ago',
-      minutesMonth: '00.00',
+      minutesMonth: '00:00',
       weight: '4 hours ago',
       measurements: 2,
       glucose: '2 hours ago'

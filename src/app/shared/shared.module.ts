@@ -7,7 +7,7 @@ import {
   NbTreeGridModule, NbCardModule, NbButtonModule, NbActionsModule, NbPopoverModule,
   NbSelectModule, NbTooltipModule, NbDatepickerModule, NbButtonGroupModule,
   NbTabsetModule, NbRouteTabsetModule, NbRadioModule, NbCheckboxModule, NbCalendarRangeModule, NbCalendarModule,
-  NbSpinnerModule, NbUserModule
+  NbSpinnerModule, NbUserModule, NbWindowModule
 } from '@nebular/theme';
 import { DevicesComponent } from './components/devices/devices.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -18,6 +18,8 @@ import { AvatarModule } from 'ngx-avatar';
 import { AlertsListComponent } from './components/alerts-list/alerts-list.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ChatWindowComponent } from './components/chat-window/chat-window.component';
+import { ChatModule } from '../pages/chat/chat.module';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     TimeSlotsComponent,
     AddComponent,
     FilterDialogComponent,
-    AlertsListComponent],
+    AlertsListComponent,
+    ChatWindowComponent],
   imports: [
     CommonModule,
     NbLayoutModule,
@@ -56,12 +59,14 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NbUserModule,
     FormsModule,
     TranslateModule.forRoot(),
-    NgxDatatableModule
+    NgxDatatableModule,
+    ChatModule
   ],
   exports: [NbLayoutModule,
     DevicesComponent,
     TimeSlotsComponent,
-    AlertsListComponent
+    AlertsListComponent,
+    ChatWindowComponent
   ]
 })
 export class SharedModule { }

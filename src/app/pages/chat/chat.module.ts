@@ -4,10 +4,14 @@ import { ChatRoutingModule } from './chat-routing.module';
 import { ChatRoomComponent } from './chat-room/chat-room.component';
 import { ChatListComponent } from './chat-list/chat-list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { NbActionsModule, NbCardModule, NbChatModule, NbIconModule,
-   NbListModule, NbSpinnerModule, NbTooltipModule, NbUserModule } from '@nebular/theme';
+import {
+  NbActionsModule, NbCardModule, NbChatModule,
+  NbIconModule, NbListModule, NbSpinnerModule, NbTooltipModule,
+  NbUserModule, NbButtonModule, NbFormFieldModule, NbButtonGroupModule, NbInputModule, NbDialogService, NbDialogModule
+} from '@nebular/theme';
 import { NewChatComponent } from './new-chat/new-chat.component';
 import { OrderModule } from 'ngx-order-pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,7 +27,16 @@ import { OrderModule } from 'ngx-order-pipe';
     NbTooltipModule,
     NbUserModule,
     NbSpinnerModule,
-    OrderModule
-  ]
+    NbButtonModule,
+    NbFormFieldModule,
+    NbButtonGroupModule,
+    NbInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    OrderModule,
+    NbDialogModule.forChild(),
+  ],
+  exports: [ChatRoomComponent],
+  entryComponents: [NewChatComponent]
 })
 export class ChatModule { }
