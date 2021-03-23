@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { ChatService } from 'src/app/shared/service/chat.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
@@ -21,7 +21,7 @@ export class ChatListComponent implements OnInit {
   constructor(
     private router: Router, private clinicService: ClinicService,
     private dialogService: NbDialogService,
-    private profileService: ProfileService, private chatService: ChatService) { }
+    private profileService: ProfileService, private chatService: ChatService, private toastrService: NbToastrService) { }
 
   ngOnInit(): void {
     this.getList();

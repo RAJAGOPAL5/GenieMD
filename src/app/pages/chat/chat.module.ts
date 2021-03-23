@@ -7,7 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import {
   NbActionsModule, NbCardModule, NbChatModule,
   NbIconModule, NbListModule, NbSpinnerModule, NbTooltipModule,
-  NbUserModule, NbButtonModule, NbFormFieldModule, NbButtonGroupModule, NbInputModule
+  NbUserModule, NbButtonModule, NbFormFieldModule, NbButtonGroupModule, NbInputModule, NbDialogService, NbDialogModule
 } from '@nebular/theme';
 import { NewChatComponent } from './new-chat/new-chat.component';
 import { OrderModule } from 'ngx-order-pipe';
@@ -33,8 +33,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NbInputModule,
     FormsModule,
     ReactiveFormsModule,
-    OrderModule
+    OrderModule,
+    NbDialogModule.forChild(),
   ],
-  exports: [ChatRoomComponent]
+  exports: [ChatRoomComponent],
+  entryComponents: [NewChatComponent]
 })
 export class ChatModule { }
