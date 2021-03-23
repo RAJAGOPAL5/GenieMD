@@ -60,4 +60,8 @@ export class ClinicService {
     return this.http.get(`HealthcareProvider/NetworkCategory/List/${payload}`);
   }
 
+  getProviderList(clinicID) {
+    return this.http.get(`Clinics/Providers/List/${clinicID}`);
+   }
+
 }

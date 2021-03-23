@@ -1,1 +1,39 @@
-<p>new-chat works!</p>
+<nb-card class="mb-0 patient-list-width" size="medium" [nbSpinner]="isLoading"
+    nbSpinnerMessage="Please wait. We are fetching the patients list">
+    <nb-card-header class="justify-content-center p-0">
+        <nb-list-item>
+            <div class="row col-12">
+                <div class="col-6"><b>New Chat</b></div>
+                <div class="col-6 p-0 text-right">
+                    <nb-actions size="small" class="justify-content-end">
+                        <nb-action nbTooltipPlacement="left" (click)="closeDialog()"
+                            icon="close-outline"></nb-action>
+                    </nb-actions>
+                </div>
+            </div>
+        </nb-list-item>
+        <nb-list-item>
+            <nb-form-field class="w-100">
+                <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+                <input type="search" id='searchText' name="searchText" fullWidth status="success" nbInput
+                    [(ngModel)]="searchText" (search)="search()" #SearchInput>
+            </nb-form-field>
+        </nb-list-item>
+        <nb-list-item class="pb-0">
+            <div class="row m-auto">
+                <div class="col-auto mx-auto mb-3">
+                    <nb-button-group status="primary" size="tiny">
+                        <button nbButtonToggle nbButton pressed (click)="getPatientsList()">Patients</button>
+                        <button nbButtonToggle nbButton (click)="getProvidersList()">Providers</button>
+                    </nb-button-group>
+                </div>
+            </div>
+        </nb-list-item>
+    </nb-card-header>
+    <nb-list class="own-scroll">
+        <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of users">
+            <nb-user *ngIf="!isLoading" class="cursor-pointer warning" [name]="user.name" [title]="user.dob" [picture]="user.imageUrl">
+            </nb-user>
+        </nb-list-item>
+    </nb-list>
+</nb-card>
