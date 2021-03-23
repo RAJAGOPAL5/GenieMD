@@ -8,7 +8,7 @@
         <!-- <ng2-smart-table [settings]="settings" [source]="data" ></ng2-smart-table> -->
         <ngx-datatable class="bootstrap" [rows]="data" [columnMode]="ColumnMode.force" [scrollbarV]="true" [columns]="columns"
         [headerHeight]="headerHeight" [rowHeight]="rowHeight" [loadingIndicator]="isLoading" [scrollbarV]="true"
-        (scroll)="onScroll($event.offsetY)" style="height: 600px;" (activate)="onActivate($event)">
+        (scroll)="onScroll($event.offsetY)" style="height: 600px;">
         <ngx-datatable-column name="Name" headerClass="ps-4" prop="name" cellClass="ps-4">
             <ng-template let-value="value" ngx-datatable-cell-template>
                 <span>{{value || '-'}}</span>
