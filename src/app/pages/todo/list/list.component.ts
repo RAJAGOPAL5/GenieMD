@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { ScheduleService } from 'src/app/shared/service/schedule.service';
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
+import { TemplateRef } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+
+
 
 
 @Component({
@@ -15,25 +21,26 @@ export class ListComponent implements OnInit {
   isLoading = false;
   data = [];
   ColumnMode = ColumnMode;
-  columns = [];
+  cancelDialogRef: NbDialogRef<any>;
+  cancelDialog: NbDialogRef<any>;
+  deviceIndex: any;
+  deleteObj: any;
 
 
   constructor(
     private route: ActivatedRoute,
-    private scheduleService: ScheduleService
-  ) {
+    private scheduleService: ScheduleService,
+    private dialogService: NbDialogService,
+    private translate: TranslateService,
+    private toastrService: NbToastrService
+
+    ) {
 
   }
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.params.userID;
     this.getRecords();
-    this.columns = [
-      { prop: 'type', name: 'Type' },
-      { prop: 'startTime', name: 'startDate' },
-      { prop: 'duration', name: 'Duration' },
-      { prop: 'imageUrl', name: 'ImageUrl' },
-      { prop: 'patientId', name: 'PatientId' }];
   }
 
 
@@ -42,10 +49,9 @@ export class ListComponent implements OnInit {
     this.scheduleService.getAppointmentList(this.userId).subscribe((data: any) => {
       this.data = data.encounterList.map(item => {
         item.duration = item.meeting.duration;
-        item.imageUrl = item.meeting.imageUrl;
         item.startDate = item.meeting.startTime;
-        item.patientId = item.patientID;
-        item.type = item.type;
+        item.PatientID = item.patientID;
+        item.type = item.meeting.subject;
         return item;
       });
       this.isLoading = false;
@@ -53,6 +59,28 @@ export class ListComponent implements OnInit {
       console.log('error', error);
       this.isLoading = false;
     });
+  }
+  openDialog(cancelDialog: TemplateRef<any>, item) {
+    this.deleteObj = {
+      userID: this.userId,
+      flag: 0,
+      isOrganizer: false,
+      meetingID: item.meetingID
+    };
+    this.cancelDialog = this.dialogService.open(cancelDialog, { closeOnBackdropClick: false });
+  }
+  deleteAppointment() {
+    this.scheduleService.deleteAppointment(this.deleteObj).subscribe((data: any) => {
+      this.toastrService.success(this.translate.instant('Appointment Cancelled Successfully'));
+      this.getRecords();
+      this.cancelDialog.close();
+    }, error => {
+      this.toastrService.danger(error.error.errorMessage);
+
+    });
+  }
+  close() {
+    this.cancelDialog.close();
   }
 
 }

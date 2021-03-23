@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: ListComponent,
-    data: { title: 'todo' },
+    data: { title: 'Todo' },
   }
 ];
 
