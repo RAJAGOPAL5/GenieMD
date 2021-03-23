@@ -33,6 +33,10 @@ export class ProfileService {
       );
   }
 
+  getPatientProfile(id) {
+    return this.http.get(`Profile/${id}`);
+  }
+
   sendEmail(payload) {
     return this.http.post(`system/SendEmail`, payload);
   }

@@ -142,7 +142,7 @@ export class ProfileComponent implements OnInit {
         }
         this.patientName = `${this.patient.firstName} ${this.patient.lastName}`;
         this.patient.morbidity === 0 ? this.morbidityValue.push('Lung Disease') : this.morbidityValue.push('Heart Disease');
-        this.profileService.get(this.patient.userID).subscribe((res: any) => {
+        this.profileService.getPatientProfile(this.patient.userID).subscribe((res: any) => {
           this.profileData = res;
           this.language = this.languages.find(item => item.id === this.profileData.languageId);
         });

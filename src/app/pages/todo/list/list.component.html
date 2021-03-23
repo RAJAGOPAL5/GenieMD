@@ -1,47 +1,53 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" [nbSpinner]="isLoading">
         <nb-card>
             <nb-card-header>
                 <h3>Todo</h3>
             </nb-card-header>
+            <div>
+                <nb-card-body>
+                    <ngx-datatable class="bootstrap" [rows]="data" [columnMode]="ColumnMode.force" [scrollbarV]="true" [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 1000px;">
+                        <ngx-datatable-column name="Patient User Name" prop="PatientID" [maxWidth]="250">
+                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                <span>{{value}}</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Type" prop="type" [maxWidth]="250" headerClass="text-center" cellClass="text-center">
+                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                <span>{{value}}</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Start Time" prop="startDate" [maxWidth]="250" headerClass="text-center" cellClass="text-center">
+                            <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
+                                <span>{{value| date : 'dd/MM/yy, h:mm a'}}</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Duration (mins)" prop="duration" headerClass="text-center" cellClass="text-center">
+                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                <span>{{value}}</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Action" [maxWidth]="250" headerClass="text-center" cellClass="text-center ">
+                            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+                                <button nbButton outline status="danger " size="tiny" icon="trash" nbTooltip="Cancel" class="icon-font" (click)="openDialog(cancelDialog, row)" nbTooltipStatus="control" status="danger" pack="font-awesome" nbTooltipStatus="black">Cancel</button>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                </nb-card-body>
+            </div>
         </nb-card>
     </div>
-    <div class="pt-4" [nbSpinner]="isLoading">
-        <div class="d-flex mb-4 ms-4 position-relative">
-        </div>
-    </div>
 </div>
-<div>
-    <ngx-datatable class="bootstrap" [rows]="data" [columnMode]="ColumnMode.force" [scrollbarV]="true" [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 1000px;">
-        <ngx-datatable-column name="Type" [maxWidth]="250">
-            <ng-template let-value="value" ngx-datatable-cell-template>
-                <span>{{value}}</span>
-            </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="StartDate" [maxWidth]="250" headerClass="text-center" cellClass="text-center">
-            <ng-template let-value="value" ngx-datatable-cell-template>
-                <span>{{value | date : 'dd/MM/yy, h:mm a'}}</span>
-            </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Duration" [maxWidth]="200" headerClass="text-center" cellClass="text-center">
-            <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
-                <span>{{value}}</span>
-            </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="ImageUrl" headerClass="text-center" cellClass="text-center">
-            <ng-template let-value="value" ngx-datatable-cell-template>
-                <span>{{value}}</span>
-            </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="PatientId" [maxWidth]="200" headerClass="text-center" cellClass="text-center">
-            <ng-template let-value="value" ngx-datatable-cell-template>
-                <span>{{value}}</span>
-            </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Action" [maxWidth]="200" headerClass="text-center" cellClass="text-center">
-            <ng-template let-value="value" ngx-datatable-cell-template>
-                <button nbButton outline status="danger" size="tiny">Action</button>
-            </ng-template>
-        </ngx-datatable-column>
-    </ngx-datatable>
-</div>
+<ng-template #cancelDialog>
+    <nb-card class="dialog-card ">
+        <nb-card-header>
+            <p class="subtitle ">Are you sure want to cancel ?</p>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="float-end ">
+                <button nbButton status="success" style="margin-right: 16px" size="small" (click)="deleteAppointment()">Yes</button>
+                <button nbButton status="danger" style="margin-right: 16px" size="small" (click)="close()">No</button>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</ng-template>
