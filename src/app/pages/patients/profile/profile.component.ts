@@ -8,7 +8,7 @@ import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { languages, states, morbidity, gender, diseaseState, relation } from 'src/app/shared/constant/constant';
-import { countUpTimerConfigModel, CountupTimerService, timerTexts } from 'ngx-timer'
+import { countUpTimerConfigModel, CountupTimerService, timerTexts } from 'ngx-timer';
 
 
 interface ViewModal {
@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit {
     private languageService: LanguageService,
     private translate: TranslateService,
     private router: Router,
-    private CountupTimerService: CountupTimerService
+    private countupTimerService: CountupTimerService
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
     translate.use('en');
@@ -89,9 +89,9 @@ export class ProfileComponent implements OnInit {
       this.testConfig = new countUpTimerConfigModel();
       this.testConfig.timerClass = 'test_Timer_class';
       this.testConfig.timerTexts = new timerTexts();
-      this.testConfig.timerTexts.hourText = ":";
-      this.testConfig.timerTexts.minuteText = ":";
-      this.testConfig.timerTexts.secondsText = "s";
+      this.testConfig.timerTexts.hourText = ':';
+      this.testConfig.timerTexts.minuteText = ':';
+      this.testConfig.timerTexts.secondsText = 's';
       this.startTime();
 
     });
@@ -252,15 +252,15 @@ export class ProfileComponent implements OnInit {
     return data && data.trim() !== '' ? data : ' ';
   }
   startTime() {
-    let cdate = new Date();
+    const cdate = new Date();
     cdate.setHours(cdate.getHours());
-    this.CountupTimerService.startTimer(cdate);
+    this.countupTimerService.startTimer(cdate);
     this.showStart = false;
     this.showStop = true;
 
   }
   stopTime() {
-    this.CountupTimerService.stopTimer();
+    this.countupTimerService.stopTimer();
     this.showStart = true;
     this.showStop = false;
 
