@@ -140,14 +140,14 @@ export class ListComponent implements OnInit {
     /* Filter infinite scroll */
     if (this.filterStatus && !this.isSearching) {
       /* Eliminate multiple serveice call */
-      // if (this.serviceHandle) {
-      //   return;
-      // }
-      // this.serviceHandle = true;
+      if (this.serviceHandle) {
+        return;
+      }
+      this.serviceHandle = true;
       /* end */
 
       this.clinicService.searchPatients(this.payloadFilter).subscribe((data: any) => {
-        // this.serviceHandle = false;
+        this.serviceHandle = false;
         if (this.users.length < data.total) {
           data.clinicPatientList.map(item => {
             item.name = `${item.firstName} ${item.lastName}`.trim();
@@ -156,6 +156,7 @@ export class ListComponent implements OnInit {
           this.isLoading = false;
           this.payloadFilter.pageNumber++;
           this.users.push(...data.clinicPatientList);
+          this.users.pageToLoadNext++;
           return;
         }
         this.isLoading = false;
@@ -168,10 +169,10 @@ export class ListComponent implements OnInit {
       /* Default and search infinite scroll */
 
       /* Eliminate multiple serveice call */
-      // if (this.serviceHandle) {
-      //   return;
-      // }
-      // this.serviceHandle = true;
+      if (this.serviceHandle) {
+        return;
+      }
+      this.serviceHandle = true;
       /* End */
 
       if (search !== undefined) { this.users = []; }
@@ -185,7 +186,7 @@ export class ListComponent implements OnInit {
       // tslint:disable-next-line:no-unused-expression
       this.searchText.length >= 0 && monitored === undefined ? this.payloadScroll.name = this.searchText : '';
       this.patientData = this.patientService.find(this.payloadScroll).subscribe((data: any) => {
-        // this.serviceHandle = false;
+        this.serviceHandle = false;
         this.filterStatus = false;
         if (this.users !== undefined && this.users.length < data.total) {
           data.clinicPatientList = data.clinicPatientList.map(item => {
