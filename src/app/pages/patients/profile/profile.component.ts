@@ -447,7 +447,7 @@ export class ProfileComponent implements OnInit {
     this.meetService.generateUniqueID(payload).subscribe((meeting: any) => {
       this.uniqueID = meeting.meetingUniqueID;
       // tslint:disable-next-line:max-line-length
-      this.videoLink = `${this.location.origin}/meet/#/call/${meeting.meetingUniqueID}/video?userName=&userID=${this.profileService.id}&clinicID=${this.clinicService.id}&encounterID=${this.encounter.encounterID}`;
+      this.videoLink = `${this.location.origin}/meet/#/call/${meeting.meetingUniqueID}/${this.type}?userName=&userID=${this.profileService.id}&clinicID=${this.clinicService.id}&encounterID=${this.encounter.encounterID}`;
       if (this.uniqueID) {
         this.startMeeting();
       } else {
