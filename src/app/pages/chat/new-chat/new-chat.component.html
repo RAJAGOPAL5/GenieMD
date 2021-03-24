@@ -1,21 +1,17 @@
 <nb-card class="mb-0 patient-list-width" size="medium" [nbSpinner]="isLoading">
     <nb-card-header class="justify-content-center p-0">
         <nb-list-item>
-            <div class="row col-12">
-                <div class="col-6"><b>New Chat</b></div>
-                <div class="col-6 p-0 text-right">
-                    <nb-actions size="small" class="justify-content-end">
-                        <nb-action nbTooltipPlacement="left" (click)="closeDialog()"
-                            icon="close-outline"></nb-action>
-                    </nb-actions>
+            <div class="row container-fluid p-0">
+                <div class="col-6 p-0"><b>New Chat</b></div>
+                <div class="col-6 p-0">
+                    <nb-icon size="small" class="float-end" nbTooltipPlacement="left" (click)="closeDialog()" icon="close-outline"></nb-icon>
                 </div>
             </div>
         </nb-list-item>
         <nb-list-item>
             <nb-form-field class="w-100">
                 <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
-                <input type="search" id='searchText' name="searchText" fullWidth status="success" nbInput
-                    [(ngModel)]="searchText" (search)="search()" #SearchInput>
+                <input type="search" id='searchText' name="searchText" fullWidth status="success" nbInput [(ngModel)]="searchText" (search)="search()" #SearchInput>
             </nb-form-field>
         </nb-list-item>
         <nb-list-item class="pb-0">
