@@ -84,9 +84,9 @@
             </div>
             <ng-template #templateRef>
                 <div class="p-3">
-                    <button nbButton status="success" class="m-1" size="small"><nb-icon icon="headphones-outline"></nb-icon>{{'kAudio' | translate}}</button>
-                    <button nbButton status="success" class="m-1" size="small" (click)="videoCall()"><nb-icon icon="video-outline"></nb-icon>{{'kVideo' | translate}}</button>
-                    <button nbButton status="success" class="m-1" size="small"><nb-icon icon="phone-call-outline"></nb-icon>{{'kCAllBridge' | translate}}</button>
+                    <button nbButton status="success" class="m-1" size="small" (click)="videoCall(); type='audio'" ><nb-icon icon="headphones-outline"></nb-icon>{{'kAudio' | translate}}</button>
+                    <button nbButton status="success" class="m-1" size="small" (click)="videoCall(); type='video'"><nb-icon icon="video-outline"></nb-icon>{{'kVideo' | translate}}</button>
+                    <button nbButton status="success" class="m-1" size="small" (click)="callBridge()"><nb-icon icon="phone-call-outline"></nb-icon>{{'kCAllBridge' | translate}}</button>
                 </div>
             </ng-template>
         </div>

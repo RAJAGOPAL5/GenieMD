@@ -69,6 +69,8 @@ export class ProfileComponent implements OnInit {
   emailAddress: any[];
   extraData: any;
   degrees: any;
+  type = 'video';
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
@@ -496,7 +498,7 @@ export class ProfileComponent implements OnInit {
       this.mailMeInvitation(this.emailAddress);
     }
     // tslint:disable-next-line:max-line-length
-    window.open(`${this.location.origin}/meet/#/call/${this.uniqueID}/video?userName=${this.profileService.profile.firstName} ${this.profileService.profile.lastName} ${this.degrees}&userID=${this.profileService.id}&clinicID=${this.clinicService.id}&encounterID=${this.encounter.encounterID}&userType=provider`);
+    window.open(`${this.location.origin}/meet/#/call/${this.uniqueID}/${this.type}?userName=${this.profileService.profile.firstName} ${this.profileService.profile.lastName} ${this.degrees}&userID=${this.profileService.id}&clinicID=${this.clinicService.id}&encounterID=${this.encounter.encounterID}&userType=provider`);
   }
 
   mailMeInvitation(items) {
@@ -545,6 +547,26 @@ export class ProfileComponent implements OnInit {
     }, error => {
       this.isLoading = false;
       this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Something went wrong. Not able to send email');
+    });
+  }
+
+  callBridge() {
+    this.callUser();
+  }
+
+  callUser() {
+    const payload = {
+      clinicID: this.clinicService.id,
+      userID: this.profileService.id,
+      username: this.patient.firstName,
+    };
+    this.meetService.callUser(payload).subscribe((res: any) => {
+      if (res && res.status === 'Ok') {
+        this.toastrService.success(this.translate.instant('kCallingYourNo'));
+        // this.addAudit();
+      }
+    }, error => {
+      this.toastrService.danger(error ? error.error : this.translate.instant('kFailedToStartCall'));
     });
   }
 

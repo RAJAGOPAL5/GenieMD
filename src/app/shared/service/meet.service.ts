@@ -42,4 +42,10 @@ export class MeetService {
   sendEmail(payload) {
     return this.http.post(`system/SendEmail`, payload);
   }
+  callUser(payload) {
+    return this.http.post(`Notifications/CallUser`, payload);
+  }
+  auditFollowup(payload) {
+    return this.http.post(`Audits/AddAudit`, payload);
+  }
 }
