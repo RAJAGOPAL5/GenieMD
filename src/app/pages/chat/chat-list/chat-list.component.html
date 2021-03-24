@@ -2,12 +2,10 @@
     <nb-card-header class="border-bottom-0 pb-0">
         <div class="row">
             <div class="col-6">Chats</div>
-            <div class="col-6 text-right">
-                <nb-actions size="small" class="justify-content-end">
-                    <nb-action nbTooltip="New Chat" nbTooltipPlacement="left" (click)="openChatBox()" icon="plus-circle-outline"></nb-action>
-                </nb-actions>
+            <div class="col-6">
+                <nb-icon size="small" class="float-end" icon="plus-circle-outline" nbTooltip="New Chat" (click)="openChatBox()" nbTooltipPlacement="left">
+                </nb-icon>
             </div>
-
         </div>
     </nb-card-header>
     <nb-card-body class="px-0">
