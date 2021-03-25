@@ -69,7 +69,7 @@ export class ListComponent implements OnInit {
     this.clinic = this.clinicService.clinic;
     this.userId = this.route.parent.snapshot.params.userID;
 
-    this.loadNext('search', this.model.monitored);
+    this.loadNext(undefined, this.model.monitored);
     this.showBadge();
     fromEvent(this.patientSearchInput.nativeElement, 'keydown').pipe(
       map((event: any) => {
@@ -172,14 +172,17 @@ export class ListComponent implements OnInit {
       this.serviceHandle = true;
       /* End */
 
-      if (search !== undefined) { this.users = []; }
-      // if (monitored === undefined) { delete this.payloadScroll.monitored; } else {
-      //   this.users = [];
-      //   this.searchText = '';
-      //   this.payloadScroll.name = '';
-      //   this.payloadScroll.monitored = monitored;
-      //   this.payloadScroll.pageNumber = 1;
-      // }
+      if (search !== undefined) {
+        this.users = [];
+      }
+      if (monitored === undefined) {
+        delete this.payloadScroll.monitored;
+      } else {
+        this.users = [];
+        this.payloadScroll.name = this.searchText;
+        this.payloadScroll.monitored = monitored;
+        this.payloadScroll.pageNumber = 1;
+      }
       // tslint:disable-next-line:no-unused-expression
       // this.searchText.length >= 0 && monitored === undefined ? this.payloadScroll.name = this.searchText : '';
       this.patientData = this.patientService.find(this.payloadScroll).subscribe((data: any) => {
