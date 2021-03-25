@@ -11,6 +11,8 @@ import { languages, states, morbidity, gender, diseaseState, relation } from 'sr
 import { countUpTimerConfigModel, CountupTimerService, timerTexts } from 'ngx-timer';
 import { ChatWindowComponent } from 'src/app/shared/components/chat-window/chat-window.component';
 import { ChatService } from 'src/app/shared/service/chat.service';
+import { MeetService } from 'src/app/shared/service/meet.service';
+import { PlatformLocation } from '@angular/common';
 
 
 interface ViewModal {
@@ -54,9 +56,21 @@ export class ProfileComponent implements OnInit {
   testConfig: any;
   showStart = false;
   showStop = true;
-
+  encounter: any;
+  retryCount = 1;
   conversations = [];
   exisitingChat: any;
+  meeting: any;
+  meetingRes: any;
+  uniqueID: any;
+  videoLink: string;
+  location: any;
+  clinicConfig: any;
+  emailAddress: any[];
+  extraData: any;
+  degrees: any;
+  type = 'video';
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private clinicService: ClinicService,
@@ -69,7 +83,9 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private countupTimerService: CountupTimerService,
     private windowService: NbWindowService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private meetService: MeetService,
+    private platformLocation: PlatformLocation,
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
     translate.use('en');
@@ -89,6 +105,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getChatList();
+    this.location = (this.platformLocation as any).location;
     this.activatedRoute.paramMap.subscribe(params => {
       this.patientID = params.get('patientId');
       this.prepareTabs();
@@ -103,6 +120,17 @@ export class ProfileComponent implements OnInit {
 
       this.getChatInfo();
     });
+    try {
+      this.clinicConfig = JSON.parse(this.clinicService.clinic.clinicConfig);
+    } catch (error) {
+      this.toastrService.danger('Failed to parse clinic config');
+    }
+    try {
+      this.extraData = JSON.parse(this.profileService.profile.extraData);
+    } catch (error) {
+      this.toastrService.danger('Failed to parse extradata');
+    }
+    this.degrees = this.extraData.extendedProfileInfo ? this.extraData.extendedProfileInfo.degrees : '';
     this.languages = languages;
     this.relation = relation;
     // tslint:disable-next-line: max-line-length
@@ -328,4 +356,220 @@ export class ProfileComponent implements OnInit {
       context: { conversationID }
     });
   }
+
+  videoCall() {
+    this.emailAddress = [];
+    const str = this.patient.email;
+    const splitted = str.split(',');
+    const splitting = splitted.map(res => {
+      const trimValue = res.trim('');
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(trimValue)) {
+        this.emailAddress.push(trimValue);
+      }
+    });
+    this.encounter = {
+      userID: this.profileService.id,
+      clinicID: this.clinicService.id,
+      patientID: '',
+      providerID: this.profileService.profile.userName,
+      interview: '',
+      diagnosis: '',
+      treatment: '',
+      assessmentName: 'On Demand Provider Call',
+      assessmentID: '0',
+      pharmacyID: '',
+      assessment: 'On Demand Provider Call',
+      status: 4,
+      endPoint: 9,
+      protocolID: -1,
+      location: '',
+      created: parseInt(moment().format('x'), 0),
+      type: 1,
+      symptoms: '',
+      submitterID: '',
+      extraData: JSON.stringify({
+        oemID: this.clinicService.clinic.oemID,
+        ClinicName: this.clinicConfig.name,
+        ClinicLogo: this.clinicConfig.logo,
+        firstName: this.patient.firstName,
+        lastName: ''
+      }),
+      providerInitiated: false
+    };
+    this.isLoading = true;
+    this.meetService.add(this.encounter).subscribe((res: any) => {
+      console.log('res', res);
+      this.encounter.encounterID = res.encounterID;
+      this.createMeeting();
+    }, error => {
+      this.toastrService.danger(error.errorMessage ? error.errorMessage : 'Failed to create encounter');
+      this.isLoading = false;
+    });
+
+  }
+
+  createMeeting() {
+    this.meeting = {
+      startTime: parseInt(moment().format('x'), 0),
+      userID: this.profileService.id,
+      users: [''],
+      subject: 'On Demand Call', duration: 1000,
+      price: '0.00',
+      npi: 0, slot: 0, url: '', clinicID: this.clinicService.id,
+      onDemand: true,
+      type: 1,
+      paymentToken: ''
+    };
+    this.isLoading = true;
+    this.meetService.createMeeting(this.meeting).subscribe((data: any) => {
+      this.meetingRes = data;
+      this.encounter.processed = parseInt(moment().format('x'), 0);
+      this.encounter.attendingProviderID = this.profileService.profile.email;
+      this.encounter.meetingID = this.meetingRes.meetingId;
+      this.encounter.fee = 0;
+      this.meetService.encountersUpdate(this.encounter).subscribe((result: any) => {
+        this.generateUniqueID();
+      }, error => {
+        this.isLoading = false;
+        this.toastrService.danger(error.error ? error.error.errorMessage : 'Failed to update encounter');
+      });
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger(error.error ? error.error.errorMessage : 'Failed to create meeting');
+    });
+  }
+
+  generateUniqueID() {
+    const payload = {
+      userID: this.profileService.id,
+      clinicID: this.clinicService.id,
+      meetingID: this.meetingRes.meetingId
+    };
+    this.isLoading = true;
+    this.meetService.generateUniqueID(payload).subscribe((meeting: any) => {
+      this.uniqueID = meeting.meetingUniqueID;
+      // tslint:disable-next-line:max-line-length
+      this.videoLink = `${this.location.origin}/meet/#/call/${meeting.meetingUniqueID}/${this.type}?userName=&userID=${this.profileService.id}&clinicID=${this.clinicService.id}&encounterID=${this.encounter.encounterID}`;
+      if (this.uniqueID) {
+        this.startMeeting();
+      } else {
+        this.isLoading = false;
+        this.toastrService.danger('Failed to generate uniqueID');
+      }
+
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger(error.error ? error.error.errorMessage : 'Failed to generate uniqueID');
+    });
+  }
+
+  startMeeting() {
+    {
+      const payload = {
+        userID: this.profileService.id,
+        meetingID: this.meetingRes.meetingId,
+        clinicID: this.clinicService.id
+      };
+      this.isLoading = true;
+      this.meetService.startMeeting(payload).subscribe((resp: any) => {
+        if (resp.token === '' || resp.apiKey === '' || resp.sessionID === '') {
+          this.toastrService.danger('Failed to create token');
+        } else {
+          this.send();
+        }
+        this.isLoading = true;
+      }, error => {
+        this.isLoading = false;
+        if (error.error && typeof error.error.text === 'string') {
+          if (error.error.text.includes('handshake_failure') && this.retryCount <= 20) {
+            this.toastrService.success('Reconnecting...');
+            this.videoCall();
+            this.retryCount = this.retryCount + 1;
+          } else {
+            this.toastrService.danger(error.error ? error.error.text : 'Failed to start Meeting');
+          }
+        } else {
+          this.toastrService.danger(error.error ? error.error.errorMessage : 'Failed to start Meeting');
+        }
+      });
+    }
+  }
+
+  send() {
+    if (this.emailAddress.length > 0) {
+      this.mailMeInvitation(this.emailAddress);
+    }
+    // tslint:disable-next-line:max-line-length
+    window.open(`${this.location.origin}/meet/#/call/${this.uniqueID}/${this.type}?userName=${this.profileService.profile.firstName} ${this.profileService.profile.lastName} ${this.degrees}&userID=${this.profileService.id}&clinicID=${this.clinicService.id}&encounterID=${this.encounter.encounterID}&userType=provider`);
+  }
+
+  mailMeInvitation(items) {
+    let bgColor = '#6699ff';
+    // tslint:disable-next-line:max-line-length
+    if (this.clinicConfig && this.clinicConfig && this.clinicConfig.advancedSettings && this.clinicConfig.advancedSettings.length > 0) {
+      const bannerColor = this.clinicConfig.advancedSettings.find(item => {
+        // tslint:disable-next-line:triple-equals
+        if (item.key == 'bannerColor') {
+          return item;
+        }
+      });
+      if (bannerColor && bannerColor.value) {
+        bgColor = `rgb(${bannerColor.value})`;
+      }
+    }
+    const payload = {
+      userID: this.profileService.id,
+      emailList: this.emailAddress,
+      body: `<body>
+      <div style=\'height: 100px;background-color: ${bgColor};width: 100%;text-align: center;\'>
+     <img  src='${this.clinicConfig.logo}' style=\'height:70px; width: 288px; padding-top:15px'\ />
+</div><h2 style=\'font-family:helvetica;font-size: 20px; padding-top: 20px\'>Your ${this.clinicConfig.name} Health care provider,
+          ${this.profileService.profile.screenName} has sent you a meeting invite. Please click the button below to join the meeting.</h2>
+          <p style=\'font-family:helvetica; margin-top: 80px;
+          margin-bottom: 30px;     text-align: center;\'><a style=\'    display: block;
+          width: 115px;
+          height: 25px;
+          background: ${bgColor};
+          padding: 10px;
+          text-align: center;
+          border-radius: 5px;
+          color: white;
+          font-weight: bold;
+          text-decoration: none;'\
+          href='${this.videoLink}'>Join Meeting</a></p>
+         <p style=\'font-family:helvetica\'>Thank you!</p><p style=\'font-family:helvetica\'>${this.clinicConfig.name}</p></body>`,
+      fromDisplayName: `NoReply@${this.clinicConfig.name}`,
+      subject: `Meeting Invitation`
+    };
+
+    this.isLoading = true;
+    this.meetService.sendEmail(payload).subscribe(data => {
+      this.toastrService.success('Email Sent Successfully');
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Something went wrong. Not able to send email');
+    });
+  }
+
+  callBridge() {
+    this.callUser();
+  }
+
+  callUser() {
+    const payload = {
+      clinicID: this.clinicService.id,
+      userID: this.profileService.id,
+      username: this.patient.firstName,
+    };
+    this.meetService.callUser(payload).subscribe((res: any) => {
+      if (res && res.status === 'Ok') {
+        this.toastrService.success(this.translate.instant('kCallingYourNo'));
+        // this.addAudit();
+      }
+    }, error => {
+      this.toastrService.danger(error ? error.error : this.translate.instant('kFailedToStartCall'));
+    });
+  }
+
 }
