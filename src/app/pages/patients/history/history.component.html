@@ -3,8 +3,7 @@
         <div class="row justify-content-end">
             <div class="col-1 ps-1">
                 <nb-actions size="medium">
-                    <nb-action nbTooltip="Add" nbTooltipPlacement="top" icon="plus-circle-outline"
-                        (click)="open(historyDialog)"></nb-action>
+                    <nb-action nbTooltip="Add" nbTooltipPlacement="top" icon="plus-circle-outline" (click)="open(historyDialog)"></nb-action>
                 </nb-actions>
             </div>
         </div>
@@ -12,20 +11,20 @@
         <ng-template #historyDialog>
             <nb-card class="dialog-card card-width">
                 <nb-card-header>
-                    <h6 class="text-center">{{'kAddNote' | translate}}</h6>
+                    <h6>{{'kAddDescription' | translate}}</h6>
                 </nb-card-header>
                 <nb-card-body>
-                    <form [formGroup]="historyForm">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group mb-1">
-                                    <label for="note" class="label"> <span class="text-danger">*</span>
-                                        {{'kNote' | translate}}</label>                                
-                                        <textarea nbInput fullWidth placeholder="Note"  formControlName="note" id="note"></textarea>
-                                </div>
+                    <!-- <form [formGroup]="historyForm"> -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mb-1">
+                                <label for="note" class="label"> <span class="text-danger">*</span>
+                                        {{'kDescription' | translate}}</label>
+                                <textarea nbInput [(ngModel)]="description" fullWidth id="note"></textarea>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <!-- </form> -->
                 </nb-card-body>
                 <nb-card-footer>
                     <div class="row justify-content-end">
@@ -33,8 +32,7 @@
                             <button nbButton status="danger" class="w-100" size="medium" (click)="refclose()">{{'kCancel' | translate}}</button>
                         </div>
                         <div class="col-2 ps-2">
-                            <button nbButton status="success" class="w-100" size="medium" [disabled]="!historyForm.valid"
-                            (click)="save()">{{'kSave' | translate}}</button>
+                            <button nbButton status="success" class="w-100" size="medium" (click)="addHistory()">{{'kSave' | translate}}</button>
                         </div>
                     </div>
                 </nb-card-footer>
@@ -65,22 +63,20 @@
                 </table>
             </div>
         </div> -->
-        <ngx-datatable class="bootstrap" [rows]="historyData" [columnMode]="ColumnMode.force" [scrollbarV]="true"
-            [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 600px;">
-            <ngx-datatable-column name="Name" prop="name" headerClass="ps-4" cellClass="ps-4">
+        <ngx-datatable class="bootstrap" [rows]="historyData" [columnMode]="ColumnMode.force" [scrollbarV]="true" [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 600px;">
+            <ngx-datatable-column name="Date & Time" prop="audittime" headerClass="ps-4" cellClass="ps-4">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>{{value  | date : 'dd/MM/yy, h:mm a' || '-'}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Name" prop="name" [maxWidth]="400">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <span>{{value || '-'}}</span>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="note" prop="description" [maxWidth]="250">
+            <ngx-datatable-column name="Description" prop="description" [maxWidth]="400" headerClass="text-center" cellClass="text-center">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <span>{{value || '-'}}</span>
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="date" prop="audittime" [maxWidth]="250" headerClass="text-center"
-                cellClass="text-center">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <span>{{value | date : 'dd/MM/yy, h:mm a' || '-'}}</span>
                 </ng-template>
             </ngx-datatable-column>
         </ngx-datatable>

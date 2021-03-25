@@ -293,13 +293,15 @@ export class ProfileComponent implements OnInit {
     this.countupTimerService.startTimer(cdate);
     this.showStart = false;
     this.showStop = true;
+  }
+  pauseTime() {
+    this.countupTimerService.pauseTimer();
+    this.showStart = true;
+    this.showStop = false;
 
   }
   stopTime() {
     this.countupTimerService.stopTimer();
-    this.showStart = true;
-    this.showStop = false;
-
   }
 
   openWindow() {

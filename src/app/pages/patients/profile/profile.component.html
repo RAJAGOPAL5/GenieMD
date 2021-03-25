@@ -90,26 +90,26 @@
                 </div>
             </ng-template>
         </div>
+        <!-- <div class="row">
+            
+        </div> -->
         <div class="row">
-            <div class="col-md-1 mt-1">
-                <countup-timer [countUpTimerConfig]="testConfig"></countup-timer>
-            </div>
-            <div class="col-md-1">
-                <button *ngIf="showStart" nbButton status="success" class="m-1" size="tiny" (click)="startTime()">start</button>
-                <button *ngIf="showStop" nbButton status="danger" class="m-1" size="tiny" (click)="stopTime()">stop</button>
-            </div>
-        </div>
-        <div class="row">
-            <!-- <div class="col-md-2">
-                <div class="row">
+            <div class="col-md-2">
+                <span>
+                    <countup-timer class="float-start mt-1 text-truncate" [countUpTimerConfig]="testConfig"></countup-timer>
+                    <button class="float-end" *ngIf="showStart" nbButton status="success" class="m-1" size="tiny" (click)="startTime()">Restart</button>
+                    <button class="float-end" *ngIf="showStop" nbButton status="danger" class="m-1" size="tiny" (click)="pauseTime()">Pause</button>
+                </span>
+                <!-- </div> -->
+                <!-- <div class="row">
                     <div class="col-6">
                     <span *ngIf=" message >= 0">{{minutes}} : {{message }}</span>
                     <button class="float-end timerButton" outline status="primary" nbButton size="tiny" (click)="start()" *ngIf="startStop">Start</button>
                     <button class="float-end timerButton" outline status="primary" nbButton size="tiny"(click)="stop(message)" *ngIf="!startStop && message >= 0">Stop</button>
                     </div>      
-                </div>
-            </div> -->
-            <div class="offset-md-2 col-md-10">
+                </div> -->
+            </div>
+            <div class="col-md-10">
                 <div class="d-flex" *ngIf="!!diseaseList?.length">
                     <nb-icon icon="notes-medical" nbTooltip="Disease State" nbTooltipPlacement="left" pack="font-awesome">
                     </nb-icon>

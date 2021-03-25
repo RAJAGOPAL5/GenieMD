@@ -26,7 +26,7 @@ export class ChatRoomComponent implements OnInit {
 
   ngOnInit(): void {
     this.profile = this.profileService.profile;
-    this.conversationId = !!this.chatInfo ? this.chatInfo.conversationId : this.route.snapshot.params.id;
+    this.conversationId = this.chatInfo.conversationId;
     this.userID = this.profileService.id;
     this.getChatsList(this.userID);
     this.getConversationsHistory();
@@ -43,12 +43,25 @@ export class ChatRoomComponent implements OnInit {
   }
 
   sendMessage(event) {
+    console.log('sendMessage', event);
+    const files = !event.files ? [] : event.files.map((file) => {
+      return {
+        url: file.src,
+        type: file.type,
+        icon: 'file-text-outline',
+      };
+    });
+    console.log('files', files);
     this.messages.push({
       message: event.message,
       messageTime: new Date().getTime(),
       reply: true,
+      files,
+      type: files.length ? 'file' : 'text',
       screenName: this.profile.screenName
     });
+    return;
+
     const messages = [];
     this.recieverInfo.users.map((item) => {
       const data = {
@@ -59,7 +72,6 @@ export class ChatRoomComponent implements OnInit {
       };
       messages.push(data);
     });
-
     const payload = {
       userID: this.profileService.id,
       appID: this.clinicService.clinic.oemID ? this.clinicService.clinic.oemID : 200,
@@ -99,6 +111,7 @@ export class ChatRoomComponent implements OnInit {
         return item;
       });
       this.messages = messages.reverse();
+      console.log('this.messages', this.messages);
       this.isLoading = false;
 
     }, error => {

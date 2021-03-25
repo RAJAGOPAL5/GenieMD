@@ -18,6 +18,8 @@ export class ChatListComponent implements OnInit {
   isLoading = false;
   profile: any;
   order = 'lastMessageTime';
+  showChat = false;
+  chatInfo: any;
   constructor(
     private router: Router, private clinicService: ClinicService,
     private dialogService: NbDialogService,
@@ -28,7 +30,14 @@ export class ChatListComponent implements OnInit {
     this.profile = this.profileService.profile;
   }
   getChat(data) {
-    this.router.navigate([`${this.clinicService.id}/${this.profileService.id}/chat/${data.conversationID}`]);
+    console.log('data', data);
+    this.showChat = true;
+    this.chatInfo = {
+      conversationId: data.conversationID,
+      type: 1,
+      name: data.name
+    };
+    // this.router.navigate([`${this.clinicService.id}/${this.profileService.id}/chat/${data.conversationID}`]);
   }
   getList() {
     this.isLoading = true;
