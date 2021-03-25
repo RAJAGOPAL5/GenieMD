@@ -25,6 +25,7 @@ export class NewChatComponent implements OnInit {
   patientData: any;
   isSearching: boolean;
   payloadPatient: any;
+  initialList: any;
 
   constructor(
     private ref: NbDialogRef<NewChatComponent>,
@@ -51,7 +52,17 @@ export class NewChatComponent implements OnInit {
         this.getPatientsList('search');
       }
       if (!this.showList) {
-        this.usersProvider = this.usersProvider.filter(obj => obj.name.includes(this.searchText));
+        try {
+          this.initialList = JSON.parse(this.initialList);
+        } catch (error) {
+          this.initialList = [];
+        }
+        this.usersProvider = this.initialList.filter(obj => obj.name.includes(this.searchText));
+        console.log(this.usersProvider);
+        // tslint:disable-next-line:triple-equals
+        if (this.searchText == '') {
+          this.getProvidersList();
+        }
       }
     });
   }
@@ -103,6 +114,7 @@ export class NewChatComponent implements OnInit {
     this.clinicService.getProviderList(this.clinicService.id)
       .subscribe((data: any) => {
         this.usersProvider = data.clinicProviderList;
+        this.initialList = JSON.stringify(data.clinicProviderList);
         this.isLoading = false;
       }, error => {
         this.isLoading = false;

@@ -34,7 +34,7 @@ export class ListComponent implements OnInit {
   };
   users: any = [];
   isLoading = false;
-  searchText = '';
+  searchText: any;
   clinic: any;
   filterPayload = { firstName: '', lastName: '', dob: '', gender: '' };
   isFilter = false;
@@ -42,15 +42,7 @@ export class ListComponent implements OnInit {
   dialogRef: any;
   isSearching: boolean;
   searchValue = { firstName: '', lastName: '', dob: '', gender: 0, monitored: -1 };
-  payloadScroll = {
-    clinicID: this.clinicService.id,
-    name: this.searchText,
-    providerID: '',
-    userID: this.profileService.id,
-    count: 100,
-    pageNumber: 1,
-    monitored: this.model.monitored,
-  };
+  payloadScroll: any;
   payloadFilter = { pageNumber: 1 };
   serviceHandle: boolean;
   filterStatus: boolean;
@@ -77,7 +69,7 @@ export class ListComponent implements OnInit {
     this.clinic = this.clinicService.clinic;
     this.userId = this.route.parent.snapshot.params.userID;
 
-    this.loadNext(undefined, this.model.monitored);
+    this.loadNext('search', this.model.monitored);
     this.showBadge();
     fromEvent(this.patientSearchInput.nativeElement, 'keydown').pipe(
       map((event: any) => {
@@ -130,11 +122,16 @@ export class ListComponent implements OnInit {
     });
   }
 
-  search() {
-    this.searchText = '';
-  }
-
   loadNext(search?: string, monitored?: number) {
+    this.payloadScroll = {
+      clinicID: this.clinicService.id,
+      name: this.searchText,
+      providerID: '',
+      userID: this.profileService.id,
+      count: 100,
+      pageNumber: 1,
+      monitored: this.model.monitored,
+    };
     console.log('monitored', monitored);
     this.isLoading = true;
     /* Filter infinite scroll */
@@ -176,15 +173,15 @@ export class ListComponent implements OnInit {
       /* End */
 
       if (search !== undefined) { this.users = []; }
-      if (monitored === undefined) { delete this.payloadScroll.monitored; } else {
-        this.users = [];
-        this.searchText = '';
-        this.payloadScroll.name = '';
-        this.payloadScroll.monitored = monitored;
-        this.payloadScroll.pageNumber = 1;
-      }
+      // if (monitored === undefined) { delete this.payloadScroll.monitored; } else {
+      //   this.users = [];
+      //   this.searchText = '';
+      //   this.payloadScroll.name = '';
+      //   this.payloadScroll.monitored = monitored;
+      //   this.payloadScroll.pageNumber = 1;
+      // }
       // tslint:disable-next-line:no-unused-expression
-      this.searchText.length >= 0 && monitored === undefined ? this.payloadScroll.name = this.searchText : '';
+      // this.searchText.length >= 0 && monitored === undefined ? this.payloadScroll.name = this.searchText : '';
       this.patientData = this.patientService.find(this.payloadScroll).subscribe((data: any) => {
         this.serviceHandle = false;
         this.filterStatus = false;
