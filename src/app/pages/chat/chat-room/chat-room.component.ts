@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChatService } from 'src/app/shared/service/chat.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
@@ -10,7 +10,7 @@ import { PushNotificationService } from 'src/app/shared/service/push-notificatio
   templateUrl: './chat-room.component.html',
   styleUrls: ['./chat-room.component.scss']
 })
-export class ChatRoomComponent implements OnInit {
+export class ChatRoomComponent implements OnInit, OnChanges {
   messages = [];
   profile: any;
   @Input() chatInfo: any;
@@ -24,15 +24,17 @@ export class ChatRoomComponent implements OnInit {
     private route: ActivatedRoute,
     private chatService: ChatService,
     private clinicService: ClinicService, private pushNotification: PushNotificationService) {
-      this.pushNotification.updatedMessage.subscribe(res => {
-        if (!!res) {
-          console.log('received');
-          this.getConversationsHistory();
-        }
-      });
-     }
+    this.pushNotification.updatedMessage.subscribe(res => {
+      if (!!res) {
+        console.log('received');
+        this.getConversationsHistory();
+      }
+    });
+  }
 
   ngOnInit(): void {
+  }
+  ngOnChanges() {
     this.profile = this.profileService.profile;
     this.conversationId = this.chatInfo.conversationId;
     this.userID = this.profileService.id;

@@ -122,21 +122,25 @@ export class NewChatComponent implements OnInit {
       });
   }
 
-  closeDialog() {
-    this.ref.close();
+  closeDialog(data?) {
+    this.ref.close(data);
   }
   createChat(user) {
     console.log('user', user);
     this.isLoading = true;
-    const userID = user.patienID || user.providerID;
+    const userID = user.patientID || user.providerID;
     const payload = {
       userID: this.profileService.id,
       users: [userID]
     };
     this.chatService.createConversation(payload).subscribe((data: any) => {
       this.isLoading = false;
-      this.closeDialog();
-      this.router.navigate([`${this.clinicService.id}/${this.profileService.id}/chat/${data.conversationID}`]);
+      const chatData = {
+        name: user?.name || 'GMD  User',
+        conversationId: data.conversationID,
+        type: 1
+      };
+      this.closeDialog(chatData);
     }, error => {
       this.isLoading = false;
       this.toastrService.danger('Could not initialize chat.', 'Error');

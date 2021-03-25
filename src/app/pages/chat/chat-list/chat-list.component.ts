@@ -26,13 +26,13 @@ export class ChatListComponent implements OnInit {
     private dialogService: NbDialogService,
     private profileService: ProfileService, private chatService: ChatService,
     private toastrService: NbToastrService, private pushNotification: PushNotificationService) {
-      this.pushNotification.updatedMessage.subscribe(res => {
-        if (!!res) {
-          console.log('received');
-          this.getList();
-        }
-      });
-    }
+    this.pushNotification.updatedMessage.subscribe(res => {
+      if (!!res) {
+        console.log('received');
+        this.getList();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.getList();
@@ -56,7 +56,7 @@ export class ChatListComponent implements OnInit {
         item.users = item.users.filter(x => {
           return x.email !== this.profile.email;
         });
-        item.lastMessageTime = moment(item. lastMessageTime).fromNow();
+        item.lastMessageTime = moment(item.lastMessageTime).fromNow();
         item.name = item.users.length ? `${item.users[0].firstName} ${item.users[0].lastName}` : 'GMD User';
         return item;
       });
@@ -69,7 +69,14 @@ export class ChatListComponent implements OnInit {
   }
 
   openChatBox() {
-    this.dialogService.open(NewChatComponent);
+    const modal = this.dialogService.open(NewChatComponent);
+    modal.onClose.subscribe(data => {
+      if (!!data) {
+        this.showChat = true;
+        this.chatInfo = data;
+      }
+    });
+
   }
 
 }
