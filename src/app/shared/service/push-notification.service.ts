@@ -15,7 +15,7 @@ export class PushNotificationService {
   constructor(private angularFireMessaging: AngularFireMessaging, private http: HttpClient) {
     this.angularFireMessaging.messages.subscribe(
       // tslint:disable-next-line:variable-name
-      (_messaging: any) => {
+      (_messaging: AngularFireMessaging) => {
         _messaging.onMessage = _messaging.onMessage.bind(_messaging);
         _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
       }
