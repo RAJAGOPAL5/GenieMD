@@ -10,6 +10,7 @@ export class ProfileService {
   profile: any;
   extraData: any;
   id: string;
+  patientProfile: any;
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute) {
@@ -34,7 +35,11 @@ export class ProfileService {
   }
 
   getPatientProfile(id) {
-    return this.http.get(`Profile/${id}`);
+    return this.http.get(`Profile/${id}`)
+      .pipe(
+        tap(project => {
+          this.patientProfile = project;
+        }));
   }
 
   sendEmail(payload) {
@@ -84,9 +89,9 @@ export class ProfileService {
     }
   }
 
-  getAudits(data) {
-    return this.http.get(`Audits/GetAudits/${data.userId}/${data.patientId}`);
-  }
+  // getAudits(data) {
+  //   return this.http.get(`Audits/GetAudits/${data.userId}/${data.patientId}`);
+  // }
 
   // getProtocol(data) {
   //     return this.http.get(`Protocol/Get/${data.userId}/${data.clinicId}`);

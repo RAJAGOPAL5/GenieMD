@@ -5,6 +5,9 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import * as moment from 'moment';
 import { ProfileService } from 'src/app/shared/service/profile.service';
+import {AuditService} from 'src/app/shared/service/audit.service';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
+
 
 @Component({
   selector: 'app-history',
@@ -21,12 +24,15 @@ export class HistoryComponent implements OnInit {
   ColumnMode = ColumnMode;
   patientId: any;
   userID: string;
+  description: '';
 
   constructor(
     private fb: FormBuilder,
     private dialogService: NbDialogService,
     private toastrService: NbToastrService,
     private profileService: ProfileService,
+    private auditService: AuditService,
+    private clinicService: ClinicService,
     private route: ActivatedRoute,
   ) { }
 
@@ -36,6 +42,7 @@ export class HistoryComponent implements OnInit {
     this.userID = this.profileService.id;
     this.createForm();
     this.getHistory();
+    // this.addHistory()
   }
 
   createForm() {
@@ -64,12 +71,41 @@ export class HistoryComponent implements OnInit {
     this.historyForm.reset();
   }
   getHistory() {
+    this.isLoading = true;
     const data = {
       userId: this.userID,
-      patientId: this.patientId || '90144?_=1616414477258'
+      patientId: this.patientId
     };
-    this.profileService.getAudits(data).subscribe((res: any) => {
+    this.auditService.getAudits(data).subscribe((res: any) => {
       this.historyData = res.list;
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
+      throw error;
+    });
+  }
+
+  addHistory() {
+    this.isLoading = true;
+    const auditPayload = {
+      userID: this.userID,
+      auditType: 2,
+      subjectID: this.route.snapshot.parent.params.patientId,
+      action: '0',
+      actionParam: 'Encounter',
+      description: this.description,
+      oemId: this.clinicService.clinic.oemID,
+      clinicID: this.clinicService.id,
+      name: this.profile.screenName
+    };
+    this.auditService.addAudits(auditPayload).subscribe((res: any) => {
+      this.historyDialogRef.close();
+      this.getHistory();
+      this.description = '';
+      this.isLoading = false;
+    }, error => {
+      this.isLoading = false;
+      throw error;
     });
   }
 

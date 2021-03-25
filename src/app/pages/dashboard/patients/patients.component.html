@@ -1,10 +1,8 @@
 <div class="pt-4" [nbSpinner]="isLoading">
     <div class="d-flex mb-4 ms-4 position-relative">
-        <input type="search" fieldSize="medium" nbInput placeholder="Search With Name" class="mr-20" name="search"
-            [(ngModel)]="searchText" (ngModelChange)="getList()">
+        <input type="search" fieldSize="medium" nbInput placeholder="Search With Name" class="mr-20" name="search" [(ngModel)]="searchText" (ngModelChange)="getList()">
         <button nbButton outline status="primary">Patients With No Readings</button>
-        <nb-action class="ps-4 pe-2" nbTooltip="Filter" nbTooltipPlacement="top" icon="funnel-outline"
-            (click)="filterPatient()">
+        <nb-action class="ps-4 pe-2" nbTooltip="Filter" nbTooltipPlacement="top" icon="funnel-outline" (click)="filterPatient()">
         </nb-action>
         <!-- <div class="badge-position cursor-pointer" *ngIf="isFilter">
             <nb-badge text="99+" status="danger" dotMode=true (click)="filterPatient()"></nb-badge>
@@ -16,15 +14,14 @@
 
     </div>
     <div>
-        <ngx-datatable class="bootstrap" [rows]="data" [columnMode]="ColumnMode.force" [scrollbarV]="true" [columns]="columns"
-            [headerHeight]="headerHeight" [rowHeight]="rowHeight" [loadingIndicator]="isLoading" [scrollbarV]="true"
-            (scroll)="onScroll($event.offsetY)" style="height: 600px;" (activate)="onActivate($event)">
+        <ngx-datatable class="bootstrap" [rows]="data" [columnMode]="ColumnMode.force" [scrollbarV]="true" [columns]="columns" [headerHeight]="headerHeight" [rowHeight]="rowHeight" [loadingIndicator]="isLoading" [scrollbarV]="true" (scroll)="onScroll($event.offsetY)"
+            style="height: 600px;" (activate)="onActivate($event)">
             <ngx-datatable-column name="Name" headerClass="ps-4" cellClass="ps-4">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <span>{{value || '-'}}</span>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="EMAIL" [maxWidth]="250">
+            <ngx-datatable-column name="Email" [maxWidth]="250">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <span>{{value || '-'}}</span>
                 </ng-template>
@@ -34,7 +31,7 @@
                     <span>{{value || '-'}}</span>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Monitors"  [maxWidth]="200" headerClass="text-center" cellClass="text-center">
+            <ngx-datatable-column name="Monitors" [maxWidth]="200" headerClass="text-center" cellClass="text-center">
                 <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
                     <span>{{row.vitals}}</span>
                 </ng-template>
@@ -46,8 +43,8 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="Contact" [maxWidth]="200" headerClass="text-center" cellClass="text-center">
                 <ng-template let-value="value" ngx-datatable-cell-template>
-                    <i class="fas fa-phone text-primary " nbTooltip="Call" nbTooltipStatus="basic" ></i> <i class="far fa-comment-dots text-primary d-inline-block mx-2" nbTooltip="Chat" nbTooltipStatus="basic"></i> <i
-                        class="fas fa-video text-primary" nbTooltip="Video" nbTooltipStatus="basic"></i>
+                    <i class="fas fa-phone text-primary " nbTooltip="Call" nbTooltipStatus="basic"></i> <i class="far fa-comment-dots text-primary d-inline-block mx-2" nbTooltip="Chat" nbTooltipStatus="basic"></i> <i class="fas fa-video text-primary"
+                        nbTooltip="Video" nbTooltipStatus="basic"></i>
                 </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Action" [maxWidth]="200" headerClass="text-center" cellClass="text-center">
