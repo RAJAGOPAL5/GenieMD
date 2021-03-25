@@ -1,24 +1,33 @@
-<nb-card [size]="'giant'" [nbSpinner]="isLoading">
-    <nb-card-header class="border-bottom-0 pb-0">
-        <div class="row">
-            <div class="col-6">Chats</div>
-            <div class="col-6">
-                <nb-icon size="small" class="float-end" icon="plus-circle-outline" nbTooltip="New Chat" (click)="openChatBox()" nbTooltipPlacement="left">
-                </nb-icon>
-            </div>
-        </div>
-    </nb-card-header>
-    <nb-card-body class="px-0">
-        <nb-list *ngIf="!!conversations.length">
-            <nb-list-item *ngFor="let conversation of conversations | orderBy: order" class="cursor-pointer" (click)="getChat(conversation)">
-                <nb-user [name]="conversation.name" [title]="conversation.lastMessageTime">
-                </nb-user>
-            </nb-list-item>
-        </nb-list>
-        <nb-list *ngIf="!conversations.length">
-            <nb-list-item>
-                No Records found
-            </nb-list-item>
-        </nb-list>
-    </nb-card-body>
-</nb-card>
+
+<div class="row chat-list">
+    <div [ngClass]="{'col-md-3': showChat, 'col-md-12': !showChat}">
+        <nb-card [size]="'giant'" [nbSpinner]="isLoading" >
+            <nb-card-header class="border-bottom-0 pb-0">
+                <div class="row">
+                    <div class="col-6">Chats</div>
+                    <div class="col-6">
+                        <nb-icon size="small" class="float-end" icon="plus-circle-outline" nbTooltip="New Chat" (click)="openChatBox()" nbTooltipPlacement="left">
+                        </nb-icon>
+                    </div>
+                </div>
+            </nb-card-header>
+            <nb-card-body class="px-0 h-100">
+                <nb-list *ngIf="!!conversations.length">
+                    <nb-list-item *ngFor="let conversation of conversations | orderBy: order" class="cursor-pointer overflow-auto" (click)="getChat(conversation)">
+                        <nb-user [name]="conversation.name" [title]="conversation.lastMessageTime">
+                        </nb-user>
+                    </nb-list-item>
+                </nb-list>
+                <nb-list *ngIf="!conversations.length">
+                    <nb-list-item>
+                        No Records found
+                    </nb-list-item>
+                </nb-list>
+            </nb-card-body>
+        </nb-card>
+    </div>
+    <div class="col-md-9" *ngIf="showChat">
+       <app-chat-room [chatInfo]="chatInfo"></app-chat-room>
+    </div>
+</div>
+

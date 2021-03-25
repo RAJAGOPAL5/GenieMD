@@ -12,7 +12,7 @@ export class ChatWindowComponent implements OnInit {
   constructor(@Inject(NB_WINDOW_CONTEXT) context) {
     this.chatInfo = {
       conversationId: context.conversationID,
-      type: 1
+      type: 2
     };
   }
   ngOnInit(): void {

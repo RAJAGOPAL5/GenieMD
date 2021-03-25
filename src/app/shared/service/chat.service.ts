@@ -23,4 +23,11 @@ export class ChatService {
   createConversation(payload) {
     return this.http.post(`TextMessaging/CreateConversation`, payload);
   }
+  uploadFile(file: File, userID: string) {
+    const url = 'Files/UploadFile/' + userID + '?contentType=' + file.type;
+    const formdata: FormData = new FormData();
+    formdata.append('file', file);
+    return this.http.post(url, formdata);
+  }
 }
+
