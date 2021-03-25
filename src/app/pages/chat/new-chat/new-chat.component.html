@@ -11,7 +11,7 @@
         <nb-list-item>
             <nb-form-field class="w-100">
                 <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
-                <input type="search" id='searchText' name="searchText" fullWidth status="success" nbInput [(ngModel)]="searchText" (search)="search()" #SearchInput>
+                <input type="search" id='searchText' name="searchText" fullWidth status="success" nbInput [(ngModel)]="searchText" #SearchInput>
             </nb-form-field>
         </nb-list-item>
         <nb-list-item class="pb-0">
@@ -25,13 +25,13 @@
             </div>
         </nb-list-item>
     </nb-card-header>
-    <nb-list class="own-scroll" nbInfiniteList [threshold]="500" (bottomThreshold)="getPatientsList()" *ngIf="showPatients">
+    <nb-list class="own-scroll" nbInfiniteList [threshold]="500" (bottomThreshold)="getPatientsList()" *ngIf="showList">
         <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of users">
             <nb-user *ngIf="!isLoading" class="cursor-pointer warning" [name]="user.name" [title]="user.dob" [picture]="user.imageUrl" (click)="createChat(user)">
             </nb-user>
         </nb-list-item>
     </nb-list>
-    <nb-list class="own-scroll" *ngIf="showProvider">
+    <nb-list class="own-scroll" *ngIf="!showList">
         <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of usersProvider">
             <nb-user *ngIf="!isLoading" class="cursor-pointer warning" [name]="user.name" [title]="user.dob" [picture]="user.imageUrl" (click)="createChat(user)">
             </nb-user>
