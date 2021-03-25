@@ -6,6 +6,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import * as moment from 'moment';
 import { NewChatComponent } from '../new-chat/new-chat.component';
+import { PushNotificationService } from 'src/app/shared/service/push-notification.service';
 
 
 @Component({
@@ -23,7 +24,15 @@ export class ChatListComponent implements OnInit {
   constructor(
     private router: Router, private clinicService: ClinicService,
     private dialogService: NbDialogService,
-    private profileService: ProfileService, private chatService: ChatService, private toastrService: NbToastrService) { }
+    private profileService: ProfileService, private chatService: ChatService,
+    private toastrService: NbToastrService, private pushNotification: PushNotificationService) {
+      this.pushNotification.updatedMessage.subscribe(res => {
+        if (!!res) {
+          console.log('received');
+          this.getList();
+        }
+      });
+    }
 
   ngOnInit(): void {
     this.getList();

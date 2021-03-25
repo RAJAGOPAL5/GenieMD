@@ -7,6 +7,7 @@ import { LanguageService } from 'src/app/shared/service/language.service';
 import { environment } from 'src/environments/environment';
 import { NbAuthService, NbLoginComponent, NB_AUTH_OPTIONS } from '@nebular/auth';
 import { NbToastrService } from '@nebular/theme';
+import { PushNotificationService } from 'src/app/shared/service/push-notification.service';
 
 
 interface ViewModal {
@@ -37,6 +38,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
     protected service: NbAuthService,
     protected cd: ChangeDetectorRef,
     protected router: Router,
+    private pushService: PushNotificationService
   ) {
     super(service, {}, cd, router);
     translate.use('en');
@@ -59,14 +61,17 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
         this.showContent = true;
       }
     }
+    this.pushService.requestPermission();
   }
 
   login() {
     this.isLoading = true;
     const username = this.model.username;
     const password = this.model.password;
+
     const result$ = this.authService.logIn(username, password)
       .subscribe(result => {
+        this.pushService.registerBrowser(localStorage.getItem('token'), this.clinicService.clinic.oemID, result.userID);
         this.router.navigate([this.clinicService.id, result.userID, 'dashboard', 'patients']);
         this.isLoading = false;
       }, error => {

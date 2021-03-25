@@ -1,5 +1,5 @@
-importScripts('https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/8.0.1/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/8.3.1/firebase-messaging.js');
 firebase.initializeApp({
   'messagingSenderId': '1067108638529',
   'projectId': 'ivisit-8b2b4',

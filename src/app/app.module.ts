@@ -24,6 +24,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { getUserPreferedTheme } from './shared/utility';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+
 
 const theme = getUserPreferedTheme();
 @NgModule({
@@ -59,7 +64,12 @@ const theme = getUserPreferedTheme();
       baseURL: environment.base_url,
       production: environment.production
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+
   ],
   providers: [
     {

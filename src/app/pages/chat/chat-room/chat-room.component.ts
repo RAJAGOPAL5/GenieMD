@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ChatService } from 'src/app/shared/service/chat.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
+import { PushNotificationService } from 'src/app/shared/service/push-notification.service';
 
 @Component({
   selector: 'app-chat-room',
@@ -22,7 +23,14 @@ export class ChatRoomComponent implements OnInit {
     private profileService: ProfileService,
     private route: ActivatedRoute,
     private chatService: ChatService,
-    private clinicService: ClinicService) { }
+    private clinicService: ClinicService, private pushNotification: PushNotificationService) {
+      this.pushNotification.updatedMessage.subscribe(res => {
+        if (!!res) {
+          console.log('received');
+          this.getConversationsHistory();
+        }
+      });
+     }
 
   ngOnInit(): void {
     this.profile = this.profileService.profile;
@@ -60,7 +68,7 @@ export class ChatRoomComponent implements OnInit {
       type: files.length ? 'file' : 'text',
       screenName: this.profile.screenName
     });
-    return;
+    // return;
 
     const messages = [];
     this.recieverInfo.users.map((item) => {
