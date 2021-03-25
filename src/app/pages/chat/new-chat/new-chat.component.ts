@@ -15,7 +15,21 @@ export class NewChatComponent implements OnInit {
   pageNumber = 1;
   users = [];
   searchText = '';
-  isLoading: boolean;
+  isLoading = false;
+  serviceHandle: boolean;
+  showPatients = true;
+  showProvider = true;
+  usersProvider = [];
+  payloadPatient = {
+    clinicID: this.clinicService.id,
+    name: this.searchText,
+    providerID: '',
+    userID: this.profileService.id,
+    count: 25,
+    pageNumber: 1,
+  };
+  patientData: any;
+
   constructor(
     private ref: NbDialogRef<NewChatComponent>,
     private profileService: ProfileService,
@@ -35,49 +49,45 @@ export class NewChatComponent implements OnInit {
   }
 
   getPatientsList() {
+    this.showPatients = true;
+    this.showProvider = false;
     this.isLoading = true;
-    const payload = {
-      userID: this.profileService.id,
-      clinicID: this.clinicService.id,
-      name: this.searchText,
-      providerID: '',
-      pageNumber: this.pageNumber,
-    };
-    this.patientService.find(payload)
-      .subscribe((data: any) => {
-        const clinicPatientList = data.clinicPatientList.map(item => {
-          try {
-            item.extraData = JSON.parse(item.extraData);
-          } catch (error) {
-            item.extraData = {};
-          }
-          item.name = `${item.firstName} ${item.lastName}`.trim();
-          item.careManager = 'James';
-          return item;
-        });
-        this.users = clinicPatientList;
-        this.isLoading = false;
-      }, error => {
-        this.isLoading = false;
-        this.toastrService.danger(error, 'Error');
+    if (this.serviceHandle) {
+      return;
+    }
+    this.serviceHandle = true;
+    // tslint:disable-next-line:no-unused-expression
+    this.patientData = this.patientService.find(this.payloadPatient).subscribe((data: any) => {
+      this.serviceHandle = false;
+      const clinicPatientList = data.clinicPatientList.map(item => {
+        try {
+          item.extraData = JSON.parse(item.extraData);
+        } catch (error) {
+          item.extraData = {};
+        }
+        item.name = `${item.firstName} ${item.lastName}`.trim();
+        return item;
       });
+      // tslint:disable-next-line:no-unused-expression
+      data.clinicPatientList.length !== 0 ? this.users.push(...data.clinicPatientList) : '';
+      this.users = data.clinicPatientList;
+      this.payloadPatient.pageNumber++;
+      this.isLoading = false;
+      return;
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger(error, 'Error');
+    });
+
   }
 
   getProvidersList() {
+    this.showPatients = false;
+    this.showProvider = true;
     this.isLoading = true;
     this.clinicService.getProviderList(this.clinicService.id)
       .subscribe((data: any) => {
-        // const clinicPatientList = data.clinicPatientList.map(item => {
-        //   try {
-        //     item.extraData = JSON.parse(item.extraData);
-        //   } catch (error) {
-        //     item.extraData = {};
-        //   }
-        //   // item.name = `${item.firstName} ${item.lastName}`.trim();
-        //   item.careManager = 'James';
-        //   return item;
-        // });
-        this.users = data.clinicProviderList;
+        this.usersProvider = data.clinicProviderList;
         this.isLoading = false;
       }, error => {
         this.isLoading = false;
