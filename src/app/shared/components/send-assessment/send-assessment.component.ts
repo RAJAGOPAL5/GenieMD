@@ -37,7 +37,7 @@ export class SendAssessmentComponent implements OnInit {
   }
 
   close() {
-    this.dialogRef.close({ type: 'cancel' });
+    this.dialogRef.close();
   }
 
   send(user) {
@@ -77,7 +77,7 @@ export class SendAssessmentComponent implements OnInit {
       this.profileService.sendEmail(this.data).subscribe(data => {
         this.isLoading = false;
         this.toastrService.success('Message sent successfully');
-
+        this.dialogRef.close();
       });
     });
   }
