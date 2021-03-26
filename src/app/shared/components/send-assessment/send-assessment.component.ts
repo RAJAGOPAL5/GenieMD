@@ -43,6 +43,7 @@ export class SendAssessmentComponent implements OnInit {
   }
 
   send(user) {
+    this.isLoading = true;
     const command = {
       cmd: 0,
       assessmentName: user.name,
@@ -76,6 +77,7 @@ export class SendAssessmentComponent implements OnInit {
         subject: `Message from  ${this.profileService.profile.screenName},`
       };
       this.profileService.sendEmail(this.data).subscribe(data => {
+        this.isLoading = false;
         this.toastrService.success('Message sent successfully');
 
       });
