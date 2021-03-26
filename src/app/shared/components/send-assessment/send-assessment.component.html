@@ -9,6 +9,9 @@
                     <input type="search" nbInput id='searchText' class="w-100" name="searchText" fieldSize="medium" class="px-5" fullWidth status="success" 
                     (keyup)="filterProtocolList(searchText)" [(ngModel)]="searchText">             
         </nb-list-item>
+        <div class="text-center" *ngIf="protocolList.length==0">
+            <span>{{'kNoRecordsFound' | translate }}</span>
+          </div>
             <nb-list class="own-scroll">
                 <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of protocolList" (click)="send(user)">
                     <p>{{user.name}}</p>
