@@ -59,6 +59,7 @@ export class ChatListComponent implements OnInit {
         item.name = item.users.length ? `${item.users[0].firstName} ${item.users[0].lastName}` : 'GMD User';
         return item;
       });
+      this.conversations = this.conversations.sort((a, b) => b.lastMessageTime - a.lastMessageTime);
       this.isLoading = false;
 
     }, error => {
