@@ -23,6 +23,11 @@
     <div class="blob blob-4"></div>
     <div class="blob blob-5"></div>
   </div>
+  <script>
+    if (location.hostname !== 'localhost' && location.protocol != 'https:') {
+      location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+    }
+  </script>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 </html>
