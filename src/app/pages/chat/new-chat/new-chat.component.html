@@ -32,13 +32,13 @@
     </nb-list> 
     <nb-list class="own-scroll" nbInfiniteList *ngIf="showList">
         <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of users">
-            <nb-user *ngIf="!isLoading" class="cursor-pointer warning" [name]="user.name" [title]="user.dob" [picture]="user.imageUrl" (click)="createChat(user)">
+            <nb-user *ngIf="!isLoading" class="cursor-pointer warning" [name]="user.name" [title]="user.dob" [picture]="user.imageUrl" (click)="getChatInfo(user)">
             </nb-user>
         </nb-list-item>
     </nb-list>
     <nb-list class="own-scroll" *ngIf="!showList">
         <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of usersProvider">
-            <nb-user *ngIf="!isLoading" class="cursor-pointer warning" [name]="user.name" [title]="user.dob" [picture]="user.imageUrl" (click)="createChat(user)">
+            <nb-user *ngIf="!isLoading" class="cursor-pointer warning" [name]="user.name" [title]="user.dob" [picture]="user.imageUrl" (click)="getChatInfo(user)">
             </nb-user>
         </nb-list-item>
     </nb-list>  

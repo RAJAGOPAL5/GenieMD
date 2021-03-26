@@ -70,6 +70,8 @@ export class ChatListComponent implements OnInit {
 
   openChatBox() {
     const modal = this.dialogService.open(NewChatComponent);
+    modal.componentRef.instance.conversationList = this.conversations;
+    console.log('conv list',  this.conversations);
     modal.onClose.subscribe(data => {
       if (!!data) {
         this.showChat = true;

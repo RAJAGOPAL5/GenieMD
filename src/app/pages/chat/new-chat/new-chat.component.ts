@@ -4,7 +4,7 @@ import { NbToastrService, NbDialogRef } from '@nebular/theme';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ChatService } from 'src/app/shared/service/chat.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
@@ -26,6 +26,8 @@ export class NewChatComponent implements OnInit {
   isSearching: boolean;
   payloadPatient: any;
   initialList: any;
+  conversationList = [];
+  exisitingChat: any;
 
   constructor(
     private ref: NbDialogRef<NewChatComponent>,
@@ -34,7 +36,7 @@ export class NewChatComponent implements OnInit {
     private toastrService: NbToastrService,
     private clinicService: ClinicService,
     private chatService: ChatService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -146,5 +148,28 @@ export class NewChatComponent implements OnInit {
       this.toastrService.danger('Could not initialize chat.', 'Error');
       throw error;
     });
+  }
+
+  getChatInfo(user) {
+    const selectedUser = this.showList ? user.patientID : user.providerID;
+    this.exisitingChat = this.conversationList.find(item => {
+      const existingUser = item.users.find(k => {
+        // tslint:disable-next-line:triple-equals
+        if (k.email == selectedUser) {
+          return k;
+        }
+      });
+      return existingUser;
+    });
+    if (!!this.exisitingChat) {
+      const chatData = {
+        name: user?.name || 'GMD  User',
+        conversationId: this.exisitingChat.conversationID,
+        type: 1
+      };
+      this.closeDialog(chatData);
+    } else {
+      this.createChat(user);
+    }
   }
 }
