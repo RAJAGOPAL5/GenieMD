@@ -53,6 +53,11 @@
                 </nb-list>
             </div>
         </div>
+        <div class="row px-3">
+            <div class="col-md-12 text-center mb-2" *ngIf="totalAppointment?.length === 0">
+                {{'kNoRecordsFound' | translate }}
+            </div>
+        </div>
     </div>
     <div class="container" *ngIf="showList">
         <div class="row px-3">
