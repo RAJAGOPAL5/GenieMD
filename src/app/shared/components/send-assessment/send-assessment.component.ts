@@ -16,12 +16,8 @@ export class SendAssessmentComponent implements OnInit {
   isLoading = false;
   users = [];
   patientID: any;
-  notify: {
-    clinicID: any; command: string;
-    // tslint:disable-next-line:max-line-length
-    message: string; messageContent: string; messageType: number; subject: string; url: any; userID: any; users: any[];
-  };
-  data: { userID: any; emailList: any[]; body: string; fromDisplayName: string; subject: string; };
+  notify: any;
+  data: any;
   clinicConfig: any;
 
   constructor(

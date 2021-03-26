@@ -574,12 +574,7 @@ export class ProfileComponent implements OnInit {
     });
   }
   surveydialog() {
-    {
-      this.dialogService.open(SendAssessmentComponent, {
-        context: {
-        },
-      });
-    }
+      this.dialogService.open(SendAssessmentComponent, { closeOnBackdropClick: false });
   }
 
 }
