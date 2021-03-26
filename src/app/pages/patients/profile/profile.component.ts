@@ -14,6 +14,8 @@ import { ChatService } from 'src/app/shared/service/chat.service';
 import { MeetService } from 'src/app/shared/service/meet.service';
 import { PlatformLocation } from '@angular/common';
 import { SendAssessmentComponent } from 'src/app/shared/components/send-assessment/send-assessment.component';
+import { TimerService } from 'src/app/shared/service/timer.service';
+import { Observable } from 'rxjs';
 
 
 interface ViewModal {
@@ -71,6 +73,7 @@ export class ProfileComponent implements OnInit {
   extraData: any;
   degrees: any;
   type = 'video';
+  timer$: Observable<string>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -87,7 +90,8 @@ export class ProfileComponent implements OnInit {
     private chatService: ChatService,
     private meetService: MeetService,
     private platformLocation: PlatformLocation,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private timerService: TimerService
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
     translate.use('en');
@@ -139,6 +143,7 @@ export class ProfileComponent implements OnInit {
     this.showEmergency = this.clinicService.config.extendedSettings && this.clinicService.config.extendedSettings.emergencyContact && this.clinicService.config.extendedSettings.emergencyContact === 'true' ? true : false;
     const rpmTimer = this.clinicService.config.extendedSettings?.rpmTimer * 10 || 10000;
     // setTimeout(() => { this.start(); }, rpmTimer);
+    this.startTimer();
   }
 
   // start() {
@@ -574,7 +579,20 @@ export class ProfileComponent implements OnInit {
     });
   }
   surveydialog() {
-      this.dialogService.open(SendAssessmentComponent, { closeOnBackdropClick: false });
+    this.dialogService.open(SendAssessmentComponent, { closeOnBackdropClick: false });
   }
 
+  startTimer() {
+    this.timer$ = this.timerService.start();
+  }
+  resumeTimer() {
+    this.timerService.resume();
+    this.showStart = false;
+    this.showStop = true;
+  }
+  pauseTimer() {
+    this.timerService.pause();
+    this.showStart = true;
+    this.showStop = false;
+  }
 }

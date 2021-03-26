@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NbDialogRef, NbToastrService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { ClinicService } from '../../service/clinic.service';
 import { DataService } from '../../service/data.service';
 import { NotificationService } from '../../service/notification.service';
@@ -20,6 +20,8 @@ export class SendAssessmentComponent implements OnInit {
   clinicConfig: any;
   protocolArrays: any;
   searchText: any;
+  selectedAssessment: any;
+  confirmDialogRef: NbDialogRef<any>;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -27,6 +29,7 @@ export class SendAssessmentComponent implements OnInit {
     private clinicService: ClinicService,
     private toastrService: NbToastrService,
     private notificationService: NotificationService,
+    private dialogService: NbDialogService
   ) {
   }
 
@@ -43,13 +46,22 @@ export class SendAssessmentComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
-
-  send(user) {
+  confirmSelection(data, content) {
+    this.selectedAssessment = data;
+    this.confirmDialogRef = this.dialogService.open(content);
+    this.confirmDialogRef.onClose.subscribe(res => {
+      this.selectedAssessment = null;
+    });
+  }
+  cancel() {
+    this.confirmDialogRef.close();
+  }
+  send() {
     this.isLoading = true;
     const command = {
       cmd: 0,
-      assessmentName: user.name,
-      assessmentID: user.id,
+      assessmentName: this.selectedAssessment.name,
+      assessmentID: this.selectedAssessment.id,
       clinicID: this.clinicService.id,
       providerID: this.profileService.profile.userName,
     };
@@ -58,7 +70,7 @@ export class SendAssessmentComponent implements OnInit {
       command: JSON.stringify(command),
       // tslint:disable-next-line:max-line-length
       message: `Message from ${this.profileService.profile.screenName}, -- To view please login to ${this.clinicConfig.name} and visit Notification Center for details.`,
-      messageContent: `Please Complete ${user.name}`,
+      messageContent: `Please Complete ${this.selectedAssessment.name}`,
       messageType: 25,
       subject: `Message from ${this.profileService.profile.screenName}`,
       url: this.profileService.profile.imageURL,
@@ -80,8 +92,10 @@ export class SendAssessmentComponent implements OnInit {
       };
       this.profileService.sendEmail(this.data).subscribe(data => {
         this.isLoading = false;
-        this.toastrService.success('Message sent successfully');
-        this.dialogRef.close();
+        this.toastrService.success('Message sent successfully', 'Success');
+        this.confirmDialogRef.close();
+      }, error => {
+        this.isLoading = false;
       });
     });
   }
