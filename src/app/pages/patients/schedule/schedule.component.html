@@ -1,32 +1,30 @@
 <nb-card size="large" class="h-100" style="overflow: auto" [nbSpinner]="isLoading" nbSpinnerMessage="Please wait. We are fetching the schedule list">
     <div class="container">
-    <router-outlet></router-outlet>
+        <router-outlet></router-outlet>
     </div>
     <div class="container" *ngIf="showAppointments">
-    <div class="row justify-content-end mt-3">
-        <div class="col-1 ps-1">
-        <nb-actions size="medium">
-            <nb-action nbTooltip="Add Schedule" nbTooltipPlacement="top" icon="plus-circle-outline" (click)="showConsultList()"></nb-action>
-        </nb-actions>
-    </div>
-    </div>
+        <div class="row justify-content-end mt-3">
+            <div class="col-1 ps-1">
+                <nb-actions size="medium">
+                    <nb-action nbTooltip="Add Schedule" nbTooltipPlacement="top" icon="plus-circle-outline" (click)="showConsultList()"></nb-action>
+                </nb-actions>
+            </div>
+        </div>
         <div class="row px-3">
             <div class="col-md-6 offset-md-3">
                 <nb-list class="own-scroll" nbInfiniteList [threshold]="15">
-                    <nb-list-item class="cursor-pointer d-flex justify-content-between"
-                        *ngFor="let provider of totalAppointment; let i=index">
+                    <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let provider of totalAppointment; let i=index">
                         <div class="row justify-content-center p-2">
                             <div class="row justify-content-center w-100 mb-3">
                                 <div class="col-xl-3 col-lg-3 col-md-3 col-4">
-                                    <ngx-avatar id="provider" name="{{provider.name}}" src="{{provider?.imageUrl}}"
-                                        cornerRadius="10" [round]="true" size='75'>
+                                    <ngx-avatar id="provider" name="{{provider.name}}" src="{{provider?.imageUrl}}" cornerRadius="10" [round]="true" size='75'>
                                     </ngx-avatar>
                                 </div>
                                 <div class="col-xl-9 col-lg-9 col-md-9 col-8 p-0">
                                     <p class="text-info my-2">{{provider?.Name}}</p>
                                     <p class="text-muted sub-text my-2"> {{provider?.subject}}</p>
-                                    <p class="text-muted sub-text my-2"> {{provider?.scheduled}}&nbsp; -
-                                        &nbsp;{{provider?.duration}}</p>
+                                    <p class="text-muted sub-text my-2"> {{provider?.scheduled}}&nbsp; - &nbsp;{{provider?.duration}}
+                                    </p>
                                 </div>
                             </div>
 
@@ -34,14 +32,12 @@
                                 <div class="col-md-3  col-3  col-lg-3 col-sm-3 px-1">
                                 </div>
                                 <div class="col-md-3  col-3  col-lg-3 col-sm-3 px-1">
-                                    <button nbButton fullWidth outline status="primary" size="small"
-                                        (click)="rescheduleModal(rescheduleDialog, provider)">
+                                    <button nbButton fullWidth outline status="primary" size="small" (click)="rescheduleModal(rescheduleDialog, provider)">
                                         {{'kReschedule' | translate }}
                                     </button>
                                 </div>
                                 <div class="col-md-3  col-3 col-lg-3 col-sm-3 px-1">
-                                    <button nbButton fullWidth outline status="danger" size="small"
-                                        (click)="cancelAppointment(deleteDialog, provider.meetingId)">
+                                    <button nbButton fullWidth outline status="danger" size="small" (click)="cancelAppointment(deleteDialog, provider.meetingId)">
                                         {{'kCancel' | translate }}
                                     </button>
                                 </div>
@@ -69,13 +65,11 @@
                 </div>
                 <div class="row">
                     <div class="col-12 py-4">
-                        <input type="search" nbInput fullWidth status="basic" name="searchText" id="searchText"
-                            [(ngModel)]="searchText" (keyup)="filterProtocolList(searchText)"
-                            placeholder="{{'kSearchForAssessment' | translate}}">
+                        <input type="search" nbInput fullWidth status="basic" name="searchText" id="searchText" [(ngModel)]="searchText" (keyup)="filterProtocolList(searchText)" placeholder="{{'kSearchForAssessment' | translate}}">
                     </div>
                 </div>
                 <nb-list class="own-scroll" nbInfiniteList [threshold]="15">
-                    <nb-list-item class="list-group-item cursor-pointer px-4" *ngFor="let protocol of protocolList">
+                    <nb-list-item class="cursor-pointer px-4" *ngFor="let protocol of protocolList">
                         <div (click)="runProtocol(protocol)" class="col-11 col-md-11 col-sm-11 col-lg-11">
                             <p class="subtitle" *ngIf="protocol?.varName">{{protocol.varName | translate}} </p>
                             <p class="subtitle" *ngIf="!protocol?.varName">{{protocol.name}} </p>
@@ -109,15 +103,15 @@
     </nb-card>
 </ng-template>
 <ng-template #rescheduleDialog>
-  <nb-card class="dialog-card">
-      <nb-card-header>
-          <p class="subtitle">Are you sure want to reschedule this appoitment?</p>
-      </nb-card-header>
-      <nb-card-body>
-          <div class="float-end">
-              <button nbButton status="success" size="small" (click)="rescheduleAppointment()">Yes</button>
-              <button nbButton status="danger" class="ms-2" size="small" (click)="closeReschedule()">No</button>
-          </div>
-      </nb-card-body>
-  </nb-card>
+    <nb-card class="dialog-card">
+        <nb-card-header>
+            <p class="subtitle">Are you sure want to reschedule this appoitment?</p>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="float-end">
+                <button nbButton status="success" size="small" (click)="rescheduleAppointment()">Yes</button>
+                <button nbButton status="danger" class="ms-2" size="small" (click)="closeReschedule()">No</button>
+            </div>
+        </nb-card-body>
+    </nb-card>
 </ng-template>

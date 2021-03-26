@@ -21,6 +21,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ChatWindowComponent } from './components/chat-window/chat-window.component';
 import { ChatModule } from '../pages/chat/chat.module';
 import { SendAssessmentComponent } from './components/send-assessment/send-assessment.component';
+import { SurveysComponent } from './components/surveys/surveys.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { SendAssessmentComponent } from './components/send-assessment/send-asses
     FilterDialogComponent,
     AlertsListComponent,
     ChatWindowComponent,
-    SendAssessmentComponent],
+    SendAssessmentComponent,
+    SurveysComponent],
   imports: [
     CommonModule,
     NbLayoutModule,

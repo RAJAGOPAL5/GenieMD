@@ -66,6 +66,7 @@ export class AddComponent implements OnInit {
   imageSrc: string;
   // tslint:disable-next-line:max-line-length
   defaultImageURL = 'https://geniemd-generalfiles.s3.amazonaws.com/08fb6fbc4ceb4549ab9803ea4624df2d.png?AWSAccessKeyId=AKIAIZH5KUW5NWRU5FDQ&Expires=1930919200&Signature=XMhr6ne%2BzLmr0FwBRIXZdHIrjRA%3D';
+  surveys: any;
 
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
@@ -128,7 +129,7 @@ export class AddComponent implements OnInit {
         } catch (e) {
           variousDisease = this.profileExtraData.diseaseState || [];
         }
-        this.imageURL = this.profileData.imageURL || this.profileData.imageUrl ||   this.defaultImageURL;
+        this.imageURL = this.profileData.imageURL || this.profileData.imageUrl || this.defaultImageURL;
         this.profileForm.patchValue({
           firstName: this.profileData.firstName,
           lastName: this.profileData.lastName,
@@ -170,6 +171,7 @@ export class AddComponent implements OnInit {
           mrn: this.profileExtraData.MRN ? this.profileExtraData.MRN : '',
           diseaseState: variousDisease,
           preferredLanguage: this.profileExtraData.preferredLanguage,
+          surveys: this.profileExtraData.surveys,
           // customLanguage:this.profileExtraData.otherLanguage,
           // customDisease:this.profileExtraData.otherDisease
 
@@ -279,6 +281,7 @@ export class AddComponent implements OnInit {
       extraData.otherDisease = this.profileForm.value.customDisease ? this.profileForm.value.customDisease : '';
       extraData.otherLanguage = this.profileForm.value.customLanguage ? this.profileForm.value.customLanguage : '';
       extraData.iHealthDevices = this.devices;
+      extraData.surveys = this.surveys;
     }
     this.isLoading = true;
     if (this.profileForm.invalid) {
@@ -587,4 +590,9 @@ export class AddComponent implements OnInit {
     this.devices = JSON.stringify(event);
   }
 
+  getSurvey(event) {
+    this.surveys = JSON.stringify(event);
+    console.log('event', event);
+
+  }
 }

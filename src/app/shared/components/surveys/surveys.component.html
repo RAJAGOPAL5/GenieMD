@@ -1,0 +1,85 @@
+<div class="row justify-content-end">
+    <div class="col-1 ps-1">
+        <nb-actions size="medium">
+            <nb-action nbTooltip="Add" nbTooltipPlacement="top" icon="plus-circle-outline" (click)="open(surveydialog)"></nb-action>
+        </nb-actions>
+    </div>
+</div>
+
+<ng-template #surveydialog>
+    <nb-card class="dialog-card">
+        <nb-card-header>
+            <h6>{{'kAddSurvey' | translate}}</h6>
+        </nb-card-header>
+        <nb-card-body>
+            <form [formGroup]="surveyForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                            <label for="surveyName" class="label"> <span class="text-danger">*</span>
+                                    {{'kSurveyName' | translate}}</label>
+                            <nb-select id="surveyName" size="medium" fullWidth formControlName="surveyName" placeholder="Select survey name">
+                                <nb-option *ngFor="let item of surveyName" [value]="item?.name">
+                                    {{item?.name}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                            <label for="Schedule" class="label"> <span class="text-danger">*</span>
+                                {{'kSchedule' | translate}}</label>
+                            <input type="text" fieldSize="medium" formControlName="Schedule" nbInput fullWidth id="Schedule" placeholder="{{'kSchedule' | translate}}">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="row justify-content-end">
+                <div class="col-5 pe-2">
+                    <button nbButton status="danger" class="w-100" size="medium" (click)="refclose()">{{'kCancel' | translate}}</button>
+                </div>
+                <div class="col-5 ps-2">
+                    <button nbButton status="success" class="w-100" size="medium" [disabled]="!surveyForm.valid" (click)="save()">{{'kSave' | translate}}</button>
+                </div>
+            </div>
+        </nb-card-footer>
+
+    </nb-card>
+</ng-template>
+
+<ngx-datatable class="bootstrap" [rows]="surveys" [columnMode]="ColumnMode.force" [scrollbarV]="true" [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 600px;">
+    <ngx-datatable-column name="Survey Name" prop="name" headerClass="ps-4" cellClass="ps-4">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            <span>{{value || '-'}}</span>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Schedule" prop="description" [maxWidth]="250">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            <span>{{value || '-'}}</span>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Actions" headerClass="text-center" cellClass="text-center">
+        <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <span>
+            <nb-icon icon="trash" nbTooltip="Delete" class="icon-font" (click)="openDialog(deleteDialog, row)" nbTooltipStatus="control"
+            status="danger" pack="font-awesome" nbTooltipStatus="black"></nb-icon>
+        </span>
+        </ng-template>
+    </ngx-datatable-column>
+</ngx-datatable>
+<ng-template #deleteDialog>
+    <nb-card class="dialog-card">
+        <nb-card-header>
+            <p class="subtitle">{{'kAreYouSureWantToDelete' | translate}}?</p>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="float-end">
+                <button nbButton status="success" size="small" (click)="delete()">{{'kYes' | translate}}</button>
+                <button nbButton status="danger" class="ms-2" size="small" (click)="close()">{{'kNo' | translate}}</button>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</ng-template>
