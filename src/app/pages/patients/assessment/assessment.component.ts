@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 
 declare var GenieMD: any;
@@ -27,6 +28,8 @@ export class AssessmentComponent implements OnInit {
   clinicConfig: any;
   assessmentData: any;
   state: any;
+  patientID: any;
+  patientsID: any;
 
   constructor(
     private clinicService: ClinicService,
@@ -38,7 +41,6 @@ export class AssessmentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('proto', this.protocolData);
     this.protocolName = this.protocolData.protocolName;
     this.protocolID = this.protocolData.protocolID;
     this.clinicID = this.clinicService.id;
@@ -63,16 +65,6 @@ export class AssessmentComponent implements OnInit {
       console.log('done', this.protoData.showDoneButton);
     }
 
-    if (this.clinicConfig) {
-      if (this.clinicConfig.enableCallBack && this.clinicConfig.enableEvisit) {
-        this.protoData.type = '3';
-      } else if (this.clinicConfig.enableCallBack) {
-        this.protoData.type = '3';
-      } else if (this.clinicConfig.enableEvisit) {
-        this.protoData.type = '0';
-      }
-    }
-
     if (this.assessmentData && Object.keys(this.assessmentData).length > 0) {
       this.protocolData = {
         protocolName: this.protocolName,
@@ -90,6 +82,10 @@ export class AssessmentComponent implements OnInit {
       };
     }
     this.protocolData.showDoneButton = true;
+    this.protocolData.submitterID = this.profileService.patientProfile.email;
+    this.protocolData.type = 3;
+    console.log ('this.protocolData', this.protocolData);
+
     let genieMD;
     if (this.location.hostname === 'localhost') {
       genieMD = new GenieMD('//dev.geniemd.net');
@@ -98,7 +94,7 @@ export class AssessmentComponent implements OnInit {
     } else {
       genieMD = new GenieMD(`//${this.location.hostname}`);
     }
-    genieMD.init(this.clinicID, this.userID);
+    genieMD.init(this.clinicID, this.profileService.patientProfile.userID);
     genieMD.renderAssessment(document.querySelector('#container'), this.protocolData);
     const parentElement = document.querySelector('#container');
     if (parentElement.getElementsByTagName('iframe')[0]) {
@@ -116,5 +112,4 @@ export class AssessmentComponent implements OnInit {
       this.isLoading = false;
     }
   }
-
 }
