@@ -185,6 +185,7 @@ export class ChatRoomComponent implements OnInit, OnChanges {
         } else {
           item.files = [];
         }
+        item.type = 'file';
         return item;
       });
       this.messages = messages.reverse();
