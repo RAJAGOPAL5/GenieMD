@@ -12,7 +12,7 @@
             </nb-card-header>
             <nb-card-body class="px-0 h-100">
                 <nb-list *ngIf="!!conversations.length">
-                    <nb-list-item *ngFor="let conversation of conversations | orderBy: order" class="cursor-pointer overflow-auto" (click)="getChat(conversation)">
+                    <nb-list-item *ngFor="let conversation of conversations" class="cursor-pointer overflow-auto" (click)="getChat(conversation)">
                         <nb-user [name]="conversation.name" [title]="conversation.lastMessageTime">
                         </nb-user>
                     </nb-list-item>

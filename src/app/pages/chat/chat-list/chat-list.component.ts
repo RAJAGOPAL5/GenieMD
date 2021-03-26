@@ -50,7 +50,10 @@ export class ChatListComponent implements OnInit {
   getList(notify?) {
     this.isLoading = !!notify ? false : true;
     this.chatService.getChatList(this.profileService.id).subscribe((data: any) => {
-      this.conversations = data.conversationList;
+      this.conversations = data.conversationList.sort((a, b) => {
+        return new Date(b.lastMessageTime).valueOf() - new Date(a.lastMessageTime).valueOf();
+      }
+      );
       this.conversations.map((item: any) => {
         item.users = item.users.filter(x => {
           return x.email !== this.profile.email;
@@ -59,7 +62,6 @@ export class ChatListComponent implements OnInit {
         item.name = item.users.length ? `${item.users[0].firstName} ${item.users[0].lastName}` : 'GMD User';
         return item;
       });
-      this.conversations = this.conversations.sort((a, b) => b.lastMessageTime - a.lastMessageTime);
       this.isLoading = false;
 
     }, error => {
