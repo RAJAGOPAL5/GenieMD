@@ -80,7 +80,8 @@
                     <nb-icon icon="message-circle-outline"></nb-icon>{{'kChat' | translate}}</button>
                 <button nbButton [nbPopover]="templateRef" nbPopoverPlacement="right" status="success" class="mb-2 w-100 justify-content-start" size="small">
                     <nb-icon icon="phone-call-outline"></nb-icon>{{'kCall' | translate}}</button>
-                <!-- <button nbButton status="warning" class="mb-2 w-100 justify-content-start" size="small"><nb-icon icon="clock-outline"></nb-icon>{{'kSchedule' | translate}}</button> -->
+                <button nbButton (click)="surveydialog()" status="warning" class="mb-2 w-100 justify-content-start" size="small">
+                    <nb-icon icon="clock-outline"></nb-icon>{{'kSchedule' | translate}}</button>
             </div>
             <ng-template #templateRef>
                 <div class="p-3">

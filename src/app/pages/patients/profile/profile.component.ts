@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Event, ActivatedRoute, Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
-import { NbIconLibraries, NbToastrService, NbTagComponent, NbWindowService, NbWindowState } from '@nebular/theme';
+import { NbIconLibraries, NbToastrService, NbTagComponent, NbWindowService, NbWindowState, NbDialogService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
@@ -13,6 +13,7 @@ import { ChatWindowComponent } from 'src/app/shared/components/chat-window/chat-
 import { ChatService } from 'src/app/shared/service/chat.service';
 import { MeetService } from 'src/app/shared/service/meet.service';
 import { PlatformLocation } from '@angular/common';
+import { SendAssessmentComponent } from 'src/app/shared/components/send-assessment/send-assessment.component';
 
 
 interface ViewModal {
@@ -86,6 +87,7 @@ export class ProfileComponent implements OnInit {
     private chatService: ChatService,
     private meetService: MeetService,
     private platformLocation: PlatformLocation,
+    private dialogService: NbDialogService
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
     translate.use('en');
@@ -570,6 +572,14 @@ export class ProfileComponent implements OnInit {
     }, error => {
       this.toastrService.danger(error ? error.error : this.translate.instant('kFailedToStartCall'));
     });
+  }
+  surveydialog() {
+    {
+      this.dialogService.open(SendAssessmentComponent, {
+        context: {
+        },
+      });
+    }
   }
 
 }

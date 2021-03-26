@@ -7,7 +7,7 @@ import {
   NbTreeGridModule, NbCardModule, NbButtonModule, NbActionsModule, NbPopoverModule,
   NbSelectModule, NbTooltipModule, NbDatepickerModule, NbButtonGroupModule,
   NbTabsetModule, NbRouteTabsetModule, NbRadioModule, NbCheckboxModule, NbCalendarRangeModule, NbCalendarModule,
-  NbSpinnerModule, NbUserModule, NbWindowModule
+  NbSpinnerModule, NbUserModule, NbWindowModule, NbListModule
 } from '@nebular/theme';
 import { DevicesComponent } from './components/devices/devices.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -20,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ChatWindowComponent } from './components/chat-window/chat-window.component';
 import { ChatModule } from '../pages/chat/chat.module';
+import { SendAssessmentComponent } from './components/send-assessment/send-assessment.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ChatModule } from '../pages/chat/chat.module';
     AddComponent,
     FilterDialogComponent,
     AlertsListComponent,
-    ChatWindowComponent],
+    ChatWindowComponent,
+    SendAssessmentComponent],
   imports: [
     CommonModule,
     NbLayoutModule,
@@ -60,7 +62,8 @@ import { ChatModule } from '../pages/chat/chat.module';
     FormsModule,
     TranslateModule.forRoot(),
     NgxDatatableModule,
-    ChatModule
+    ChatModule,
+    NbListModule
   ],
   exports: [NbLayoutModule,
     DevicesComponent,
