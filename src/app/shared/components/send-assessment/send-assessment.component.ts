@@ -1,10 +1,8 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
+import { Component, OnInit } from '@angular/core';
+import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { ClinicService } from '../../service/clinic.service';
 import { NotificationService } from '../../service/notification.service';
 import { ProfileService } from '../../service/profile.service';
-const moment = require('moment');
-
 
 @Component({
   selector: 'app-send-assessment',
