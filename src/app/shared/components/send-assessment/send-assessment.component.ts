@@ -18,7 +18,6 @@ export class SendAssessmentComponent implements OnInit {
   notify: any;
   data: any;
   clinicConfig: any;
-  assessmentData: any;
   protocolArrays: any;
   searchText: any;
 
@@ -28,11 +27,7 @@ export class SendAssessmentComponent implements OnInit {
     private clinicService: ClinicService,
     private toastrService: NbToastrService,
     private notificationService: NotificationService,
-    private dataService: DataService,
   ) {
-    this.dataService.data.subscribe(data => {
-      this.assessmentData = data;
-    });
   }
 
   ngOnInit(): void {
