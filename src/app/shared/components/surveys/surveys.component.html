@@ -50,7 +50,7 @@
     </nb-card>
 </ng-template>
 
-<ngx-datatable class="bootstrap" [rows]="surveys" [columnMode]="ColumnMode.force" [scrollbarV]="true" [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 600px;">
+<ngx-datatable class="bootstrap" [rows]="surveyList" [columnMode]="ColumnMode.force" [scrollbarV]="true" [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 600px;">
     <ngx-datatable-column name="Survey Name" prop="name" headerClass="ps-4" cellClass="ps-4">
         <ng-template let-value="value" ngx-datatable-cell-template>
             <span>{{value || '-'}}</span>

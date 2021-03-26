@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, TemplateRef, Output, Input } from '@angular/core';
+import { Component, EventEmitter, OnInit, TemplateRef, Output, Input, OnChanges } from '@angular/core';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColumnMode, id } from '@swimlane/ngx-datatable';
@@ -12,7 +12,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
   templateUrl: './surveys.component.html',
   styleUrls: ['./surveys.component.scss']
 })
-export class SurveysComponent implements OnInit {
+export class SurveysComponent implements OnInit, OnChanges {
 
   surveyDialogRef: NbDialogRef<any>;
   deleteDialogRef: NbDialogRef<any>;
@@ -29,9 +29,6 @@ export class SurveysComponent implements OnInit {
   surveyList: any;
   surveysIndex: any;
 
-
-
-
   constructor(
     private dialogService: NbDialogService,
     private fb: FormBuilder,
@@ -44,14 +41,11 @@ export class SurveysComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
     this.getProtocolList();
-
-    // this.surveyName = [{ id: 1, surveyName: 'covid-19', Schedule: '' },
-    // { id: 2, surveyName: 'fever', Schedule: '' },
-    // { id: 3, surveyName: 'cold', Schedule: '' },
-    // { id: 4, surveyName: 'cough', Schedule: '' }];
-    // this.surveys = this.surveyName;
   }
 
+  ngOnChanges() {
+    this.getDevicePatch();
+  }
   createForm() {
     this.surveyForm = this.fb.group({
       surveyName: ['', Validators.required],
@@ -84,16 +78,17 @@ export class SurveysComponent implements OnInit {
       description: this.surveyForm.value.Schedule
     };
     // this.surveys.push(payload);
-    this.surveys = [...this.surveys, ...[payload]];
+    this.surveyList = [...this.surveyList, ...[payload]];
     this.surveyDialogRef.close();
     this.surveyForm.reset();
-    this.surveyData.emit(this.surveys);
+    this.surveyData.emit(this.surveyList);
   }
 
   delete() {
     // tslint:disable-next-line:triple-equals
-    const index = this.surveys.findIndex(k => this.surveysIndex.id == k.id);
-    const item = this.surveys.splice(index, 1);
+    const index = this.surveyList.findIndex(k => this.surveysIndex.id == k.id);
+    const item = this.surveyList.splice(index, 1);
+    this.surveyData.emit(this.surveyList);
     this.toastrService.success('Survey Name deleted successfully', 'Success');
     this.deleteDialogRef.close();
 
@@ -116,8 +111,7 @@ export class SurveysComponent implements OnInit {
 
   getDevicePatch() {
     try {
-      this.surveyList = this.dataSurvey;
-      console.log('this.surveyList', this.surveyList);
+      this.surveyList = JSON.parse(this.dataSurvey);
     } catch (error) {
       this.surveyList = this.surveyList || [];
     }

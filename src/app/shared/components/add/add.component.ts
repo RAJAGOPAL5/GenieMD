@@ -123,12 +123,12 @@ export class AddComponent implements OnInit {
         } catch (error) {
           this.profileExtraData = this.profileData.extraData || {};
         }
-
         try {
           variousDisease = JSON.parse(this.profileExtraData.diseaseState);
         } catch (e) {
           variousDisease = this.profileExtraData.diseaseState || [];
         }
+        this.surveys = this.profileExtraData.surveys;
         this.imageURL = this.profileData.imageURL || this.profileData.imageUrl || this.defaultImageURL;
         this.profileForm.patchValue({
           firstName: this.profileData.firstName,
