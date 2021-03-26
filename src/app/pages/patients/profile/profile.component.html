@@ -1,4 +1,4 @@
-<nb-card [nbSpinner]="isLoading" nbSpinnerMessage="Please wait. We are fetching the profile details" class="mb-1">
+<nb-card [nbSpinner]="isLoading" nbSpinnerMessage="Please wait. We are fetching the details" class="mb-1">
     <nb-card-body *ngIf="showPatient">
         <img src="assets/svg/404.svg" class="w-100">
         <h1 class="text-center text-muted">Patient not found</h1>
@@ -97,7 +97,7 @@
             <div class="col-md-2">
                 <span>
                     <countup-timer class="float-start mt-1 text-truncate" [countUpTimerConfig]="testConfig"></countup-timer>
-                    <button class="float-end" *ngIf="showStart" nbButton status="success" class="m-1" size="tiny" (click)="startTime()">Restart</button>
+                    <button class="float-end" *ngIf="showStart" nbButton status="success" class="m-1" size="tiny" (click)="startTime(testConfig)">Resume</button>
                     <button class="float-end" *ngIf="showStop" nbButton status="danger" class="m-1" size="tiny" (click)="pauseTime()">Pause</button>
                 </span>
                 <!-- </div> -->

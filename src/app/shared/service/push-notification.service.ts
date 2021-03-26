@@ -16,8 +16,9 @@ export class PushNotificationService {
     this.angularFireMessaging.messages.subscribe(
       // tslint:disable-next-line:variable-name
       (_messaging: AngularFireMessaging) => {
-        _messaging.onMessage = _messaging.onMessage.bind(_messaging);
-        _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
+        this.currentMessage.next(_messaging);
+        // _messaging.onMessage = _messaging.onMessage.bind(_messaging);
+        // _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
       }
     );
   }
@@ -26,7 +27,6 @@ export class PushNotificationService {
       (token) => {
         console.log(token);
         localStorage.setItem('token', token);
-
       },
       (err) => {
         console.error('Unable to get permission to notify.', err);

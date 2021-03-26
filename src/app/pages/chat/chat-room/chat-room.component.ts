@@ -26,8 +26,7 @@ export class ChatRoomComponent implements OnInit, OnChanges {
     private clinicService: ClinicService, private pushNotification: PushNotificationService) {
     this.pushNotification.updatedMessage.subscribe(res => {
       if (!!res) {
-        console.log('received');
-        this.getConversationsHistory();
+        this.getConversationsHistory(1);
       }
     });
   }
@@ -52,26 +51,13 @@ export class ChatRoomComponent implements OnInit, OnChanges {
     });
   }
 
-  sendMessage(event) {
-    console.log('sendMessage', event);
-    const files = !event.files ? [] : event.files.map((file) => {
-      return {
-        url: file.src,
-        type: file.type,
-        icon: 'file-text-outline',
-      };
-    });
-    console.log('files', files);
-    this.messages.push({
-      message: event.message,
-      messageTime: new Date().getTime(),
-      reply: true,
-      files,
-      type: files.length ? 'file' : 'text',
-      screenName: this.profile.screenName
-    });
-    // return;
-
+  send(event) {
+    if (!!event.files && event.files.length > 0) {
+      this.sendFiles(event);
+    } else {
+      this.sendMessage(event);
+    }
+    return;
     const messages = [];
     this.recieverInfo.users.map((item) => {
       const data = {
@@ -95,9 +81,74 @@ export class ChatRoomComponent implements OnInit, OnChanges {
       console.log('error', error);
     });
   }
+  sendFiles(event) {
+    console.log('sendMessage', event);
+    const files = !event.files ? [] : event.files.map((file) => {
+      this.chatService.uploadFile(file, this.profileService.id).subscribe((data: any) => {
+        console.log('datadata', data);
+        const uploadedImages = {
+          photoUrl: data.url,
+          photoThumbnailUrl: data.url,
+          // type: value[0].type.includes('image') ? 'image' : 'document',
+          name: data.name ? data.name : ''
+        };
+        this.sendMessage(event, uploadedImages);
+        const fileData = {
+          url: data.url,
+          type: 'file',
+          icon: 'file-text-outline',
+        };
+        this.messages.push({
+          message: '',
+          messageTime: new Date().getTime(),
+          reply: true,
+          files: [fileData],
+          type: files.length ? 'file' : 'text',
+          screenName: this.profile.screenName
+        });
+      });
 
-  getConversationsHistory() {
-    this.isLoading = true;
+    });
+    console.log('files', files);
+
+  }
+  sendMessage(event, urls?) {
+    if (!!event.message) {
+      this.messages.push({
+        message: event.message,
+        messageTime: new Date().getTime(),
+        reply: true,
+        type: 'text',
+        screenName: this.profile.screenName
+      });
+    }
+    const messages = [];
+    this.recieverInfo.users.map((item) => {
+      const data = {
+        encryptionKey: '',
+        message: event.message,
+        url: !!urls ? JSON.stringify(urls) : '',
+        userID: item.userID
+      };
+      messages.push(data);
+    });
+    const payload = {
+      userID: this.profileService.id,
+      appID: this.clinicService.clinic.oemID ? this.clinicService.clinic.oemID : 200,
+      conversationID: this.conversationId,
+      displayDuration: 2000,
+      messages
+    };
+    this.chatService.sendMessage(payload).subscribe(response => {
+      // this.getConversationsHistory();
+    }, error => {
+      console.log('error', error);
+    });
+
+  }
+
+  getConversationsHistory(notified?) {
+    this.isLoading = !!notified ? false : true;
     const payload = {
       userID: this.profileService.id,
       conversationID: this.conversationId,
@@ -118,6 +169,22 @@ export class ChatRoomComponent implements OnInit, OnChanges {
         } else {
           item.reply = false;
         }
+        if (!!item.url) {
+          let url;
+          try {
+            url = JSON.parse(item.url);
+          } catch (error) {
+            url = '';
+          }
+          const fileData = {
+            url: url?.photoUrl,
+            type: 'image/png',
+          };
+          console.log('fileData', fileData);
+          item.files = [fileData];
+        } else {
+          item.files = [];
+        }
         return item;
       });
       this.messages = messages.reverse();
@@ -131,5 +198,8 @@ export class ChatRoomComponent implements OnInit, OnChanges {
   }
   getReceiverInfo(data) {
     console.log('data', data);
+  }
+  getType(type) {
+    console.log('type', type);
   }
 }

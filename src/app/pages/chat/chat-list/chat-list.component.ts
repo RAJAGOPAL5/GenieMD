@@ -28,8 +28,7 @@ export class ChatListComponent implements OnInit {
     private toastrService: NbToastrService, private pushNotification: PushNotificationService) {
     this.pushNotification.updatedMessage.subscribe(res => {
       if (!!res) {
-        console.log('received');
-        this.getList();
+        this.getList(1);
       }
     });
   }
@@ -48,8 +47,8 @@ export class ChatListComponent implements OnInit {
     };
     // this.router.navigate([`${this.clinicService.id}/${this.profileService.id}/chat/${data.conversationID}`]);
   }
-  getList() {
-    this.isLoading = true;
+  getList(notify?) {
+    this.isLoading = !!notify ? false : true;
     this.chatService.getChatList(this.profileService.id).subscribe((data: any) => {
       this.conversations = data.conversationList;
       this.conversations.map((item: any) => {
