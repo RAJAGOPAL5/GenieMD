@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { ClinicService } from '../../service/clinic.service';
+import { DataService } from '../../service/data.service';
 import { NotificationService } from '../../service/notification.service';
 import { ProfileService } from '../../service/profile.service';
 
@@ -12,11 +13,14 @@ import { ProfileService } from '../../service/profile.service';
 export class SendAssessmentComponent implements OnInit {
   surveyDialogRef: NbDialogRef<any>;
   isLoading = false;
-  users = [];
+  protocolList = [];
   patientID: any;
   notify: any;
   data: any;
   clinicConfig: any;
+  assessmentData: any;
+  protocolArrays: any;
+  searchText: any;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -24,7 +28,12 @@ export class SendAssessmentComponent implements OnInit {
     private clinicService: ClinicService,
     private toastrService: NbToastrService,
     private notificationService: NotificationService,
-  ) { }
+    private dataService: DataService,
+  ) {
+    this.dataService.data.subscribe(data => {
+      this.assessmentData = data;
+    });
+  }
 
   ngOnInit(): void {
     this.patientID = this.profileService.patientProfile.userName;
@@ -91,13 +100,66 @@ export class SendAssessmentComponent implements OnInit {
     };
     this.profileService.getProtocol(payload).subscribe((data: any) => {
       console.log('data', data);
-      this.users = data.list;
+      this.protocolList = data.list;
       this.isLoading = false;
-      // this.protocolArrays = data.protocols ? data.protocols : data.list;
-      // this.filterProtocolList(this.searchText);
+      this.protocolArrays = data.protocols ? data.protocols : data.list;
+      this.filterProtocolList(this.searchText);
     }, error => {
       this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : 'Unable to get protocol list');
     });
+  }
+
+  filterProtocolList(searchText) {
+    const keyword = new RegExp(searchText, 'gi');
+    let filtered = this.protocolArrays.sort((a, b) => {
+      if (a.name < b.name) { return -1; }
+      if (a.name > b.name) { return 1; }
+      return 0;
+    });
+    filtered = filtered.filter(item => {
+      return item.name.match(keyword) || item.description.match(keyword);
+    });
+
+    filtered = filtered.filter(item => {
+      return !item.name.startsWith('$');
+    });
+
+    filtered = filtered.filter(item => {
+      return !item.name.startsWith('*');
+    });
+
+    filtered = filtered.filter(item => {
+      return item.online;
+    });
+
+    filtered = filtered.filter(item => {
+      return item.status === 'approved' || item.status === '';
+    });
+
+    filtered = filtered.filter(item => {
+      return item.patient;
+    });
+
+    let featureProtocolIds = [];
+    if (this.clinicConfig.featureProtocolIds) {
+      featureProtocolIds = this.clinicConfig.featureProtocolIds.split(',');
+    }
+    if (featureProtocolIds.length > 0) {
+      const first = [];
+      featureProtocolIds.map(item => {
+        filtered.map(data => {
+          // tslint:disable-next-line:triple-equals
+          if (data.name == item) {
+            first.push(data);
+          }
+        });
+      });
+      filtered = first.concat(filtered);
+      const uniqueItems = Array.from(new Set(filtered));
+      this.protocolList = uniqueItems;
+    } else {
+      this.protocolList = filtered;
+    }
   }
 
 }
