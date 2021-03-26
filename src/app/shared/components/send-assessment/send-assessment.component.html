@@ -1,4 +1,4 @@
-    <nb-card class="patient-list mb-0 card-width" [nbSpinner]="isLoading" nbSpinnerMessage="Please wait. We are fetching the list">
+    <nb-card class="patient-list mb-0 card-width" [nbSpinner]="isLoading">
         <nb-card-header>
                 <h6 class="float-start">{{'kAssessment' | translate}}</h6>
         </nb-card-header>
@@ -6,10 +6,11 @@
                 <div class="nb-form-field-addon nb-form-field-prefix-medium nb-form-field-addon-success">
                     <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
                 </div>
-                    <input type="search" id='searchText' class="w-100" name="searchText" fieldSize="medium" class="px-5" fullWidth status="success" nbInput [(ngModel)]="searchText">
+                    <input type="search" nbInput id='searchText' class="w-100" name="searchText" fieldSize="medium" class="px-5" fullWidth status="success" 
+                    (keyup)="filterProtocolList(searchText)" [(ngModel)]="searchText">             
         </nb-list-item>
             <nb-list class="own-scroll">
-                <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of users" (click)="send(user)">
+                <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of protocolList" (click)="send(user)">
                     <p>{{user.name}}</p>
                 </nb-list-item>
             </nb-list>
