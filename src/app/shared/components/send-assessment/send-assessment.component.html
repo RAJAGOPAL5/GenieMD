@@ -1,4 +1,4 @@
-    <nb-card class="card-width">
+    <nb-card class="card-width" [nbSpinner]="isLoading" nbSpinnerMessage="Please wait. We are fetching the list">
         <nb-card-header>
                 <h6 class="float-start">{{'kAssessment' | translate}}</h6>
         </nb-card-header>
@@ -10,9 +10,8 @@
                     <input type="search" id='searchText' class="w-100" name="searchText" fullWidth status="success" nbInput [(ngModel)]="searchText" #SearchInput>
             </nb-list-item>          
             <nb-list>
-                <nb-list-item *ngFor="let user of users" (click)="getUser(user)">
-                    <nb-user [name]="user.name" [title]="user.title">
-                    </nb-user>
+                <nb-list-item *ngFor="let user of users" (click)="send(user)">
+                    <p>{{user.name}}</p>
                 </nb-list-item>
             </nb-list>
         </nb-card-body>
