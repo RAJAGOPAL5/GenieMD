@@ -1,0 +1,32 @@
+    <nb-card class="patient-list mb-0 card-width" [nbSpinner]="isLoading">
+        <nb-card-header>
+                <h6 class="float-start">{{'kAssessment' | translate}}</h6>
+        </nb-card-header>
+        <nb-list-item>
+                <div class="nb-form-field-addon nb-form-field-prefix-medium nb-form-field-addon-success">
+                    <nb-icon nbPrefix icon="search-outline" pack="eva"></nb-icon>
+                </div>
+                    <input type="search" nbInput id='searchText' class="w-100" name="searchText" fieldSize="medium" class="px-5" fullWidth status="success" 
+                    (keyup)="filterProtocolList(searchText)" [(ngModel)]="searchText">             
+        </nb-list-item>
+        <div class="text-center" *ngIf="protocolList.length==0">
+            <span>{{'kNoRecordsFound' | translate }}</span>
+          </div>
+            <nb-list class="own-scroll">
+                <nb-list-item class="cursor-pointer d-flex justify-content-between" *ngFor="let user of protocolList" (click)="send(user)">
+                    <p>{{user.name}}</p>
+                </nb-list-item>
+            </nb-list>
+        <nb-card-footer>
+            <div class="row justify-content-end">
+                <div class="col-2 pe-2">
+                    <button nbButton status="danger" class="w-100" size="medium"(click)="close()">{{'kCancel' | translate}}</button>
+                </div>
+                <!-- <div class="col-2 ps-2">
+                    <button nbButton status="success" class="w-100" size="medium" [disabled]="!selected"
+                    >{{'kSave' | translate}}</button>
+                </div> -->
+            </div>
+        </nb-card-footer>
+    </nb-card>
+
