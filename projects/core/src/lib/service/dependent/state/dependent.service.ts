@@ -32,10 +32,10 @@ export class DependentService {
       this.dependentStore.setLoading(true);
       await this.http.post(`DependentResources/CreateDependent`, payload)
         .pipe(
-          tap((dependentInfo: any) => {
-            console.log('dependent Info::', dependentInfo);
+          tap((dependentInfoContent: any) => {
+            console.log('dependent Info::', dependentInfoContent);
             this.dependentStore.update({
-              dependentInfo,
+              dependentInfo: dependentInfoContent,
             });
           })
         ).toPromise();

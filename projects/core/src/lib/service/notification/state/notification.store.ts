@@ -17,7 +17,7 @@ export interface NotificationState {
   notifyInfo?: any;
 }
 
-export function createInitialState(): NotificationState {
+export function createNotificationState(): NotificationState {
   return {
     clinicID: '',
     command: '',
@@ -39,7 +39,7 @@ export function createInitialState(): NotificationState {
 export class NotificationStore extends Store<NotificationState> {
 
   constructor() {
-    super(createInitialState());
+    super(createNotificationState());
   }
 
 }

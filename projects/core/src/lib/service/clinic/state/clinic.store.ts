@@ -14,7 +14,7 @@ export interface ClinicState {
   clinic?: any;
 }
 
-export function createInitialState(): ClinicState {
+export function createClinicState(): ClinicState {
   return {
     // key: '',
     // member: false,
@@ -31,7 +31,7 @@ export function createInitialState(): ClinicState {
 export class ClinicStore extends Store<ClinicState> {
 
   constructor(private http: HttpClient, private router: Router) {
-    super(createInitialState());
+    super(createClinicState());
   }
 
 }

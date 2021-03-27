@@ -15,7 +15,7 @@ export interface PatientState {
   patientInfo?: any;
 }
 
-export function createInitialState(): PatientState {
+export function createPatientState(): PatientState {
   return {
   email: '',
   firstName: '',
@@ -34,7 +34,7 @@ export function createInitialState(): PatientState {
 export class PatientStore extends Store<PatientState> {
 
   constructor() {
-    super(createInitialState());
+    super(createPatientState());
   }
 
 }

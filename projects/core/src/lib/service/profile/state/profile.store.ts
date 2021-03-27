@@ -6,7 +6,7 @@ export interface ProfileState {
   extraData?: any;
 }
 
-export function createInitialState(): ProfileState {
+export function createProfileState(): ProfileState {
   return {
 
   };
@@ -17,7 +17,7 @@ export function createInitialState(): ProfileState {
 export class ProfileStore extends Store<ProfileState> {
 
   constructor() {
-    super(createInitialState());
+    super(createProfileState());
   }
 
 }

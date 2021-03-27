@@ -6,7 +6,7 @@ export interface DependentState {
   dependentInfo?: any;
 }
 
-export function createInitialState(): DependentState {
+export function createDependentState(): DependentState {
   return {};
 }
 @Injectable({ providedIn: 'root' })
@@ -14,7 +14,7 @@ export function createInitialState(): DependentState {
 export class DependentStore extends Store<DependentState> {
 
   constructor() {
-    super(createInitialState());
+    super(createDependentState());
   }
 
 }

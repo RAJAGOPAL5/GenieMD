@@ -8,7 +8,7 @@ export interface VitalsState {
   vitalType: any;
 }
 
-export function createInitialState(): VitalsState {
+export function createVitalState(): VitalsState {
   return {
     userID: '',
     fromDate: '',
@@ -22,7 +22,7 @@ export function createInitialState(): VitalsState {
 export class VitalsStore extends Store<VitalsState> {
 
   constructor() {
-    super(createInitialState());
+    super(createVitalState());
   }
 
 }
