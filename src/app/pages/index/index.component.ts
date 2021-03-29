@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NbDialogService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,6 +6,7 @@ import { throwIfEmpty } from 'rxjs/operators';
 import { LogoutConfimartionComponent } from 'src/app/shared/components/logout-confimartion/logout-confimartion.component';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
+import { NotificationService } from 'src/app/shared/service/notification.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { getUserPreferedTheme } from 'src/app/shared/utility';
 import { environment } from 'src/environments/environment';
@@ -15,7 +16,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss']
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent implements OnInit, OnDestroy {
   version: string = environment.version;
   menus: NbMenuItem[] = [];
   logo: string;
@@ -23,6 +24,10 @@ export class IndexComponent implements OnInit {
   profile: any;
   theme: string = getUserPreferedTheme();
   flag: any = true;
+  timmerLoad: any;
+  count = 0;
+  newNotifications: any;
+  notificationAlert = false;
   constructor(
     private sidebarService: NbSidebarService,
     private clinicService: ClinicService,
@@ -33,7 +38,8 @@ export class IndexComponent implements OnInit {
     private languageService: LanguageService,
     private translate: TranslateService,
     private zone: NgZone,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {
     translate.use('en');
     translate.setTranslation('en', this.languageService.state);
@@ -45,6 +51,7 @@ export class IndexComponent implements OnInit {
     this.profile = this.profileService.profile;
     this.registerEvents();
     this.prepareMenus();
+    this.everyMinuteNotification();
   }
 
   listernUserPreferedColorChange() {
@@ -114,8 +121,8 @@ export class IndexComponent implements OnInit {
       this.sidebarService.compact();
       this.flag = !this.flag;
     }
-
   }
+
   toggleTheme(theme: string) {
     if (theme === 'default') {
       this.theme = 'dark';
@@ -124,6 +131,31 @@ export class IndexComponent implements OnInit {
     }
     localStorage.setItem('theme', this.theme);
     this.themeService.changeTheme(this.theme);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.timmerLoad);
+  }
+
+  everyMinuteNotification() {
+    this.timmerLoad = setInterval(() => {
+      const payload = {
+        userID: this.profileService.id,
+      };
+      this.notificationService.everyOneMinuteNotification(payload).subscribe((result: any) => {
+        this.newNotifications = result;
+        // tslint:disable-next-line:triple-equals
+        if (result.newNotification == true && this.count == 0) {
+          this.notificationAlert = true;
+          const audioPlay = new Audio('assets/push_notification.mp3');
+          audioPlay.play();
+          this.count += 1;
+          // tslint:disable-next-line:triple-equals
+        } else if (result.newNotification == false) {
+          this.count = 0;
+        }
+      });
+    }, 60 * 1000);
   }
 
 }

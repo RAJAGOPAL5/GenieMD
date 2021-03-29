@@ -1,1 +1,69 @@
-<p>list works!</p>
+<div class="container" [nbSpinner]="isLoading" nbSpinnerMessage="Please wait..">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <nb-card>
+                <nb-card-header>
+                    <h5>Notifications</h5>
+                </nb-card-header>
+                <div class="form-group" *ngIf="messageList.length !== 0">
+                    <nb-list class="own-scroll">
+                        <nb-list-item class="cursor-pointer d-flex justify-content-between"
+                            *ngFor="let message of messageList">
+                            <div class="col-md-2 col-3 col-lg-2 col-sm-2 cursor-pointer">
+                                <ngx-avatar src="{{message.senderImage}}" size="80" [round]="true">
+                                </ngx-avatar>
+                            </div>
+                            <div class="col-md-9 col-7 col-lg-9 col-sm-8 text-align cursor-pointer">
+                                <h6> {{message.subject}}</h6>
+                                <p class="font-size mb-1">{{message.message}}</p>
+                                <p *ngIf="message?.showRespond" class="font-size mb-1">{{'kTapToRespond' | translate}}
+                                </p>
+                                <small *ngIf='dateWithHours'> {{message.messageTime}}</small>
+                                <small *ngIf='!dateWithHours'> {{message.messageTime}}</small>
+                            </div>
+                            <div class="col-md-1 col-2 col-lg-1 col-sm-2 inline pointer">
+                                <nb-icon icon="trash" nbTooltip="Delete" class="icon-font"
+                                    (click)="deleteMessage(deleteContent)" nbTooltipStatus="control" status="danger"
+                                    pack="font-awesome" nbTooltipStatus="black"></nb-icon>
+                                <nb-icon style="font-size: 1.25em;" *ngIf="message?.showReview"
+                                    icon="chevron-right-outline" (click)="openReview(message)"></nb-icon>
+
+                                <!-- <a (click)="soapNoteView(message)" *ngIf="message?.soapNote">
+                                    <span style="color:purple">
+                                        <i style="font-size: 1.25em;" class="fa fa-file-pdf-o"></i>
+                                    </span>
+                                </a>
+                                <a (click)="openPrecription(message)" *ngIf="message?.showPrescription">
+                                    <span style="color:purple">
+                                        <i style="font-size: 1.25em;" class="fa fa-hospital-o"></i>
+                                    </span>
+                                </a>
+                                <a (click)="openDependent(dependentContent)" *ngIf="message?.showDependent">
+                                    <span style="color:purple">
+                                        <i style="font-size: 1.25em;" class="fa fa-users"></i>
+                                    </span>
+                                </a> -->
+                            </div>
+                            <ng-template #deleteContent>
+                                <nb-card class="dialog-card">
+                                    <nb-card-header>
+                                        <p class="subtitle">Are you sure want to delete this notification?</p>
+                                    </nb-card-header>
+                                    <nb-card-body>
+                                        <div class="float-end">
+                                            <button nbButton status="success" size="small" (click)="delete(message.id)">Yes</button>
+                                            <button nbButton status="danger" class="ms-2" size="small" (click)="close()">No</button>
+                                        </div>
+                                    </nb-card-body>
+                                </nb-card>
+                            </ng-template>
+                        </nb-list-item>
+                    </nb-list>
+                </div>
+                <div *ngIf="messageList.length == 0">
+                    <p class="text-center">No Notifications Available</p>
+                </div>
+            </nb-card>
+        </div>
+    </div>
+</div>

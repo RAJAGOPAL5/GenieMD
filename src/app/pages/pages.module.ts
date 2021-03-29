@@ -4,7 +4,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { IndexComponent } from './index/index.component';
 import { SharedModule } from '../shared/shared.module';
 import { NbIconModule, NbMenuModule, NbRouteTabsetModule, NbSidebarModule, NbUserModule, NbSelectModule,
-   NbButtonModule, NbThemeModule, NbTooltipModule, NbButtonGroupModule, NbLayoutModule } from '@nebular/theme';
+   NbButtonModule, NbThemeModule, NbTooltipModule, NbButtonGroupModule, NbLayoutModule, NbBadgeModule } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [IndexComponent],
@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
     NbButtonModule,
     NbThemeModule,
     NbTooltipModule,
+    NbBadgeModule
   ]
 })
 export class PagesModule { }
