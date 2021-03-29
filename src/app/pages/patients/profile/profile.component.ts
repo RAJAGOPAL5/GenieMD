@@ -16,6 +16,8 @@ import { PlatformLocation } from '@angular/common';
 import { SendAssessmentComponent } from 'src/app/shared/components/send-assessment/send-assessment.component';
 import { TimerService } from 'src/app/shared/service/timer.service';
 import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NotificationService } from 'src/app/shared/service/notification.service';
 
 
 interface ViewModal {
@@ -74,6 +76,7 @@ export class ProfileComponent implements OnInit {
   degrees: any;
   type = 'video';
   timer$: Observable<string>;
+  messageDialog: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -91,7 +94,8 @@ export class ProfileComponent implements OnInit {
     private meetService: MeetService,
     private platformLocation: PlatformLocation,
     private dialogService: NbDialogService,
-    private timerService: TimerService
+    private timerService: TimerService,
+    private notificationService: NotificationService
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
     translate.use('en');
@@ -594,5 +598,67 @@ export class ProfileComponent implements OnInit {
     this.timerService.pause();
     this.showStart = true;
     this.showStop = false;
+  }
+
+  messagePatient(messagedialog) {
+    this.messageDialog = this.dialogService.open(messagedialog, { closeOnBackdropClick: false });
+  }
+
+  cancelMessage() {
+    this.messageDialog.close();
+  }
+
+  sendMessage() {
+    this.isLoading = true;
+    const data = {
+      providername: `${this.profileService.profile.screenName}`,
+      userID: this.profileService.id,
+      providerID: this.profileService.profile.userName,
+      message: this.message,
+      encounterID: '',
+      patientName: this.profileService.patientProfile.firstName + ' ' + this.profileService.patientProfile.lastName,
+      patientImage: this.profileService.patientProfile.imageURL ? this.profileService.patientProfile.imageURL : '',
+      // tslint:disable-next-line: max-line-length
+      patientUserName: this.profileService.patientProfile.userName ? this.profileService.patientProfile.userName : this.profileService.patientProfile.patientID,
+    };
+    this.profileService.addToken({ data: JSON.stringify(data) }).subscribe((response: any) => {
+      const url = `${this.location.origin}/generic/#/${this.clinicService.id}/message?token=${response.token}`;
+      const cmd = {
+        allowResponse: 1,
+        callerID: this.profileService.profile.userName,
+        cmd: 16
+      };
+      const notifyPayload = {
+        userID: this.profileService.id,
+        clinicID: this.clinicService.id,
+        users: [this.patientID],
+        payload: {
+          email: {
+            subject: `${this.profileService.profile.screenName}, ${this.degrees}`,
+            // tslint:disable-next-line: max-line-length
+            body: `${this.message}<Br /><Br />Please do not reply to this Email. To respond back click the link below. <Br/> <a  href='${url}'>${url}</a>`
+          },
+          smsMessages: [
+            `${this.profileService.profile.screenName}, ${this.degrees} \n\n${this.message}`,
+            `To respond back click the link below.\n${url}`],
+          pushNotification: {
+            title: `${this.profileService.profile.screenName}, ${this.degrees}`,
+            message: this.message,
+            command: JSON.stringify(cmd),
+            messageType: 25,
+            url: this.profileService.profile.imageURL,
+            record: true
+          }
+        }
+      };
+      this.notificationService.notifyOptions(notifyPayload).subscribe(res => {
+        this.isLoading = false;
+        this.toastrService.success('Message sent successfully', 'Success');
+        this.messageDialog.close();
+      });
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger('Failed to add data', 'Error');
+    });
   }
 }

@@ -1,4 +1,4 @@
-<nb-card [nbSpinner]="isLoading" nbSpinnerMessage="Please wait. We are fetching the details" class="mb-1">
+<nb-card [nbSpinner]="isLoading" nbSpinnerMessage="Please wait.." class="mb-1">
     <nb-card-body *ngIf="showPatient">
         <img src="assets/svg/404.svg" class="w-100">
         <h1 class="text-center text-muted">Patient not found</h1>
@@ -87,6 +87,10 @@
                     class="mb-2 w-100 justify-content-start" size="small">
                     <nb-icon icon="phone-call-outline"></nb-icon>{{'kCall' | translate}}
                 </button>
+                <button nbButton (click)="messagePatient(messagedialog)" class="mb-2 w-100 justify-content-start"
+                    size="small" style="background-color:#7b51db; color: white; border-color:transparent">
+                    <nb-icon icon="message-square-outline"></nb-icon>Message
+                </button>
                 <button nbButton (click)="surveydialog()" status="warning" class="mb-2 w-100 justify-content-start"
                     size="small">
                     <nb-icon icon="clock-outline"></nb-icon>{{'Survey' | translate}}
@@ -106,6 +110,34 @@
                 </div>
             </ng-template>
         </div>
+        <ng-template #messagedialog>
+            <nb-card class="dialog-card cardWidth">
+                <nb-card-header>
+                    <h6>Message</h6>
+                </nb-card-header>
+                <nb-card-body>
+                      <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mb-1">
+                                <textarea nbInput [(ngModel)]="message" fullWidth id="message" cols="40" rows="3" placeholder = "Write a message"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </nb-card-body>
+                <nb-card-footer>
+                    <div class="row justify-content-end">
+                        <div class="col-md-4 offset-md-4 pe-0">
+                            <button nbButton status="danger" size="medium" class="w-100" (click)="cancelMessage()">{{'kCancel' |
+                                translate}}</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button nbButton status="success" class="w-100" size="medium" (click)="sendMessage()" [disabled]="!message">{{'kSend' |
+                                translate}}</button>
+                        </div>
+                    </div>
+                </nb-card-footer>
+            </nb-card>
+        </ng-template>
         <!-- <div class="row">
             
         </div> -->

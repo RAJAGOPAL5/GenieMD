@@ -73,6 +73,10 @@ export class ProfileService {
     return this.http.get(`Devices/SmartDevices/List`, { headers: this.getHeaders() });
   }
 
+  addToken(payload) {
+    return  this.http.post(`system/TokenData/Add`, payload);
+  }
+
   getHeaders() {
     const userID = this.route.firstChild.firstChild.snapshot.params.userID;
     console.log('router', this.route);
