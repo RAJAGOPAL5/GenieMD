@@ -57,45 +57,22 @@ export class ChatRoomComponent implements OnInit, OnChanges {
     } else {
       this.sendMessage(event);
     }
-    return;
-    const messages = [];
-    this.recieverInfo.users.map((item) => {
-      const data = {
-        encryptionKey: '',
-        message: event.message,
-        url: '',
-        userID: item.userID
-      };
-      messages.push(data);
-    });
-    const payload = {
-      userID: this.profileService.id,
-      appID: this.clinicService.clinic.oemID ? this.clinicService.clinic.oemID : 200,
-      conversationID: this.conversationId,
-      displayDuration: 2000,
-      messages
-    };
-    this.chatService.sendMessage(payload).subscribe(response => {
-      // this.getConversationsHistory();
-    }, error => {
-      console.log('error', error);
-    });
   }
   sendFiles(event) {
     console.log('sendMessage', event);
     const files = !event.files ? [] : event.files.map((file) => {
+      this.isLoading = true;
       this.chatService.uploadFile(file, this.profileService.id).subscribe((data: any) => {
-        console.log('datadata', data);
         const uploadedImages = {
           photoUrl: data.url,
           photoThumbnailUrl: data.url,
-          // type: value[0].type.includes('image') ? 'image' : 'document',
+          type: file.type.includes('image') ? 1 : 6,
           name: data.name ? data.name : ''
         };
         this.sendMessage(event, uploadedImages);
         const fileData = {
           url: data.url,
-          type: 'file',
+          type: file.type,
           icon: 'file-text-outline',
         };
         this.messages.push({
@@ -106,11 +83,13 @@ export class ChatRoomComponent implements OnInit, OnChanges {
           type: files.length ? 'file' : 'text',
           screenName: this.profile.screenName
         });
+        this.isLoading = false;
+
+      }, error => {
+        this.isLoading = false;
       });
 
     });
-    console.log('files', files);
-
   }
   sendMessage(event, urls?) {
     if (!!event.message) {
@@ -178,9 +157,9 @@ export class ChatRoomComponent implements OnInit, OnChanges {
           }
           const fileData = {
             url: url?.photoUrl,
-            type: 'image/png',
+            type: this.getType(url?.type || 0),
+            icon: 'file-text-outline',
           };
-          console.log('fileData', fileData);
           item.files = [fileData];
         } else {
           item.files = [];
@@ -201,6 +180,13 @@ export class ChatRoomComponent implements OnInit, OnChanges {
     console.log('data', data);
   }
   getType(type) {
-    console.log('type', type);
+    let extension;
+    switch (type) {
+      case 1: extension = 'image/jpeg'; break;
+      case 6: extension = 'file'; break;
+      default: extension = 'file';
+    }
+    return extension;
+
   }
 }
