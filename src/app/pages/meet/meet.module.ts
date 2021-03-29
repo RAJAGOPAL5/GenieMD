@@ -1,3 +1,4 @@
+import { NbActionsModule, NbCardModule, NbIconModule, NbTooltipModule, NbButtonModule, NbButtonGroupModule } from '@nebular/theme';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -10,7 +11,13 @@ import { ActionsComponent } from './actions/actions.component';
   declarations: [IndexComponent, ActionsComponent],
   imports: [
     CommonModule,
-    MeetRoutingModule
+    MeetRoutingModule,
+    NbCardModule,
+    NbIconModule,
+    NbTooltipModule,
+    NbActionsModule,
+    NbButtonModule,
+    NbButtonGroupModule
   ]
 })
 export class MeetModule { }

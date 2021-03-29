@@ -7,6 +7,11 @@ const routes: Routes = [
     path: '',
     component: IndexComponent
 
+  },
+  {
+    path: 'meet',
+    component: IndexComponent,
+    data: { title: 'Meet'},
   }
 ];
 

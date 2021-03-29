@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NbIconLibraries } from '@nebular/theme';
 
 @Component({
   selector: 'app-actions',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActionsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private iconLibraries: NbIconLibraries) {
+    this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
+  }
 
   ngOnInit(): void {
   }
