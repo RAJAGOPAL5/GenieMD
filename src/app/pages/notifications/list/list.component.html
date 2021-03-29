@@ -16,7 +16,7 @@
                             <div class="col-md-9 col-7 col-lg-9 col-sm-8 text-align cursor-pointer">
                                 <h6> {{message.subject}}</h6>
                                 <p class="font-size mb-1">{{message.message}}</p>
-                                <p *ngIf="message?.showRespond" class="font-size mb-1">{{'kTapToRespond' | translate}}
+                                <p *ngIf="message?.showRespond" class="font-size mb-1">Tap to Respond
                                 </p>
                                 <small *ngIf='dateWithHours'> {{message.messageTime}}</small>
                                 <small *ngIf='!dateWithHours'> {{message.messageTime}}</small>
