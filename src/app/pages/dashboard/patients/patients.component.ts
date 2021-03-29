@@ -263,6 +263,7 @@ export class PatientsComponent implements OnInit {
         patientID: this.res.patientID,
         phoneNumber: this.res.phoneNumber,
         providerID: this.res.providerID,
+        profileEmail: this.res.email,
         registrationDate: this.res.registrationDate,
         state: this.res.state,
         usageCount: this.res.usageCount,
