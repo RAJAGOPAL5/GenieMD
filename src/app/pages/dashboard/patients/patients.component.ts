@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NbDialogService, NbToastrService } from '@nebular/theme';
+import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import { debounceTime } from 'rxjs/operators';
 import { FilterDialogComponent } from 'src/app/shared/components/filter-dialog/filter-dialog.component';
@@ -34,6 +34,8 @@ export class PatientsComponent implements OnInit {
   readonly rowHeight = 50;
   readonly pageLimit = 10;
   clinicVitals = [];
+  UnenrollDialogRef: NbDialogRef<any>;
+  UnenrollIndex: any;
 
   constructor(
     private clinicService: ClinicService,
@@ -196,4 +198,12 @@ export class PatientsComponent implements OnInit {
       }
     });
   }
+  openDialog(UnenrollDialog: TemplateRef<any>, data) {
+    this.UnenrollDialogRef = this.dialogService.open(UnenrollDialog, { closeOnBackdropClick: false });
+  }
+
+  close() {
+    this.UnenrollDialogRef.close();
+  }
+
 }
