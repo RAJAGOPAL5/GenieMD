@@ -39,6 +39,12 @@ const routes: Routes = [
     data: { title: 'Meet'},
     loadChildren: () => import('./meet/meet.module').then(m => m.MeetModule)
   },
+  {
+    path: 'notifications',
+    component: IndexComponent,
+    data: { title: 'Notifications'},
+    loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsModule)
+  },
 ];
 
 @NgModule({

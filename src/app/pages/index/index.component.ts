@@ -1,4 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NbDialogService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import { throwIfEmpty } from 'rxjs/operators';
@@ -31,7 +32,8 @@ export class IndexComponent implements OnInit {
     private profileService: ProfileService,
     private languageService: LanguageService,
     private translate: TranslateService,
-    private zone: NgZone
+    private zone: NgZone,
+    private router: Router
   ) {
     translate.use('en');
     translate.setTranslation('en', this.languageService.state);
@@ -53,6 +55,10 @@ export class IndexComponent implements OnInit {
         this.themeService.changeTheme(this.theme);
       });
     });
+  }
+
+  notifications() {
+    this.router.navigate([this.clinicService.id, this.profileService.id, 'notifications', 'list']);
   }
 
   prepareMenus() {
