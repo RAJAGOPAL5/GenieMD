@@ -205,5 +205,4 @@ export class PatientsComponent implements OnInit {
   close() {
     this.UnenrollDialogRef.close();
   }
-
 }

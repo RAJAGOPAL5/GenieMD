@@ -22,9 +22,9 @@ export class ChatListComponent implements OnInit {
   order = 'lastMessageTime';
   showChat = false;
   chatInfo: any;
-  chatInformation$: Subscription;
-  chatList$ = this.query.selectAll({asObject: true});
-  chatInfo: { conversationId: any; type: number; name: any; };
+  // chatInformation$: Subscription;
+  // chatList$ = this.query.selectAll({asObject: true});
+  // chatInfo: { conversationId: any; type: number; name: any; };
   constructor(
     private router: Router, private clinicService: ClinicService,
     private dialogService: NbDialogService,
