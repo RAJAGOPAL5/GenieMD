@@ -11,6 +11,7 @@ import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { AddComponent } from 'src/app/shared/components/add/add.component';
 import { ColumnMode } from '@swimlane/ngx-datatable';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-patients',
@@ -34,8 +35,13 @@ export class PatientsComponent implements OnInit {
   readonly rowHeight = 50;
   readonly pageLimit = 10;
   clinicVitals = [];
-  UnenrollDialogRef: NbDialogRef<any>;
-  UnenrollIndex: any;
+  unEnrollDialogRef: NbDialogRef<any>;
+  resData: any;
+  profilePictureEvent: any;
+  imageURL: any;
+  res: any;
+  extraData: any;
+  type: any;
 
   constructor(
     private clinicService: ClinicService,
@@ -198,11 +204,71 @@ export class PatientsComponent implements OnInit {
       }
     });
   }
-  openDialog(UnenrollDialog: TemplateRef<any>, data) {
-    this.UnenrollDialogRef = this.dialogService.open(UnenrollDialog, { closeOnBackdropClick: false });
+  openDialog(unEnrollDialog: TemplateRef<any>, data, type) {
+    this.unEnrollDialogRef = this.dialogService.open(unEnrollDialog, { closeOnBackdropClick: false });
+    this.resData = data;
+    this.type = type;
+    console.log('resData', this.resData);
   }
 
   close() {
-    this.UnenrollDialogRef.close();
+    this.unEnrollDialogRef.close();
+  }
+
+  unEnroll() {
+    this.isLoading = true;
+    const patientPayload = {
+      userID: this.profileService.id,
+      clinicID: this.clinicService.id,
+      patientID: this.resData.patientID
+    };
+    this.patientService.findById(patientPayload).subscribe((data: any) => {
+      this.res = data;
+      console.log('this.res', this.res);
+      try {
+        this.extraData = JSON.parse(this.res.extraData);
+      } catch (error) {
+        this.extraData = {};
+      }
+      let monitor;
+      if (this.type === 'unenroll') {
+        monitor = 0;
+      } else if (this.type === 'enroll') {
+        monitor = 1;
+      }
+      const payload = {
+        address: this.res.address,
+        city: this.res.city,
+        clinicID: this.res.clinicID,
+        clinicPatientID: this.res.patientID,
+        country: this.res.country,
+        dob: moment(this.res.dob).format('YYYY-MM-DD'),
+        email: this.res.email,
+        extraData: this.extraData,
+        firstName: this.res.firstName,
+        gender: this.res.gender,
+        imageUrl: this.res.imageUrl,
+        lastName: this.res.lastName,
+        lastUsed: this.res.lastUsed,
+        monitored: monitor,
+        morbidity: this.res.morbidity,
+        patientID: this.res.patientID,
+        phoneNumber: this.res.phoneNumber,
+        providerID: this.res.providerID,
+        registrationDate: this.res.registrationDate,
+        state: this.res.state,
+        usageCount: this.res.usageCount,
+        userID: this.res.userID,
+        zipcode: this.res.zipcode
+
+      };
+      this.profileService.update(payload).subscribe(() => {
+        this.unEnrollDialogRef.close();
+        this.getList();
+        this.isLoading = false;
+        // this.toastrService.success('Email Sent', 'Success');
+      });
+    });
+
   }
 }
