@@ -85,7 +85,7 @@ export class PatientsComponent implements OnInit {
     console.log('event', event);
   }
 
-  getList() {
+  getList(updated?) {
     this.isLoading = true;
     const payload = {
       userID: this.profileService.id,
@@ -107,7 +107,11 @@ export class PatientsComponent implements OnInit {
           item.careManager = 'James';
           return item;
         });
-        this.data = [...this.data, ...clinicPatientList];
+        if (updated) {
+          this.data = clinicPatientList;
+        } else {
+          this.data = [...this.data, ...clinicPatientList];
+        }
         this.isLoading = false;
       }, error => {
         this.isLoading = false;
@@ -205,10 +209,14 @@ export class PatientsComponent implements OnInit {
     });
   }
   openDialog(unEnrollDialog: TemplateRef<any>, data, type) {
-    this.unEnrollDialogRef = this.dialogService.open(unEnrollDialog, { closeOnBackdropClick: false });
     this.resData = data;
     this.type = type;
-    console.log('resData', this.resData);
+    this.unEnrollDialogRef = this.dialogService.open(unEnrollDialog, { closeOnBackdropClick: false });
+    this.unEnrollDialogRef.onClose.subscribe(res => {
+      if (!!res) {
+        this.getList(true);
+      }
+    });
   }
 
   close() {
@@ -263,10 +271,12 @@ export class PatientsComponent implements OnInit {
 
       };
       this.profileService.update(payload).subscribe(() => {
-        this.unEnrollDialogRef.close();
-        this.getList();
+        this.unEnrollDialogRef.close(true);
         this.isLoading = false;
-        // this.toastrService.success('Email Sent', 'Success');
+        this.toastrService.success('User updated successfully', 'Success');
+      }, error => {
+        this.toastrService.danger('User update failed', 'Error');
+        this.isLoading = false;
       });
     });
 
