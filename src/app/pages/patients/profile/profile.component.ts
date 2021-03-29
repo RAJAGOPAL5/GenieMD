@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
   patientName: any;
   morbidityValue: any = [];
   morbiditys: any[] = [];
-  isLoading: boolean;
+  isLoading = false;
   monitored: true;
   patientExtraData: any;
   profileData: any;
@@ -56,7 +56,6 @@ export class ProfileComponent implements OnInit {
   totalsec = 0;
   startStop = false;
   timerStatus = false;
-  testConfig: any;
   showStart = false;
   showStop = true;
   encounter: any;
@@ -73,6 +72,8 @@ export class ProfileComponent implements OnInit {
   extraData: any;
   degrees: any;
   type = 'video';
+  showTimer = false;
+  listEnabled = false;
   timer$: Observable<string>;
 
   constructor(
@@ -116,14 +117,6 @@ export class ProfileComponent implements OnInit {
       this.patientID = params.get('patientId');
       this.prepareTabs();
       this.getData();
-      this.testConfig = new countUpTimerConfigModel();
-      this.testConfig.timerClass = 'test_Timer_class';
-      this.testConfig.timerTexts = new timerTexts();
-      this.testConfig.timerTexts.hourText = ':';
-      this.testConfig.timerTexts.minuteText = ':';
-      this.testConfig.timerTexts.secondsText = 's';
-      this.startTime();
-
       this.getChatInfo();
     });
     try {
@@ -142,34 +135,11 @@ export class ProfileComponent implements OnInit {
     // tslint:disable-next-line: max-line-length
     this.showEmergency = this.clinicService.config.extendedSettings && this.clinicService.config.extendedSettings.emergencyContact && this.clinicService.config.extendedSettings.emergencyContact === 'true' ? true : false;
     const rpmTimer = this.clinicService.config.extendedSettings?.rpmTimer * 10 || 10000;
-    // setTimeout(() => { this.start(); }, rpmTimer);
-    this.startTimer();
+    setTimeout(() => {
+      this.showTimer = true;
+      this.startTimer();
+    }, rpmTimer);
   }
-
-  // start() {
-  //   this.countDown();
-  //   this.timerStatus = false;
-  // }
-  // stop(val) {
-  //   this.total = val;
-  //   this.startStop = true;
-  //   this.timerStatus = true;
-  //   clearInterval(this.intervalId);
-  //   this.seconds = 0;
-  //   this.totalsec = 0;
-  // }
-
-  // countDown() {
-  //   this.startStop = false;
-  //   this.intervalId = window.setInterval(() => {
-  //     this.seconds += 1;
-  //     this.seconds = this.seconds === 60 ? 0 : this.seconds;
-  //     this.message = this.seconds;
-  //     this.totalsec += 1;
-  //     const countminute = this.totalsec / 60;
-  //     this.minutes = Math.floor(countminute);
-  //   }, 1000);
-  // }
 
   getData() {
     this.morbiditys = morbidity;
@@ -294,42 +264,27 @@ export class ProfileComponent implements OnInit {
   trimContact(data) {
     return data && data.trim() !== '' ? data : ' ';
   }
-  startTime() {
-    const cdate = new Date();
-    cdate.setHours(cdate.getHours());
-    this.countupTimerService.startTimer(cdate);
-    this.showStart = false;
-    this.showStop = true;
-  }
-  pauseTime() {
-    this.countupTimerService.pauseTimer();
-    this.showStart = true;
-    this.showStop = false;
-
-  }
-  stopTime() {
-    this.countupTimerService.stopTimer();
-  }
 
   openWindow() {
     if (!!this.exisitingChat) {
-      console.log('this.exisitingChat', this.exisitingChat);
       this.open(this.exisitingChat.conversationID);
     } else {
       this.createChat();
     }
   }
   getChatList() {
+    this.isLoading = true;
     this.chatService.getChatList(this.profileService.id).subscribe((data: any) => {
       this.conversations = data.conversationList;
-      console.log('this.conversations', this.conversations);
+      this.listEnabled = true;
       this.getChatInfo();
     }, error => {
+      this.isLoading = false;
       throw error;
     });
   }
   getChatInfo() {
-    if (!!this.patientID && this.conversations.length) {
+    if (!!this.patientID && this.conversations.length && this.listEnabled) {
       this.exisitingChat = this.conversations.find(item => {
         const existingUser = item.users.find(k => {
           // tslint:disable-next-line:triple-equals
@@ -339,6 +294,7 @@ export class ProfileComponent implements OnInit {
         });
         return existingUser;
       });
+      this.isLoading = false;
     }
   }
   createChat() {
@@ -405,7 +361,6 @@ export class ProfileComponent implements OnInit {
     };
     this.isLoading = true;
     this.meetService.add(this.encounter).subscribe((res: any) => {
-      console.log('res', res);
       this.encounter.encounterID = res.encounterID;
       this.createMeeting();
     }, error => {

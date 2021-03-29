@@ -106,12 +106,8 @@
                 </div>
             </ng-template>
         </div>
-        <!-- <div class="row">
-            
-        </div> -->
         <div class="row">
-            <div class="col-md-2">
-                
+            <div class="col-md-2" *ngIf="showTimer">
                 <span>
                     {{timer$ | async}}
                     <button class="float-end" *ngIf="showStart" nbButton status="success" class="m-1" size="tiny"
@@ -119,11 +115,6 @@
                     <button class="float-end" *ngIf="showStop" nbButton status="danger" class="m-1" size="tiny"
                         (click)="pauseTimer()">Pause</button>
                 </span>
-                <!-- <span>
-                    <countup-timer class="float-start mt-1 text-truncate" [countUpTimerConfig]="testConfig"></countup-timer>
-                    <button class="float-end" *ngIf="showStart" nbButton status="success" class="m-1" size="tiny" (click)="startTime(testConfig)">Resume</button>
-                    <button class="float-end" *ngIf="showStop" nbButton status="danger" class="m-1" size="tiny" (click)="pauseTime()">Pause</button>
-                </span> -->
             </div>
             <div class="col-md-10">
                 <div class="d-flex" *ngIf="!!diseaseList?.length">
