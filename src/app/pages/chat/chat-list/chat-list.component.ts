@@ -7,6 +7,7 @@ import { ProfileService } from 'src/app/shared/service/profile.service';
 import * as moment from 'moment';
 import { NewChatComponent } from '../new-chat/new-chat.component';
 import { PushNotificationService } from 'src/app/shared/service/push-notification.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -21,6 +22,9 @@ export class ChatListComponent implements OnInit {
   order = 'lastMessageTime';
   showChat = false;
   chatInfo: any;
+  // chatInformation$: Subscription;
+  // chatList$ = this.query.selectAll({asObject: true});
+  // chatInfo: { conversationId: any; type: number; name: any; };
   constructor(
     private router: Router, private clinicService: ClinicService,
     private dialogService: NbDialogService,

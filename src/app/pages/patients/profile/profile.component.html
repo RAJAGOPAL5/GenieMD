@@ -7,8 +7,7 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="py-2">
-                    <nb-user class="pb-2 ps-2" size="giant" [name]="patientName" [picture]="patient?.imageUrl"
-                        onlyPicture='true'>
+                    <nb-user class="pb-2 ps-2" size="giant" [name]="patientName" [picture]="patient?.imageUrl" onlyPicture='true'>
                     </nb-user>
                     <div class="subtitle ps-2">{{patientName}}</div>
                     <div class="caption ps-2">{{patient?.dob}}</div>
@@ -41,8 +40,7 @@
             <div class="mt-3" [ngClass]="{'col-md-3': showEmergency, 'col-md-4': !showEmergency}">
                 <div>
                     <div class="d-flex pb-2">
-                        <nb-icon icon="map-marker-alt" nbTooltip="Address" nbTooltipPlacement="left"
-                            pack="font-awesome">
+                        <nb-icon icon="map-marker-alt" nbTooltip="Address" nbTooltipPlacement="left" pack="font-awesome">
                         </nb-icon>
                         <div class="ps-2">
                             <div>{{patient?.address}}, </div>
@@ -59,8 +57,7 @@
             <div class="col-md-2 mt-3" *ngIf="showEmergency">
                 <div>
                     <div class="d-flex pb-2">
-                        <nb-icon icon="address-book" nbTooltip="Emergency Contact" nbTooltipPlacement="left"
-                            pack="font-awesome">
+                        <nb-icon icon="address-book" nbTooltip="Emergency Contact" nbTooltipPlacement="left" pack="font-awesome">
                         </nb-icon>
                         <div class="ps-2">
                             <div *ngIf="patientExtraData?.emergencyContact">
@@ -79,12 +76,10 @@
                 <button nbButton ghost  size="small" status="info" class="mb-2">Devices</button> -->
             </div>
             <div class="mt-3" [ngClass]="{'col-md-2': showEmergency, 'col-md-3': !showEmergency}">
-                <button nbButton status="primary" class="mb-2 w-100 justify-content-start" size="small"
-                    (click)="openWindow()">
+                <button nbButton status="primary" class="mb-2 w-100 justify-content-start" size="small" (click)="openWindow()">
                     <nb-icon icon="message-circle-outline"></nb-icon>{{'kChat' | translate}}
                 </button>
-                <button nbButton [nbPopover]="templateRef" nbPopoverPlacement="right" status="success"
-                    class="mb-2 w-100 justify-content-start" size="small">
+                <button nbButton [nbPopover]="templateRef" nbPopoverPlacement="right" status="success" class="mb-2 w-100 justify-content-start" size="small">
                     <nb-icon icon="phone-call-outline"></nb-icon>{{'kCall' | translate}}
                 </button>
                 <button nbButton (click)="messagePatient(messagedialog)" class="mb-2 w-100 justify-content-start"
@@ -98,11 +93,11 @@
             </div>
             <ng-template #templateRef>
                 <div class="p-3">
-                    <button nbButton status="success" class="m-1" size="small" (click)="videoCall(); type='audio'">
-                        <nb-icon icon="headphones-outline"></nb-icon>{{'kAudio' | translate}}
-                    </button>
                     <button nbButton status="success" class="m-1" size="small" (click)="videoCall(); type='video'">
                         <nb-icon icon="video-outline"></nb-icon>{{'kVideo' | translate}}
+                    </button>
+                    <button nbButton status="success" class="m-1" size="small" (click)="videoCall(); type='audio'">
+                        <nb-icon icon="headphones-outline"></nb-icon>{{'kAudio' | translate}}
                     </button>
                     <button nbButton status="success" class="m-1" size="small" (click)="callBridge()">
                         <nb-icon icon="phone-call-outline"></nb-icon>{{'kCAllBridge' | translate}}
@@ -143,7 +138,7 @@
         </div> -->
         <div class="row">
             <div class="col-md-2">
-                
+
                 <span>
                     {{timer$ | async}}
                     <button class="float-end" *ngIf="showStart" nbButton status="success" class="m-1" size="tiny"
@@ -151,21 +146,14 @@
                     <button class="float-end" *ngIf="showStop" nbButton status="danger" class="m-1" size="tiny"
                         (click)="pauseTimer()">Pause</button>
                 </span>
-                <!-- <span>
-                    <countup-timer class="float-start mt-1 text-truncate" [countUpTimerConfig]="testConfig"></countup-timer>
-                    <button class="float-end" *ngIf="showStart" nbButton status="success" class="m-1" size="tiny" (click)="startTime(testConfig)">Resume</button>
-                    <button class="float-end" *ngIf="showStop" nbButton status="danger" class="m-1" size="tiny" (click)="pauseTime()">Pause</button>
-                </span> -->
             </div>
             <div class="col-md-10">
                 <div class="d-flex" *ngIf="!!diseaseList?.length">
-                    <nb-icon icon="notes-medical" nbTooltip="Disease State" nbTooltipPlacement="left"
-                        pack="font-awesome">
+                    <nb-icon icon="notes-medical" nbTooltip="Disease State" nbTooltipPlacement="left" pack="font-awesome">
                     </nb-icon>
                     <div class="ps-2">
                         <nb-tag-list>
-                            <nb-tag appearance="filled" *ngFor="let tree of diseaseList" size="tiny" [text]="tree"
-                                status="info"></nb-tag>
+                            <nb-tag appearance="filled" *ngFor="let tree of diseaseList" size="tiny" [text]="tree" status="info"></nb-tag>
                         </nb-tag-list>
                     </div>
                 </div>
