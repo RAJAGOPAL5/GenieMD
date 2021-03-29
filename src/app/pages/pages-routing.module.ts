@@ -33,6 +33,12 @@ const routes: Routes = [
     data: { title: 'todo'},
     loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule)
   },
+  {
+    path: 'meet',
+    component: IndexComponent,
+    data: { title: 'Meet'},
+    loadChildren: () => import('./meet/meet.module').then(m => m.MeetModule)
+  },
 ];
 
 @NgModule({
