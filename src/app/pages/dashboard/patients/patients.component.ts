@@ -232,7 +232,6 @@ export class PatientsComponent implements OnInit {
     };
     this.patientService.findById(patientPayload).subscribe((data: any) => {
       this.res = data;
-      console.log('this.res', this.res);
       try {
         this.extraData = JSON.parse(this.res.extraData);
       } catch (error) {
