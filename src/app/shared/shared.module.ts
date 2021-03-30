@@ -71,7 +71,8 @@ import { SurveysComponent } from './components/surveys/surveys.component';
     DevicesComponent,
     TimeSlotsComponent,
     AlertsListComponent,
-    ChatWindowComponent
+    ChatWindowComponent,
+    NbSpinnerModule
   ]
 })
 export class SharedModule { }

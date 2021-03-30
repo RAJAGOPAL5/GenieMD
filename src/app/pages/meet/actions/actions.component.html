@@ -1,5 +1,5 @@
 <div class="container-fluid d-flex align-item-start flex-column meet">
-<nb-card >
+<nb-card [nbSpinner]="isLoading">
     <nb-card-body>
         <nb-actions size="medium" class="justify-content-center">
             <nb-action (click)="this.showTable = !this.showTable">
@@ -12,7 +12,8 @@
                 </nb-icon>
             </nb-action>
             <nb-action icon="volume-off-outline"  nbTooltip="Mute" nbTooltipPlacement="top" ></nb-action>
-            <nb-action icon="video-outline" nbTooltip="Video" nbTooltipPlacement="top"  ></nb-action>
+            <nb-action icon="video-outline" nbTooltip="Video" nbTooltipPlacement="top"></nb-action>
+            <nb-action icon="message-circle-outline" nbTooltip="Chat" nbTooltipPlacement="top" (click)="openWindow()"></nb-action>
             <nb-action > 
                 <button nbButton status="success" class="w-100" size="small"><nb-icon icon="person-add-outline"></nb-icon>Invite</button>
             </nb-action>
