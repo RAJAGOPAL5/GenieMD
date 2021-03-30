@@ -110,7 +110,7 @@ export class VitalsComponent implements OnInit {
       const toDates = new Date(this.selectedDateRange.end).getTime();
       this.chartInfo = { patientId: patientData.userID, fromDate: fromDates, toDate: toDates, unit: 'month', range: -1};
       if (!!extraData.vitals) {
-        this.vitals = this.vitals.filter(k => (extraData.vitals || []).find(i => k.vitalType === i));
+        this.vitals = vitals.filter(k => (extraData.vitals || []).find(i => k.vitalType === i));
       } else {
         this.vitals = [];
       }
