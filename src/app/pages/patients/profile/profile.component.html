@@ -76,8 +76,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <span class="ps-2">
+                    <div class="col-md-3" >
+                        <span class="ps-2" *ngIf="showTimer">
                             {{timer$ | async}}
                             <button class="float-end" *ngIf="showStart" nbButton status="success" class="m-1"
                                 size="tiny" (click)="resumeTimer()">Resume</button>

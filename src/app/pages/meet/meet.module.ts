@@ -9,6 +9,7 @@ import { MeetRoutingModule } from './meet-routing.module';
 import { IndexComponent } from './index/index.component';
 import { ActionsComponent } from './actions/actions.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NbButtonModule,
     NbButtonGroupModule,
     NgxDatatableModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    SharedModule
   ]
 })
 export class MeetModule { }

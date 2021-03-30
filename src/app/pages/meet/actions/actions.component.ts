@@ -4,10 +4,11 @@ import { ProfileService } from 'src/app/shared/service/profile.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { NbIconLibraries } from '@nebular/theme';
 import { ColumnMode } from '@swimlane/ngx-datatable';
-import { find } from '@datorama/akita';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { ChatService } from 'src/app/shared/service/chat.service';
+import { NbIconLibraries, NbToastrService, NbWindowService, NbWindowState } from '@nebular/theme';
+import { ChatWindowComponent } from 'src/app/shared/components/chat-window/chat-window.component';
+
 @Component({
   selector: 'app-actions',
   templateUrl: './actions.component.html',
@@ -29,6 +30,8 @@ export class ActionsComponent implements OnInit {
   headerArray = [];
   vitalsOriginal = [];
   vitalString = '';
+  conversations = [];
+  exisitingChat: any;
 
   constructor(
     private iconLibraries: NbIconLibraries,
@@ -36,7 +39,11 @@ export class ActionsComponent implements OnInit {
     private profileService: ProfileService,
     private clinicService: ClinicService,
     private patientsService: PatientsService,
-    private vitalsService: VitalsService
+    private vitalsService: VitalsService,
+    private chatService: ChatService,
+    private toastrService: NbToastrService,
+    private windowService: NbWindowService,
+
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
 
@@ -46,6 +53,7 @@ export class ActionsComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       this.patientID = params.get('patientId');
     });
+    this.getChatList();
     this.vitalList = this.clinicService.getVitals();
     this.patientID = this.activatedRoute.snapshot.params.patientID;
     const payload = {
@@ -155,5 +163,60 @@ export class ActionsComponent implements OnInit {
     console.log('this. in arrange vital data::', this.vitalsRes);
     console.log('the header araay is printed::', this.vitalsOriginal, this.headerArray);
   }
+  getChatList() {
+    this.isLoading = true;
+    this.chatService.getChatList(this.profileService.id).subscribe((data: any) => {
+      this.conversations = data.conversationList;
+      this.getChatInfo();
+    }, error => {
+      this.isLoading = false;
+      throw error;
+    });
+  }
+  getChatInfo() {
+    this.isLoading = true;
+    if (!!this.patientID && this.conversations.length ) {
+      this.exisitingChat = this.conversations.find(item => {
+        const existingUser = item.users.find(k => {
+          // tslint:disable-next-line:triple-equals
+          if (k.email == this.patientID) {
+            return k;
+          }
+        });
+        return existingUser;
+      });
+      this.isLoading = false;
+    }
+  }
+  openWindow() {
+    if (!!this.exisitingChat) {
+      this.open(this.exisitingChat.conversationID);
+    } else {
+      this.createChat();
+    }
+  }
+  createChat() {
+    this.isLoading = true;
+    const payload = {
+      userID: this.profileService.id,
+      users: [this.patientID]
+    };
+    this.chatService.createConversation(payload).subscribe((data: any) => {
+      this.isLoading = false;
+      this.open(data.conversationID);
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger('Could not initialize chat.', 'Error');
+      throw error;
+    });
+  }
+  open(conversationID) {
+    this.windowService.open(ChatWindowComponent, {
+      title: `${this.patientData.firstName} ${this.patientData.lastName} `, initialState: NbWindowState.MAXIMIZED,
+      hasBackdrop: false, windowClass: 'custom-chat-window',
+      context: { conversationID }
+    });
+  }
+
 
 }
