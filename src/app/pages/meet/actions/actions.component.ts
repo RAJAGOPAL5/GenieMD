@@ -32,6 +32,7 @@ export class ActionsComponent implements OnInit {
   vitalString = '';
   conversations = [];
   exisitingChat: any;
+  timmerLoad: NodeJS.Timeout;
 
   constructor(
     private iconLibraries: NbIconLibraries,
@@ -50,10 +51,8 @@ export class ActionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe(params => {
-      this.patientID = params.get('patientId');
-    });
     this.getChatList();
+    this.everyMinuteNotification();
     this.vitalList = this.clinicService.getVitals();
     this.patientID = this.activatedRoute.snapshot.params.patientID;
     const payload = {
@@ -111,6 +110,7 @@ export class ActionsComponent implements OnInit {
   }
 
   arrangeVitalData() {
+    this.vitalsOriginal = [];
     this.vitalsRes = this.vitalsRes.map(item => {
       if (item?.vitalName === 'Blood Pressure') {
         this.headerArray.push(item.vitalName);
@@ -175,7 +175,7 @@ export class ActionsComponent implements OnInit {
   }
   getChatInfo() {
     this.isLoading = true;
-    if (!!this.patientID && this.conversations.length ) {
+    if (!!this.patientID && this.conversations.length) {
       this.exisitingChat = this.conversations.find(item => {
         const existingUser = item.users.find(k => {
           // tslint:disable-next-line:triple-equals
@@ -218,5 +218,10 @@ export class ActionsComponent implements OnInit {
     });
   }
 
+  everyMinuteNotification() {
+    this.timmerLoad = setInterval(() => {
+      this.getVitals();
+    }, 2000);
+  }
 
 }
