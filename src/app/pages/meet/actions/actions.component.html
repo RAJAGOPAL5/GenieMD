@@ -22,8 +22,8 @@
           </nb-actions>
     </nb-card-body>
 </nb-card>
-<nb-card accent="danger" *ngIf="showTable"  class="mt-auto"> 
-    <nb-card-body>
+<!-- <nb-card accent="danger" *ngIf="showTable"  class="mt-auto"> 
+    <nb-card-body> -->
         <!-- <ngx-datatable class="material" [rows]="vitals" [columnMode]="ColumnMode.force" [scrollbarV]="true" [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 200px;">
             <ngx-datatable-column name="BP" prop="BP" headerClass="ps-4 text-center" cellClass="ps-4 text-center" >
                 <ng-template let-value="value" ngx-datatable-cell-template>
@@ -51,12 +51,13 @@
                 </ng-template>
             </ngx-datatable-column>
         </ngx-datatable> -->
-        <div class="row" *ngFor="let item of vitalsOriginal">
-            <div class="col-2">
-                <h3>{{item.name}}<h3>
-                <p>{{item.value || '0'}}</p>
-            </div>    
-        </div>
-    </nb-card-body>
-</nb-card>
+       
+    <!-- </nb-card-body>
+</nb-card> -->
+<div class="row" *ngFor="let item of vitalsOriginal">
+    <div class="col-2">
+        <h3>{{item.name}}<h3>
+        <p>{{item.value || '0'}}</p>
+    </div>    
+</div>
 </div>
