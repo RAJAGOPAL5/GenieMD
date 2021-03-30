@@ -3,7 +3,7 @@ import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { ChatService } from 'src/app/shared/service/chat.service';
 import { NbIconLibraries, NbToastrService, NbWindowService, NbWindowState } from '@nebular/theme';
@@ -14,7 +14,7 @@ import { ChatWindowComponent } from 'src/app/shared/components/chat-window/chat-
   templateUrl: './actions.component.html',
   styleUrls: ['./actions.component.scss']
 })
-export class ActionsComponent implements OnInit {
+export class ActionsComponent implements OnInit, OnDestroy {
 
   isLoading = false;
   ColumnMode = ColumnMode;
@@ -32,7 +32,7 @@ export class ActionsComponent implements OnInit {
   vitalString = '';
   conversations = [];
   exisitingChat: any;
-  timmerLoad: NodeJS.Timeout;
+  timmerLoad: any;
 
   constructor(
     private iconLibraries: NbIconLibraries,
@@ -82,9 +82,7 @@ export class ActionsComponent implements OnInit {
   }
 
   getVitals() {
-    console.log('this.vitalList::', this.vitalList);
     this.vitalsService.getVital(this.patientData.userID).subscribe((res: any) => {
-      console.log('this resss', res);
       this.vitalsRes = res.vitalsList;
       if (!!this.vitalsRes) {
         this.vitalsRes = this.vitalsRes.map(item => {
@@ -105,7 +103,6 @@ export class ActionsComponent implements OnInit {
         });
       }
       this.arrangeVitalData();
-      console.log('this.vitalRes', this.vitalsRes, this.vitalList);
     });
   }
 
@@ -113,7 +110,6 @@ export class ActionsComponent implements OnInit {
     this.vitalsOriginal = [];
     this.vitalsRes = this.vitalsRes.map(item => {
       if (item?.vitalName === 'Blood Pressure') {
-        this.headerArray.push(item.vitalName);
         const payload = {
           name: 'Blood Pressure',
           time: item.vitalDate,
@@ -123,7 +119,6 @@ export class ActionsComponent implements OnInit {
         this.vitalsOriginal.push(payload);
         return item.vitalData.S + '/' + item.vitalData.D;
       } else if (item?.vitalName === 'Temperature') {
-        this.headerArray.push(item.vitalName);
         const payload = {
           name: 'Temperature',
           time: item.vitalDate,
@@ -132,7 +127,6 @@ export class ActionsComponent implements OnInit {
         this.vitalsOriginal.push(payload);
         return item.vitalData.T;
       } else if (item?.vitalName === 'Weight') {
-        this.headerArray.push(item.vitalName);
         const payload = {
           name: 'Weight',
           time: item.vitalDate,
@@ -141,7 +135,6 @@ export class ActionsComponent implements OnInit {
         this.vitalsOriginal.push(payload);
         return item.vitalData.W;
       } else if (item?.vitalName === 'Glucose') {
-        this.headerArray.push(item.vitalName);
         const payload = {
           name: 'Glucose',
           time: item.vitalDate,
@@ -150,7 +143,6 @@ export class ActionsComponent implements OnInit {
         this.vitalsOriginal.push(payload);
         return item.vitalData.V;
       } else if (item?.vitalName === 'SPO2') {
-        this.headerArray.push(item.vitalName);
         const payload = {
           name: 'SPO2',
           time: item.vitalDate,
@@ -161,7 +153,6 @@ export class ActionsComponent implements OnInit {
       }
     });
     console.log('this. in arrange vital data::', this.vitalsRes);
-    console.log('the header araay is printed::', this.vitalsOriginal, this.headerArray);
   }
   getChatList() {
     this.isLoading = true;
@@ -222,6 +213,10 @@ export class ActionsComponent implements OnInit {
     this.timmerLoad = setInterval(() => {
       this.getVitals();
     }, 2000);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.timmerLoad);
   }
 
 }
