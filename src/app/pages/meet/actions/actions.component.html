@@ -15,12 +15,12 @@
                 <nb-action icon="video-outline" nbTooltip="Video" nbTooltipPlacement="top"></nb-action>
                 <nb-action>
                     <button nbButton status="success" class="w-100" size="small">
-                        <nb-icon icon="person-add-outline"></nb-icon>Invite
+                        <nb-icon icon="person-add-outline" class="text-white"></nb-icon>Invite
                     </button>
                 </nb-action>
                 <nb-action>
                     <button nbButton status="danger" class="w-100" size="small">
-                        <nb-icon icon="phone-slash" pack="font-awesome"></nb-icon>Leave
+                        <nb-icon icon="phone-slash" pack="font-awesome" class="text-white"></nb-icon>Leave
                     </button>
                 </nb-action>
             </nb-actions>
@@ -55,8 +55,8 @@
                 </ng-template>
             </ngx-datatable-column>
         </ngx-datatable> -->
-            <div class="d-flex flex-nowrap" *ngFor="let item of vitalsOriginal">
-                <div class="col-md-3 border-right">
+            <div class="d-inline-flex row px-5" *ngFor="let item of vitalsOriginal">
+                <div class="col-md-12 border-right">
                     <h5>{{item.name || '---'}}</h5>
                     <p>{{item.time | date: 'mediumDate'}}</p>
                     <p>{{item.time | date: 'shortTime'}}</p>
