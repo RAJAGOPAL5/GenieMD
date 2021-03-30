@@ -25,6 +25,12 @@ export class ProfileService {
       .pipe(
         tap(project => {
           this.profile = project;
+          // tslint:disable-next-line:triple-equals
+          if (this.profile.screenName == '') {
+            this.profile.screenName = this.profile.firstName + ' ' + this.profile.lastName;
+          } else {
+            this.profile.screenName = this.profile.screenName;
+          }
           try {
             this.extraData = JSON.parse(this.profile.extraData);
           } catch (error) {

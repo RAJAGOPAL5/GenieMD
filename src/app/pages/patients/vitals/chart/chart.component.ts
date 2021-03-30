@@ -3,7 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import * as moment from 'moment';
 import { Color, Label } from 'ng2-charts';
-import { vitals } from 'src/app/shared/constant/constant';
+// import { vitals } from 'src/app/shared/constant/constant';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { VitalsService } from 'src/app/shared/service/vitals.service';
 
@@ -16,6 +17,8 @@ export class ChartComponent implements OnInit {
   chartInfo: any;
   @Input() type: any;
   @Input() name: any;
+  clinicVitals: any[] = [];
+  // vitals: any[];
   @Input()
   get chartData() {
     return this.chartInfo;
@@ -24,7 +27,7 @@ export class ChartComponent implements OnInit {
     this.chartInfo = data;
     this.initChart();
   }
-  vitals = vitals;
+  vitals = this.clinicVitals;
   public lineChartData: ChartDataSets[] = [
     {
       data: [],
@@ -36,9 +39,11 @@ export class ChartComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
   public lineChartPlugins = [];
-  constructor(private vitalService: VitalsService, private profileService: ProfileService) { }
+  constructor(private vitalService: VitalsService, private profileService: ProfileService, private clinicService: ClinicService) { }
 
   ngOnInit(): void {
+    this.clinicVitals = this.clinicService.getVitals();
+    // this.vitals = this.clinicVitals;
   }
 
   getData() {

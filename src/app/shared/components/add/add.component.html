@@ -134,7 +134,7 @@
                                 <label for="vitals" class="label">
                                     {{'kVitals' | translate}}</label>
                                 <nb-select size="medium" fullWidth multiple id="vitals" formControlName="vitals" placeholder="Select Vitals" [(selected)]="selectedItem">
-                                    <nb-option *ngFor="let item of vitals" [value]="item?.vitalType">{{item?.displayName}}
+                                    <nb-option *ngFor="let item of vitals" [value]="item?.displayName">{{item?.displayName}}
                                     </nb-option>
                                 </nb-select>
                             </div>
@@ -351,7 +351,7 @@
                         <app-alerts-list [patientID]="patientID"></app-alerts-list>
                     </nb-card-body>
                 </nb-tab>
-                <nb-tab tabTitle="{{'kSurveys' | translate}}">
+                <nb-tab tabTitle="{{'kAssessment' | translate}}">
                     <nb-card-body>
                         <!-- <app-devices ></app-devices> -->
                         <app-surveys (surveyData)="getSurvey($event)" [dataSurvey]="surveys"></app-surveys>

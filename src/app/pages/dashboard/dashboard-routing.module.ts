@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LanguageResolve } from 'src/app/shared/resolvers /language.resolve';
 import { AdherenceComponent } from './adherence/adherence.component';
 import { IndexComponent } from './index/index.component';
 import { MeasurementsComponent } from './measurements/measurements.component';
@@ -13,7 +14,10 @@ const routes: Routes = [
       {
         path: 'patients',
         component: PatientsComponent,
-        data: { title: 'Patients' }
+        data: { title: 'Patients' },
+        resolve: {
+          language: LanguageResolve
+        },
 
       },
       {

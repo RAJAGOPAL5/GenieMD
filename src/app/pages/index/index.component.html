@@ -1,37 +1,37 @@
 <nb-layout>
-  <nb-layout-header fixed>
-    <div class="d-flex w-100">
-      <a nbButton ghost (click)="toggleSidebar()">
-        <nb-icon icon="menu-2-outline" [options]="{ animation: { type: 'zoom' } }"></nb-icon>
-      </a>
-      <span class="ps-2 d-flex align-items-center">
+    <nb-layout-header fixed>
+        <div class="d-flex w-100">
+            <a nbButton ghost (click)="toggleSidebar()">
+                <nb-icon icon="menu-2-outline" [options]="{ animation: { type: 'zoom' } }"></nb-icon>
+            </a>
+            <span class="ps-2 d-flex align-items-center">
         <img [src]="logo" alt="" height="40">
       </span>
-      <span class="ms-auto"></span>
-      <span *ngIf="!notificationAlert">
+            <span class="ms-auto"></span>
+            <span *ngIf="!notificationAlert">
         <button nbTooltip="Notification" nbButton ghost status="primary" (click)="notifications()"><nb-icon icon="bell-outline" [options]="{ animation: { type: 'zoom' } }"></nb-icon></button>
       </span>
-      <span *ngIf="notificationAlert">
+            <span *ngIf="notificationAlert">
         <button nbTooltip="Notification" nbButton ghost status="primary" (click)="notifications()"><nb-icon icon="bell-outline" [options]="{ animation: { type: 'zoom' } }"></nb-icon></button>
         <nb-badge class="badge-position cursor-pointer" style="right:12%;" text="99+" status="danger" dotMode = true ></nb-badge>
       </span>
-      <span>
+            <span>
         <button nbTooltip="Change to Dark" nbTooltipPlacement="start" (click)="toggleTheme('default')" *ngIf="theme === 'default'; else dark" nbButton ghost status="primary"><nb-icon icon="sun-outline" [options]="{ animation: { type: 'zoom' } }"></nb-icon></button>
       </span>
-      <span class="ps-2">
+            <span class="ps-2">
         <nb-user [name]="profile?.screenName" title="Care Coordinator" [picture]="profile?.imageURL"></nb-user>
       </span>
-    </div>
-  </nb-layout-header>
-  <nb-layout-column>
-    <router-outlet></router-outlet>
-  </nb-layout-column>
-  <nb-sidebar state="compacted">
-    <nb-menu [items]="menus"></nb-menu>
-  </nb-sidebar>
-  <!-- <nb-layout-footer><span class="caption">{{'kVersion' | translate}} {{version}}</span></nb-layout-footer> -->
+        </div>
+    </nb-layout-header>
+    <nb-layout-column>
+        <router-outlet></router-outlet>
+    </nb-layout-column>
+    <nb-sidebar state="compacted">
+        <nb-menu [items]="menus"></nb-menu>
+    </nb-sidebar>
+    <!-- <nb-layout-footer><span class="caption">{{'kVersion' | translate}} {{version}}</span></nb-layout-footer> -->
 </nb-layout>
 
 <ng-template #dark>
-  <button nbTooltip="Change to Light" nbTooltipPlacement="start"  (click)="toggleTheme('dark')"  nbButton ghost status="primary"><nb-icon icon="moon-outline" [options]="{ animation: { type: 'zoom' } }"></nb-icon></button>
+    <button nbTooltip="Change to Light" nbTooltipPlacement="start" (click)="toggleTheme('dark')" nbButton ghost status="primary"><nb-icon icon="moon-outline" [options]="{ animation: { type: 'zoom' } }"></nb-icon></button>
 </ng-template>
