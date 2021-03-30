@@ -102,43 +102,50 @@ export class ActionsComponent implements OnInit {
   }
 
   arrangeVitalData() {
-    const payload = {
-      BloodPressure: '',
-      Temperature: '',
-      Weight: '',
-      Glucose: '',
-      SPO2: ''
-    };
     this.vitalsRes = this.vitalsRes.map(item => {
       if (item?.vitalName === 'Blood Pressure') {
         this.headerArray.push(item.vitalName);
-        payload.BloodPressure = item.vitalData.S + '/' + item.vitalData.D;
+        const payload = {
+          name: 'Blood Pressure',
+          value: item.vitalData.S + '/' + item.vitalData.D
+        };
         //  this.vitalString = + payload.toString();
-        // this.vitalsOriginal.push(payload);
+        this.vitalsOriginal.push(payload);
         return item.vitalData.S + '/' + item.vitalData.D;
       } else if (item?.vitalName === 'Temperature') {
         this.headerArray.push(item.vitalName);
-        payload.Temperature = item.vitalData.T;
-        // this.vitalsOriginal.push(payload);
+        const payload = {
+          name: 'Temperature',
+          value: item.vitalData.T
+        };
+        this.vitalsOriginal.push(payload);
         return item.vitalData.T;
       } else if (item?.vitalName === 'Weight') {
         this.headerArray.push(item.vitalName);
-        payload.Weight = item.vitalData.W;
-        // this.vitalsOriginal.push(payload);
+        const payload = {
+          name: 'Weight',
+          value: item.vitalData.W
+        };
+        this.vitalsOriginal.push(payload);
         return item.vitalData.W;
       } else if (item?.vitalName === 'Glucose') {
         this.headerArray.push(item.vitalName);
-        payload.Glucose = item.vitalData.V;
-        // this.vitalsOriginal.push(payload);
+        const payload = {
+          name: 'Glucose',
+          value: item.vitalData.V
+        };
+        this.vitalsOriginal.push(payload);
         return item.vitalData.V;
       } else if (item?.vitalName === 'SPO2') {
         this.headerArray.push(item.vitalName);
-        payload.SPO2 = item.vitalData.O;
-        // this.vitalsOriginal.push(payload);
+        const payload = {
+          name: 'SPO2',
+          value: item.vitalData.O
+        };
+        this.vitalsOriginal.push(payload);
         return item.vitalData.O;
       }
     });
-    this.vitalsOriginal.push(payload);
     console.log('this. in arrange vital data::', this.vitalsRes);
     console.log('the header araay is printed::', this.vitalsOriginal, this.headerArray);
   }
