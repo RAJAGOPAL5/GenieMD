@@ -110,6 +110,7 @@ export class ActionsComponent implements OnInit {
   }
 
   arrangeVitalData() {
+    this.vitalsOriginal = [];
     this.vitalsRes = this.vitalsRes.map(item => {
       if (item?.vitalName === 'Blood Pressure') {
         this.headerArray.push(item.vitalName);
