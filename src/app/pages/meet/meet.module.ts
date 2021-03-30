@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MeetRoutingModule } from './meet-routing.module';
 import { IndexComponent } from './index/index.component';
 import { ActionsComponent } from './actions/actions.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ActionsComponent } from './actions/actions.component';
     NbTooltipModule,
     NbActionsModule,
     NbButtonModule,
-    NbButtonGroupModule
+    NbButtonGroupModule,
+    NgxDatatableModule,
   ]
 })
 export class MeetModule { }

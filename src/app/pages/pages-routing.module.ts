@@ -34,7 +34,7 @@ const routes: Routes = [
     loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule)
   },
   {
-    path: 'meet',
+    path: 'meet/:patientID',
     component: IndexComponent,
     data: { title: 'Meet'},
     loadChildren: () => import('./meet/meet.module').then(m => m.MeetModule)

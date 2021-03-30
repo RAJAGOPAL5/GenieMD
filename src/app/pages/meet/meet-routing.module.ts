@@ -9,7 +9,7 @@ const routes: Routes = [
 
   },
   {
-    path: 'meet',
+    path: 'meet/:patientID',
     component: IndexComponent,
     data: { title: 'Meet'},
   }
