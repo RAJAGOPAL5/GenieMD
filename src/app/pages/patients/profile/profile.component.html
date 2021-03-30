@@ -5,77 +5,102 @@
     </nb-card-body>
     <nb-card-body *ngIf="!showPatient">
         <div class="row">
-            <div class="col-md-2">
-                <div class="py-2">
-                    <nb-user class="pb-2 ps-2" size="giant" [name]="patientName" [picture]="patient?.imageUrl" onlyPicture='true'>
-                    </nb-user>
-                    <div class="subtitle ps-2">{{patientName}}</div>
-                    <div class="caption ps-2">{{patient?.dob}}</div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="py-2">
+                            <nb-user class="pb-2 ps-2" size="giant" [name]="patientName" [picture]="patient?.imageUrl" onlyPicture='true'>
+                            </nb-user>
+                            <div class="subtitle ps-2">{{patientName}}</div>
+                            <div class="caption ps-2">{{patient?.dob}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 break-word mt-3">
+                        <p>
+                            <nb-icon icon="phone" nbTooltip="Phone" nbTooltipPlacement="left" pack="font-awesome"></nb-icon>
+                            <span class="ps-2">{{patient?.phoneNumber}}</span>
+                        </p>
+                        <p>
+                            <nb-icon icon="email-outline" nbTooltip="Email" nbTooltipPlacement="left"></nb-icon>
+                            <span class="ps-2">{{patient?.email}}</span>
+                        </p>
+                        <div [ngSwitch]="patient?.gender">
+                            <p *ngSwitchCase="0">
+                                <nb-icon icon="venus-mars" nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome">
+                                </nb-icon><span class="ps-2">{{'kMale' | translate}}</span>
+                            </p>
+                            <p *ngSwitchCase="1">
+                                <nb-icon icon="venus-mars" nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome">
+                                </nb-icon><span class="ps-2">{{'kFemale' | translate}}</span>
+                            </p>
+                            <p *ngSwitchCase="2">
+                                <nb-icon icon="venus-mars" nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome">
+                                </nb-icon><span class="ps-2">{{'kOther' | translate}}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-3" [ngClass]="{'col-md-4': showEmergency, 'col-md-6': !showEmergency}">
+                        <div>
+                            <div class="d-flex pb-2">
+                                <nb-icon icon="map-marker-alt" nbTooltip="Address" nbTooltipPlacement="left" pack="font-awesome">
+                                </nb-icon>
+                                <div class="ps-2">
+                                    <div>{{patient?.address}}, </div>
+                                    <div>
+                                        <span *ngIf="patient?.city">{{patient?.city}}, </span>
+                                        <span *ngIf="patient?.state">{{patient?.state}}, </span>
+                                        <span *ngIf="patient?.zipcode">{{patient?.zipcode}}, </span>
+                                        <span *ngIf="patient?.country">{{patient?.country}}</span>.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mt-3" *ngIf="showEmergency">
+                        <div>
+                            <div class="d-flex pb-2">
+                                <nb-icon icon="address-book" nbTooltip="Emergency Contact" nbTooltipPlacement="left" pack="font-awesome">
+                                </nb-icon>
+                                <div class="ps-2">
+                                    <div *ngIf="patientExtraData?.emergencyContact">
+                                        <div>{{trimContact(patientExtraData?.emergencyContact.name)}}</div>
+                                        <div>{{trimContact(patientExtraData?.emergencyContact.number)}} </div>
+                                        <div *ngIf="patientExtraData?.emergencyContact.relation">{{relationName}}</div>
+                                    </div>
+                                    <div *ngIf="!patientExtraData?.emergencyContact">
+                                        No Emergency Contact Found
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3 break-word mt-3">
-                <p>
-                    <nb-icon icon="phone" nbTooltip="Phone" nbTooltipPlacement="left" pack="font-awesome"></nb-icon>
-                    <span class="ps-2">{{patient?.phoneNumber}}</span>
-                </p>
-                <p>
-                    <nb-icon icon="email-outline" nbTooltip="Email" nbTooltipPlacement="left"></nb-icon>
-                    <span class="ps-2">{{patient?.email}}</span>
-                </p>
-                <div [ngSwitch]="patient?.gender">
-                    <p *ngSwitchCase="0">
-                        <nb-icon icon="venus-mars" nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome">
-                        </nb-icon><span class="ps-2">{{'kMale' | translate}}</span>
-                    </p>
-                    <p *ngSwitchCase="1">
-                        <nb-icon icon="venus-mars" nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome">
-                        </nb-icon><span class="ps-2">{{'kFemale' | translate}}</span>
-                    </p>
-                    <p *ngSwitchCase="2">
-                        <nb-icon icon="venus-mars" nbTooltip="Gender" nbTooltipPlacement="left" pack="font-awesome">
-                        </nb-icon><span class="ps-2">{{'kOther' | translate}}</span>
-                    </p>
-                </div>
-            </div>
-            <div class="mt-3" [ngClass]="{'col-md-3': showEmergency, 'col-md-4': !showEmergency}">
-                <div>
-                    <div class="d-flex pb-2">
-                        <nb-icon icon="map-marker-alt" nbTooltip="Address" nbTooltipPlacement="left" pack="font-awesome">
-                        </nb-icon>
-                        <div class="ps-2">
-                            <div>{{patient?.address}}, </div>
-                            <div>
-                                <span *ngIf="patient?.city">{{patient?.city}}, </span>
-                                <span *ngIf="patient?.state">{{patient?.state}}, </span>
-                                <span *ngIf="patient?.zipcode">{{patient?.zipcode}}, </span>
-                                <span *ngIf="patient?.country">{{patient?.country}}</span>.
+                <div class="row">
+                    <div class="col-md-3">
+                        <span class="ps-2">
+                            {{timer$ | async}}
+                            <button class="float-end" *ngIf="showStart" nbButton status="success" class="m-1"
+                                size="tiny" (click)="resumeTimer()">Resume</button>
+                            <button class="float-end" *ngIf="showStop" nbButton status="danger" class="m-1" size="tiny"
+                                (click)="pauseTimer()">Pause</button>
+                        </span>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="d-flex mt-1" *ngIf="!!diseaseList?.length">
+                            <nb-icon icon="notes-medical" nbTooltip="Disease State" nbTooltipPlacement="left"
+                                pack="font-awesome">
+                            </nb-icon>
+                            <div class="ps-2">
+                                <nb-tag-list>
+                                    <nb-tag appearance="filled" *ngFor="let tree of diseaseList" size="tiny"
+                                        [text]="tree" status="info"></nb-tag>
+                                </nb-tag-list>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 mt-3" *ngIf="showEmergency">
-                <div>
-                    <div class="d-flex pb-2">
-                        <nb-icon icon="address-book" nbTooltip="Emergency Contact" nbTooltipPlacement="left" pack="font-awesome">
-                        </nb-icon>
-                        <div class="ps-2">
-                            <div *ngIf="patientExtraData?.emergencyContact">
-                                <div>{{trimContact(patientExtraData?.emergencyContact.name)}}</div>
-                                <div>{{trimContact(patientExtraData?.emergencyContact.number)}} </div>
-                                <div *ngIf="patientExtraData?.emergencyContact.relation">{{relationName}}</div>
-                            </div>
-                            <div *ngIf="!patientExtraData?.emergencyContact">
-                                No Emergency Contact Found
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- <button nbButton ghost size="small" status="info" class="mb-2">Insurance</button>
-                <button nbButton ghost  size="small" status="info" class="mb-2">Emergency Contact</button>
-                <button nbButton ghost  size="small" status="info" class="mb-2">Devices</button> -->
-            </div>
-            <div class="mt-3" [ngClass]="{'col-md-2': showEmergency, 'col-md-3': !showEmergency}">
+            <div class="mt-3 col-md-3">
                 <button nbButton status="primary" class="mb-2 w-100 justify-content-start" size="small" (click)="openWindow()">
                     <nb-icon icon="message-circle-outline"></nb-icon>{{'kChat' | translate}}
                 </button>
@@ -100,7 +125,7 @@
                         <nb-icon icon="headphones-outline"></nb-icon>{{'kAudio' | translate}}
                     </button>
                     <button nbButton status="success" class="m-1" size="small" (click)="callBridge()">
-                        <nb-icon icon="phone-call-outline"></nb-icon><a routerLink="../../meet"> {{'kCAllBridge' | translate}}</a>
+                        <nb-icon icon="phone-call-outline"></nb-icon>{{'kCAllBridge' | translate}}
                     </button>
                 </div>
             </ng-template>
@@ -111,7 +136,7 @@
                     <h6>Message</h6>
                 </nb-card-header>
                 <nb-card-body>
-                      <div class="row">
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="form-group mb-1">
                                 <textarea nbInput [(ngModel)]="message" fullWidth id="message" cols="40" rows="3" placeholder = "Write a message"></textarea>
@@ -133,32 +158,7 @@
                 </nb-card-footer>
             </nb-card>
         </ng-template>
-        <!-- <div class="row">
-            
-        </div> -->
-        <div class="row">
-            <div class="col-md-2">
 
-                <span>
-                    {{timer$ | async}}
-                    <button class="float-end" *ngIf="showStart" nbButton status="success" class="m-1" size="tiny"
-                        (click)="resumeTimer()">Resume</button>
-                    <button class="float-end" *ngIf="showStop" nbButton status="danger" class="m-1" size="tiny"
-                        (click)="pauseTimer()">Pause</button>
-                </span>
-            </div>
-            <div class="col-md-10">
-                <div class="d-flex" *ngIf="!!diseaseList?.length">
-                    <nb-icon icon="notes-medical" nbTooltip="Disease State" nbTooltipPlacement="left" pack="font-awesome">
-                    </nb-icon>
-                    <div class="ps-2">
-                        <nb-tag-list>
-                            <nb-tag appearance="filled" *ngFor="let tree of diseaseList" size="tiny" [text]="tree" status="info"></nb-tag>
-                        </nb-tag-list>
-                    </div>
-                </div>
-            </div>
-        </div>
     </nb-card-body>
 </nb-card>
 <nb-route-tabset [tabs]="tabs" *ngIf="!showPatient"></nb-route-tabset>
