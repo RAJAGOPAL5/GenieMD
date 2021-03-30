@@ -55,12 +55,12 @@
                 </ng-template>
             </ngx-datatable-column>
         </ngx-datatable> -->
-            <div class="d-flex flex-nowrap" *ngFor="let item of vitalsOriginal">
-                <div class="col-md-3 border-right">
-                    <h5>{{item.name || '---'}}</h5>
-                    <p>{{item.time | date: 'mediumDate'}}</p>
-                    <p>{{item.time | date: 'shortTime'}}</p>
-                    <p>{{item.value || '---'}}</p>
+            <div class="d-inline-flex row px-5" *ngFor="let item of vitalsOriginal">
+                <div class="col-md-12 border-right">
+                    <h5 class="mb-0">{{item.name || '---'}}</h5>
+                    <p class="mb-0">{{item.time | date: 'mediumDate'}}</p>
+                    <p class="mb-0">{{item.time | date: 'shortTime'}}</p>
+                    <p class="mb-0">{{item.value || '---'}}</p>
                 </div>
             </div>
         </nb-card-body>
