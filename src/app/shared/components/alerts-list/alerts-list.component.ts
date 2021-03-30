@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NbDialogRef, NbDialogService, NbToastrService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
-// import { vitals } from 'src/app/shared/constant/constant';
+import { vitals } from 'src/app/shared/constant/constant';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { ColumnMode } from '@swimlane/ngx-datatable';
@@ -23,7 +23,7 @@ export class AlertsListComponent implements OnInit {
     { id: 3, vital: 'test 3', rule: 'rule3' },
     { id: 4, vital: 'test 4', rule: 'rule4' }
   ];
-  // vitalsList = vitals;
+  vitalsList = vitals;
   limitForm: FormGroup;
   alertDialog: NbDialogRef<any>;
   deleteDialog: NbDialogRef<any>;
@@ -32,7 +32,7 @@ export class AlertsListComponent implements OnInit {
 
   @Input() patientID;
   clinicVitals: any[];
-  vitalsList: any[];
+  // vitalsList: any[];
   constructor(
     private languageService: LanguageService,
     private translate: TranslateService,
