@@ -39,6 +39,7 @@ export class ActionsComponent implements OnInit {
     private vitalsService: VitalsService
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
+
   }
 
   ngOnInit(): void {
@@ -107,6 +108,7 @@ export class ActionsComponent implements OnInit {
         this.headerArray.push(item.vitalName);
         const payload = {
           name: 'Blood Pressure',
+          time: item.vitalDate,
           value: item.vitalData.S + '/' + item.vitalData.D
         };
         //  this.vitalString = + payload.toString();
@@ -116,6 +118,7 @@ export class ActionsComponent implements OnInit {
         this.headerArray.push(item.vitalName);
         const payload = {
           name: 'Temperature',
+          time: item.vitalDate,
           value: item.vitalData.T
         };
         this.vitalsOriginal.push(payload);
@@ -124,6 +127,7 @@ export class ActionsComponent implements OnInit {
         this.headerArray.push(item.vitalName);
         const payload = {
           name: 'Weight',
+          time: item.vitalDate,
           value: item.vitalData.W
         };
         this.vitalsOriginal.push(payload);
@@ -132,6 +136,7 @@ export class ActionsComponent implements OnInit {
         this.headerArray.push(item.vitalName);
         const payload = {
           name: 'Glucose',
+          time: item.vitalDate,
           value: item.vitalData.V
         };
         this.vitalsOriginal.push(payload);
@@ -140,6 +145,7 @@ export class ActionsComponent implements OnInit {
         this.headerArray.push(item.vitalName);
         const payload = {
           name: 'SPO2',
+          time: item.vitalDate,
           value: item.vitalData.O
         };
         this.vitalsOriginal.push(payload);

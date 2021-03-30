@@ -1,4 +1,7 @@
-import { NbActionsModule, NbCardModule, NbIconModule, NbTooltipModule, NbButtonModule, NbButtonGroupModule } from '@nebular/theme';
+import {
+  NbActionsModule, NbCardModule, NbIconModule, NbTooltipModule,
+  NbButtonModule, NbButtonGroupModule, NbSpinnerModule
+} from '@nebular/theme';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -20,6 +23,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NbButtonModule,
     NbButtonGroupModule,
     NgxDatatableModule,
+    NbSpinnerModule
   ]
 })
 export class MeetModule { }

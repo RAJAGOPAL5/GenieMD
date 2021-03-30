@@ -1,30 +1,34 @@
 <div class="container-fluid d-flex align-item-start flex-column meet">
-<nb-card >
-    <nb-card-body>
-        <nb-actions size="medium" class="justify-content-center">
-            <nb-action (click)="this.showTable = !this.showTable">
-                <nb-icon icon="stethoscope" nbTooltip="Vitals" nbTooltipPlacement="top" pack="font-awesome">
-                </nb-icon>
-            </nb-action >
-            <nb-action icon="monitor-outline" nbTooltip="Share-desktop" nbTooltipPlacement="top"></nb-action>
-            <nb-action>
-                <nb-icon icon="language" nbTooltip="Translator" nbTooltipPlacement="top" pack="font-awesome">
-                </nb-icon>
-            </nb-action>
-            <nb-action icon="volume-off-outline"  nbTooltip="Mute" nbTooltipPlacement="top" ></nb-action>
-            <nb-action icon="video-outline" nbTooltip="Video" nbTooltipPlacement="top"  ></nb-action>
-            <nb-action > 
-                <button nbButton status="success" class="w-100" size="small"><nb-icon icon="person-add-outline"></nb-icon>Invite</button>
-            </nb-action>
-            <nb-action >
-                <button nbButton status="danger" class="w-100" size="small"><nb-icon icon="phone-slash" pack="font-awesome"></nb-icon>Leave</button>
-            </nb-action>
-          </nb-actions>
-    </nb-card-body>
-</nb-card>
-<!-- <nb-card accent="danger" *ngIf="showTable"  class="mt-auto"> 
-    <nb-card-body> -->
-        <!-- <ngx-datatable class="material" [rows]="vitals" [columnMode]="ColumnMode.force" [scrollbarV]="true" [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 200px;">
+    <nb-card>
+        <nb-card-body>
+            <nb-actions size="medium" class="justify-content-center">
+                <nb-action (click)="this.showTable = !this.showTable">
+                    <nb-icon icon="stethoscope" nbTooltip="Vitals" nbTooltipPlacement="top" pack="font-awesome">
+                    </nb-icon>
+                </nb-action>
+                <nb-action icon="monitor-outline" nbTooltip="Share-desktop" nbTooltipPlacement="top"></nb-action>
+                <nb-action>
+                    <nb-icon icon="language" nbTooltip="Translator" nbTooltipPlacement="top" pack="font-awesome">
+                    </nb-icon>
+                </nb-action>
+                <nb-action icon="volume-off-outline" nbTooltip="Mute" nbTooltipPlacement="top"></nb-action>
+                <nb-action icon="video-outline" nbTooltip="Video" nbTooltipPlacement="top"></nb-action>
+                <nb-action>
+                    <button nbButton status="success" class="w-100" size="small">
+                        <nb-icon icon="person-add-outline"></nb-icon>Invite
+                    </button>
+                </nb-action>
+                <nb-action>
+                    <button nbButton status="danger" class="w-100" size="small">
+                        <nb-icon icon="phone-slash" pack="font-awesome"></nb-icon>Leave
+                    </button>
+                </nb-action>
+            </nb-actions>
+        </nb-card-body>
+    </nb-card>
+    <nb-card accent="danger" *ngIf="showTable" class="mt-auto">
+        <nb-card-body>
+            <!-- <ngx-datatable class="material" [rows]="vitals" [columnMode]="ColumnMode.force" [scrollbarV]="true" [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 200px;">
             <ngx-datatable-column name="BP" prop="BP" headerClass="ps-4 text-center" cellClass="ps-4 text-center" >
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <span>{{value || '-'}}</span>
@@ -51,13 +55,17 @@
                 </ng-template>
             </ngx-datatable-column>
         </ngx-datatable> -->
-       
-    <!-- </nb-card-body>
-</nb-card> -->
-<div class="row" *ngFor="let item of vitalsOriginal">
-    <div class="col-2">
-        <h3>{{item.name}}<h3>
-        <p>{{item.value || '0'}}</p>
-    </div>    
-</div>
+            <div class="d-flex flex-nowrap" *ngFor="let item of vitalsOriginal">
+                <div class="col-md-3 border-right">
+                    <h5>{{item.name || '---'}}</h5>
+                    <p>{{item.time | date: 'mediumDate'}}</p>
+                    <p>{{item.time | date: 'shortTime'}}</p>
+                    <p>{{item.value || '---'}}</p>
+                </div>
+            </div>
+        </nb-card-body>
+    </nb-card>
+    <!-- <nb-card> -->
+
+
 </div>
