@@ -415,7 +415,7 @@ export class ProfileComponent implements OnInit {
     this.meetService.generateUniqueID(payload).subscribe((meeting: any) => {
       this.uniqueID = meeting.meetingUniqueID;
       // tslint:disable-next-line:max-line-length
-      this.videoLink = `${this.location.origin}/meet/#/call/${meeting.meetingUniqueID}/${this.type}?userName=&userID=${this.profileService.id}&clinicID=${this.clinicService.id}&encounterID=${this.encounter.encounterID}&rpm=true`;
+      this.videoLink = `${this.location.origin}/meet/#/call/${meeting.meetingUniqueID}/${this.type}?userName=&userID=${this.profileService.patientProfile.userID}&clinicID=${this.clinicService.id}&encounterID=${this.encounter.encounterID}&patientID=${this.patientID}&rpm=true`;
       if (this.uniqueID) {
         this.startMeeting();
       } else {
@@ -466,7 +466,7 @@ export class ProfileComponent implements OnInit {
       this.mailMeInvitation(this.emailAddress);
     }
     // tslint:disable-next-line:max-line-length
-    window.open(`${this.location.origin}/meet/#/call/${this.uniqueID}/${this.type}?userName=${this.profileService.profile.firstName} ${this.profileService.profile.lastName} ${this.degrees}&userID=${this.profileService.id}&clinicID=${this.clinicService.id}&encounterID=${this.encounter.encounterID}&userType=provider&rpm=true`);
+    window.open(`${this.location.origin}/meet/#/call/${this.uniqueID}/${this.type}?userName=${this.profileService.profile.firstName} ${this.profileService.profile.lastName} ${this.degrees}&userID=${this.profileService.patientProfile.userID}&clinicID=${this.clinicService.id}&encounterID=${this.encounter.encounterID}&patientID=${this.patientID}&userType=provider&rpm=true`);
   }
 
   mailMeInvitation(items) {
