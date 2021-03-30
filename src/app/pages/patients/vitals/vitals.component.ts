@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import * as Chart from 'chart.js';
 import * as moment from 'moment';
-// import { vitals } from 'src/app/shared/constant/constant';
+import { vitals } from 'src/app/shared/constant/constant';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { PatientsService } from 'src/app/shared/service/patients.service';
@@ -28,8 +28,8 @@ export class VitalsComponent implements OnInit {
   form: FormGroup = this.formBuilder.group({
     dateRange: ''
   });
-  clinicVitals: any[] = [];
-  vitalsList: any[];
+  // clinicVitals: any[] = [];
+  // vitalsList: any[];
   constructor(
     private vitalsService: VitalsService, private profileService: ProfileService,
     private languageService: LanguageService, private patientService: PatientsService,
@@ -66,8 +66,8 @@ export class VitalsComponent implements OnInit {
       { title: '1 Year', val: 365, class: '' },
       { title: 'All', val: -1, class: '' }];
     this.userID = this.profileService.id;
-    this.clinicVitals = this.clinicService.getVitals();
-    this.vitalsList = this.clinicVitals;
+    // this.clinicVitals = this.clinicService.getVitals();
+    // this.vitalsList = this.clinicVitals;
   }
   getList(event: any) {
     let fromDate = moment().add(-118, 'years').valueOf();
@@ -110,7 +110,7 @@ export class VitalsComponent implements OnInit {
       const toDates = new Date(this.selectedDateRange.end).getTime();
       this.chartInfo = { patientId: patientData.userID, fromDate: fromDates, toDate: toDates, unit: 'month', range: -1};
       if (!!extraData.vitals) {
-        this.vitals = this.vitalsList.filter(k => (extraData.vitals || []).find(i => k.vitalType === i));
+        this.vitals = this.vitals.filter(k => (extraData.vitals || []).find(i => k.vitalType === i));
       } else {
         this.vitals = [];
       }
