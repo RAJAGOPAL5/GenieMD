@@ -49,8 +49,7 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="Action" [maxWidth]="200" headerClass="text-center" cellClass="text-center" prop="monitored">
                 <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-                    <button nbButton outline status="danger" size="tiny" *ngIf="row.monitored == 1" (click)="$event.stopPropagation(); openDialog(unEnrollDialog, row,'unenroll')">Unenroll</button>
-                    <button nbButton outline status="warning" size="tiny" *ngIf="row.monitored == 0" (click)="$event.stopPropagation();openDialog(enrollDialog,row,'enroll')">enroll</button>
+                    <button nbButton outline [status]="row.monitored==1?'danger':'warning'" size="tiny" (click)="$event.stopPropagation(); openDialog(unEnrollDialog, row)">{{row.monitored ==1 ?'unenroll':'enroll'}}</button>
                 </ng-template>
             </ngx-datatable-column>
         </ngx-datatable>
@@ -59,24 +58,11 @@
 <ng-template #unEnrollDialog>
     <nb-card class="dialog-card">
         <nb-card-header>
-            <p class="subtitle">Are you sure want to Unenroll ?</p>
+            <p class="subtitle">Are you sure want to {{type==1?'unenroll':'enroll'}}</p>
         </nb-card-header>
         <nb-card-body>
             <div class="float-end">
-                <button nbButton status="success" size="small" (click)="unEnroll()">{{'kYes' | translate}}</button>
-                <button nbButton status="danger" class="ms-2" size="small" (click)="close()">{{'kNo' | translate}}</button>
-            </div>
-        </nb-card-body>
-    </nb-card>
-</ng-template>
-<ng-template #enrollDialog>
-    <nb-card class="dialog-card">
-        <nb-card-header>
-            <p class="subtitle">Are you sure want to Enroll ?</p>
-        </nb-card-header>
-        <nb-card-body>
-            <div class="float-end">
-                <button nbButton status="success" size="small" (click)="unEnroll()">{{'kYes' | translate}}</button>
+                <button nbButton status="success" size="small" (click)="submit()">{{'kYes' | translate}}</button>
                 <button nbButton status="danger" class="ms-2" size="small" (click)="close()">{{'kNo' | translate}}</button>
             </div>
         </nb-card-body>

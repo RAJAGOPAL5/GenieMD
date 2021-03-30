@@ -10,7 +10,7 @@ import {
   NbDialogRef, NbToastrService, NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSourceBuilder,
   NbTreeGridDataSource, NbThemeService
 } from '@nebular/theme';
-import { languages, states, morbidity, gender, vitals, relation, diseaseState, preferredLanguage } from 'src/app/shared/constant/constant';
+import { languages, states, morbidity, gender, relation, diseaseState, preferredLanguage } from 'src/app/shared/constant/constant';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/shared/service/language.service';
 import { retryWhen } from 'rxjs/operators';
@@ -67,6 +67,7 @@ export class AddComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   defaultImageURL = 'https://geniemd-generalfiles.s3.amazonaws.com/08fb6fbc4ceb4549ab9803ea4624df2d.png?AWSAccessKeyId=AKIAIZH5KUW5NWRU5FDQ&Expires=1930919200&Signature=XMhr6ne%2BzLmr0FwBRIXZdHIrjRA%3D';
   surveys: any;
+  clinicVitals: any[] = [];
 
   constructor(
     private fb: FormBuilder, private authService: AuthService, private profileService: ProfileService,
@@ -95,7 +96,6 @@ export class AddComponent implements OnInit {
     this.actionName = this.patientID ? 'Edit Patient' : 'Create Patient';
     this.states = states;
     this.morbidityID = morbidity;
-    this.vitals = vitals;
     this.languages = languages;
     this.diseaseState = diseaseState;
     this.relation = relation;
@@ -107,6 +107,10 @@ export class AddComponent implements OnInit {
     }
     this.insurance = this.insuranceObj.enabled;
     this.emergency = this.clinicService.config?.extendedSettings?.emergencyContact === 'true' ? true : false;
+    this.clinicVitals = this.clinicService.getVitals();
+    this.vitals = this.clinicVitals;
+
+
   }
   getProfilePatch() {
     let variousDisease;
@@ -144,7 +148,9 @@ export class AddComponent implements OnInit {
           city: this.profileData.city,
           morbidity: this.profileData.morbidity,
           language: this.profileData.languageId,
+          // vitals: !!this.profileExtraData.vitals ? this.profileExtraData.vitals : [],
           vitals: !!this.profileExtraData.vitals ? this.profileExtraData.vitals : [],
+
           // tslint:disable-next-line: max-line-length
           policyHolder: this.profileExtraData.insurance && this.profileExtraData.insurance.policyHolder ? this.profileExtraData.insurance.policyHolder : '',
           // tslint:disable-next-line: max-line-length

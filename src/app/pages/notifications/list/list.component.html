@@ -1,10 +1,10 @@
-<div class="container" [nbSpinner]="isLoading" nbSpinnerMessage="Please wait..">
+<nb-card [nbSpinner]="isLoading" nbSpinnerMessage="Please wait.." style="min-height: 600px;">
+    <nb-card-header>
+        <h5>Notifications</h5>
+    </nb-card-header>
+<div class="container">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <nb-card>
-                <nb-card-header>
-                    <h5>Notifications</h5>
-                </nb-card-header>
+        <div class="col-md-8 offset-md-2">
                 <div class="form-group" *ngIf="messageList.length !== 0">
                     <nb-list class="own-scroll">
                         <nb-list-item class="cursor-pointer d-flex justify-content-between"
@@ -61,9 +61,9 @@
                     </nb-list>
                 </div>
                 <div *ngIf="messageList.length == 0">
-                    <p class="text-center">No Notifications Available</p>
+                    <p class="text-center mt-2">No Notifications Available</p>
                 </div>
-            </nb-card>
         </div>
     </div>
 </div>
+</nb-card>

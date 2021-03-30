@@ -208,22 +208,24 @@ export class PatientsComponent implements OnInit {
       }
     });
   }
-  openDialog(unEnrollDialog: TemplateRef<any>, data, type) {
+  openDialog(unEnrollDialog: TemplateRef<any>, data: any) {
     this.resData = data;
-    this.type = type;
+    // tslint:disable-next-line:triple-equals
+    if (data.monitored == 1) {
+      this.type = 1;
+      // tslint:disable-next-line:triple-equals
+    } else if (data.monitored == 0) {
+      this.type = 0;
+    }
     this.unEnrollDialogRef = this.dialogService.open(unEnrollDialog, { closeOnBackdropClick: false });
-    this.unEnrollDialogRef.onClose.subscribe(res => {
-      if (!!res) {
-        this.getList(true);
-      }
-    });
   }
 
   close() {
     this.unEnrollDialogRef.close();
   }
 
-  unEnroll() {
+  submit() {
+    this.unEnrollDialogRef.close();
     this.isLoading = true;
     const patientPayload = {
       userID: this.profileService.id,
@@ -238,9 +240,11 @@ export class PatientsComponent implements OnInit {
         this.extraData = {};
       }
       let monitor;
-      if (this.type === 'unenroll') {
+      // tslint:disable-next-line:triple-equals
+      if (this.type == 1) {
         monitor = 0;
-      } else if (this.type === 'enroll') {
+        // tslint:disable-next-line:triple-equals
+      } else if (this.type == 0) {
         monitor = 1;
       }
       const payload = {
@@ -271,13 +275,16 @@ export class PatientsComponent implements OnInit {
 
       };
       this.profileService.update(payload).subscribe(() => {
-        this.unEnrollDialogRef.close(true);
         this.isLoading = false;
+        this.getList(true);
         this.toastrService.success('User updated successfully', 'Success');
       }, error => {
         this.toastrService.danger('User update failed', 'Error');
         this.isLoading = false;
       });
+    }, error => {
+      this.toastrService.danger(' Could not get Patient Details', 'Error');
+      this.isLoading = false;
     });
 
   }

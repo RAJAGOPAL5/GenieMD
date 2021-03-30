@@ -9,7 +9,7 @@
 <ng-template #surveydialog>
     <nb-card class="dialog-card">
         <nb-card-header>
-            <h6>{{'kAddSurvey' | translate}}</h6>
+            <h6>{{'kAddAssessment' | translate}}</h6>
         </nb-card-header>
         <nb-card-body>
             <form [formGroup]="surveyForm">
@@ -51,7 +51,7 @@
 </ng-template>
 
 <ngx-datatable class="bootstrap" [rows]="surveyList" [columnMode]="ColumnMode.force" [scrollbarV]="true" [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 600px;">
-    <ngx-datatable-column name="Survey Name" prop="name" headerClass="ps-4" cellClass="ps-4">
+    <ngx-datatable-column name="Assessment Name" prop="name" headerClass="ps-4" cellClass="ps-4">
         <ng-template let-value="value" ngx-datatable-cell-template>
             <span>{{value || '-'}}</span>
         </ng-template>
