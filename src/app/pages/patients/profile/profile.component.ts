@@ -273,7 +273,7 @@ export class ProfileComponent implements OnInit {
 
   openWindow() {
     if (!!this.exisitingChat) {
-      this.open(this.exisitingChat.conversationID);
+      this.open(this.exisitingChat.conversationID, this.exisitingChat.users[0].imageURL );
     } else {
       this.createChat();
     }
@@ -318,11 +318,11 @@ export class ProfileComponent implements OnInit {
       throw error;
     });
   }
-  open(conversationID) {
+  open(conversationID, imageUrl?: any) {
     this.windowService.open(ChatWindowComponent, {
       title: `${this.patientName}`, initialState: NbWindowState.MAXIMIZED,
       hasBackdrop: false, windowClass: 'custom-chat-window',
-      context: { conversationID }
+      context: { conversationID , imageUrl}
     });
   }
 
