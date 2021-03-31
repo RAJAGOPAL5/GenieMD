@@ -120,4 +120,12 @@ export class ToolbarComponent implements OnInit {
   vitalsTable() {
     this.vitalData.emit('vitals');
   }
+
+  openFullScreen() {
+    const element = document.getElementById('fullScreen');
+    if (screenfull.isEnabled) {
+      screenfull.toggle(element);
+      }
+  }
+
 }
