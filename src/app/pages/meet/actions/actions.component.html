@@ -1,7 +1,7 @@
 <div class="container-fluid d-flex align-item-start flex-column meet">
     <nb-card>
         <nb-card-body>
-            <nb-actions size="medium" class="justify-content-center">
+            <nb-actions size="tiny" class="justify-content-center">
                 <nb-action>
                     <nb-icon icon="language" nbTooltip="Translator" nbTooltipPlacement="top" pack="font-awesome">
                     </nb-icon>
@@ -19,13 +19,13 @@
                 </nb-action>
                 <nb-action icon="video-outline" nbTooltip="Video" nbTooltipPlacement="top"></nb-action>
                 <nb-action icon="message-circle-outline" nbTooltip="Chat" nbTooltipPlacement="top" (click)="openWindow()"></nb-action>
-                <nb-action>
-                    <button nbButton status="success" class="w-100" size="small">
+                <nb-action class="p-1">
+                    <button nbButton status="success" class="w-100" size="tiny">
                         <nb-icon icon="person-add-outline" class="text-white"></nb-icon>Invite
                     </button>
                 </nb-action>
-                <nb-action>
-                    <button nbButton status="danger" class="w-100" size="small">
+                <nb-action class="p-1">
+                    <button nbButton status="danger" class="w-100" size="tiny">
                         <nb-icon icon="phone-slash" pack="font-awesome" class="text-white"></nb-icon>Leave
                     </button>
                 </nb-action>
@@ -34,38 +34,11 @@
     </nb-card>
     <nb-card accent="danger" *ngIf="showTable" class="mt-auto">
         <nb-card-body>
-            <!-- <ngx-datatable class="material" [rows]="vitals" [columnMode]="ColumnMode.force" [scrollbarV]="true" [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 200px;">
-            <ngx-datatable-column name="BP" prop="BP" headerClass="ps-4 text-center" cellClass="ps-4 text-center" >
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <span>{{value || '-'}}</span>
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="SPO2" prop="SPO2" headerClass="text-center" cellClass="text-center">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <span>{{value || '-'}}</span>
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Weight" prop="Weight" headerClass="text-center" cellClass="text-center" >
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <span>{{value || '-'}}</span>
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Temp" prop="Temp" headerClass="text-center" cellClass="text-center">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <span>{{value || '-'}}</span>
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Glucose" prop="Glucose" headerClass="text-center" cellClass="text-center">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <span>{{value || '-'}}</span>
-                </ng-template>
-            </ngx-datatable-column>
-        </ngx-datatable> -->
             <div class="d-inline-flex row px-5" *ngFor="let item of vitalsOriginal">
                 <div class="col-md-12 border-right">
                     <h5 class="mb-0">{{item.name || '---'}}</h5>
                     <h6 class="mb-0 font-weight-normal">{{item.value || '---'}}</h6>
-                    <small class="mb-0">{{item.time | date: 'mediumDate'}} {{item.time | date: 'shortTime'}}</small>
+                    <tiny class="mb-0">{{item.time | date: 'mediumDate'}} {{item.time | date: 'shortTime'}}</tiny>
                 </div>
             </div>
             <div class="d-inline-flex row px-5" *ngIf="vitalsOriginal.length === 0">
