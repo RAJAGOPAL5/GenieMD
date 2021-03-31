@@ -534,7 +534,7 @@ export class ProfileComponent implements OnInit {
         // this.addAudit();
       }
     }, error => {
-      this.toastrService.danger(error ? error.error : this.translate.instant('kFailedToStartCall'));
+      this.toastrService.danger(error.error.errorMessage ? error.error.errorMessage : this.translate.instant('kFailedToStartCall'));
     });
   }
   surveydialog() {
