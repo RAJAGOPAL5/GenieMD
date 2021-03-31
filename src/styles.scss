@@ -138,6 +138,6 @@ nb-route-tabset#patients .route-tabset {
 nb-chat-form{ .dropped-files{ div{ &:nth-child(2n){ display: none; } } } }
 
 .nb-theme-dark nb-chat-message nb-chat-message-text .text {
-  padding: 0.5rem !important;
-  border-radius: 0.5rem;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
 }
