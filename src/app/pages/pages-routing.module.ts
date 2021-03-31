@@ -30,11 +30,11 @@ const routes: Routes = [
   {
     path: 'todo',
     component: IndexComponent,
-    data: { title: 'todo'},
+    data: { title: 'Todo'},
     loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule)
   },
   {
-    path: 'meet/:patientID',
+    path: 'meet',
     component: IndexComponent,
     data: { title: 'Meet'},
     loadChildren: () => import('./meet/meet.module').then(m => m.MeetModule)
