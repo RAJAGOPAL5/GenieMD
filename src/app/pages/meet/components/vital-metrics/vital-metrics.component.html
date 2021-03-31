@@ -1,1 +1,16 @@
-<p>vital-metrics works!</p>
+<nb-card accent="danger" class="mt-auto">
+    <nb-card-body>
+        <div class="d-inline-flex row px-5" *ngFor="let item of vitalsOriginal">
+            <div class="col-md-12 border-right">
+                <h5 class="mb-0">{{item.name || '---'}}</h5>
+                <h6 class="mb-0 font-weight-normal">{{item.value || '---'}}</h6>
+                <tiny class="mb-0">{{item.time | date: 'mediumDate'}} {{item.time | date: 'shortTime'}}</tiny>
+            </div>
+        </div>
+        <div class="d-inline-flex row px-5" *ngIf="vitalsOriginal.length === 0">
+            <div class="col-md-12 border-right">
+                <p class="mb-0">No Data Found</p>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

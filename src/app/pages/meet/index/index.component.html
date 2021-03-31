@@ -1,3 +1,4 @@
 <div class="meet-container">
-    <app-actions></app-actions>
+    <app-toolbar (vitalData)="getRecord($event)"></app-toolbar>
+    <app-vital-metrics *ngIf="showVitals"></app-vital-metrics>
 </div>

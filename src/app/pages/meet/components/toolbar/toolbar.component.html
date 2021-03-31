@@ -1,1 +1,41 @@
-<p>toolbar works!</p>
+<div class="container-fluid d-flex align-item-start flex-column meet">
+    <nb-card>
+        <nb-card-body>
+            <nb-actions size="tiny" class="justify-content-center">
+                <nb-action>
+                    <nb-icon icon="language" nbTooltip="Translator" nbTooltipPlacement="top" pack="font-awesome">
+                    </nb-icon>
+                </nb-action>
+                <nb-action (click)="vitalsTable()">
+                    <nb-icon icon="stethoscope" nbTooltip="Vitals" nbTooltipPlacement="top" pack="font-awesome">
+                    </nb-icon>
+                </nb-action>
+                <nb-action icon="monitor-outline" nbTooltip="Share-desktop" nbTooltipPlacement="top"></nb-action>
+                <nb-action (click)="this.volume = !this.volume">
+                    <nb-icon *ngIf="this.volume" icon="volume-up-outline" nbTooltip="Speaker" nbTooltipPlacement="top">
+                    </nb-icon>
+                    <nb-icon *ngIf="!this.volume" icon="volume-off-outline" nbTooltip="Mute" nbTooltipPlacement="top">
+                    </nb-icon>
+                </nb-action>
+                <nb-action icon="video-outline" nbTooltip="Video" nbTooltipPlacement="top"></nb-action>
+                <nb-action (click)="this.fullscreen = !this.fullscreen">
+                    <nb-icon *ngIf="this.fullscreen" icon="expand-outline" nbTooltip="Speaker" nbTooltipPlacement="top">
+                    </nb-icon>
+                    <nb-icon *ngIf="!this.fullscreen" icon="collapse-outline" nbTooltip="Full Screen" nbTooltipPlacement="top">
+                    </nb-icon>
+                </nb-action>
+                <nb-action icon="message-circle-outline" nbTooltip="Chat" nbTooltipPlacement="top" (click)="openWindow()"></nb-action>
+                <nb-action class="p-1">
+                    <button nbButton status="success" class="w-100" size="tiny">
+                        <nb-icon icon="person-add-outline" class="text-white"></nb-icon>Invite
+                    </button>
+                </nb-action>
+                <nb-action class="p-1">
+                    <button nbButton status="danger" class="w-100" size="tiny">
+                        <nb-icon icon="phone-slash" pack="font-awesome" class="text-white"></nb-icon>Leave
+                    </button>
+                </nb-action>
+            </nb-actions>
+        </nb-card-body>
+    </nb-card>
+</div>

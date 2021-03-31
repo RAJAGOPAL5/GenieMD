@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NbIconLibraries, NbToastrService, NbWindowService, NbWindowState } from '@nebular/theme';
+import { ChatWindowComponent } from 'src/app/shared/components/chat-window/chat-window.component';
+import { ChatService } from 'src/app/shared/service/chat.service';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { PatientsService } from 'src/app/shared/service/patients.service';
+import { ProfileService } from 'src/app/shared/service/profile.service';
+import { VitalsService } from 'src/app/shared/service/vitals.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +15,108 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  volume = true;
+  exisitingChat: any;
+  isLoading = false;
+  patientID: any;
+  patientData: any;
+  extraData: any;
+  fullscreen = false;
+  conversations = [];
 
-  ngOnInit(): void {
+  @Output() vitalData: EventEmitter<any> = new EventEmitter();
+
+  constructor(
+    private iconLibraries: NbIconLibraries,
+    private activatedRoute: ActivatedRoute,
+    private profileService: ProfileService,
+    private clinicService: ClinicService,
+    private patientsService: PatientsService,
+    private vitalsService: VitalsService,
+    private chatService: ChatService,
+    private toastrService: NbToastrService,
+    private windowService: NbWindowService,
+  ) {
+    this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
   }
 
+  ngOnInit(): void {
+    this.patientID = this.activatedRoute.snapshot.params.patientID;
+    const payload = {
+      userID: this.profileService.id,
+      clinicID: this.clinicService.id,
+      patientID: this.patientID
+    };
+    this.patientsService.findById(payload).subscribe((data: any) => {
+      this.patientData = data;
+      try {
+        this.extraData = JSON.parse(this.patientData.extraData);
+      } catch {
+        this.extraData = {};
+      }
+    });
+    this.getChatList();
+  }
+
+  openWindow() {
+    if (!!this.exisitingChat) {
+      this.open(this.exisitingChat.conversationID);
+    } else {
+      this.createChat();
+    }
+  }
+  createChat() {
+    this.isLoading = true;
+    const payload = {
+      userID: this.profileService.id,
+      users: [this.patientID]
+    };
+    this.chatService.createConversation(payload).subscribe((data: any) => {
+      this.isLoading = false;
+      this.open(data.conversationID);
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger('Could not initialize chat.', 'Error');
+      throw error;
+    });
+  }
+
+  getChatList() {
+    this.isLoading = true;
+    this.chatService.getChatList(this.profileService.id).subscribe((data: any) => {
+      this.conversations = data.conversationList;
+      this.getChatInfo();
+    }, error => {
+      this.isLoading = false;
+      throw error;
+    });
+  }
+
+  getChatInfo() {
+    this.isLoading = true;
+    if (!!this.patientID && this.conversations.length) {
+      this.exisitingChat = this.conversations.find(item => {
+        const existingUser = item.users.find(k => {
+          // tslint:disable-next-line:triple-equals
+          if (k.email == this.patientID) {
+            return k;
+          }
+        });
+        return existingUser;
+      });
+      this.isLoading = false;
+    }
+  }
+
+  open(conversationID) {
+    this.windowService.open(ChatWindowComponent, {
+      title: `${this.patientData.firstName} ${this.patientData.lastName} `, initialState: NbWindowState.MAXIMIZED,
+      hasBackdrop: false, windowClass: 'custom-chat-window',
+      context: { conversationID }
+    });
+  }
+
+  vitalsTable() {
+    this.vitalData.emit('vitals');
+  }
 }
