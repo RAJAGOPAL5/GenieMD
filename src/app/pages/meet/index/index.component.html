@@ -1,4 +1,4 @@
-<div class="meet-container">
+<div class="meet-container" [nbSpinner]="isLoading">
     <app-toolbar (vitalData)="getRecord($event)"></app-toolbar>
     <app-vital-metrics *ngIf="showVitals"></app-vital-metrics>
 </div>
