@@ -1,6 +1,6 @@
 <div class="row chat-list">
     <div [ngClass]="{'col-md-3': showChat, 'col-md-12': !showChat}">
-        <nb-card class="chat-list" size = 'giant' [nbSpinner]="isLoading">
+        <nb-card class="chat-list" size='giant' [nbSpinner]="isLoading">
             <nb-card-header>
                 <div class="row">
                     <div class="col-6">Chats</div>
@@ -13,7 +13,7 @@
             <nb-card-body class="px-0 h-100">
                 <nb-list *ngIf="!!conversations.length">
                     <nb-list-item *ngFor="let conversation of conversations" class="cursor-pointer overflow-auto" (click)="getChat(conversation)">
-                        <nb-user [name]="conversation.name" [title]="conversation.lastMessageTime">
+                        <nb-user [name]="conversation.name" [title]="conversation.lastMessageTime" [picture]="conversation.imageUrl">
                         </nb-user>
                     </nb-list-item>
                 </nb-list>
