@@ -63,7 +63,7 @@ export class HistoryComponent implements OnInit {
     const payload = {
       name: this.profile.screenName,
       note: this.historyForm.value.note,
-      date: moment().format('MM-DD-YYYY')
+      date: moment().format('MM-DD-YYYY'),
     };
     this.data.push(payload);
     this.toastrService.success('Data added successfully', 'Success');

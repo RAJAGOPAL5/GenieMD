@@ -6,7 +6,7 @@
                     <nb-icon icon="language" nbTooltip="Translator" nbTooltipPlacement="top" pack="font-awesome">
                     </nb-icon>
                 </nb-action>
-                <nb-action (click)="this.showTable = !this.showTable">
+                <nb-action (click)="vitalsTable()">
                     <nb-icon icon="stethoscope" nbTooltip="Vitals" nbTooltipPlacement="top" pack="font-awesome">
                     </nb-icon>
                 </nb-action>
@@ -38,21 +38,4 @@
             </nb-actions>
         </nb-card-body>
     </nb-card>
-    <nb-card accent="danger" *ngIf="showTable" class="mt-auto">
-        <nb-card-body>
-            <div class="d-inline-flex row px-5" *ngFor="let item of vitalsOriginal">
-                <div class="col-md-12 border-right">
-                    <h5 class="mb-0">{{item.name || '---'}}</h5>
-                    <h6 class="mb-0 font-weight-normal">{{item.value || '---'}}</h6>
-                    <tiny class="mb-0">{{item.time | date: 'mediumDate'}} {{item.time | date: 'shortTime'}}</tiny>
-                </div>
-            </div>
-            <div class="d-inline-flex row px-5" *ngIf="vitalsOriginal.length === 0">
-                <div class="col-md-12 border-right">
-                    <p class="mb-0">No Data Found</p>
-                </div>
-            </div>
-        </nb-card-body>
-    </nb-card>
-    <!-- <nb-card> -->
 </div>

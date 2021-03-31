@@ -1,59 +1,38 @@
-import { VitalsService } from 'src/app/shared/service/vitals.service';
-import { ClinicService } from 'src/app/shared/service/clinic.service';
-import { ProfileService } from 'src/app/shared/service/profile.service';
-import { PatientsService } from 'src/app/shared/service/patients.service';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ColumnMode } from '@swimlane/ngx-datatable';
-import { ChatService } from 'src/app/shared/service/chat.service';
-import { NbIconLibraries, NbToastrService, NbWindowService, NbWindowState } from '@nebular/theme';
-import { ChatWindowComponent } from 'src/app/shared/components/chat-window/chat-window.component';
+import { NbToastrService } from '@nebular/theme';
+import { ClinicService } from 'src/app/shared/service/clinic.service';
+import { PatientsService } from 'src/app/shared/service/patients.service';
+import { ProfileService } from 'src/app/shared/service/profile.service';
+import { VitalsService } from 'src/app/shared/service/vitals.service';
 
 @Component({
-  selector: 'app-actions',
-  templateUrl: './actions.component.html',
-  styleUrls: ['./actions.component.scss']
+  selector: 'app-vital-metrics',
+  templateUrl: './vital-metrics.component.html',
+  styleUrls: ['./vital-metrics.component.scss']
 })
-export class ActionsComponent implements OnInit, OnDestroy {
+export class VitalMetricsComponent implements OnInit, OnDestroy {
 
-  isLoading = false;
-  ColumnMode = ColumnMode;
-  vitals: any;
-  showTable = false;
-  patientID: string;
+  patientID: any;
   patientData: any;
   extraData: any;
-  vitalsArray: any;
-  payload: { userID: string; vitalIDs: any; username: string; };
+  vitalsArray = [];
+  vitals = [];
   vitalsRes: any;
-  vitalList: any;
-  headerArray = [];
+  vitalList = [];
   vitalsOriginal = [];
-  vitalString = '';
-  conversations = [];
-  exisitingChat: any;
   timmerLoad: any;
-  volume = true;
-  fullscreen = false;
+
   constructor(
-    private iconLibraries: NbIconLibraries,
     private activatedRoute: ActivatedRoute,
     private profileService: ProfileService,
     private clinicService: ClinicService,
     private patientsService: PatientsService,
     private vitalsService: VitalsService,
-    private chatService: ChatService,
     private toastrService: NbToastrService,
-    private windowService: NbWindowService,
-
-  ) {
-    this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fas', iconClassPrefix: 'fa' });
-
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.getChatList();
-    this.vitalList = this.clinicService.getVitals();
     this.patientID = this.activatedRoute.snapshot.params.patientID;
     const payload = {
       userID: this.profileService.id,
@@ -62,14 +41,12 @@ export class ActionsComponent implements OnInit, OnDestroy {
     };
     this.patientsService.findById(payload).subscribe((data: any) => {
       this.patientData = data;
-      console.log('the patient data is ', this.patientData);
       try {
         this.extraData = JSON.parse(this.patientData.extraData);
       } catch {
         this.extraData = {};
       }
       this.vitalsArray = this.extraData.vitals;
-      console.log('this.vitalss ssid', this.vitalsArray);
       this.getVitals();
     });
     this.vitals = [
@@ -152,61 +129,6 @@ export class ActionsComponent implements OnInit, OnDestroy {
         this.vitalsOriginal.push(payload);
         return item.vitalData.O;
       }
-    });
-    console.log('this. in arrange vital data::', this.vitalsRes);
-  }
-  getChatList() {
-    this.isLoading = true;
-    this.chatService.getChatList(this.profileService.id).subscribe((data: any) => {
-      this.conversations = data.conversationList;
-      this.getChatInfo();
-    }, error => {
-      this.isLoading = false;
-      throw error;
-    });
-  }
-  getChatInfo() {
-    this.isLoading = true;
-    if (!!this.patientID && this.conversations.length) {
-      this.exisitingChat = this.conversations.find(item => {
-        const existingUser = item.users.find(k => {
-          // tslint:disable-next-line:triple-equals
-          if (k.email == this.patientID) {
-            return k;
-          }
-        });
-        return existingUser;
-      });
-      this.isLoading = false;
-    }
-  }
-  openWindow() {
-    if (!!this.exisitingChat) {
-      this.open(this.exisitingChat.conversationID);
-    } else {
-      this.createChat();
-    }
-  }
-  createChat() {
-    this.isLoading = true;
-    const payload = {
-      userID: this.profileService.id,
-      users: [this.patientID]
-    };
-    this.chatService.createConversation(payload).subscribe((data: any) => {
-      this.isLoading = false;
-      this.open(data.conversationID);
-    }, error => {
-      this.isLoading = false;
-      this.toastrService.danger('Could not initialize chat.', 'Error');
-      throw error;
-    });
-  }
-  open(conversationID) {
-    this.windowService.open(ChatWindowComponent, {
-      title: `${this.patientData.firstName} ${this.patientData.lastName} `, initialState: NbWindowState.MAXIMIZED,
-      hasBackdrop: false, windowClass: 'custom-chat-window',
-      context: { conversationID }
     });
   }
 

@@ -10,10 +10,12 @@ import { IndexComponent } from './index/index.component';
 import { ActionsComponent } from './actions/actions.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { VitalMetricsComponent } from './components/vital-metrics/vital-metrics.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 
 @NgModule({
-  declarations: [IndexComponent, ActionsComponent],
+  declarations: [IndexComponent, ActionsComponent, VitalMetricsComponent, ToolbarComponent],
   imports: [
     CommonModule,
     MeetRoutingModule,

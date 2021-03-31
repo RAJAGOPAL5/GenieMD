@@ -26,7 +26,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Patients status show color in Avatar picture */
-.nb-theme-default {
+.nb-theme-default, .nb-theme-dark {
 	nb-user.success {
 		.user-picture {
 			border-color: #28a745!important;
@@ -34,15 +34,15 @@
 		}
 	}
 }
-.nb-theme-default {
-	nb-user.warning{
+.nb-theme-default, .nb-theme-dark {
+	nb-user.warning {
 		.user-picture {
 			border-color:#ffc107!important;
 			border-width: 3px !important;
 		}
 	}
 }
-.nb-theme-default {
+.nb-theme-default, .nb-theme-dark {
 	nb-user.danger {
 		.user-picture {
 			border-color: #dc3545 !important;
@@ -50,7 +50,7 @@
 		}
 	}
 }
-.nb-theme-default {
+.nb-theme-default, .nb-theme-dark {
 	nb-user.none {
 		.user-picture {
 			border-color: #dee2e6 !important;
@@ -58,7 +58,7 @@
 		}
 	}
 }
-.nb-theme-default {
+.nb-theme-default, .nb-theme-dark {
 	nb-route-tabset ul {
 		li {
 			a :focus {
@@ -86,7 +86,7 @@ nb-list-item {
     display: none;
 }
 /* End */
-.nb-theme-default {
+.nb-theme-default, .nb-theme-dark {
 	nb-user.user-profile {
 		.user-picture {
 			height: 7.5rem !important;
@@ -94,14 +94,14 @@ nb-list-item {
 		}
 	}
 }
-.nb-theme-default {
+.nb-theme-default, .nb-theme-dark {
 	nb-user.user-profile {
 		.info-container {
 		display: none;
 		}
 	}
 }
-.nb-theme-dark {
+.nb-theme-dark, .nb-theme-dark {
 	nb-user.user-profile {
 		.user-picture {
 			height: 7.5rem !important;
@@ -109,7 +109,7 @@ nb-list-item {
 		}
 	}
 }
-.nb-theme-dark {
+.nb-theme-dark, .nb-theme-dark {
 	nb-user.user-profile {
 		.info-container {
 		display: none;
