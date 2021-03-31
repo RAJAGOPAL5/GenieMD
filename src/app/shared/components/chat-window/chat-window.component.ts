@@ -12,6 +12,7 @@ export class ChatWindowComponent implements OnInit {
   constructor(@Inject(NB_WINDOW_CONTEXT) context) {
     this.chatInfo = {
       conversationId: context.conversationID,
+      imageUrl: context.imageUrl,
       type: 2
     };
   }

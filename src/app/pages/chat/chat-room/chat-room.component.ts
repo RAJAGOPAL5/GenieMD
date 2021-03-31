@@ -14,11 +14,13 @@ export class ChatRoomComponent implements OnInit, OnChanges {
   messages = [];
   profile: any;
   @Input() chatInfo: any;
+  @Input() image: any;
   conversationId: any;
   isLoading = false;
   text: any;
   recieverInfo: any;
   userID: string;
+  chatPic: any;
   constructor(
     private profileService: ProfileService,
     private route: ActivatedRoute,
@@ -36,6 +38,7 @@ export class ChatRoomComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.profile = this.profileService.profile;
     this.conversationId = this.chatInfo.conversationId;
+    this.chatPic = this.chatInfo.imageUrl;
     this.userID = this.profileService.id;
     this.getChatsList(this.userID);
     this.getConversationsHistory();
@@ -43,9 +46,10 @@ export class ChatRoomComponent implements OnInit, OnChanges {
 
   getChatsList(userID) {
     this.chatService.getChatList(userID).subscribe((response: any) => {
+      console.log('response', response);
       const chatList = response.conversationList;
       this.recieverInfo = chatList.find(x => {
-        // tslint:disable-next-line:triple-equals
+      // tslint:disable-next-line:triple-equals
         return x.conversationID == this.conversationId;
       });
     });
@@ -59,7 +63,6 @@ export class ChatRoomComponent implements OnInit, OnChanges {
     }
   }
   sendFiles(event) {
-    console.log('sendMessage', event);
     const files = !event.files ? [] : event.files.map((file) => {
       this.isLoading = true;
       this.chatService.uploadFile(file, this.profileService.id).subscribe((data: any) => {
@@ -77,7 +80,7 @@ export class ChatRoomComponent implements OnInit, OnChanges {
         };
         this.messages.push({
           message: '',
-          messageTime: new Date().getTime(),
+          messageTime: new Date(),
           reply: true,
           files: [fileData],
           type: files.length ? 'file' : 'text',
@@ -95,7 +98,7 @@ export class ChatRoomComponent implements OnInit, OnChanges {
     if (!!event.message) {
       this.messages.push({
         message: event.message,
-        messageTime: new Date().getTime(),
+        messageTime: new Date(),
         reply: true,
         type: 'text',
         screenName: this.profile.screenName
@@ -107,7 +110,9 @@ export class ChatRoomComponent implements OnInit, OnChanges {
         encryptionKey: '',
         message: event.message,
         url: !!urls ? JSON.stringify(urls) : '',
-        userID: item.userID
+        userID: item.userID,
+        imageUrl : item.imageURL
+
       };
       messages.push(data);
     });
@@ -165,10 +170,10 @@ export class ChatRoomComponent implements OnInit, OnChanges {
           item.files = [];
         }
         item.type = 'file';
+        item.imageUrl = this.chatPic;
         return item;
       });
       this.messages = messages.reverse();
-      console.log('this.messages', this.messages);
       this.isLoading = false;
 
     }, error => {

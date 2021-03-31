@@ -22,6 +22,7 @@ export class ChatListComponent implements OnInit {
   order = 'lastMessageTime';
   showChat = false;
   chatInfo: any;
+  chatPic: any;
   // chatInformation$: Subscription;
   // chatList$ = this.query.selectAll({asObject: true});
   // chatInfo: { conversationId: any; type: number; name: any; };
@@ -42,12 +43,13 @@ export class ChatListComponent implements OnInit {
     this.profile = this.profileService.profile;
   }
   getChat(data) {
-    this.showChat = true;
     this.chatInfo = {
       conversationId: data.conversationID,
+      imageUrl: data.users[0].imageURL,
       type: 1,
       name: data.name
     };
+    this.showChat = true;
     // this.router.navigate([`${this.clinicService.id}/${this.profileService.id}/chat/${data.conversationID}`]);
   }
   getList(notify?) {
