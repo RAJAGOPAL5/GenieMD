@@ -46,7 +46,6 @@ export class ChatRoomComponent implements OnInit, OnChanges {
 
   getChatsList(userID) {
     this.chatService.getChatList(userID).subscribe((response: any) => {
-      console.log('response', response);
       const chatList = response.conversationList;
       this.recieverInfo = chatList.find(x => {
       // tslint:disable-next-line:triple-equals

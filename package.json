@@ -54,6 +54,7 @@
     "ngx-daterange": "^1.0.43",
     "ngx-order-pipe": "^2.1.1",
     "ngx-timer": "^1.0.6",
+    "opentok-layout-js": "^3.8.0",
     "rxjs": "~6.6.3",
     "screenfull": "^5.1.0",
     "tslib": "^2.1.0",
