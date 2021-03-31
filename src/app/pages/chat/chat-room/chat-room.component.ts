@@ -77,7 +77,7 @@ export class ChatRoomComponent implements OnInit, OnChanges {
         };
         this.messages.push({
           message: '',
-          messageTime: new Date().getTime(),
+          messageTime: new Date(),
           reply: true,
           files: [fileData],
           type: files.length ? 'file' : 'text',

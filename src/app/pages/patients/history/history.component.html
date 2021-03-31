@@ -64,17 +64,22 @@
             </div>
         </div> -->
         <ngx-datatable class="bootstrap" [rows]="historyData" [columnMode]="ColumnMode.force" [scrollbarV]="true" [headerHeight]="50" [rowHeight]="50" [loadingIndicator]="isLoading" [scrollbarV]="true" style="height: 600px;">
-            <ngx-datatable-column name="Date & Time" prop="audittime" headerClass="ps-4" cellClass="ps-4">
+            <ngx-datatable-column name="Date & Time" [maxWidth]="150" prop="audittime" headerClass="ps-4" cellClass="ps-4">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <span>{{value  | date : 'dd/MM/yy, h:mm a' || '-'}}</span>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Name" prop="name" [maxWidth]="400">
+            <ngx-datatable-column name="Name" prop="name" [maxWidth]="200">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <span>{{value || '-'}}</span>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Description" prop="description" [maxWidth]="400" headerClass="text-center" cellClass="text-center">
+            <ngx-datatable-column name="Duration" prop="duration" [maxWidth]="100" headerClass="text-center" cellClass="text-center">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span>{{value || '-'}}</span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Description" prop="description">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <span>{{value || '-'}}</span>
                 </ng-template>
