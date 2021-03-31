@@ -47,7 +47,6 @@ export class VitalMetricsComponent implements OnInit, OnDestroy {
         this.extraData = {};
       }
       this.vitalsArray = this.extraData.vitals;
-      console.log('this.vitalss ssid', this.vitalsArray);
       this.getVitals();
     });
     this.vitals = [

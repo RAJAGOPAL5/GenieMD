@@ -70,7 +70,6 @@ export class IndexComponent implements OnInit {
     };
     this.meetService.generateUniqueID(payload).subscribe((meeting: any) => {
       this.uniqueID = meeting.meetingUniqueID;
-      console.log('unique id', this.uniqueID);
     }, error => {
       this.toastrService.danger(error.error ? error.error.errorMessage : 'Failed to generate uniqueID');
     });
