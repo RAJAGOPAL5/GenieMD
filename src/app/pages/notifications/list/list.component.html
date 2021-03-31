@@ -2,18 +2,18 @@
     <nb-card-header>
         <h5>Notifications</h5>
     </nb-card-header>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-8 offset-md-2">
+        <div class="col-md-12">
                 <div class="form-group" *ngIf="messageList.length !== 0">
                     <nb-list class="own-scroll">
                         <nb-list-item class="cursor-pointer d-flex justify-content-between"
                             *ngFor="let message of messageList">
-                            <div class="col-md-2 col-3 col-lg-2 col-sm-2 cursor-pointer">
+                            <div class="col-md-1 col-3 col-lg-1 col-sm-2 cursor-pointer">
                                 <ngx-avatar src="{{message.senderImage}}" size="80" [round]="true">
                                 </ngx-avatar>
                             </div>
-                            <div class="col-md-9 col-7 col-lg-9 col-sm-8 text-align cursor-pointer">
+                            <div class="col-md-10 col-7 col-lg-10 col-sm-8 text-align cursor-pointer">
                                 <h6> {{message.subject}}</h6>
                                 <p class="font-size mb-1">{{message.message}}</p>
                                 <p *ngIf="message?.showRespond" class="font-size mb-1">Tap to Respond
@@ -22,10 +22,10 @@
                                 <small *ngIf='!dateWithHours'> {{message.messageTime}}</small>
                             </div>
                             <div class="col-md-1 col-2 col-lg-1 col-sm-2 inline pointer">
-                                <nb-icon icon="trash" nbTooltip="Delete" class="icon-font"
+                                <nb-icon icon="trash" nbTooltip="Delete" class="icon-font float-end"
                                     (click)="deleteMessage(deleteContent)" nbTooltipStatus="control" status="danger"
                                     pack="font-awesome" nbTooltipStatus="black"></nb-icon>
-                                <nb-icon style="font-size: 1.25em;" *ngIf="message?.showReview"
+                                <nb-icon style="font-size: 1.25em;" *ngIf="message?.showReview" class="float-end"
                                     icon="chevron-right-outline" (click)="openReview(message)"></nb-icon>
 
                                 <!-- <a (click)="soapNoteView(message)" *ngIf="message?.soapNote">
