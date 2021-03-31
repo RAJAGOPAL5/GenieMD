@@ -42,7 +42,6 @@ export class ChatListComponent implements OnInit {
     this.profile = this.profileService.profile;
   }
   getChat(data) {
-    console.log('data', data);
     this.showChat = true;
     this.chatInfo = {
       conversationId: data.conversationID,
@@ -62,6 +61,7 @@ export class ChatListComponent implements OnInit {
         item.users = item.users.filter(x => {
           return x.email !== this.profile.email;
         });
+        item.imageUrl = item.users.length ? `${item.users[0].imageURL}` : '';
         item.lastMessageTime = moment(item.lastMessageTime).fromNow();
         item.name = item.users.length ? `${item.users[0].firstName} ${item.users[0].lastName}` : 'GMD User';
         return item;

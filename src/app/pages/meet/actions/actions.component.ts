@@ -33,7 +33,7 @@ export class ActionsComponent implements OnInit, OnDestroy {
   conversations = [];
   exisitingChat: any;
   timmerLoad: any;
-
+  volume = true;
   constructor(
     private iconLibraries: NbIconLibraries,
     private activatedRoute: ActivatedRoute,
@@ -52,7 +52,6 @@ export class ActionsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getChatList();
-    this.everyMinuteNotification();
     this.vitalList = this.clinicService.getVitals();
     this.patientID = this.activatedRoute.snapshot.params.patientID;
     const payload = {
@@ -103,6 +102,7 @@ export class ActionsComponent implements OnInit, OnDestroy {
         });
       }
       this.arrangeVitalData();
+      this.everyMinuteNotification();
     });
   }
 
