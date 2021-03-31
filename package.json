@@ -54,6 +54,7 @@
     "ngx-order-pipe": "^2.1.1",
     "ngx-timer": "^1.0.6",
     "rxjs": "~6.6.3",
+    "screenfull": "^5.1.0",
     "tslib": "^1.14.1",
     "underscore": "^1.12.1",
     "zone.js": "~0.11.4"

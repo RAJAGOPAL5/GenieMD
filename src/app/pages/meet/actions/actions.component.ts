@@ -34,6 +34,7 @@ export class ActionsComponent implements OnInit, OnDestroy {
   exisitingChat: any;
   timmerLoad: any;
   volume = true;
+  fullscreen = false;
   constructor(
     private iconLibraries: NbIconLibraries,
     private activatedRoute: ActivatedRoute,

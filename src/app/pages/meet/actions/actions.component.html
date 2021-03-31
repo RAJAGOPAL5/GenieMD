@@ -18,6 +18,12 @@
                     </nb-icon>
                 </nb-action>
                 <nb-action icon="video-outline" nbTooltip="Video" nbTooltipPlacement="top"></nb-action>
+                <nb-action (click)="this.fullscreen = !this.fullscreen">
+                    <nb-icon *ngIf="this.fullscreen" icon="expand-outline" nbTooltip="Speaker" nbTooltipPlacement="top">
+                    </nb-icon>
+                    <nb-icon *ngIf="!this.fullscreen" icon="collapse-outline" nbTooltip="Mute" nbTooltipPlacement="top">
+                    </nb-icon>
+                </nb-action>
                 <nb-action icon="message-circle-outline" nbTooltip="Chat" nbTooltipPlacement="top" (click)="openWindow()"></nb-action>
                 <nb-action class="p-1">
                     <button nbButton status="success" class="w-100" size="tiny">
