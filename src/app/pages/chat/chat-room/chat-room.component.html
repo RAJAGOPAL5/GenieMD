@@ -1,4 +1,4 @@
-<nb-chat scrollBottom="true" title="{{chatInfo?.name || 'GMD User'}}" [size]="chatInfo.type == 2 ? 'medium' : 'giant'" [nbSpinner]="isLoading" [ngClass]="{'chat-window': chatInfo.type == 2,'chat-list':chatInfo.type == 1}">
+<nb-chat scrollBottom="true" title="{{chatInfo?.name || 'GMD User'}}" [size]="chatInfo?.type == 2 ? 'medium' : 'giant'" [nbSpinner]="isLoading" [ngClass]="{'chat-window': chatInfo.type == 2,'chat-list':chatInfo.type == 1}">
     <nb-chat-message *ngFor="let message of messages" [type]="message?.type || 'text'" [message]="message.message" [reply]="message.reply" [date]="message.messageTime" [avatar]="message.imageUrl" [files]="message?.files" dateFormat="MMM d, y, h:mm a"></nb-chat-message>
     <nb-chat-form (send)="send($event)" showButton="false" dropFiles="true" dropFilePlaceholder="Drop and click send">
     </nb-chat-form>
