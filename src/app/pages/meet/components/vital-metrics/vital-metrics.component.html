@@ -2,9 +2,9 @@
     <nb-card-body>
         <div class="d-inline-flex row px-5" *ngFor="let item of vitalsOriginal">
             <div class="col-md-12 border-right">
-                <h5 class="mb-0">{{item.name || '---'}}</h5>
-                <h6 class="mb-0 font-weight-normal">{{item.value || '---'}}</h6>
-                <tiny class="mb-0">{{item.time | date: 'mediumDate'}} {{item.time | date: 'shortTime'}}</tiny>
+                <p class="mb-0 card-subtitle">{{item.name || '---'}}</p>
+                <h6 class="mb-0">{{item.value || '---'}}</h6>
+                <small class="mb-0 caption">{{item.time | date: 'mediumDate'}} {{item.time | date: 'shortTime'}}</small>
             </div>
         </div>
         <div class="d-inline-flex row px-5" *ngIf="vitalsOriginal.length === 0">
