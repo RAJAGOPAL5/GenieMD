@@ -2,16 +2,21 @@
     <nb-card>
         <nb-card-body>
             <nb-actions size="medium" class="justify-content-center">
+                <nb-action>
+                    <nb-icon icon="language" nbTooltip="Translator" nbTooltipPlacement="top" pack="font-awesome">
+                    </nb-icon>
+                </nb-action>
                 <nb-action (click)="this.showTable = !this.showTable">
                     <nb-icon icon="stethoscope" nbTooltip="Vitals" nbTooltipPlacement="top" pack="font-awesome">
                     </nb-icon>
                 </nb-action>
                 <nb-action icon="monitor-outline" nbTooltip="Share-desktop" nbTooltipPlacement="top"></nb-action>
-                <nb-action>
-                    <nb-icon icon="language" nbTooltip="Translator" nbTooltipPlacement="top" pack="font-awesome">
+                <nb-action (click)="this.volume = !this.volume">
+                    <nb-icon *ngIf="this.volume" icon="volume-up-outline" nbTooltip="Speaker" nbTooltipPlacement="top">
+                    </nb-icon>
+                    <nb-icon *ngIf="!this.volume" icon="volume-off-outline" nbTooltip="Mute" nbTooltipPlacement="top">
                     </nb-icon>
                 </nb-action>
-                <nb-action icon="volume-off-outline" nbTooltip="Mute" nbTooltipPlacement="top"></nb-action>
                 <nb-action icon="video-outline" nbTooltip="Video" nbTooltipPlacement="top"></nb-action>
                 <nb-action icon="message-circle-outline" nbTooltip="Chat" nbTooltipPlacement="top" (click)="openWindow()"></nb-action>
                 <nb-action>
@@ -59,9 +64,8 @@
             <div class="d-inline-flex row px-5" *ngFor="let item of vitalsOriginal">
                 <div class="col-md-12 border-right">
                     <h5 class="mb-0">{{item.name || '---'}}</h5>
-                    <p class="mb-0">{{item.time | date: 'mediumDate'}}</p>
-                    <p class="mb-0">{{item.time | date: 'shortTime'}}</p>
-                    <p class="mb-0">{{item.value || '---'}}</p>
+                    <h6 class="mb-0 font-weight-normal">{{item.value || '---'}}</h6>
+                    <small class="mb-0">{{item.time | date: 'mediumDate'}} {{item.time | date: 'shortTime'}}</small>
                 </div>
             </div>
             <div class="d-inline-flex row px-5" *ngIf="vitalsOriginal.length === 0">
