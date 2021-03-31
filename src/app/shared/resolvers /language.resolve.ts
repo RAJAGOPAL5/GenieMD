@@ -13,7 +13,7 @@ export class LanguageResolve implements Resolve<any> {
 
     constructor(private languageService: LanguageService, private clinicService: ClinicService) { }
 
-    resolve(route: ActivatedRouteSnapshot): any {
+    resolve(route: ActivatedRouteSnapshot): Observable<any> {
         const clinic = route.parent.data.clinicConfig;
         // tslint:disable-next-line:triple-equals
         if (clinic.oemID == '100') {
@@ -25,13 +25,17 @@ export class LanguageResolve implements Resolve<any> {
             if (clinic.languageID == '0') {
                 englishPayload.languageID = '1';
             }
-            const englishLanguage$ = this.languageService.getList(englishPayload).subscribe((data: any) => {
-                const object = Object.assign({}, ...data);
-                this.languageService.state = object;
-                return {
-                    data
-                } as any;
-            });
+            const englishLanguage$ = this.languageService.getList(englishPayload);
+            const combine$ = combineLatest(englishLanguage$,
+                (englishLanguage: any) => {
+                    const object = Object.assign({}, ...englishLanguage);
+                    this.languageService.state = object;
+                    // tslint:disable-next-line:no-angle-bracket-type-assertion
+                    return <any> {
+                        englishLanguage
+                    };
+                });
+            return combine$;
         } else {
             const payload = {
                 oemID: clinic.oemID,
@@ -48,18 +52,21 @@ export class LanguageResolve implements Resolve<any> {
             }
             const userLanguage$ = this.languageService.getList(payload);
             const englishLanguage$ = this.languageService.getList(englishPayload);
-            const combine$ = combineLatest([userLanguage$, englishLanguage$]).subscribe((data: any[]) => {
-                try {
-                    data[1] = data[1];
-                } catch (error) {
-                    data[1] = [];
-                }
-                const object = Object.assign({}, ...data[1]);
-                this.languageService.state = object;
-                // tslint:disable-next-line:no-angle-bracket-type-assertion
-                return data[1];
-            });
-
+            const combine$ = combineLatest(userLanguage$, englishLanguage$,
+                (userLanguage: any, englishLanguage: any) => {
+                    try {
+                        englishLanguage = englishLanguage;
+                    } catch (error) {
+                        englishLanguage = [];
+                    }
+                    const object = Object.assign({}, ...englishLanguage);
+                    this.languageService.state = object;
+                    // tslint:disable-next-line:no-angle-bracket-type-assertion
+                    return <any> {
+                        englishLanguage
+                    };
+                });
+            return combine$;
         }
     }
 }
