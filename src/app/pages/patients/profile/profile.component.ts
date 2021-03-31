@@ -78,6 +78,7 @@ export class ProfileComponent implements OnInit {
   listEnabled = false;
   timer$: Observable<string>;
   messageDialog: any;
+  betaUniqueID: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -143,6 +144,7 @@ export class ProfileComponent implements OnInit {
       this.showTimer = true;
       this.startTimer();
     }, rpmTimer);
+    this.createBetaMeeting();
   }
 
   getData() {
@@ -615,5 +617,45 @@ export class ProfileComponent implements OnInit {
       this.isLoading = false;
       this.toastrService.danger('Failed to add data', 'Error');
     });
+  }
+
+
+  createBetaMeeting() {
+      this.meeting = {
+        startTime: parseInt(moment().format('x'), 0),
+        userID: this.profileService.id,
+        users: [''],
+        subject: 'On Demand Call', duration: 1000,
+        price: '0.00',
+        npi: 0, slot: 0, url: '', clinicID: this.clinicService.id,
+        onDemand: true,
+        type: 1,
+        paymentToken: ''
+      };
+      this.isLoading = true;
+      this.meetService.createMeeting(this.meeting).subscribe((data: any) => {
+        this.meetingRes = data;
+        this.generateBetaUniqueID();
+      }, error => {
+        this.isLoading = false;
+        this.toastrService.danger(error.error ? error.error.errorMessage : 'Failed to create meeting');
+      });
+    }
+
+  generateBetaUniqueID() {
+    const payload = {
+      userID: this.profileService.id,
+      clinicID: this.clinicService.id,
+      meetingID: this.meetingRes.meetingId
+    };
+    this.meetService.generateUniqueID(payload).subscribe((meeting: any) => {
+      this.betaUniqueID = meeting.meetingUniqueID;
+    }, error => {
+      this.toastrService.danger(error.error ? error.error.errorMessage : 'Failed to generate uniqueID');
+    });
+  }
+
+  videoBeta() {
+    this.router.navigate([this.clinicService.id, this.profileService.id, 'meet', this.betaUniqueID]);
   }
 }
