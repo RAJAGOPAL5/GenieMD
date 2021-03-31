@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NbIconLibraries, NbToastrService, NbWindowService, NbWindowState } from '@nebular/theme';
+import * as screenfull from 'screenfull';
 import { ChatWindowComponent } from 'src/app/shared/components/chat-window/chat-window.component';
 import { ChatService } from 'src/app/shared/service/chat.service';
 import { ClinicService } from 'src/app/shared/service/clinic.service';
@@ -60,7 +61,7 @@ export class ToolbarComponent implements OnInit {
 
   openWindow() {
     if (!!this.exisitingChat) {
-      this.open(this.exisitingChat.conversationID);
+      this.open(this.exisitingChat.conversationID, this.exisitingChat.users[0].imageURL );
     } else {
       this.createChat();
     }
@@ -108,11 +109,11 @@ export class ToolbarComponent implements OnInit {
     }
   }
 
-  open(conversationID) {
+  open(conversationID, imageUrl?: any) {
     this.windowService.open(ChatWindowComponent, {
       title: `${this.patientData.firstName} ${this.patientData.lastName} `, initialState: NbWindowState.MAXIMIZED,
       hasBackdrop: false, windowClass: 'custom-chat-window',
-      context: { conversationID }
+      context: { conversationID, imageUrl }
     });
   }
 
