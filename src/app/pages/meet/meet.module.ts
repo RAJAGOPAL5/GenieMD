@@ -12,10 +12,18 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { VitalMetricsComponent } from './components/vital-metrics/vital-metrics.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { SubscriberComponent } from './components/subscriber/subscriber.component';
+import { PublisherComponent } from './components/publisher/publisher.component';
+import { SoapNoteComponent } from './components/soap-note/soap-note.component';
+import { ScreenshareComponent } from './components/screenshare/screenshare.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 
 @NgModule({
-  declarations: [IndexComponent, ActionsComponent, VitalMetricsComponent, ToolbarComponent],
+  declarations: [IndexComponent, ActionsComponent,
+    VitalMetricsComponent, ToolbarComponent,
+    SubscriberComponent, PublisherComponent,
+    SoapNoteComponent, ScreenshareComponent, SidebarComponent],
   imports: [
     CommonModule,
     MeetRoutingModule,

@@ -26,15 +26,17 @@ export class LanguageResolve implements Resolve<any> {
                 englishPayload.languageID = '1';
             }
             const englishLanguage$ = this.languageService.getList(englishPayload);
-            const combine$ = combineLatest(englishLanguage$,
-                (englishLanguage: any) => {
-                    const object = Object.assign({}, ...englishLanguage);
-                    this.languageService.state = object;
-                    // tslint:disable-next-line:no-angle-bracket-type-assertion
-                    return <any> {
-                        englishLanguage
-                    };
-                });
+            const combine$ = combineLatest(
+                [
+                    englishLanguage$,
+                    (englishLanguage: any) => {
+                        const object = Object.assign({}, ...englishLanguage);
+                        this.languageService.state = object;
+                        return {
+                            englishLanguage
+                        } as any;
+                    }
+                ]);
             return combine$;
         } else {
             const payload = {
@@ -52,7 +54,7 @@ export class LanguageResolve implements Resolve<any> {
             }
             const userLanguage$ = this.languageService.getList(payload);
             const englishLanguage$ = this.languageService.getList(englishPayload);
-            const combine$ = combineLatest(userLanguage$, englishLanguage$,
+            const combine$ = combineLatest([userLanguage$, englishLanguage$,
                 (userLanguage: any, englishLanguage: any) => {
                     try {
                         englishLanguage = englishLanguage;
@@ -62,10 +64,10 @@ export class LanguageResolve implements Resolve<any> {
                     const object = Object.assign({}, ...englishLanguage);
                     this.languageService.state = object;
                     // tslint:disable-next-line:no-angle-bracket-type-assertion
-                    return <any> {
+                    return {
                         englishLanguage
-                    };
-                });
+                    } as any;
+                }]);
             return combine$;
         }
     }
