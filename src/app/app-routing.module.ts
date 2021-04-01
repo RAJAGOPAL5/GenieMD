@@ -1,7 +1,7 @@
-import { ClinicConfigResolver } from './shared/resolvers /clinic-config.resolver';
+import { ClinicConfigResolver } from './shared/resolvers/clinic-config.resolver';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { ProfileResolve } from './shared/resolvers /profile.resolve';
+import { ProfileResolve } from './shared/resolvers/profile.resolve';
 
 
 const routes: Routes = [
