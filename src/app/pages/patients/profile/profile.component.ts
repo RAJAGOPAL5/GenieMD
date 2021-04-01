@@ -273,7 +273,7 @@ export class ProfileComponent implements OnInit {
 
   openWindow() {
     if (!!this.exisitingChat) {
-      this.open(this.exisitingChat.conversationID, this.exisitingChat.users[0].imageURL );
+      this.open(this.exisitingChat.conversationID, this.exisitingChat.users[0].imageURL);
     } else {
       this.createChat();
     }
@@ -322,7 +322,7 @@ export class ProfileComponent implements OnInit {
     this.windowService.open(ChatWindowComponent, {
       title: `${this.patientName}`, initialState: NbWindowState.MAXIMIZED,
       hasBackdrop: false, windowClass: 'custom-chat-window',
-      context: { conversationID , imageUrl}
+      context: { conversationID, imageUrl }
     });
   }
 
@@ -621,26 +621,26 @@ export class ProfileComponent implements OnInit {
 
 
   createBetaMeeting() {
-      this.meeting = {
-        startTime: parseInt(moment().format('x'), 0),
-        userID: this.profileService.id,
-        users: [''],
-        subject: 'On Demand Call', duration: 1000,
-        price: '0.00',
-        npi: 0, slot: 0, url: '', clinicID: this.clinicService.id,
-        onDemand: true,
-        type: 1,
-        paymentToken: ''
-      };
-      this.isLoading = true;
-      this.meetService.createMeeting(this.meeting).subscribe((data: any) => {
-        this.meetingRes = data;
-        this.generateBetaUniqueID();
-      }, error => {
-        this.isLoading = false;
-        this.toastrService.danger(error.error ? error.error.errorMessage : 'Failed to create meeting');
-      });
-    }
+    this.meeting = {
+      startTime: parseInt(moment().format('x'), 0),
+      userID: this.profileService.id,
+      users: [''],
+      subject: 'On Demand Call', duration: 1000,
+      price: '0.00',
+      npi: 0, slot: 0, url: '', clinicID: this.clinicService.id,
+      onDemand: true,
+      type: 1,
+      paymentToken: ''
+    };
+    this.isLoading = true;
+    this.meetService.createMeeting(this.meeting).subscribe((data: any) => {
+      this.meetingRes = data;
+      this.generateBetaUniqueID();
+    }, error => {
+      this.isLoading = false;
+      this.toastrService.danger(error.error ? error.error.errorMessage : 'Failed to create meeting');
+    });
+  }
 
   generateBetaUniqueID() {
     const payload = {
@@ -656,6 +656,6 @@ export class ProfileComponent implements OnInit {
   }
 
   videoBeta() {
-    this.router.navigate([this.clinicService.id, this.profileService.id, 'meet', this.betaUniqueID]);
+    this.router.navigate([this.clinicService.id, this.profileService.id, 'meet', this.patientID, this.betaUniqueID]);
   }
 }

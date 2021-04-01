@@ -4,9 +4,9 @@ import { IndexComponent } from './index/index.component';
 
 const routes: Routes = [
   {
-    path: ':meetingID',
+    path: ':patientID/:meetingID',
     component: IndexComponent,
-    data: { title: 'Meet'},
+    data: { title: 'Meet' },
   }
 ];
 
